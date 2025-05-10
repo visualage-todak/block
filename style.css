@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+.mobile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 360px;
+}
+canvas {
+  background: #000;
+  border: 2px solid #333;
+}
+.score-board {
+  font-size: 16px;
+  background: #fff;
+  padding: 4px 10px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+.book-log {
+  width: 100%;
+  height: 100px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 6px;
+  font-size: 13px;
+  box-sizing: border-box;
+  margin-bottom: 6px;
+}
+.game-over {
+  margin-top: 8px;
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+  display: none;
+  background: #fff;
+  padding: 8px;
+  border: 2px solid #900;
+  text-align: center;
+}
+.mobile-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.mobile-buttons button {
+  flex: 1;
+  margin: 4px;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #0095dd;
+  color: white;
+}

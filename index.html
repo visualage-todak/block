@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>그림책 벽돌깨기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="mobile-wrapper">
+    <div id="score" class="score-board">점수: 0 | 라운드: 1</div>
+    <div id="bookLog" class="book-log"></div>
+    <canvas id="gameCanvas"></canvas>
+    <div id="gameOverMessage" class="game-over">Game Over! 스페이스바를 누르거나 ⟳ 버튼을 누르세요</div>
+
+    <div class="mobile-buttons">
+      <button id="leftBtn">◀️ 왼쪽</button>
+      <button id="restartBtn">🔁 다시시작</button>
+      <button id="rightBtn">오른쪽 ▶️</button>
+    </div>
+
+    <audio id="brickSound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+    <audio id="paddleSound" src="https://www.soundjay.com/button/beep-10.wav" preload="auto"></audio>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
