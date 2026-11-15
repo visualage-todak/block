@@ -14,13 +14,15 @@ description: 인스타그램 바이럴 콘텐츠 기획·작성·관리. 릴스/
 | `instagram/performance.csv` | 게시물별 성과 기록 |
 | `instagram/ideas.md` | 아이디어 백로그 |
 | `instagram/playbook.md` | 훅·캡션·해시태그 템플릿과 바이럴 원칙 |
+| `instagram/hook-rules.md` | 계정 말투·훅 규칙 (훅을 쓰기 전에 반드시 먼저 읽는다) |
+| `instagram/hook-prompts.md` | 3단계 훅 프롬프트 (STEP 3 → STEP 1+2) |
 
 ## 1. 기획 요청을 받으면
 
 1. `instagram/performance.csv`에서 저장·공유 비율이 높았던 게시물의 공통점을 먼저 찾는다.
 2. `instagram/playbook.md`의 포맷 중 하나를 골라 아이디어 3개를 제안한다. 각각:
    - 포맷 (릴스 / 캐러셀 / 스토리)
-   - 첫 1~3초 훅 (화면 텍스트 + 말)
+   - 첫 1~3초 훅: `hook-rules.md`를 지켜 `hook-prompts.md` STEP 1+2 방식으로 10개 → 1개 추천 (화면 글자 = 첫마디)
    - 구성 (컷 단위, 릴스는 7~15초 권장)
    - 캡션 초안 (첫 줄은 125자 안쪽, 마지막은 행동 유도)
    - 해시태그 3~5개 (대형 1 · 중형 2 · 니치 2)
