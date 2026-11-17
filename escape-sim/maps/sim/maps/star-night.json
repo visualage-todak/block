@@ -62,7 +62,12 @@
    "#4a4a44",
    "#6a6a66"
   ],
-  "charGlow": 0.42
+  "charGlow": 0.42,
+  "sky": [
+   "#0d1633",
+   "#4a3f66",
+   "#a9c4e0"
+  ]
  },
  "dress": {
   "houses": 16,
@@ -267,5 +272,6 @@
  "roomNames": {
   "lobby": "마을 어귀 쉼터 (출발)",
   "vault": "별을 헤는 마당 (최종)"
- }
+ },
+ "startHour": 18
 }

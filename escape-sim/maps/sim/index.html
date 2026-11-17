@@ -107,7 +107,7 @@
 <div id="hud" class="card">
   <div class="hrow">
     <select id="scnSel" class="ttl" aria-label="시나리오"></select>
-    <span id="clock">60:00</span>
+    <span id="clock">60:00</span><span id="tod" class="muted" style="font-size:11.5px;white-space:nowrap"></span>
     <button id="play" class="go sm" aria-label="시작">▶</button>
     <button id="toggle" class="sm" aria-label="접기">▴</button>
   </div>
@@ -1033,6 +1033,7 @@ function frame(now){
     else if(tm.state==='failed') txt+=' ✖ 실패';
     if(txt!==tm.tagText){ tm.tagText=txt; const old=tm.tag.material.map; const nl=label(txt,3.6,'#ffffff',tm.css); tm.tag.material.map=nl.material.map; tm.tag.scale.copy(nl.scale); old.dispose(); }
   });
+  updateDayCycle();
   if(camGoal){ controls.target.lerp(camGoal.t,.08); camera.position.lerp(camGoal.p,.08); if(camera.position.distanceTo(camGoal.p)<.3) camGoal=null; }
   controls.update();
   uiTimer+=rdt;
@@ -1042,6 +1043,48 @@ function frame(now){
   }
   renderer.render(scene,camera);
   requestAnimationFrame(frame);
+}
+
+
+/* ================= 낮과 밤 (게임 시간 60분 = 하루 24시간) ================= */
+let DC=null;
+function setupDayCycle(){
+  const th=MAP.theme||{}, sk=th.sky;
+  DC={start:MAP.startHour??9, fixed:!!th.fixedSky||!sk, sky:sk?sk.map(c=>new THREE.Color(hexNum(c))):null,
+      hemiBase:hemi.intensity, sunBase:sun.intensity, sunCol:new THREE.Color(hexNum(th.sunColor??'#fff0d8')), moonCol:new THREE.Color(0x9fb4ff),
+      lights:[], emis:[], stars:[], nightMin:th.nightHemi??.42};
+  worldRoot.traverse(o=>{
+    if(o.isPointLight) DC.lights.push([o,o.intensity]);
+    if(o.isPoints) { o.material.transparent=true; DC.stars.push(o.material); }
+    const m=o.material; if(m && m.emissive && m.emissiveIntensity>0 && (m.emissive.r+m.emissive.g+m.emissive.b)>0.3 && !DC.emis.some(e=>e[0]===m)) DC.emis.push([m,m.emissiveIntensity]);
+  });
+  if(MAP.winM && !DC.emis.some(e=>e[0]===MAP.winM)) DC.emis.push([MAP.winM,MAP.winM.emissiveIntensity]);
+  const sunM=new THREE.Mesh(new THREE.SphereGeometry(11,24,16),new THREE.MeshBasicMaterial({color:0xfff2b0,fog:false}));
+  const moonM=new THREE.Mesh(new THREE.SphereGeometry(7,24,16),new THREE.MeshBasicMaterial({color:0xf3f0e0,fog:false}));
+  worldRoot.add(sunM,moonM); DC.sunM=sunM; DC.moonM=moonM;
+  // 기존 장식용 달(테마 moon)은 움직이는 달로 대체
+  worldRoot.children.forEach(c=>{ if(c!==moonM && c.isMesh && c.geometry.type==='SphereGeometry' && c.material.isMeshBasicMaterial && c.material.fog===false && c!==sunM) c.visible=false; });
+}
+function hourAt(sec){ return ((DC?.start??9) + sec/LIMIT*24)%24; }
+function updateDayCycle(){
+  if(!DC) return;
+  const h=hourAt(clock), a=(h-6)/12*Math.PI, e=Math.sin(a);           // 해 높이 (-1~1)
+  const R=260, cx=0, cz=-44;
+  const sp=new THREE.Vector3(cx+Math.cos(a)*R, Math.sin(a)*R*.8, cz-90+Math.sin(a)*20);
+  const mp=new THREE.Vector3(cx-Math.cos(a)*R, -Math.sin(a)*R*.8, cz-90);
+  DC.sunM.position.copy(sp); DC.moonM.position.copy(mp); DC.sunM.visible=e>-.05; DC.moonM.visible=e<.05;
+  const night=smooth(.18,-.12,e);                                        // 0 낮 → 1 밤
+  const day=smooth(-.05,.35,e);
+  if(e>-.02){ sun.position.set(sp.x*.25, Math.max(8,sp.y*.25), sp.z*.25+30); sun.color.copy(DC.sunCol).lerp(new THREE.Color(0xff9a5a),1-smooth(.05,.4,e)); sun.intensity=DC.sunBase*Math.max(.15,day); }
+  else { sun.position.set(mp.x*.25, Math.max(8,mp.y*.25), mp.z*.25+30); sun.color.copy(DC.moonCol); sun.intensity=DC.sunBase*.28; }
+  hemi.intensity=DC.hemiBase*(DC.nightMin+(1-DC.nightMin)*(1-night));
+  if(!DC.fixed){ const [cN,cD,cY]=DC.sky; const col=new THREE.Color(); if(e>.12) col.copy(cD).lerp(cY,smooth(.12,.4,e)); else col.copy(cN).lerp(cD,smooth(-.15,.12,e));
+    scene.background.copy(col); scene.fog.color.copy(col); }
+  for(const m of DC.stars) m.opacity = DC.fixed ? 1 : night;
+  const lamp=.12+.88*night;                                              // 가로등·창문·실내등
+  for(const [l,b] of DC.lights) l.intensity=b*(.25+.75*night);
+  for(const [m,b] of DC.emis) m.emissiveIntensity=b*lamp;
+  const el=document.getElementById('tod'); if(el){ const hh=Math.floor(h), mm=Math.floor((h-hh)*60); el.textContent=`${night>.6?'🌙':e<.25?'🌅':'☀️'} ${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`; }
 }
 
 /* ================= 맵 뱅크 (maps/index.json) ================= */
@@ -1058,7 +1101,7 @@ function buildWorld(){
     MAP.winM=new THREE.MeshStandardMaterial({color:0x8fb8d0,emissive:0x000000}); MAP.trimM=mat2(hexNum(MAP.trimColor||'#3b4249'));
     computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawStackLink); buildStackShell();
   } else { PLANETS.forEach(makePlanet); BRIDGES.forEach(([a,b])=>makeBridge(a,b)); }
-  buildStations(); initNav();
+  buildStations(); initNav(); setupDayCycle(); updateDayCycle();
 
 }
 function loadMap(id){
