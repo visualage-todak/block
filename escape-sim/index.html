@@ -8,16 +8,23 @@
   html,body{margin:0;height:100%;overflow:hidden;background:#dfe7ee;font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:#1d2733;-webkit-user-select:none;user-select:none}
   #c{position:fixed;inset:0;touch-action:none}
   .card{background:rgba(255,255,255,.93);backdrop-filter:blur(8px);border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
-  #hud{position:fixed;left:10px;top:10px;width:310px;padding:12px 14px;font-size:12.5px}
+  #hud{position:fixed;left:10px;top:10px;width:330px;padding:7px 9px;font-size:12px}
+  .hrow{display:flex;align-items:center;gap:5px}
+  .hrow+.hrow{margin-top:5px}
+  #hud select{padding:3px 4px;font-size:11.5px;min-width:0;flex:1 1 auto}
+  #hud select.ttl{font-weight:700;font-size:13px;flex:1 1 auto;border-color:transparent;background:transparent;padding-left:0;text-overflow:ellipsis}
+  button.sm{padding:4px 9px;font-size:12px;line-height:1.1}
+  #hud .muted{white-space:nowrap}
   #hud h1{font-size:15px;margin:0 0 2px}
   .row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-  #clock{font:700 26px/1 ui-monospace,Menlo,monospace;letter-spacing:1px;margin:6px 0}
+  #clock{font:700 17px/1 ui-monospace,Menlo,monospace;letter-spacing:.5px;white-space:nowrap}
   #clock.warn{color:#c0392b}
   button{border:1px solid #c5d0da;background:#fff;border-radius:999px;padding:6px 11px;font-size:12px;cursor:pointer;color:#1d2733}
   button.on{background:#1f5f8b;color:#fff;border-color:#1f5f8b}
   button.go{background:#1e8e5a;border-color:#1e8e5a;color:#fff;font-weight:600}
-  .teams{margin-top:8px;border-top:1px solid #e3e8ed;padding-top:6px}
-  .team{display:grid;grid-template-columns:12px 52px 62px 1fr;gap:6px;align-items:center;padding:3px 0;font-size:12px}
+  .teams{margin-top:5px;border-top:1px solid #e3e8ed;padding-top:3px}
+  .team{display:grid;grid-template-columns:9px 62px 58px 1fr;gap:5px;align-items:center;padding:1px 0;font-size:11px;line-height:1.35}
+  .team .dot{width:8px;height:8px}
   .dot{width:10px;height:10px;border-radius:50%}
   .pips{letter-spacing:1px;font-size:11px}
   .st{color:#5b6875;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -33,7 +40,8 @@
   #result h2{margin:0 0 10px}
   #result table{width:100%;border-collapse:collapse}
   #result td{padding:5px 3px;border-bottom:1px solid #eef1f4}
-  #toggle{display:none;float:right;padding:3px 9px}
+  #toggle{display:inline-block}
+  #hud.collapsed .body,#hud.collapsed .body2{display:none}
   select{border:1px solid #c5d0da;border-radius:8px;padding:4px 6px;font-size:12.5px;background:#fff;color:#1d2733;max-width:220px}
   #rules .story{background:#f4f7fa;border-radius:10px;padding:10px 12px;margin:2px 0 6px}
   #rules{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(10,20,30,.5);z-index:7}
@@ -57,10 +65,8 @@
   #repBody .t{font-family:ui-monospace,Menlo,monospace;color:#8a96a3;white-space:nowrap}
   .muted{color:#5b6875;font-size:11px}
   @media (max-width:640px){
-    #hud{left:6px;right:6px;top:6px;width:auto;padding:8px 10px}
-    #hud.collapsed .body{display:none}
+    #hud{left:6px;right:6px;top:6px;width:auto;padding:6px 8px}
     #toggle{display:inline-block}
-    #clock{font-size:20px;margin:3px 0}
     #log{left:6px;right:6px;bottom:6px;width:auto;max-height:84px;font-size:11px}
     #who{right:6px;left:auto;top:auto;bottom:100px;width:200px}
   }
@@ -70,29 +76,24 @@
 <canvas id="c"></canvas>
 
 <div id="hud" class="card">
-  <button id="toggle">접기</button>
-  <h1 id="hTitle">불러오는 중…</h1>
-  <div class="row" style="margin:4px 0 2px"><span class="muted">시나리오</span><select id="scnSel"></select></div>
-  <div class="muted"><span id="hSub"></span> · 시드 <b id="seed">-</b></div>
-  <div id="clock">60:00</div>
-  <div class="row">
-    <button id="play" class="go">▶ 시작</button>
-    <button data-sp="1" class="on">1x</button>
-    <button data-sp="3">3x</button>
-    <button data-sp="8">8x</button>
-    <button id="reset">↺ 새 게임</button>
-    <button id="repBtn">📋 기록</button>
+  <div class="hrow">
+    <select id="scnSel" class="ttl" aria-label="시나리오"></select>
+    <span id="clock">60:00</span>
+    <button id="play" class="go sm" aria-label="시작">▶</button>
+    <button id="toggle" class="sm" aria-label="접기">▴</button>
   </div>
-  <div class="body">
-    <div class="row" style="margin-top:6px">
-      <button data-f="all" class="on">전체</button>
-      <button data-f="0">1층</button>
-      <button data-f="1">2층</button>
-      <button data-f="2">3층</button>
-      <button id="shell">외관</button>
-    </div>
-    <div class="teams" id="teams"></div>
-    <div class="muted" style="margin-top:4px" id="hHelp"></div>
+  <div class="hrow body2">
+    <select id="spSel" aria-label="속도"><option value="1">속도 1x</option><option value="3">속도 3x</option><option value="8">속도 8x</option></select>
+    <select id="viewSel" aria-label="보기"><option value="all">보기: 전체</option><option value="0">보기: 1층</option><option value="1">보기: 2층</option><option value="2">보기: 3층</option><option value="shell">보기: 외관</option></select>
+    <select id="menuSel" aria-label="메뉴"><option value="">메뉴</option><option value="rules">📖 규칙 보기</option><option value="rec">📋 기록 보기</option><option value="new">↺ 새 게임(새 시드)</option></select>
+    <span class="muted">시드 <b id="seed">-</b></span>
+  </div>
+  <div class="body"><div class="teams" id="teams"></div></div>
+  <div style="display:none">
+    <span id="hTitle"></span><span id="hSub"></span><span id="hHelp"></span>
+    <button data-sp="1" class="on"></button><button data-sp="3"></button><button data-sp="8"></button>
+    <button id="reset"></button><button id="repBtn"></button>
+    <button data-f="all" class="on"></button><button data-f="0"></button><button data-f="1"></button><button data-f="2"></button><button id="shell"></button>
   </div>
 </div>
 <div id="log" class="card"></div>
@@ -363,6 +364,35 @@ function furnish(r,fl){
       add(1.8,.8,.6,mat(0x5a4636),cx,8.3); const flame=new THREE.MeshStandardMaterial({color:0xffd27a,emissive:0xffb347,emissiveIntensity:1.3});
       for(let i=0;i<5;i++){ cyl(.05,.05,.22,mat(0xf4efe4),cx-.6+i*.3,8.3,.8); ball(.04,flame,cx-.6+i*.3,1.1,8.3); }
       for(let i=0;i<7;i++) add(.12,.5,.35,mat([0x8a3b3b,0x3b5a8a,0x3b7a4a,0x8a7a3b][i%4]),cx-.45+i*.15,7.4); break; }
+    // ---- 별 헤는 밤 ----
+    case 'well': {
+      const st=mat(0x8d8a84); cyl(.7,.75,.7,st,cx,6.5,0,18); cyl(.55,.55,.02,new THREE.MeshStandardMaterial({color:0x1d2b44,metalness:.4,roughness:.1}),cx,6.5,.69,18);
+      add(.1,1.4,.1,mat(0x6b4f3a),cx-.8,6.5); add(.1,1.4,.1,mat(0x6b4f3a),cx+.8,6.5); add(1.8,.1,.1,mat(0x6b4f3a),cx,6.5).position.y=.35+1.45;
+      const grass=mat(0x6f9a4c); for(let i=0;i<14;i++) cyl(0,.05,rr(.2,.4),grass,rr(r.x0+.5,r.x1-.5),rr(4.4,8.6),0,5); break; }
+    case 'school': {
+      for(let i=0;i<3;i++) for(let j=0;j<2;j++){ add(1.1,.65,.55,mat(0x9a7b5a),r.x0+1.6+i*3,5.4+j*1.6); add(.4,.4,.4,mat(0x7a5b3c),r.x0+1.6+i*3,6+j*1.6); }
+      add(4,1.2,.08,mat(0x2f4a3a),cx,8.85); break; }
+    case 'campus': {
+      const trunk=M.trunk, leaf=mat(0x4f8a3c);
+      [r.x0+1,r.x1-1].forEach(x=>{ cyl(.1,.14,1.4,trunk,x,7.8); ball(.7,leaf,x,1.9,7.8); });
+      add(1.6,.45,.45,mat(0x7a5b3c),cx,6.3); break; }
+    case 'tatami': {
+      const tm=mat(0xc9bb7a), edge=mat(0x3b4a35);
+      for(let i=0;i<6;i++){ const x=r.x0+1.3+(i%3)*1.25, z=4.8+Math.floor(i/3)*2.1; add(1.15,.03,2,tm,x,z); add(1.15,.035,.06,edge,x,z-1); }
+      add(.9,.35,.6,mat(0x7a5b3c),r.x1-1,7.6); add(.5,.03,.35,mat(0xf3efe2),r.x1-1,7.6); break; }
+    case 'hill': {
+      const g1=mat(0x4f7a3f); const h=ball(2.2,g1,cx,-1.2,7); h.scale.set(1.1,.55,.8);
+      const star=new THREE.MeshBasicMaterial({color:0xfff6c8}); for(let i=0;i<26;i++) ball(rr(.03,.06),star,rr(r.x0+.4,r.x1-.4),rr(1.6,2.7),rr(-4.8,8.6)); break; }
+    case 'floorboards': {
+      const pl=mat(0x8a6a48); for(let i=0;i<6;i++) add(w-1,.04,.45,pl,cx,4.6+i*.55);
+      add(.9,.04,.5,mat(0x6b4f3a),cx+1,6.4); add(.6,.25,.4,mat(0xa38b6a),cx+1,6.4); add(.45,.02,.3,mat(0xf3efe2),cx+1,6.4).position.y=.35+.27; break; }
+    case 'starroom': {
+      const star=new THREE.MeshBasicMaterial({color:0xfff6c8}), big=new THREE.MeshStandardMaterial({color:0xffe9a8,emissive:0xffd27a,emissiveIntensity:1});
+      for(let i=0;i<40;i++) ball(rr(.025,.05),star,rr(r.x0+.3,r.x1-.3),rr(1.5,2.8),rr(-4.8,8.7));
+      const pts=[[r.x0+1,8.2,2.2],[cx-.3,7.6,2.5],[cx+.6,8.4,2.1],[r.x1-.9,7.7,2.4]];
+      pts.forEach(([x,z,y])=>ball(.09,big,x,y,z));
+      for(let i=0;i<3;i++){ const [x1,z1,y1]=pts[i],[x2,z2,y2]=pts[i+1]; const L=Math.hypot(x2-x1,y2-y1,z2-z1); const ln=box(.015,.015,L,new THREE.MeshBasicMaterial({color:0xcfd8ff}),(x1+x2)/2,.35+(y1+y2)/2,(z1+z2)/2,fl,false); ln.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1), new THREE.Vector3(x2-x1,y2-y1,z2-z1).normalize()); }
+      break; }
     case 'b612': {
       const rock=mat(0x6e5848), lava=new THREE.MeshStandardMaterial({color:0xff7a2e,emissive:0xff5a1a,emissiveIntensity:.8});
       [[r.x0+.9,7.8,true],[r.x0+2.1,8.3,true],[r.x1-.9,7.9,false]].forEach(([x,z,act])=>{ cyl(.12,.45,.55,rock,x,z,0,10); if(act) ball(.1,lava,x,.58,z); });
@@ -475,7 +505,7 @@ function newGame(seed){
   });
   clock=0; running=false; ended=false; endReason=''; logs.length=0; events.length=0;
   document.getElementById('seed').textContent=SEED;
-  playBtn.textContent='▶ 시작'; playBtn.classList.add('go');
+  playBtn.textContent='▶'; playBtn.classList.add('go');
   document.getElementById('result').style.display='none';
   hideWho();
   ev('setup',null,`20명이 ${roomById.lobby.name}에 모였어요. ▶ 시작을 누르세요.`,
@@ -643,7 +673,7 @@ function checkEnd(){
   if(ended) return;
   const allOut=teams.every(t=>t.state==='escaped');
   if(allOut || clock>=LIMIT){
-    ended=true; running=false; playBtn.textContent='▶ 시작'; playBtn.classList.add('go');
+    ended=true; running=false; playBtn.textContent='▶'; playBtn.classList.add('go');
     teams.forEach(t=>{ if(t.state!=='escaped' && t.state==='solving') ev('fail',t,`${t.name} 미완료: '${t.station.puzzle}' 진행률 ${Math.round(t.progress*100)}%에서 시간 종료`,`${SCN.clue} ${t.clues}/4 · 힌트 ${t.hints}/3 사용 · 대기 ${fmt(t.waitTotal)}`); });
     teams.forEach(t=>{ if(t.state!=='escaped'){ t.state='failed'; if(t.station){ t.station.busy=null; t.station.bg.visible=t.station.fill.visible=false; t.station.top.emissive.set(0);} t.members.forEach(m=>m.act='시간 초과'); } });
     endReason = allOut ? `4팀 모두 ${DONE()}, ${fmt(clock)}에 게임 종료` : `제한시간 60분이 끝나 게임 종료 (미완료: ${teams.filter(t=>t.state==='failed').map(t=>t.name).join(', ')})`;
@@ -665,7 +695,7 @@ const playBtn=document.getElementById('play');
 function startRun(){
   if(ended) newGame();
   running=true;
-  playBtn.textContent='❚❚ 일시정지'; playBtn.classList.remove('go');
+  playBtn.textContent='❚❚'; playBtn.classList.remove('go');
   if(clock===0) log('게임 시작! 팀별로 첫 번째 방을 찾아 흩어집니다.');
 }
 const rulesEl=document.getElementById('rules');
@@ -699,7 +729,7 @@ playBtn.onclick=()=>{
   if(!SCN) return;
   if(!running && (clock===0 || ended)){ if(ended) newGame(); showRules(); return; }
   running=!running;
-  playBtn.textContent=running?'❚❚ 일시정지':'▶ 계속'; playBtn.classList.toggle('go',!running);
+  playBtn.textContent=running?'❚❚':'▶'; playBtn.classList.toggle('go',!running);
   if(running && clock===0) log('게임 시작! 팀별로 첫 번째 방을 찾아 흩어집니다.');
 };
 document.querySelectorAll('[data-sp]').forEach(b=>b.onclick=()=>{ speed=+b.dataset.sp; document.querySelectorAll('[data-sp]').forEach(x=>x.classList.toggle('on',x===b)); });
@@ -717,7 +747,13 @@ document.getElementById('repCopy').onclick=async()=>{
 document.getElementById('again').onclick=()=>{ newGame(Math.floor(Math.random()*90000)+10000); playBtn.click(); };
 document.getElementById('closeRes').onclick=()=>document.getElementById('result').style.display='none';
 const hud=document.getElementById('hud');
-document.getElementById('toggle').onclick=e=>{ hud.classList.toggle('collapsed'); e.target.textContent=hud.classList.contains('collapsed')?'펼치기':'접기'; };
+document.getElementById('toggle').onclick=e=>{ hud.classList.toggle('collapsed'); e.target.textContent=hud.classList.contains('collapsed')?'▾':'▴'; };
+document.getElementById('spSel').onchange=e=>document.querySelector(`[data-sp="${e.target.value}"]`).click();
+document.getElementById('viewSel').onchange=e=>{ const v=e.target.value;
+  if(v==='shell'){ if(!shellMode) toggleShell(); }
+  else { document.querySelector(`[data-f="${v}"]`).click(); } };
+document.getElementById('menuSel').onchange=e=>{ const v=e.target.value; e.target.value='';
+  if(v==='rules'){ if(SCN) showRules(); } else if(v==='rec') document.getElementById('repBtn').click(); else if(v==='new') document.getElementById('reset').click(); };
 
 let focus='all', shellMode=false;
 document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{
@@ -731,6 +767,7 @@ function toggleShell(){
   shells.forEach(s=>s.visible=shellMode); lowWalls.forEach(w=>w.visible=!shellMode);
   labels.forEach(l=>l.visible=!shellMode); roof.visible=sign.visible=shellMode;
   if(shellMode){ focus='all'; document.querySelectorAll('[data-f]').forEach(x=>x.classList.toggle('on',x.dataset.f==='all')); }
+  document.getElementById('viewSel').value=shellMode?'shell':String(focus);
   aimCamera();
 }
 document.getElementById('shell').onclick=toggleShell;
@@ -751,8 +788,8 @@ function renderTeams(){
   document.getElementById('teams').innerHTML=teams.map(t=>{
     const pips='●'.repeat(t.clues)+'○'.repeat(5-t.clues);
     let s;
-    if(t.state==='solving') s=`${t.station.room.name} ${Math.min(99,Math.floor(t.progress*100))}%`;
-    else if(t.state==='moving') s=`→ ${t.station.room.name}`;
+    if(t.state==='solving') s=`${t.station.room.short} ${Math.min(99,Math.floor(t.progress*100))}%`;
+    else if(t.state==='moving') s=`→ ${t.station.room.short}`;
     else if(t.state==='waiting') s='복도 대기';
     else if(t.state==='escaped') s=`${DONE()} ${fmt(t.finish)}`;
     else if(t.state==='failed') s='실패';

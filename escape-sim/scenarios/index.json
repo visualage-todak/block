@@ -11,6 +11,10 @@
   {
    "id": "human-acts",
    "file": "human-acts.json"
+  },
+  {
+   "id": "star-night",
+   "file": "star-night.json"
   }
  ]
 }
