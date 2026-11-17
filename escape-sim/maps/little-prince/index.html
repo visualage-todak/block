@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>어린왕자 메타버스 맵</title>
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#0b1026;font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans CJK KR","Noto Sans KR",sans-serif;color:#eef2ff;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+  #c{position:fixed;inset:0;touch-action:none}
+  .glass{background:rgba(14,20,44,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:14px}
+  #hud{position:fixed;left:10px;top:10px;padding:7px 11px;font-size:12px;max-width:calc(100vw - 190px)}
+  #hud .t{font-weight:800;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #hud .row{display:flex;gap:6px;align-items:center;margin-top:4px;flex-wrap:wrap}
+  #place{font-weight:700;color:#ffe9a8}
+  #stars{letter-spacing:2px;color:#ffd75a}
+  select{background:rgba(255,255,255,.1);color:#eef2ff;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:3px 5px;font-size:12px}
+  select option{color:#111}
+  #mini{position:fixed;right:10px;top:10px;width:150px;height:150px;padding:0;overflow:hidden}
+  #mini canvas{width:100%;height:100%;display:block}
+  #act{position:fixed;left:50%;bottom:120px;transform:translateX(-50%);display:none;padding:12px 20px;font-size:16px;font-weight:700;color:#1b1430;background:#ffe9a8;border:none;border-radius:999px;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+  #joy{pointer-events:none;position:fixed;left:22px;bottom:26px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.18);display:none}
+  #knob{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;background:rgba(255,233,168,.75)}
+  #help{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);font-size:11.5px;opacity:.75;white-space:nowrap}
+  #modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(5,8,20,.55);z-index:5}
+  #modal .card{width:min(440px,92vw);max-height:84vh;display:flex;flex-direction:column;padding:0;overflow:hidden}
+  #modal .hd{padding:14px 16px 8px;border-bottom:1px solid rgba(255,255,255,.12)}
+  #modal .hd small{color:#ffd75a;font-weight:700}
+  #modal h2{margin:2px 0 0;font-size:19px}
+  #modal .bd{padding:12px 16px;overflow-y:auto;font-size:14px;line-height:1.6;-webkit-user-select:text;user-select:text}
+  #modal .ft{padding:10px 16px 14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;border-top:1px solid rgba(255,255,255,.12)}
+  button{font:inherit;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#eef2ff;border-radius:999px;padding:7px 13px;font-size:13px;cursor:pointer}
+  button.pri{background:#ffd75a;color:#1b1430;border-color:#ffd75a;font-weight:700}
+  .hint{background:rgba(255,255,255,.07);border-radius:10px;padding:7px 10px;margin:6px 0;font-size:13px}
+  .note{font-size:11.5px;opacity:.7;margin-top:8px}
+  #toast{position:fixed;left:50%;top:70px;transform:translateX(-50%);padding:10px 18px;font-weight:800;font-size:15px;display:none;z-index:6}
+  #intro{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(5,8,20,.6);z-index:7}
+  #intro .card{width:min(460px,92vw);max-height:86vh;overflow-y:auto;padding:18px 20px;font-size:14px;line-height:1.65}
+  #intro h1{font-size:21px;margin:0 0 6px}
+  #intro ul{padding-left:18px;margin:6px 0}
+  @media (max-width:640px){ #mini{width:112px;height:112px} #hud{max-width:calc(100vw - 150px)} #act{bottom:160px} }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud" class="glass">
+  <div class="t" id="title">어린왕자 메타버스 맵</div>
+  <div class="row"><span id="place">-</span><span id="stars">☆☆☆☆</span></div>
+  <div class="row"><select id="warp" aria-label="빠른 이동"><option value="">🚀 빠른 이동</option></select><button id="helpBtn" style="padding:3px 9px;font-size:12px">❔</button></div>
+</div>
+<div id="mini" class="glass"><canvas id="mc" width="300" height="300"></canvas></div>
+<button id="act">✨ 살펴보기</button>
+<div id="joy"><div id="knob"></div></div>
+<div id="help">이동: WASD/방향키 · 시점: 드래그 · 살펴보기: E</div>
+<div id="toast" class="glass"></div>
+<div id="modal"><div class="card glass">
+  <div class="hd"><small id="mPlace"></small><h2 id="mTitle"></h2></div>
+  <div class="bd" id="mBody"></div>
+  <div class="ft" id="mFoot"></div>
+</div></div>
+<div id="intro"><div class="card glass">
+  <h1>🌹 어린왕자 — 별을 건너 B612로</h1>
+  <div id="story" style="opacity:.92"></div>
+  <ul>
+    <li><b>이동</b> — 휴대폰: 왼쪽 아래 조이스틱 · 컴퓨터: WASD/방향키</li>
+    <li><b>시점</b> — 화면을 끌어서 돌려요</li>
+    <li><b>살펴보기</b> — 빛나는 퍼즐 대 가까이 가면 버튼이 떠요 (컴퓨터: E)</li>
+    <li><b>빠른 이동</b> — 왼쪽 위 🚀 메뉴로 다른 별로 바로 가요</li>
+  </ul>
+  <div class="note">지금은 <b>맵 확인용(테스트 모드)</b>이에요. 퍼즐 내용·힌트·정답을 볼 수 있고, '별 조각 받기'로 진행을 시험할 수 있어요. 실제 게임에서는 정답을 직접 입력하게 될 거예요.</div>
+  <div style="text-align:right;margin-top:12px"><button class="pri" id="go">별로 출발하기</button></div>
+</div></div>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+/* ============ 맵 설계 (어린왕자 전용) ============ */
+// 층 = 고도. 1층 별(y=0) → 2층 별(y=5) → 3층 별(y=10) → B612(y=14)
+const PLANETS = [
+  {id:'lobby',   x:0,   z:0,   y:0,  r:10, top:0xe6cf9a, rock:0x8a6d4a, decor:'desert'},
+  {id:'edu',     x:-19, z:-17, y:0,  r:7,  top:0xc9b2d6, rock:0x5d4a6e, decor:'throne'},
+  {id:'cafe',    x:19,  z:-17, y:0,  r:7,  top:0xe8c3c8, rock:0x6e4a55, decor:'mirrors'},
+  {id:'kids',    x:-25, z:-41, y:5,  r:7,  top:0x3d4766, rock:0x2a2f45, decor:'lamp'},
+  {id:'clubA',   x:0,   z:-45, y:5,  r:7,  top:0xb8c4b0, rock:0x5a6450, decor:'ledger'},
+  {id:'clubB',   x:25,  z:-41, y:5,  r:7,  top:0xd9c9a3, rock:0x6e5d3c, decor:'globe'},
+  {id:'stacks',  x:-16, z:-67, y:10, r:8,  top:0x9fbf8a, rock:0x4a5e3c, decor:'roses'},
+  {id:'digital', x:16,  z:-67, y:10, r:8,  top:0xe3c56b, rock:0x7a6330, decor:'wheat'},
+  {id:'vault',   x:0,   z:-88, y:14, r:8.5,top:0x8d7f9e, rock:0x4a3f5a, decor:'b612'}
+];
+const BRIDGES = [['lobby','edu'],['lobby','cafe'],['edu','kids'],['edu','clubA'],['cafe','clubA'],['cafe','clubB'],
+                 ['kids','stacks'],['clubA','stacks'],['clubA','digital'],['clubB','digital'],['stacks','vault'],['digital','vault']];
+const BW = 2.6; // 다리 폭
+const P = Object.fromEntries(PLANETS.map(p=>[p.id,p]));
+
+/* ============ 렌더러·장면 ============ */
+const canvas=document.getElementById('c');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x0b1026);
+scene.fog=new THREE.Fog(0x0b1026,70,190);
+const camera=new THREE.PerspectiveCamera(60,1,.1,600);
+
+scene.add(new THREE.HemisphereLight(0xbfd0ff,0x2a2140,.85));
+const sun=new THREE.DirectionalLight(0xfff0d8,1.7); sun.castShadow=true;
+sun.shadow.mapSize.set(1024,1024); Object.assign(sun.shadow.camera,{left:-22,right:22,top:22,bottom:-22,near:1,far:120});
+scene.add(sun,sun.target);
+
+// 별빛 하늘
+{ const n=2200, pos=new Float32Array(n*3);
+  for(let i=0;i<n;i++){ const u=Math.random()*2-1, th=Math.random()*Math.PI*2, R=260+Math.random()*60, s=Math.sqrt(1-u*u);
+    pos[i*3]=R*s*Math.cos(th); pos[i*3+1]=R*u*.9+40; pos[i*3+2]=R*s*Math.sin(th)-40; }
+  const g=new THREE.BufferGeometry(); g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const st=new THREE.Points(g,new THREE.PointsMaterial({color:0xffffff,size:1.4,sizeAttenuation:false,fog:false})); scene.add(st); }
+// 멀리 떠 있는 행성들 (장식)
+[[90,40,-150,18,0x5b7bd6],[-110,25,-60,11,0xd68a5b],[60,-30,40,9,0x7bd6b0],[-70,60,-200,24,0xb07bd6]].forEach(([x,y,z,r,c])=>{
+  const m=new THREE.Mesh(new THREE.SphereGeometry(r,32,20),new THREE.MeshStandardMaterial({color:c,roughness:.8,emissive:c,emissiveIntensity:.15,fog:false}));
+  m.position.set(x,y,z); scene.add(m); });
+
+const mat=(c,o={})=>new THREE.MeshStandardMaterial({color:c,roughness:.8,...o});
+const glow=(c,i=1)=>new THREE.MeshStandardMaterial({color:c,emissive:c,emissiveIntensity:i});
+function box(w,h,d,m,x,y,z,par=scene){ const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m); o.position.set(x,y,z); o.castShadow=true; o.receiveShadow=true; par.add(o); return o; }
+function cyl(rt,rb,h,m,x,y,z,par=scene,seg=16){ const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg),m); o.position.set(x,y+h/2,z); o.castShadow=true; o.receiveShadow=true; par.add(o); return o; }
+function ball(r,m,x,y,z,par=scene){ const o=new THREE.Mesh(new THREE.SphereGeometry(r,16,12),m); o.position.set(x,y,z); o.castShadow=true; par.add(o); return o; }
+function label(text,w=6,fg='#1b1430',bg='rgba(255,233,168,.92)'){
+  const c=document.createElement('canvas'); c.width=512; c.height=128; const x=c.getContext('2d');
+  x.fillStyle=bg; x.beginPath(); x.roundRect(4,14,504,100,46); x.fill();
+  x.fillStyle=fg; x.font='bold 52px "Apple SD Gothic Neo","Noto Sans CJK KR","Noto Sans KR",sans-serif'; x.textAlign='center'; x.textBaseline='middle'; x.fillText(text,256,66);
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace;
+  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true})); s.scale.set(w,w/4,1); return s;
+}
+let seed=7; const R=()=>{ seed=(seed*16807)%2147483647; return seed/2147483647; }, rr=(a,b)=>a+R()*(b-a);
+
+/* ============ 섬(별) 만들기 ============ */
+function makePlanet(p){
+  const g=new THREE.Group(); g.position.set(p.x,p.y,p.z); scene.add(g); p.group=g;
+  const top=new THREE.Mesh(new THREE.CylinderGeometry(p.r,p.r*.92,1,48),mat(p.top)); top.position.y=-.5; top.receiveShadow=true; g.add(top);
+  const rock=new THREE.Mesh(new THREE.ConeGeometry(p.r*.92,p.r*1.3,24),mat(p.rock,{flatShading:true})); rock.rotation.x=Math.PI; rock.position.y=-1-p.r*.65; g.add(rock);
+  const rim=new THREE.Mesh(new THREE.TorusGeometry(p.r+.05,.07,8,64),glow(0xffe9a8,.9)); rim.rotation.x=Math.PI/2; rim.position.y=.02; g.add(rim);
+  decor(p,g);
+}
+function decor(p,g){
+  const r=p.r;
+  switch(p.decor){
+    case 'desert': {
+      const sand=mat(0xd9b97a); for(let i=0;i<7;i++){ const a=rr(0,6.28), d=rr(3,r-1.5); const m=ball(rr(1,2),sand,Math.cos(a)*d,-.6,Math.sin(a)*d,g); m.scale.y=.35; }
+      const pl=mat(0xb0b7bf,{metalness:.3}); const pg=new THREE.Group(); pg.position.set(4,0,3.5); pg.rotation.y=.6; pg.rotation.z=.12; g.add(pg);
+      box(4,.7,.8,pl,0,.5,0,pg); box(.6,.1,4.6,pl,.4,.6,0,pg); box(.3,.9,.1,pl,-1.9,.9,0,pg); box(.6,.1,1.6,pl,-1.9,.9,0,pg);
+      cyl(.3,.3,.08,mat(0x333333),2.05,.45,0,pg).rotation.z=Math.PI/2;
+      break; }
+    case 'throne': {
+      box(1.6,.04,6,mat(0xa8323e),0,.02,1,g); const gold=mat(0xd4a93b,{metalness:.5,roughness:.4});
+      box(1.8,.8,1.6,gold,0,.4,-2.6,g); box(1.8,2.6,.35,gold,0,1.3,-3.3,g); ball(.25,gold,-.8,2.7,-3.3,g); ball(.25,gold,.8,2.7,-3.3,g);
+      const robe=mat(0x5b3f8a); for(let i=-1;i<=1;i++) cyl(.08,.08,1.2,gold,i*3,0,-1.5,g); break; }
+    case 'mirrors': {
+      const mir=new THREE.MeshStandardMaterial({color:0xcfe3ef,metalness:.8,roughness:.08}), fr=mat(0xc9a14a,{metalness:.4});
+      for(let i=0;i<4;i++){ const a=-2.3+i*.55, x=Math.cos(a)*(r-1.3), z=Math.sin(a)*(r-1.3); const m=new THREE.Group(); m.position.set(x,0,z); m.lookAt(0,0,0); g.add(m);
+        box(1.3,2.3,.1,fr,0,1.15,0,m); box(1.1,2,.06,mir,0,1.15,.06,m); }
+      cyl(.05,.05,1.6,mat(0x333333),0,0,1,g); ball(.4,mat(0x5b3f8a),0,1.8,1,g); break; }
+    case 'lamp': {
+      cyl(.12,.16,3.6,mat(0x2b2b33,{metalness:.5}),0,0,0,g); ball(.45,glow(0xffd27a,1.6),0,3.8,0,g);
+      const pl=new THREE.PointLight(0xffc56b,30,14,2); pl.position.set(0,3.8,0); g.add(pl);
+      box(1.4,.6,.6,mat(0x6b4f3a),2,.3,1.5,g); break; }
+    case 'ledger': {
+      box(3,.9,1.4,mat(0x7a5b3c),0,.45,0,g); const pap=mat(0xf3efe2);
+      for(let i=0;i<5;i++) box(.45,.2+i*.18,.6,pap,-1.1+i*.55,.9+(.2+i*.18)/2,0,g);
+      box(1.8,1.6,.8,mat(0x5a4636),-3.2,.8,-2.5,g); for(let i=0;i<8;i++) ball(.12,glow(0xffe9a8,1.2),rr(-4,4),rr(2,3.5),rr(-4,4),g); break; }
+    case 'globe': {
+      cyl(.1,.4,1.2,mat(0x3b2b1f),0,0,0,g); ball(.9,mat(0x4f86b8),0,2.1,0,g); ball(.92,new THREE.MeshStandardMaterial({color:0x6fbf6a,transparent:true,opacity:.35}),0,2.1,0,g);
+      box(2.2,.15,1.5,mat(0x7a3b2e),-3,.85,1.8,g); box(2.4,.8,1.6,mat(0x5a4636),-3,.4,1.8,g);
+      for(let i=0;i<3;i++) box(.5,2.2,2.4,mat(0x7a5b3c),3.6,1.1,-2+i*.01,g); break; }
+    case 'roses': {
+      const red=mat(0xc8283a), stem=mat(0x3f7a35);
+      for(let i=0;i<48;i++){ const a=i/48*6.28+rr(-.05,.05), d=(i%3)*1.3+3.2; const x=Math.cos(a)*d, z=Math.sin(a)*d;
+        cyl(.03,.03,.6,stem,x,0,z,g); ball(.16,red,x,.7,z,g); }
+      break; }
+    case 'wheat': {
+      const wh=mat(0xd9a93b); for(let i=0;i<90;i++){ const a=rr(0,6.28), d=rr(2.4,r-.6); cyl(0,.1,rr(.8,1.3),wh,Math.cos(a)*d,0,Math.sin(a)*d,g,6); }
+      // 여우 굴(입구)
+      const den=new THREE.Mesh(new THREE.SphereGeometry(1.1,16,10,0,Math.PI*2,0,Math.PI/2),mat(0x8a6a48)); den.position.set(-2.5,0,2.5); g.add(den);
+      ball(.55,mat(0x111111),-2.5,.35,3.45,g).scale.set(1,1,.2); break; }
+    case 'b612': {
+      const rockM=mat(0x6e5848,{flatShading:true}), lava=glow(0xff7a2e,1.4);
+      [[-3,-2.5,true],[-1.4,-4,true],[3.2,-2.8,false]].forEach(([x,z,act])=>{ cyl(.25,.9,1.1,rockM,x,0,z,g,10); if(act){ ball(.2,lava,x,1.1,z,g); } });
+      cyl(.03,.03,.7,mat(0x3f7a35),0,0,2.2,g); ball(.22,mat(0xd02a3c),0,.8,2.2,g);
+      for(let i=0;i<3;i++) cyl(0,.18,.45,mat(0x4c9a3c),2+i*.5,0,2.6-i*.4,g,6);
+      const pl=new THREE.PointLight(0xffb36b,18,12,2); pl.position.set(-2,2,-3); g.add(pl); break; }
+  }
+}
+
+/* ============ 별다리 ============ */
+const bridgeSegs=[];
+function makeBridge(a,b){
+  const A=P[a], B=P[b];
+  const dx=B.x-A.x, dz=B.z-A.z, L=Math.hypot(dx,dz), ux=dx/L, uz=dz/L;
+  const sx=A.x+ux*(A.r-.6), sz=A.z+uz*(A.r-.6), ex=B.x-ux*(B.r-.6), ez=B.z-uz*(B.r-.6);
+  const seg={ax:sx,az:sz,ay:A.y,bx:ex,bz:ez,by:B.y,ux,uz,len:Math.hypot(ex-sx,ez-sz),from:a,to:b};
+  bridgeSegs.push(seg);
+  const len3=Math.hypot(seg.len,B.y-A.y);
+  const deck=new THREE.Mesh(new THREE.BoxGeometry(BW,.25,len3),mat(0x2b3260,{metalness:.3,roughness:.5}));
+  deck.position.set((sx+ex)/2,(A.y+B.y)/2-.13,(sz+ez)/2);
+  deck.rotation.order='YXZ'; deck.rotation.y=Math.atan2(ux,uz); deck.rotation.x=-Math.atan2(B.y-A.y,seg.len);
+  deck.receiveShadow=true; scene.add(deck);
+  for(const side of [-1,1]){
+    const rail=new THREE.Mesh(new THREE.BoxGeometry(.08,.08,len3),glow(0x9fd0ff,1.3));
+    rail.position.copy(deck.position); rail.rotation.copy(deck.rotation);
+    rail.position.x+=-uz*side*BW/2; rail.position.z+=ux*side*BW/2; rail.position.y+=.35; scene.add(rail);
+  }
+  const n=Math.floor(seg.len/3);
+  for(let i=1;i<n;i++){ const t=i/n; ball(.09,glow(0xfff3c8,2),sx+(ex-sx)*t,A.y+(B.y-A.y)*t+.05,sz+(ez-sz)*t); }
+  // 위층으로 가는 문
+  if(B.y>A.y){ const arch=new THREE.Mesh(new THREE.TorusGeometry(1.9,.12,8,32,Math.PI),glow(0xffd75a,1.2));
+    arch.position.set(sx+ux*1.2, A.y, sz+uz*1.2); arch.rotation.y=Math.atan2(ux,uz); scene.add(arch);
+    const need = B.y>=14 ? '별 조각 4개' : B.y>=10 ? '별 조각 3개' : '별 조각 1개';
+    const lb=label(`${(B.y>=14?'B612':B.y>=10?'3층 별':'2층 별')} · ${need}`,3.6,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(arch.position.x,A.y+2.6,arch.position.z); scene.add(lb); }
+}
+
+/* ============ 걷는 땅 판정 ============ */
+function groundAt(x,z){
+  let best=null;
+  for(const p of PLANETS){ if(Math.hypot(x-p.x,z-p.z)<=p.r-.35) best=Math.max(best??-1e9,p.y); }
+  if(best!==null) return best;
+  for(const s of bridgeSegs){
+    const vx=x-s.ax, vz=z-s.az, t=vx*s.ux+vz*s.uz, d=Math.abs(-vx*s.uz+vz*s.ux);
+    if(t>=-.6 && t<=s.len+.6 && d<=BW/2-.25){ const k=Math.min(1,Math.max(0,t/s.len)); return s.ay+(s.by-s.ay)*k; }
+  }
+  return null;
+}
+function planetAt(x,z,y){ return PLANETS.find(p=>Math.hypot(x-p.x,z-p.z)<=p.r && Math.abs(y-p.y)<1.5); }
+
+/* ============ 사람(아바타) ============ */
+function makePerson(shirt,girl,name,tagColor){
+  const g=new THREE.Group(); const legs=[], arms=[];
+  const navy=mat(0x2d3a55), skin=mat(0xf1c9a5), hair=mat(0x2a211c), sh=mat(shirt);
+  for(const sx of [-.1,.1]){ const p=new THREE.Group(); p.position.set(sx,.8,0); box(.14,.78,.16,girl?mat(0x2a2a35):navy,0,-.39,0,p); g.add(p); legs.push(p); }
+  if(girl){ const sk=new THREE.Mesh(new THREE.CylinderGeometry(.18,.3,.38,10),mat(0x3b4a6b)); sk.position.y=.82; g.add(sk); }
+  box(.42,.55,.25,sh,0,1.15,0,g);
+  for(const sx of [-.27,.27]){ const p=new THREE.Group(); p.position.set(sx,1.4,0); box(.11,.52,.13,sh,0,-.26,0,p); g.add(p); arms.push(p); }
+  ball(.16,skin,0,1.6,0,g); const h=new THREE.Mesh(new THREE.SphereGeometry(.172,14,10,0,Math.PI*2,0,Math.PI*.55),hair); h.position.y=1.62; g.add(h);
+  if(girl) box(.3,.38,.09,hair,0,1.46,-.12,g);
+  const tag=label(name,1.6,'#ffffff',tagColor); tag.position.y=2.25; g.add(tag);
+  g.traverse(o=>{ if(o.isMesh) o.castShadow=true; });
+  scene.add(g); return {g,legs,arms,phase:Math.random()*6};
+}
+function animPerson(pp,speed,t){
+  const s=Math.sin(t*10+pp.phase)*Math.min(1,speed/3)*.6;
+  pp.legs[0].rotation.x=s; pp.legs[1].rotation.x=-s; pp.arms[0].rotation.x=-s*.8; pp.arms[1].rotation.x=s*.8;
+}
+
+/* ============ 퍼즐 대 ============ */
+let SCN=null; const stations=[]; const solved=new Set(); let starsGot=0;
+function makeStations(){
+  for(const p of PLANETS){
+    const room=SCN.rooms[p.id]; p.name=room.name; p.short=room.short||room.name.replace(/\s*\(최종\)/,'');
+    const lb=label(p.name,Math.min(7,p.r*.85)); lb.position.set(p.x,p.y+6.5,p.z); scene.add(lb); p.label=lb;
+    (room.puzzles||[]).forEach((pz,i)=>{
+      const n=room.puzzles.length, a=(n===1?Math.PI/2:(i===0?2.4:.74)), d=p.r*.55;
+      const x=p.x+Math.cos(a)*d, z=p.z+Math.sin(a)*d;
+      const ped=new THREE.Group(); ped.position.set(x,p.y,z); scene.add(ped);
+      box(.8,1,.8,mat(0x232845,{metalness:.4}),0,.5,0,ped);
+      const topM=glow(0xffd75a,.9); box(.7,.08,.7,topM,0,1.04,0,ped);
+      const orb=ball(.22,glow(0xfff3c8,2),0,1.6,0,ped);
+      const q=label(pz[1]==='obs'?'👀 관찰':pz[1]==='logic'?'🧠 논리':'⭐ 최종',1.5,'#1b1430','rgba(255,255,255,.88)'); q.position.y=2.3; ped.add(q);
+      stations.push({planet:p,name:pz[0],type:pz[1],x,z,y:p.y,ped,orb,topM,final:p.id==='vault'});
+    });
+  }
+}
+
+/* ============ 플레이어 & 다른 참가자 ============ */
+const me=makePerson(0x3498db,false,'나','#3498db');
+const player={x:0,z:4,y:0,yaw:Math.PI,vy:0};
+const npcs=[];
+const NPC_NAMES=[['서연','F',0xe74c3c],['민준','M',0x27ae60],['지우','F',0xe2b30b],['도윤','M',0xe74c3c],['하은','F',0x27ae60],['시우','M',0xe2b30b],['수아','F',0x3498db]];
+function spawnNPCs(){
+  const homes=['lobby','edu','cafe','clubA','kids','digital','lobby'];
+  NPC_NAMES.forEach(([n,gd,c],i)=>{ const p=P[homes[i]]; const pp=makePerson(c,gd==='F',n,'#'+c.toString(16).padStart(6,'0'));
+    const a=rr(0,6.28), d=rr(1,p.r-2); npcs.push({pp,home:p,x:p.x+Math.cos(a)*d,z:p.z+Math.sin(a)*d,tx:0,tz:0,wait:rr(0,3)}); });
+}
+
+/* ============ 입력 ============ */
+const keys={}; addEventListener('keydown',e=>{ keys[e.key.toLowerCase()]=true; if(e.key==='e'||e.key==='E') tryAct(); });
+addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+let camYaw=0, camPitch=.42, camDist=9;
+const joy=document.getElementById('joy'), knob=document.getElementById('knob');
+const isTouch=matchMedia('(pointer:coarse)').matches; if(isTouch){ joy.style.display='block'; document.getElementById('help').textContent='왼쪽: 이동 · 오른쪽 화면 끌기: 시점'; }
+let joyId=null, joyV={x:0,y:0}, lookId=null, lookLast=null;
+canvas.addEventListener('pointerdown',e=>{
+  const jr=joy.getBoundingClientRect();
+  if(isTouch && e.clientX<innerWidth*.45 && e.clientY>innerHeight*.45 && joyId===null){ joyId=e.pointerId; moveJoy(e,jr); }
+  else if(lookId===null){ lookId=e.pointerId; lookLast=[e.clientX,e.clientY]; }
+  canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener('pointermove',e=>{
+  if(e.pointerId===joyId) moveJoy(e,joy.getBoundingClientRect());
+  else if(e.pointerId===lookId){ camYaw-=(e.clientX-lookLast[0])*.006; camPitch=Math.min(1.2,Math.max(.12,camPitch+(e.clientY-lookLast[1])*.004)); lookLast=[e.clientX,e.clientY]; }
+});
+const endPtr=e=>{ if(e.pointerId===joyId){ joyId=null; joyV={x:0,y:0}; knob.style.left='35px'; knob.style.top='35px'; } if(e.pointerId===lookId) lookId=null; };
+canvas.addEventListener('pointerup',endPtr); canvas.addEventListener('pointercancel',endPtr);
+function moveJoy(e,jr){ const cx=jr.left+jr.width/2, cy=jr.top+jr.height/2; let dx=e.clientX-cx, dy=e.clientY-cy; const L=Math.hypot(dx,dy), M=45; if(L>M){ dx*=M/L; dy*=M/L; }
+  joyV={x:dx/M,y:dy/M}; knob.style.left=(35+dx)+'px'; knob.style.top=(35+dy)+'px'; }
+addEventListener('wheel',e=>{ camDist=Math.min(16,Math.max(5,camDist+e.deltaY*.01)); },{passive:true});
+
+/* ============ 살펴보기 ============ */
+const actBtn=document.getElementById('act'); let near=null;
+actBtn.onclick=tryAct;
+function tryAct(){ if(near && document.getElementById('modal').style.display!=='flex') openStation(near); }
+const modal=document.getElementById('modal');
+function openStation(st){
+  const pz=SCN.puzzles[st.name]; let shown=0;
+  document.getElementById('mPlace').textContent=`${st.planet.name} · ${st.type==='obs'?'관찰 퍼즐':st.type==='logic'?'논리 퍼즐':'최종 과제'}`;
+  document.getElementById('mTitle').textContent=st.name;
+  const body=document.getElementById('mBody'), foot=document.getElementById('mFoot');
+  const draw=(ans=false)=>{
+    body.innerHTML=`<div>${pz.desc}</div>${pz.hints.slice(0,shown).map((h,i)=>`<div class="hint">💡 힌트 ${i+1}: ${h}</div>`).join('')}
+      ${ans?`<div class="hint" style="background:rgba(255,215,90,.18)">✅ 정답: <b>${pz.answer}</b></div>`:''}
+      ${solved.has(st.name)?'<div class="hint">⭐ 이 퍼즐은 이미 풀었어요.</div>':''}
+      <div class="note">맵 테스트 모드 — 실제 게임에서는 정답을 직접 입력해요.</div>`;
+    foot.innerHTML='';
+    const b=(t,f,pri)=>{ const x=document.createElement('button'); x.textContent=t; if(pri) x.className='pri'; x.onclick=f; foot.appendChild(x); };
+    if(shown<pz.hints.length) b(`💡 힌트 (${shown}/${pz.hints.length})`,()=>{ shown++; draw(ans); });
+    if(!ans) b('정답 보기',()=>draw(true));
+    if(!solved.has(st.name)) b(st.final?'⭐ 귀환 장치 작동(테스트)':'⭐ 별 조각 받기(테스트)',()=>{
+      if(st.final && starsGot<4){ toast(`별 조각 4개가 필요해요 (지금 ${starsGot}개)`); return; }
+      if(!st.final && [...solved].some(n=>{ const s=stations.find(q=>q.name===n); return s && s.planet===st.planet; })){ toast('한 별에서는 퍼즐 하나만 풀 수 있어요'); return; }
+      solved.add(st.name); st.topM.color.set(0x7bd67b); st.topM.emissive.set(0x7bd67b);
+      if(st.final){ close(); celebrate(); } else { starsGot=Math.min(4,starsGot+1); updHud(); toast(`⭐ 별 조각 ${starsGot}/4 획득!`); close(); }
+    },true);
+    b('닫기',close);
+  };
+  const close=()=>{ modal.style.display='none'; };
+  draw(); modal.style.display='flex';
+}
+modal.addEventListener('pointerdown',e=>{ if(e.target===modal) modal.style.display='none'; });
+let toastT=0; function toast(t){ const el=document.getElementById('toast'); el.textContent=t; el.style.display='block'; toastT=performance.now()+2200; }
+function celebrate(){ toast('🌹 B612에 도착! 귀환 성공'); for(let i=0;i<60;i++){ const s=ball(.12,glow([0xffd75a,0xff7a8a,0x9fd0ff][i%3],2),P.vault.x+rr(-6,6),P.vault.y+rr(1,6),P.vault.z+rr(-6,6)); s.userData.fall=rr(.5,1.5); confetti.push(s); } }
+const confetti=[];
+
+/* ============ HUD·미니맵·빠른 이동 ============ */
+function updHud(){ document.getElementById('stars').textContent='★'.repeat(starsGot)+'☆'.repeat(4-starsGot); }
+const warp=document.getElementById('warp');
+warp.onchange=()=>{ const p=P[warp.value]; warp.value=''; if(!p) return; player.x=p.x; player.z=p.z+p.r*.5; player.y=p.y; camYaw=0; toast(`🚀 ${p.name}(으)로 이동`); };
+const mc=document.getElementById('mc'), mx=mc.getContext('2d');
+function drawMini(){
+  const W=300, sx=x=>150+x*2.4, sz=z=>232+z*2.4; mx.clearRect(0,0,W,W);
+  mx.lineWidth=5; mx.strokeStyle='rgba(159,208,255,.55)';
+  for(const s of bridgeSegs){ mx.beginPath(); mx.moveTo(sx(s.ax),sz(s.az)); mx.lineTo(sx(s.bx),sz(s.bz)); mx.stroke(); }
+  for(const p of PLANETS){ mx.fillStyle='#'+p.top.toString(16).padStart(6,'0'); mx.beginPath(); mx.arc(sx(p.x),sz(p.z),p.r*2.4,0,7); mx.fill(); }
+  mx.fillStyle='#ffd75a'; for(const st of stations){ if(!solved.has(st.name)){ mx.beginPath(); mx.arc(sx(st.x),sz(st.z),3.5,0,7); mx.fill(); } }
+  mx.fillStyle='#fff'; for(const n of npcs){ mx.beginPath(); mx.arc(sx(n.x),sz(n.z),3,0,7); mx.fill(); }
+  mx.save(); mx.translate(sx(player.x),sz(player.z)); mx.rotate(-player.yaw); mx.fillStyle='#3fa9ff'; mx.strokeStyle='#fff'; mx.lineWidth=2;
+  mx.beginPath(); mx.moveTo(0,10); mx.lineTo(7,-7); mx.lineTo(-7,-7); mx.closePath(); mx.fill(); mx.stroke(); mx.restore();
+}
+
+/* ============ 루프 ============ */
+function resize(){ renderer.setSize(innerWidth,innerHeight,false); camera.aspect=innerWidth/innerHeight; camera.fov=innerWidth<innerHeight?68:58; camera.updateProjectionMatrix(); }
+addEventListener('resize',resize); resize();
+let last=performance.now(), started=false;
+const camPos=new THREE.Vector3(0,8,16), camLook=new THREE.Vector3();
+function loop(now){
+  const dt=Math.min(.05,(now-last)/1000); last=now; const t=now/1000;
+  // 이동 입력
+  let ix=0, iz=0;
+  if(keys['w']||keys['arrowup']) iz-=1; if(keys['s']||keys['arrowdown']) iz+=1;
+  if(keys['a']||keys['arrowleft']) ix-=1; if(keys['d']||keys['arrowright']) ix+=1;
+  ix+=joyV.x; iz+=joyV.y;
+  const mag=Math.min(1,Math.hypot(ix,iz)); let spd=0;
+  if(started && mag>.08 && modal.style.display!=='flex'){
+    const fx=-Math.sin(camYaw), fz=-Math.cos(camYaw), rx=Math.cos(camYaw), rz=-Math.sin(camYaw);
+    let mvx=(rx*ix - fx*iz), mvz=(rz*ix - fz*iz); const ml=Math.hypot(mvx,mvz); mvx/=ml; mvz/=ml;
+    spd=6.5*mag; const nx=player.x+mvx*spd*dt, nz=player.z+mvz*spd*dt;
+    const tryMove=(x,z)=>{ const gy=groundAt(x,z); if(gy!==null && gy-player.y<1.2){ player.x=x; player.z=z; return true; } return false; };
+    if(!tryMove(nx,nz)){ if(!tryMove(nx,player.z)) tryMove(player.x,nz); }
+    player.yaw=Math.atan2(mvx,mvz);
+  }
+  const gy=groundAt(player.x,player.z)??player.y; player.y+= (gy-player.y)*Math.min(1,dt*14);
+  me.g.position.set(player.x,player.y,player.z);
+  me.g.rotation.y += (((player.yaw - me.g.rotation.y + Math.PI*3)%(Math.PI*2))-Math.PI)*Math.min(1,dt*12);
+  animPerson(me,spd,t);
+  // NPC
+  for(const n of npcs){
+    if(n.wait>0){ n.wait-=dt; animPerson(n.pp,0,t); }
+    else { if(!n.tx){ const a=rr(0,6.28), d=rr(1,n.home.r-2); n.tx=n.home.x+Math.cos(a)*d; n.tz=n.home.z+Math.sin(a)*d; }
+      const dx=n.tx-n.x, dz=n.tz-n.z, L=Math.hypot(dx,dz);
+      if(L<.2){ n.tx=0; n.wait=rr(1.5,5); } else { n.x+=dx/L*1.6*dt; n.z+=dz/L*1.6*dt; n.pp.g.rotation.y=Math.atan2(dx,dz); animPerson(n.pp,2,t); } }
+    n.pp.g.position.set(n.x,n.home.y,n.z);
+  }
+  // 퍼즐 대 반짝임 + 가까운 퍼즐
+  near=null; let nd=2.8;
+  for(const st of stations){ st.orb.position.y=1.6+Math.sin(t*2+st.x)*.12; const d=Math.hypot(st.x-player.x,st.z-player.z); if(d<nd && Math.abs(st.y-player.y)<1.5){ nd=d; near=st; } }
+  actBtn.style.display = near && started && modal.style.display!=='flex' ? 'block':'none';
+  if(near) actBtn.textContent=`✨ 살펴보기 · ${near.name}${isTouch?'':' (E)'}`;
+  // 장소 표시
+  const pl=planetAt(player.x,player.z,player.y); for(const q of PLANETS) if(q.label) q.label.visible=(q!==pl); document.getElementById('place').textContent = pl ? '📍 '+pl.name : '🌉 별다리 위';
+  // 카메라
+  const target=new THREE.Vector3(player.x,player.y+1.4,player.z);
+  const want=new THREE.Vector3(player.x+Math.sin(camYaw)*Math.cos(camPitch)*camDist, player.y+1.4+Math.sin(camPitch)*camDist, player.z+Math.cos(camYaw)*Math.cos(camPitch)*camDist);
+  camPos.lerp(want,Math.min(1,dt*6)); camLook.lerp(target,Math.min(1,dt*10));
+  camera.position.copy(camPos); camera.lookAt(camLook);
+  sun.position.set(player.x+18,player.y+30,player.z+12); sun.target.position.set(player.x,player.y,player.z);
+  for(const c of confetti){ c.position.y-=c.userData.fall*dt; if(c.position.y<P.vault.y) c.position.y=P.vault.y+6; }
+  if(toastT && now>toastT){ document.getElementById('toast').style.display='none'; toastT=0; }
+  drawMini();
+  renderer.render(scene,camera);
+  requestAnimationFrame(loop);
+}
+
+/* ============ 시작 ============ */
+PLANETS.forEach(makePlanet); BRIDGES.forEach(([a,b])=>makeBridge(a,b));
+async function init(){
+  try{ SCN=await (await fetch('scenario.json')).json(); }
+  catch(e){ document.getElementById('story').textContent='시나리오 파일을 불러오지 못했어요.'; return; }
+  document.getElementById('title').textContent='🌹 '+SCN.title;
+  document.getElementById('story').textContent='사막에 불시착한 비행사의 수첩 속 별들이 우주에 떠 있어요. 별다리를 건너 왕의 별, 허영쟁이의 별, 점등원의 별… 어린왕자가 여행한 별들을 차례로 찾아가 ‘별 조각’ 4개를 모으면, 가장 높은 곳에 있는 소행성 B612의 귀환 장치를 작동시킬 수 있어요.';
+  makeStations(); spawnNPCs();
+  PLANETS.forEach(p=>{ const o=document.createElement('option'); o.value=p.id; o.textContent=`${p.y===0?'1층':p.y===5?'2층':p.y===10?'3층':'최종'} · ${p.name}`; warp.appendChild(o); });
+  updHud();
+}
+document.getElementById('go').onclick=()=>{ document.getElementById('intro').style.display='none'; started=true; };
+document.getElementById('helpBtn').onclick=()=>{ document.getElementById('intro').style.display='flex'; started=false; };
+init(); requestAnimationFrame(loop);
+window.__map={player,P,stations,openStation,groundAt,setCam:(y,p)=>{camYaw=y;camPitch=p;}, start:()=>{document.getElementById('go').click();}};
+</script>
+</body>
+</html>
