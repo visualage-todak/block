@@ -1,0 +1,195 @@
+{
+ "id": "library",
+ "islandStyle": "stack",
+ "tiers": [
+  "1층",
+  "2층",
+  "3층"
+ ],
+ "words": {
+  "place": "방",
+  "link": "복도와 계단",
+  "layout": "층별 배치 (층을 위아래로 벌려 보여줘요)"
+ },
+ "sign": "경기여주가남교육도서관",
+ "wallColor": "#f3f1ec",
+ "trimColor": "#3b4249",
+ "stepColor": "#c9c5bc",
+ "pathColor": "#b9b2a4",
+ "stairColor": "#9aa1a8",
+ "slabColor": "#d8d8d2",
+ "roomLight": "#fff3e0",
+ "roomLightI": 4,
+ "theme": {
+  "bg": "#dfe7ee",
+  "fog": [
+   150,
+   330
+  ],
+  "hemi": [
+   "#ffffff",
+   "#8a9a7a",
+   1.0
+  ],
+  "sun": 1.9,
+  "sunColor": "#fff3e0",
+  "stars": 0,
+  "ground": "#9fb38a",
+  "trees": 60,
+  "treeColor": "#5f8a4c",
+  "charGlow": 0.08
+ },
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": -11,
+   "z": 0,
+   "y": 0,
+   "r": 5.2,
+   "top": "#cdb994",
+   "rock": "#bdb7aa",
+   "decor": "lobby",
+   "start": true
+  },
+  {
+   "id": "edu",
+   "f": 0,
+   "x": 0,
+   "z": 0,
+   "y": 0,
+   "r": 5.2,
+   "top": "#cdb994",
+   "rock": "#bdb7aa",
+   "decor": "edu"
+  },
+  {
+   "id": "cafe",
+   "f": 0,
+   "x": 11,
+   "z": 0,
+   "y": 0,
+   "r": 5.2,
+   "top": "#d9c49a",
+   "rock": "#bdb7aa",
+   "decor": "cafe"
+  },
+  {
+   "id": "kids",
+   "f": 1,
+   "x": -11,
+   "z": -16,
+   "y": 6,
+   "r": 5.2,
+   "top": "#e8cf9a",
+   "rock": "#bdb7aa",
+   "decor": "kids"
+  },
+  {
+   "id": "clubA",
+   "f": 1,
+   "x": 0,
+   "z": -16,
+   "y": 6,
+   "r": 5.2,
+   "top": "#cdb994",
+   "rock": "#bdb7aa",
+   "decor": "club"
+  },
+  {
+   "id": "clubB",
+   "f": 1,
+   "x": 11,
+   "z": -16,
+   "y": 6,
+   "r": 5.2,
+   "top": "#cdb994",
+   "rock": "#bdb7aa",
+   "decor": "club"
+  },
+  {
+   "id": "stacks",
+   "f": 2,
+   "x": -11,
+   "z": -32,
+   "y": 12,
+   "r": 5.2,
+   "top": "#cdb994",
+   "rock": "#bdb7aa",
+   "decor": "stacks"
+  },
+  {
+   "id": "digital",
+   "f": 2,
+   "x": 0,
+   "z": -32,
+   "y": 12,
+   "r": 5.2,
+   "top": "#cdb994",
+   "rock": "#bdb7aa",
+   "decor": "digital"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 11,
+   "z": -32,
+   "y": 12,
+   "r": 5.2,
+   "top": "#b79a7a",
+   "rock": "#bdb7aa",
+   "decor": "vault",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "edu"
+  ],
+  [
+   "edu",
+   "cafe"
+  ],
+  [
+   "lobby",
+   "kids"
+  ],
+  [
+   "edu",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubB"
+  ],
+  [
+   "kids",
+   "clubA"
+  ],
+  [
+   "clubA",
+   "clubB"
+  ],
+  [
+   "kids",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "digital"
+  ],
+  [
+   "clubB",
+   "vault"
+  ],
+  [
+   "stacks",
+   "digital"
+  ],
+  [
+   "digital",
+   "vault"
+  ]
+ ]
+}

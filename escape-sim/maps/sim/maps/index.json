@@ -1,6 +1,12 @@
 {
  "maps": [
   {
+   "id": "library",
+   "title": "가남교육도서관 — 도서관 건물 맵",
+   "map": "maps/library.json",
+   "scenario": "scenarios/library.json"
+  },
+  {
    "id": "little-prince",
    "title": "어린왕자 — 별을 건너 B612로 (별 맵)",
    "map": "maps/little-prince.json",

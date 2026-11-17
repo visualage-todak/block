@@ -240,7 +240,7 @@ function makeBridge(a,b){
     const arch=new THREE.Mesh(new THREE.TorusGeometry(1.9,style==='star'?.12:.16,8,32,Math.PI),archM);
     arch.position.set(sx+ux*1.2, A.y, sz+uz*1.2); arch.rotation.y=Math.atan2(ux,uz); worldRoot.add(arch);
     const need = B.final ? 4 : NEED[0]+(B.f>=2?NEED[1]:0);
-    const txt = B.final ? `${B.short} · ${SCN.clue} ${need}개` : `${B.f+1}층 · ${SCN.clue} ${need}개`;
+    const txt = B.final ? `${B.short} · ${SCN.clue} ${need}개` : `${tierName(B.f)} · ${SCN.clue} ${need}개`;
     const lb=label(txt,3.8,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(arch.position.x,A.y+2.6,arch.position.z); worldRoot.add(lb);
   }
 }
@@ -291,6 +291,15 @@ function decor(p,g){
       cyl(.03,.03,.7,mat2(0x3f7a35),0,0,2.2,g); ball(.22,mat2(0xd02a3c),0,.8,2.2,g);
       for(let i=0;i<3;i++) cyl(0,.18,.45,mat2(0x4c9a3c),2+i*.5,0,2.6-i*.4,g,6);
       const pl=new THREE.PointLight(0xffb36b,18,12,2); pl.position.set(-2,2,-3); g.add(pl); break; }
+    /* ---- 도서관 ---- */
+    case 'lobby': { box(3.4,1,1,mat2(0xf4f1ea),0,.5,0,g); box(.4,1.8,3.6,mat2(0x8a6a48),-3.8,.9,0,g); box(.4,1.8,3.6,mat2(0x8a6a48),3.8,.9,0,g); break; }
+    case 'edu': { for(let i=0;i<2;i++) for(let j=0;j<2;j++) box(1.6,.75,.7,mat2(0xf4f1ea),-1.6+i*3.2,.38,.8+j*1.6,g); box(4,1.3,.1,mat2(0x2f4a3a),0,1.4,-4.3,g); break; }
+    case 'cafe': { for(let i=0;i<3;i++) cyl(.55,.55,.75,mat2(0xf4f1ea),-2.6+i*2.6,0,1.8,g,16); box(5,1.8,.4,mat2(0x8a6a48),0,.9,-4.2,g); break; }
+    case 'kids': { for(let i=0;i<3;i++) box(2,.9,.4,mat2(0x8a6a48),-2.8+i*2.8,.45,-3.8,g); box(3,.12,3,mat2(0xf4a261),0,.06,1.4,g); break; }
+    case 'club': { box(3,.75,1.4,mat2(0xf4f1ea),0,.38,1.6,g); for(let i=0;i<4;i++) box(.45,.45,.45,mat2(0x7a5b3c),-1.2+i*.8,.23,2.7,g); break; }
+    case 'stacks': { for(let i=0;i<4;i++) box(.45,2,3,mat2(0x8a6a48),-3.2+i*2.1,1,-1.2,g); break; }
+    case 'digital': { for(let i=0;i<3;i++){ box(1.4,.75,.7,mat2(0xf4f1ea),-2.4+i*2.4,.38,-3.4,g); box(.6,.4,.05,new THREE.MeshStandardMaterial({color:0x223344,emissive:0x2a6fa8,emissiveIntensity:.6}),-2.4+i*2.4,.98,-3.55,g); } break; }
+    case 'vault': { box(.45,2,3.5,mat2(0x8a6a48),-3.9,1,0,g); box(.45,2,3.5,mat2(0x8a6a48),3.9,1,0,g); box(1.2,1.4,1,mat2(0x6c6f75),0,.7,-3.6,g); break; }
     /* ---- 공용·독서 ---- */
     case 'readingplaza': {
       const wood=mat2(0x7a5b3c), pap=mat2(0xf3efe2);
@@ -387,6 +396,9 @@ function decor(p,g){
 /* ================= 마을(town) 맵: 지형 · 길 · 건물 ================= */
 let roofs=[], townRoads=[];
 const isTown=()=>MAP && MAP.islandStyle==='town';
+const isStack=()=>MAP && MAP.islandStyle==='stack';
+const tierName=f=>((MAP&&MAP.tiers)||['1층','2층','3층'])[f];
+const W_=k=>((MAP&&MAP.words)||{})[k]||({place:'방',link:'복도',layout:'배치'})[k];
 function bHalf(p){ return p.r*.9; }
 function doorPoint(p,ux,uz,out=.35){ const h=bHalf(p), t=h/Math.max(Math.abs(ux),Math.abs(uz)); return {x:p.x+ux*(t+out), z:p.z+uz*(t+out), side: Math.abs(ux)>Math.abs(uz)?(ux>0?'E':'W'):(uz>0?'S':'N'), along: Math.abs(ux)>Math.abs(uz)? p.z+uz*t : p.x+ux*t}; }
 function computeDoors(){
@@ -490,12 +502,31 @@ function drawRoad(seg){
   // 위로 가는 길 입구 표지
   if(B.f>A.f || (B.final && !A.final)){
     const need = B.final ? 4 : NEED[0]+(B.f>=2?NEED[1]:0);
-    const txt = B.final ? `${B.short} · ${SCN.clue} ${need}개` : `${B.f+1}층 · ${SCN.clue} ${need}개`;
+    const txt = B.final ? `${B.short} · ${SCN.clue} ${need}개` : `${tierName(B.f)} · ${SCN.clue} ${need}개`;
     const gx=sx+ux*2.2, gz=sz+uz*2.2, wood=mat2(hexNum(MAP.archColor||'#6b4a34'));
     for(const s of [-1,1]) cyl(.12,.14,3.2,wood,gx-uz*s*(BW/2+.5),A.y,gz+ux*s*(BW/2+.5));
     const beam=box(BW+1.6,.25,.3,wood,gx,A.y+3.1,gz,worldRoot); beam.rotation.y=Math.atan2(ux,uz)+Math.PI/2;
     const lb=label(txt,3.8,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(gx,A.y+4,gz); worldRoot.add(lb);
   }
+}
+function drawStackLink(seg){
+  const A=PL[seg.from], B=PL[seg.to], {ax:sx,az:sz,bx:ex,bz:ez,ux,uz}=seg, rise=B.y-A.y;
+  const fm=mat2(hexNum(MAP.pathColor||'#b9b2a4'));
+  if(Math.abs(rise)<.3){ const L=seg.len+1.4; const c=box(BW+.4,.12,L,fm,(sx+ex)/2,A.y-.04,(sz+ez)/2,worldRoot); c.rotation.y=Math.atan2(ux,uz); return; }
+  const n=Math.max(6,Math.round(Math.abs(rise)/.3)), sm=mat2(hexNum(MAP.stairColor||'#9aa1a8'));
+  for(let i=0;i<n;i++){ const t=(i+.5)/n; const st=box(BW,.16,seg.len/n+.05,sm,sx+(ex-sx)*t,A.y+rise*t-.08,sz+(ez-sz)*t,worldRoot); st.rotation.y=Math.atan2(ux,uz); }
+  for(const sd of [-1,1]){ const len3=Math.hypot(seg.len,rise); const r=new THREE.Mesh(new THREE.BoxGeometry(.06,.06,len3),mat2(0x3b4249)); r.position.set((sx+ex)/2-uz*sd*BW/2,(A.y+B.y)/2+.9,(sz+ez)/2+ux*sd*BW/2); r.rotation.order='YXZ'; r.rotation.y=Math.atan2(ux,uz); r.rotation.x=-Math.atan2(rise,seg.len); worldRoot.add(r); }
+  if(B.f>A.f || (B.final && !A.final)){ const need=B.final?4:NEED[0]+(B.f>=2?NEED[1]:0); const txt=B.final?`${B.short} · ${SCN.clue} ${need}개`:`${tierName(B.f)} · ${SCN.clue} ${need}개`;
+    const lb=label(txt,3.4,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(sx+(ex-sx)*.3,A.y+rise*.3+2.4,sz+(ez-sz)*.3); worldRoot.add(lb); }
+}
+function buildStackShell(){
+  const tiers=[...new Set(PLANETS.map(p=>p.f))];
+  for(const f of tiers){ const ps=PLANETS.filter(p=>p.f===f), y=Math.min(...ps.map(p=>p.y)), xs=ps.map(p=>p.x), zs=ps.map(p=>p.z), h=Math.max(...ps.map(p=>bHalf(p)));
+    const x0=Math.min(...xs)-h-1.2, x1=Math.max(...xs)+h+1.2, z0=Math.min(...zs)-h-1.2, z1=Math.max(...zs)+h+1.2;
+    box(x1-x0,.45,z1-z0,mat2(hexNum(MAP.slabColor||'#d8d8d2')),(x0+x1)/2,y-.5,(z0+z1)/2,worldRoot);
+    if(y>0) for(const [x,z] of [[x0+.5,z0+.5],[x1-.5,z0+.5],[x0+.5,z1-.5],[x1-.5,z1-.5]]) cyl(.25,.25,y-.7,mat2(0xbfc3c7),x,-.6,z);
+    const lb=label(tierName(f),3,'#ffffff','rgba(31,95,139,.9)'); lb.position.set(x0-1.5,y+1.2,(z0+z1)/2); worldRoot.add(lb); }
+  if(MAP.sign){ const lb=label(MAP.sign,7,'#ffffff','#1f5f8b'); const top=Math.max(...PLANETS.map(p=>p.y)); lb.position.set(0,top+7,Math.min(...PLANETS.map(p=>p.z))-4); worldRoot.add(lb); }
 }
 function nearRoadOrBuilding(x,z,pad){
   for(const p of PLANETS) if(Math.abs(x-p.x)<bHalf(p)+pad && Math.abs(z-p.z)<bHalf(p)+pad) return true;
@@ -537,6 +568,7 @@ let labels=[], stations=[];
 function applyScenario(sc){
   SCN=sc;
   ROOMS=PLANETS.map(p=>{ const r=sc.rooms[p.id]||{}; return Object.assign(p,{name:r.name||p.id,puzzles:r.puzzles,short:r.short||(r.name||p.id).replace(/\s*\(최종\)/,'')}); });
+  for(const [id,nm] of Object.entries((MAP&&MAP.roomNames)||{})){ const r=ROOMS.find(x=>x.id===id); if(r){ r.name=nm; r.short=nm.replace(/\s*\(.*\)/,''); } }
   roomById=Object.fromEntries(ROOMS.map(r=>[r.id,r]));
   PUZ=sc.puzzles; IDEAS=sc.ideas;
   TEAMS=sc.teams.map(t=>({name:t.name,css:t.color,color:hexNum(t.color)}));
@@ -544,7 +576,7 @@ function applyScenario(sc){
 }
 function buildStations(){
   for(const r of ROOMS){
-    const lb=label(r.name,Math.min(7,r.r*.85)); lb.position.set(r.x,r.y+(isTown()?4.4:6.5),r.z); worldRoot.add(lb); labels.push(lb);
+    const lb=label(r.name,Math.min(7,r.r*.85)); lb.position.set(r.x,r.y+((isTown()||isStack())?4.4:6.5),r.z); worldRoot.add(lb); labels.push(lb);
     (r.puzzles||[]).forEach((pz,i)=>{
       const n=r.puzzles.length, a=(n===1?Math.PI/2:(i===0?2.4:.74)), d=r.r*.55;
       const x=r.x+Math.cos(a)*d, z=r.z+Math.sin(a)*d;
@@ -604,7 +636,7 @@ function separate(){
     if(d>0 && d<.55){ const p=(.55-d)*.25; a.x-=dx/d*p; a.z-=dz/d*p; b.x+=dx/d*p; b.z+=dz/d*p; }
   }
   agents.forEach(a=>{ if(a.room){ const r=roomById[a.room];
-    if(isTown()){ const h=bHalf(r)-.45; a.x=Math.min(r.x+h,Math.max(r.x-h,a.x)); a.z=Math.min(r.z+h,Math.max(r.z-h,a.z)); }
+    if(isTown()||isStack()){ const h=bHalf(r)-.45; a.x=Math.min(r.x+h,Math.max(r.x-h,a.x)); a.z=Math.min(r.z+h,Math.max(r.z-h,a.z)); }
     else { const dx=a.x-r.x, dz=a.z-r.z, d=Math.hypot(dx,dz), m=r.r-.5; if(d>m){ a.x=r.x+dx/d*m; a.z=r.z+dz/d*m; } } } });
 }
 
@@ -701,12 +733,12 @@ function decide(t){
     st.busy=t; t.station=st; t.state='moving'; t.waitF=null; t.hintsHere=0; t.moveStart=clock;
     st.top.color.set(t.color); st.top.emissive.set(t.color); st.top.emissiveIntensity=.5;
     t.members.forEach((m,i)=>{ goTo(m, st.room.id, stationSlot(st,i,5)); m.act=`${st.room.name}로 이동`; });
-    ev('go',t,`${t.name} → ${(st.room.f+1)}층 ${st.room.name} '${st.puzzle}' 도전`, PUZ[st.puzzle].desc);
+    ev('go',t,`${t.name} → ${st.room.final?'':tierName(st.room.f)+' '}${st.room.name} '${st.puzzle}' 도전`, PUZ[st.puzzle].desc);
   } else {
     const wf = tf===undefined?2:tf;
     if(t.waitF!==wf){
       t.waitF=wf; t.state='waiting'; if(t.waitStart===null) t.waitStart=clock;
-      t.waitWhy = tf===undefined?`${roomById.vault.short} ${SCN.finalThing} 2개를 다른 팀이 모두 사용 중`:(wf+1)+'층 남은 퍼즐을 다른 팀이 모두 사용 중';
+      t.waitWhy = tf===undefined?`${roomById.vault.short} ${SCN.finalThing} 2개를 다른 팀이 모두 사용 중`:tierName(wf)+'의 남은 퍼즐을 다른 팀이 모두 사용 중';
       const wr=roomById[t.members[0].cur]||roomById.lobby; t.waitRoom=wr.id;
       t.members.forEach(m=>{ goTo(m,wr.id,randInRoom(wr)); m.act=`${wr.short}에서 대기`; });
       const occ=stations.filter(s=>(tf===undefined?s.room.final:(s.room.f===wf&&!s.room.final&&!t.solved.has(s.room.id)))&&s.busy).map(s=>`${s.room.name} ${s.puzzle}(${s.busy.name})`).join(', ');
@@ -823,23 +855,23 @@ const rulesEl=document.getElementById('rules');
 function rulesHTML(){
   const sc=SCN, c=sc.clue, fin=roomById.vault, ft=sc.finalThing, mins=Math.round(sc.limit/60);
   const fl=f=>ROOMS.filter(r=>r.f===f).map(r=>r.final?`${r.short}(최종 ${ft} 2개)`:r.start?`${r.name}(출발·도착)`:r.name).join(', ');
-  const pz=ROOMS.filter(r=>r.puzzles&&!r.final).map(r=>`<tr><td><b>${r.f+1}층 ${r.name}</b></td><td>${r.puzzles.map(p=>`${p[0]} <span class="muted">(${p[1]==='obs'?'관찰':'논리'})</span>`).join('<br>')}</td></tr>`).join('');
+  const pz=ROOMS.filter(r=>r.puzzles&&!r.final).map(r=>`<tr><td><b>${tierName(r.f)} · ${r.name}</b></td><td>${r.puzzles.map(p=>`${p[0]} <span class="muted">(${p[1]==='obs'?'관찰':'논리'})</span>`).join('<br>')}</td></tr>`).join('');
   return `<div class="story">${sc.story}</div>
   <h3>목표</h3><p>${sc.goalText} ${mins}분 안에 못 끝내면 실패예요.</p>
   <h3>팀 구성</h3><p>남녀를 섞어 5명씩 4팀(${TEAMS.map(t=>`<b style="color:${t.css}">${t.name}</b>`).join('·')})으로 나눠요. 학생마다 <b>관찰력·논리력·협동심</b>이 1~5점으로 무작위로 정해지고, 성별과는 상관없어요.</p>
   <h3>진행 순서</h3><ol>
-   <li>20명 모두 1층 ${roomById.lobby.name}에서 출발해요.</li>
-   <li>${josa(c,'은','는')} <b>1층 ${NEED[0]}개 → 2층 ${NEED[1]}개 → 3층 ${NEED[2]}개</b> 순서로 모아요. 아래층을 다 모아야 위층으로 올라가요.</li>
-   <li>별마다 퍼즐 대가 2개 있고, 퍼즐 대 하나는 한 팀만 쓸 수 있어요. 한 팀은 한 별에서 퍼즐 하나만 풀어요. 별들은 별다리로 이어져 있어요.</li>
-   <li>팀원 4명 이상이 별에 도착해야 풀기 시작해요. 일부는 퍼즐 앞에서 풀고, 일부는 별 위를 뒤져요.</li>
+   <li>20명 모두 ${roomById.lobby.name}에서 출발해요.</li>
+   <li>${josa(c,'은','는')} <b>${tierName(0)} ${NEED[0]}개 → ${tierName(1)} ${NEED[1]}개 → ${tierName(2)} ${NEED[2]}개</b> 순서로 모아요. 앞 단계를 다 모아야 다음 단계로 갈 수 있어요.</li>
+   <li>${W_('place')}마다 퍼즐 대가 2개 있고, 퍼즐 대 하나는 한 팀만 쓸 수 있어요. 한 팀은 한 ${W_('place')}에서 퍼즐 하나만 풀어요. ${W_('place')}들은 ${W_('link')}로 이어져 있어요.</li>
+   <li>팀원 4명 이상이 ${W_('place')}에 도착해야 풀기 시작해요. 일부는 퍼즐 앞에서 풀고, 일부는 주변을 뒤져요.</li>
    <li>${c} 4개를 모으면 ${fin.short}의 <b>${ft} A·B</b> 중 빈 곳에 도전해요. 성공하면 ${DONE()}!</li></ol>
-  <h3>별 배치 (위층일수록 높이 떠 있어요)</h3><table><tr><td><b>1층</b></td><td>${fl(0)}</td></tr><tr><td><b>2층</b></td><td>${fl(1)}</td></tr><tr><td><b>3층</b></td><td>${fl(2)}</td></tr></table>
-  <h3>별마다 있는 퍼즐</h3><table>${pz}</table>
+  <h3>${W_('layout')}</h3><table><tr><td><b>${tierName(0)}</b></td><td>${fl(0)}</td></tr><tr><td><b>${tierName(1)}</b></td><td>${fl(1)}</td></tr><tr><td><b>${tierName(2)}</b></td><td>${fl(2)}</td></tr></table>
+  <h3>${W_('place')}마다 있는 퍼즐</h3><table>${pz}</table>
   <h3>퍼즐 푸는 속도</h3><ul><li><b>관찰형</b> 퍼즐은 관찰력이, <b>논리형</b>은 논리력이 높을수록 빨라요. 최종 ${ft}는 둘 다 써요.</li><li>협동심이 높은 팀은 조금 더 빨라요.</li><li>퍼즐마다 난이도가 무작위로 달라요.</li></ul>
   <h3>아이디어와 힌트</h3><ul><li><b>아이디어:</b> 가끔 한 학생이 실마리를 찾아 진행률이 껑충 올라요.</li><li><b>힌트:</b> 팀당 최대 3번. 오래 막히면 요청하고, 진행률이 20% 올라요.</li></ul>
-  <h3>기다리기</h3><p>가야 할 별이나 ${ft}가 모두 차 있으면 지금 있는 별에서 기다려요. 머리 위에 <b>⏳ 대기 시간</b>이 표시돼요.</p>
+  <h3>기다리기</h3><p>가야 할 ${W_('place')}이나 ${ft}가 모두 차 있으면 지금 있는 ${W_('place')}에서 기다려요. 머리 위에 <b>⏳ 대기 시간</b>이 표시돼요.</p>
   <h3>끝나는 조건</h3><p>4팀이 모두 ${DONE()}하거나 ${mins}분이 지나면 끝나요. 끝나면 순위·기록·팀별 MVP가 나와요.</p>
-  <h3>화면 보는 법</h3><ul><li>팀 머리 위: 🔍 풀이 중(진행률) · → 이동 · ⏳ 대기 · ${DONE_ICON()} ${DONE()}</li><li>퍼즐 대 위 막대가 진행률이에요.</li><li>학생을 탭하면 이름·능력치·지금 하는 일이 보여요.</li><li>1x/3x/8x로 속도를 바꿔요. 1x에서 60분 게임이 약 10분이에요.</li><li>📋 기록으로 지금까지 일어난 일을 모두 볼 수 있어요.</li><li>시나리오 메뉴에서 다른 시나리오를 불러올 수 있어요.</li></ul>`;
+  <h3>화면 보는 법</h3><ul><li>팀 머리 위: 🔍 풀이 중(진행률) · → 이동 · ⏳ 대기 · ${DONE_ICON()} ${DONE()}</li><li>퍼즐 대 위 막대가 진행률이에요.</li><li>학생을 탭하면 이름·능력치·지금 하는 일이 보여요.</li><li>1x/3x/8x로 속도를 바꿔요. 1x에서 60분 게임이 약 10분이에요.</li><li>📋 기록으로 지금까지 일어난 일을 모두 볼 수 있어요.</li><li>맨 위 제목 메뉴에서 다른 맵을 불러올 수 있어요.</li></ul>`;
 }
 
 function showRules(){ document.getElementById('rSeed').textContent=SEED; document.getElementById('rTitle').textContent='🔐 '+SCN.title+' — 게임 규칙'; document.getElementById('rSub').textContent=SCN.subtitle; document.getElementById('rulesScroll').innerHTML=rulesHTML(); const sc=document.getElementById('rulesScroll'); sc.scrollTop=0; document.getElementById('scrollHint').style.visibility='visible'; rulesEl.style.display='flex'; }
@@ -993,9 +1025,12 @@ function buildWorld(){
     MAP.winM=new THREE.MeshStandardMaterial({color:0x2a3440,emissive:hexNum(MAP.windowGlow||'#ffcf8a'),emissiveIntensity:MAP.windowGlowI??.6});
     MAP.trimM=mat2(hexNum(MAP.trimColor||'#6b4f3a'));
     computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawRoad); buildTerrain(); scatterTown();
+  } else if(isStack()){
+    MAP.winM=new THREE.MeshStandardMaterial({color:0x8fb8d0,emissive:0x000000}); MAP.trimM=mat2(hexNum(MAP.trimColor||'#3b4249'));
+    computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawStackLink); buildStackShell();
   } else { PLANETS.forEach(makePlanet); BRIDGES.forEach(([a,b])=>makeBridge(a,b)); }
   buildStations(); initNav();
-  document.querySelector('#viewSel option[value="roof"]').hidden=!isTown();
+
 }
 function loadMap(id){
   const e=MAPS.find(m=>m.id===id)||MAPS[0];
@@ -1007,7 +1042,8 @@ function loadMap(id){
     el.innerHTML=MAPS.map(m=>`<option value="${m.id}">${m.title}</option>`).join(''); el.value=e.id; el.onchange=()=>loadMap(el.value); }
   document.title=e.title+' — 맵 시뮬레이션';
   if(location.hash.slice(1)!==e.id){ try{ history.replaceState(null,'','#'+e.id); }catch(_){ } }
-  focus='all'; document.getElementById('viewSel').value='all'; roofs.forEach(r=>r.visible=false); aimCamera();
+  const vs=document.getElementById('viewSel'); vs.innerHTML=`<option value="all">보기: 전체</option>`+[0,1,2].map(f=>`<option value="${f}">보기: ${tierName(f)}</option>`).join('')+`<option value="vault">보기: ${roomById.vault.short}</option>`+(isTown()?'<option value="roof">보기: 외관(지붕)</option>':'');
+  focus='all'; vs.value='all'; roofs.forEach(r=>r.visible=false); aimCamera();
   if(document.getElementById('rules').style.display==='flex') showRules();
 }
 async function init(){
