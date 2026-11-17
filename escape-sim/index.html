@@ -4,6 +4,35 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>방탈출 시뮬레이션 — 시나리오 뱅크</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="3D 방탈출">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#13204a">
+<script>
+(function(){
+  let dp=null; addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); dp=e; });
+  const standalone=()=>matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches||navigator.standalone;
+  window.__isApp=standalone;
+  window.__installApp=async()=>{
+    if(dp){ dp.prompt(); try{ await dp.userChoice; }catch(_){} dp=null; return; }
+    const ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+    const msg = standalone() ? '이미 앱으로 실행 중이에요.' :
+      ios ? '<b>아이폰·아이패드</b><br>① Safari 아래쪽 <b>공유 버튼(□↑)</b>을 누르고<br>② <b>홈 화면에 추가</b>를 고르면<br>홈 화면에 <b>3D 방탈출</b> 앱 아이콘이 생겨요.<br><span style="opacity:.7">Safari에서 열어야 해요.</span>'
+          : '<b>안드로이드·컴퓨터 (Chrome)</b><br>① 주소창 오른쪽 <b>⋮ 메뉴</b>를 누르고<br>② <b>앱 설치</b> 또는 <b>홈 화면에 추가</b>를 고르면<br>앱처럼 전체 화면으로 열려요.';
+    let el=document.getElementById('pwaTip');
+    if(!el){ el=document.createElement('div'); el.id='pwaTip'; el.style.cssText='position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(5,8,20,.55);font-family:inherit';
+      el.innerHTML='<div style="background:#fff;color:#1d2733;border-radius:16px;padding:18px 20px;max-width:320px;font-size:14px;line-height:1.7;box-shadow:0 10px 40px rgba(0,0,0,.3)"><div id="pwaMsg"></div><div style="text-align:right;margin-top:10px"><button style="border:none;background:#1f5f8b;color:#fff;border-radius:999px;padding:7px 16px;font-size:13px">확인</button></div></div>';
+      el.addEventListener('click',e=>{ if(e.target===el||e.target.tagName==='BUTTON') el.style.display='none'; }); document.body.appendChild(el); }
+    el.querySelector('#pwaMsg').innerHTML=msg; el.style.display='flex';
+  };
+  try{ if('serviceWorker' in navigator && location.protocol==='https:' && !/claude\.(ai|site)|claudeusercontent/.test(location.hostname)) navigator.serviceWorker.register('sw.js').catch(()=>{}); }catch(_){}
+})();
+</script>
+
 <style>
   html,body{margin:0;height:100%;overflow:hidden;background:#dfe7ee;font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:#1d2733;-webkit-user-select:none;user-select:none}
   #c{position:fixed;inset:0;touch-action:none}
@@ -85,7 +114,7 @@
   <div class="hrow body2">
     <select id="spSel" aria-label="속도"><option value="1">속도 1x</option><option value="3">속도 3x</option><option value="8">속도 8x</option></select>
     <select id="viewSel" aria-label="보기"><option value="all">보기: 전체</option><option value="0">보기: 1층</option><option value="1">보기: 2층</option><option value="2">보기: 3층</option><option value="shell">보기: 외관</option></select>
-    <select id="menuSel" aria-label="메뉴"><option value="">메뉴</option><option value="rules">📖 규칙 보기</option><option value="rec">📋 기록 보기</option><option value="new">↺ 새 게임(새 시드)</option></select>
+    <select id="menuSel" aria-label="메뉴"><option value="">메뉴</option><option value="rules">📖 규칙 보기</option><option value="rec">📋 기록 보기</option><option value="new">↺ 새 게임(새 시드)</option><option value="app">📲 앱으로 설치</option></select>
     <span class="muted">시드 <b id="seed">-</b></span>
   </div>
   <div class="body"><div class="teams" id="teams"></div></div>
@@ -753,7 +782,7 @@ document.getElementById('viewSel').onchange=e=>{ const v=e.target.value;
   if(v==='shell'){ if(!shellMode) toggleShell(); }
   else { document.querySelector(`[data-f="${v}"]`).click(); } };
 document.getElementById('menuSel').onchange=e=>{ const v=e.target.value; e.target.value='';
-  if(v==='rules'){ if(SCN) showRules(); } else if(v==='rec') document.getElementById('repBtn').click(); else if(v==='new') document.getElementById('reset').click(); };
+  if(v==='rules'){ if(SCN) showRules(); } else if(v==='rec') document.getElementById('repBtn').click(); else if(v==='new') document.getElementById('reset').click(); else if(v==='app') window.__installApp(); };
 
 let focus='all', shellMode=false;
 document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{
