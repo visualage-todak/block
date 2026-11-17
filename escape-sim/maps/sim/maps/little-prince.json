@@ -1,0 +1,205 @@
+{
+ "id": "little-prince",
+ "islandStyle": "float",
+ "bridgeStyle": "star",
+ "theme": {
+  "bg": "#0b1026",
+  "fog": [
+   120,
+   260
+  ],
+  "hemi": [
+   "#d2deff",
+   "#3a3160",
+   1.35
+  ],
+  "sun": 1.7,
+  "stars": 2200,
+  "farPlanets": [
+   [
+    110,
+    40,
+    -170,
+    20,
+    "#5b7bd6"
+   ],
+   [
+    -130,
+    25,
+    -70,
+    12,
+    "#d68a5b"
+   ],
+   [
+    80,
+    -30,
+    50,
+    10,
+    "#7bd6b0"
+   ],
+   [
+    -90,
+    60,
+    -230,
+    26,
+    "#b07bd6"
+   ]
+  ],
+  "charGlow": 0.5
+ },
+ "story": "사막에 불시착한 비행사의 수첩 속 별들이 우주에 떠 있어요. 학생들은 별다리를 건너 왕의 별, 허영쟁이의 별, 점등원의 별… 어린왕자가 여행한 별들을 차례로 찾아가요. 위층 별일수록 더 높이 떠 있고, 별 조각 4개를 모은 팀만 가장 높은 소행성 B612의 귀환 장치에 도전할 수 있어요.",
+ "goal": "사막 불시착 지점에서 출발해 별다리를 건너며 별 조각 4개를 모은 뒤, 가장 높은 소행성 B612의 귀환 장치를 먼저 작동시키는 팀이 이겨요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 0,
+   "y": 0,
+   "r": 10,
+   "top": "#e6cf9a",
+   "rock": "#8a6d4a",
+   "decor": "desert",
+   "start": true
+  },
+  {
+   "id": "edu",
+   "f": 0,
+   "x": -19,
+   "z": -17,
+   "y": 0,
+   "r": 7,
+   "top": "#c9b2d6",
+   "rock": "#5d4a6e",
+   "decor": "throne"
+  },
+  {
+   "id": "cafe",
+   "f": 0,
+   "x": 19,
+   "z": -17,
+   "y": 0,
+   "r": 7,
+   "top": "#e8c3c8",
+   "rock": "#6e4a55",
+   "decor": "mirrors"
+  },
+  {
+   "id": "kids",
+   "f": 1,
+   "x": -25,
+   "z": -41,
+   "y": 5,
+   "r": 7,
+   "top": "#3d4766",
+   "rock": "#2a2f45",
+   "decor": "lamp"
+  },
+  {
+   "id": "clubA",
+   "f": 1,
+   "x": 0,
+   "z": -45,
+   "y": 5,
+   "r": 7,
+   "top": "#b8c4b0",
+   "rock": "#5a6450",
+   "decor": "ledger"
+  },
+  {
+   "id": "clubB",
+   "f": 1,
+   "x": 25,
+   "z": -41,
+   "y": 5,
+   "r": 7,
+   "top": "#d9c9a3",
+   "rock": "#6e5d3c",
+   "decor": "globe"
+  },
+  {
+   "id": "stacks",
+   "f": 2,
+   "x": -16,
+   "z": -67,
+   "y": 10,
+   "r": 8,
+   "top": "#9fbf8a",
+   "rock": "#4a5e3c",
+   "decor": "roses"
+  },
+  {
+   "id": "digital",
+   "f": 2,
+   "x": 16,
+   "z": -67,
+   "y": 10,
+   "r": 8,
+   "top": "#e3c56b",
+   "rock": "#7a6330",
+   "decor": "wheat"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -88,
+   "y": 14,
+   "r": 8.5,
+   "top": "#8d7f9e",
+   "rock": "#4a3f5a",
+   "decor": "b612",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "edu"
+  ],
+  [
+   "lobby",
+   "cafe"
+  ],
+  [
+   "edu",
+   "kids"
+  ],
+  [
+   "edu",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubB"
+  ],
+  [
+   "kids",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "digital"
+  ],
+  [
+   "clubB",
+   "digital"
+  ],
+  [
+   "stacks",
+   "vault"
+  ],
+  [
+   "digital",
+   "vault"
+  ]
+ ]
+}

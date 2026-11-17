@@ -1,0 +1,183 @@
+{
+ "id": "human-acts",
+ "islandStyle": "terrace",
+ "bridgeStyle": "stone",
+ "rimColor": "#a39a8a",
+ "pathColor": "#8f877b",
+ "lampColor": "#ffc46b",
+ "archColor": "#6b5a4a",
+ "theme": {
+  "bg": "#2b2740",
+  "fog": [
+   90,
+   230
+  ],
+  "hemi": [
+   "#c9c2e0",
+   "#3b3a32",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#ffb98a",
+  "stars": 500,
+  "ground": "#3d4639",
+  "trees": 70,
+  "treeColor": "#2c3d31",
+  "charGlow": 0.28
+ },
+ "story": "해 질 무렵의 '기억의 정원'이에요. 『소년이 온다』의 일곱 장이 각각 하나의 단(壇)이 되어 언덕을 따라 놓여 있고, 촛불이 켜진 길로 이어져 있어요. 학생들은 아래 단부터 차례로 올라가며 장마다 읽은 내용을 확인하고 기억 조각 4개를 모아, 가장 높은 '기억의 방'에서 일곱 장을 하나의 책으로 다시 엮어요. 장면을 재현하는 곳이 아니라, 소설 속 목소리를 기억하는 공간이에요.",
+ "goal": "아래 단부터 촛불 길을 따라 올라가며 기억 조각 4개를 모은 뒤, 가장 높은 기억의 방에서 '기억의 책'을 먼저 완성하는 팀이 활동을 마쳐요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 0,
+   "y": 0,
+   "r": 10,
+   "top": "#b9b2a2",
+   "rock": "#7a7366",
+   "decor": "readingplaza",
+   "start": true
+  },
+  {
+   "id": "edu",
+   "f": 0,
+   "x": -18,
+   "z": -16,
+   "y": 0,
+   "r": 7,
+   "top": "#cfcabe",
+   "rock": "#7a7366",
+   "decor": "candles"
+  },
+  {
+   "id": "cafe",
+   "f": 0,
+   "x": 18,
+   "z": -16,
+   "y": 0,
+   "r": 7,
+   "top": "#5b6070",
+   "rock": "#4a4d58",
+   "decor": "nightroom"
+  },
+  {
+   "id": "kids",
+   "f": 1,
+   "x": -26,
+   "z": -38,
+   "y": 3,
+   "r": 7,
+   "top": "#d8cfbd",
+   "rock": "#7a7366",
+   "decor": "manuscript"
+  },
+  {
+   "id": "clubA",
+   "f": 1,
+   "x": 0,
+   "z": -42,
+   "y": 3,
+   "r": 7,
+   "top": "#b9b4ab",
+   "rock": "#6e6a62",
+   "decor": "tape"
+  },
+  {
+   "id": "clubB",
+   "f": 1,
+   "x": 26,
+   "z": -38,
+   "y": 3,
+   "r": 7,
+   "top": "#6b6680",
+   "rock": "#4e4a5c",
+   "decor": "sewing"
+  },
+  {
+   "id": "stacks",
+   "f": 2,
+   "x": -15,
+   "z": -63,
+   "y": 6,
+   "r": 8,
+   "top": "#c9d6b0",
+   "rock": "#6e7a60",
+   "decor": "flowers"
+  },
+  {
+   "id": "digital",
+   "f": 2,
+   "x": 15,
+   "z": -63,
+   "y": 6,
+   "r": 8,
+   "top": "#e9edf2",
+   "rock": "#8a8e94",
+   "decor": "snowlamp"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -84,
+   "y": 9,
+   "r": 8.5,
+   "top": "#b9a98f",
+   "rock": "#6e604c",
+   "decor": "memorial",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "edu"
+  ],
+  [
+   "lobby",
+   "cafe"
+  ],
+  [
+   "edu",
+   "kids"
+  ],
+  [
+   "edu",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubB"
+  ],
+  [
+   "kids",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "digital"
+  ],
+  [
+   "clubB",
+   "digital"
+  ],
+  [
+   "stacks",
+   "vault"
+  ],
+  [
+   "digital",
+   "vault"
+  ]
+ ]
+}

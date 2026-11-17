@@ -105,7 +105,7 @@ scene.background=new THREE.Color(0x0b1026);
 scene.fog=new THREE.Fog(0x0b1026,70,190);
 const camera=new THREE.PerspectiveCamera(60,1,.1,600);
 
-scene.add(new THREE.HemisphereLight(0xbfd0ff,0x2a2140,.85));
+scene.add(new THREE.HemisphereLight(0xd2deff,0x3a3160,1.3));
 const sun=new THREE.DirectionalLight(0xfff0d8,1.7); sun.castShadow=true;
 sun.shadow.mapSize.set(1024,1024); Object.assign(sun.shadow.camera,{left:-22,right:22,top:22,bottom:-22,near:1,far:120});
 scene.add(sun,sun.target);
@@ -235,7 +235,7 @@ function planetAt(x,z,y){ return PLANETS.find(p=>Math.hypot(x-p.x,z-p.z)<=p.r &&
 /* ============ 사람(아바타) ============ */
 function makePerson(shirt,girl,name,tagColor){
   const g=new THREE.Group(); const legs=[], arms=[];
-  const navy=mat(0x2d3a55), skin=mat(0xf1c9a5), hair=mat(0x2a211c), sh=mat(shirt);
+  const navy=mat(0x2d3a55), skin=mat(0xf1c9a5), hair=mat(0x2a211c), sh=mat(shirt); [navy,skin,hair,sh].forEach(m=>{ m.emissive.copy(m.color); m.emissiveIntensity=.45; });
   for(const sx of [-.1,.1]){ const p=new THREE.Group(); p.position.set(sx,.8,0); box(.14,.78,.16,girl?mat(0x2a2a35):navy,0,-.39,0,p); g.add(p); legs.push(p); }
   if(girl){ const sk=new THREE.Mesh(new THREE.CylinderGeometry(.18,.3,.38,10),mat(0x3b4a6b)); sk.position.y=.82; g.add(sk); }
   box(.42,.55,.25,sh,0,1.15,0,g);
