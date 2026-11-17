@@ -1,20 +1,5 @@
 {
  "scenarios": [
-  {
-   "id": "library",
-   "file": "library.json"
-  },
-  {
-   "id": "little-prince",
-   "file": "little-prince.json"
-  },
-  {
-   "id": "human-acts",
-   "file": "human-acts.json"
-  },
-  {
-   "id": "star-night",
-   "file": "star-night.json"
-  }
+  {"id": "library", "file": "library.json"}
  ]
 }
