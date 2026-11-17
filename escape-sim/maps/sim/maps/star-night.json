@@ -1,39 +1,84 @@
 {
  "id": "star-night",
- "islandStyle": "terrace",
- "bridgeStyle": "stone",
- "rimColor": "#8a8174",
- "pathColor": "#a59a86",
- "lampColor": "#ffd88a",
- "archColor": "#5a4a3a",
+ "islandStyle": "town",
+ "roofStyle": "hanok",
+ "roofColor": "#2e333b",
+ "gableColor": "#3a2f2a",
+ "wallColor": "#efe6d2",
+ "trimColor": "#5a3f2a",
+ "stepColor": "#9a8f7a",
+ "pathColor": "#8a7d64",
+ "lampStyle": "lantern",
+ "lampColor": "#ffcf7a",
+ "archColor": "#5a3f2a",
+ "windowGlow": "#ffcf7a",
+ "windowGlowI": 0.95,
+ "roomLight": "#ffd9a0",
+ "roomLightI": 11,
+ "mountains": [
+  [
+   0,
+   -205,
+   62,
+   100
+  ],
+  [
+   -140,
+   -95,
+   46,
+   62
+  ],
+  [
+   130,
+   -115,
+   50,
+   72
+  ]
+ ],
  "theme": {
   "bg": "#0d1633",
   "fog": [
-   110,
-   260
+   90,
+   270
   ],
   "hemi": [
    "#b8c8ff",
-   "#22331f",
-   1.2
+   "#1d2a1f",
+   1.15
   ],
-  "sun": 0.9,
-  "sunColor": "#cfdcff",
+  "sun": 0.75,
+  "sunColor": "#bcd0ff",
   "stars": 2600,
   "moon": [
    -90,
    110,
-   -200,
+   -210,
    9,
    "#fff3c8"
   ],
-  "ground": "#22382a",
-  "trees": 90,
-  "treeColor": "#1f3326",
-  "charGlow": 0.38
+  "terrain": [
+   "#3a5236",
+   "#2f4430",
+   "#4a4a44",
+   "#6a6a66"
+  ],
+  "charGlow": 0.42
  },
- "story": "별이 가득한 가을밤의 언덕이에요. 윤동주 시인의 삶과 시를 담은 터들이 언덕을 따라 올라가며 등불 길로 이어져 있어요. 명동촌 소학교, 연희전문 교정, 육첩방, 별 헤는 밤의 언덕을 지나 별 4개를 모으면, 언덕 꼭대기 '별을 헤는 방'에서 시집 제목 네 낱말로 별자리를 이을 수 있어요. 시 구절은 함께 읽은 시집에서 직접 찾아보세요.",
- "goal": "등불 길을 따라 언덕을 오르며 별 4개를 모은 뒤, 꼭대기 별을 헤는 방에서 별자리를 먼저 완성하는 팀이 활동을 마쳐요.",
+ "dress": {
+  "houses": 16,
+  "houseWalls": [
+   "#efe6d2",
+   "#e6dcc6"
+  ],
+  "houseRoof": "hanok",
+  "trees": 170,
+  "treeShape": "cone",
+  "treeLeaf": "#2c4a32",
+  "treeTrunk": "#4a3628",
+  "poles": false
+ },
+ "story": "별이 가득한 가을밤, 언덕 위 마을이에요. 윤동주 시인의 삶과 시를 담은 집과 마당이 흙길을 따라 언덕을 오르며 놓여 있고, 길가에는 등불이 켜져 있어요. 서시의 방과 자화상의 우물에서 시작해 명동촌 소학교, 연희전문 교정, 육첩방, 별 헤는 밤의 언덕, 마루 밑 원고를 지나 별 4개를 모으면, 언덕 꼭대기 '별을 헤는 마당'에서 시집 제목 네 낱말로 별자리를 이을 수 있어요.",
+ "goal": "등불 켜진 흙길을 따라 언덕 마을을 오르며 별 4개를 모은 뒤, 꼭대기 별을 헤는 마당에서 별자리를 먼저 완성하는 팀이 활동을 마쳐요.",
  "planets": [
   {
    "id": "lobby",
@@ -41,7 +86,7 @@
    "x": 0,
    "z": 0,
    "y": 0,
-   "r": 10,
+   "r": 9,
    "top": "#a99f86",
    "rock": "#6e6656",
    "decor": "readingplaza",
@@ -50,10 +95,10 @@
   {
    "id": "edu",
    "f": 0,
-   "x": -20,
-   "z": -12,
-   "y": 0,
-   "r": 7,
+   "x": -21,
+   "z": -10,
+   "y": 0.5,
+   "r": 6.5,
    "top": "#d8cfbd",
    "rock": "#7a7366",
    "decor": "manuscript"
@@ -61,65 +106,83 @@
   {
    "id": "cafe",
    "f": 0,
-   "x": 20,
-   "z": -12,
-   "y": 0,
+   "x": 21,
+   "z": -15,
+   "y": 0.5,
    "r": 7,
    "top": "#7f9a64",
    "rock": "#56654a",
-   "decor": "well"
+   "decor": "well",
+   "yard": true,
+   "wallH": 0.9,
+   "wall": "#8d8a84",
+   "roof": "none"
   },
   {
    "id": "kids",
    "f": 1,
-   "x": -28,
-   "z": -36,
+   "x": -31,
+   "z": -39,
    "y": 3,
-   "r": 7.5,
+   "r": 8,
    "top": "#c9b48e",
    "rock": "#7a6a50",
-   "decor": "school"
+   "decor": "school",
+   "roof": "gable",
+   "roofColor": "#4a3a30",
+   "wall": "#e8e1d2"
   },
   {
    "id": "clubA",
    "f": 1,
-   "x": 0,
-   "z": -38,
-   "y": 3,
-   "r": 7.5,
+   "x": -2,
+   "z": -45,
+   "y": 4,
+   "r": 8,
    "top": "#8fab70",
    "rock": "#56654a",
-   "decor": "campus"
+   "decor": "campus",
+   "yard": true,
+   "wallH": 0.7,
+   "wall": "#9a8f7a",
+   "roof": "none"
   },
   {
    "id": "clubB",
    "f": 1,
    "x": 28,
-   "z": -36,
-   "y": 3,
-   "r": 7,
+   "z": -41,
+   "y": 4,
+   "r": 6,
    "top": "#d9cf9e",
    "rock": "#7a7050",
-   "decor": "tatami"
+   "decor": "tatami",
+   "roof": "gable",
+   "roofColor": "#3a3f47",
+   "wall": "#d9c9a3"
   },
   {
    "id": "stacks",
    "f": 2,
-   "x": -14,
-   "z": -62,
-   "y": 6,
+   "x": -17,
+   "z": -69,
+   "y": 7.5,
    "r": 8,
    "top": "#3f5e3a",
    "rock": "#3a4a34",
-   "decor": "hill"
+   "decor": "hill",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#8d8a84",
+   "roof": "none"
   },
   {
    "id": "digital",
    "f": 2,
-   "x": 14,
-   "z": -62,
-   "y": 6,
-   "r": 8,
+   "x": 17,
+   "z": -69,
+   "y": 7,
+   "r": 6.5,
    "top": "#a8875f",
    "rock": "#6e5a40",
    "decor": "floorboards"
@@ -128,13 +191,17 @@
    "id": "vault",
    "f": 2,
    "x": 0,
-   "z": -84,
-   "y": 10,
+   "z": -93,
+   "y": 11,
    "r": 8.5,
    "top": "#1f2640",
    "rock": "#2a2f45",
    "decor": "starroom",
-   "final": true
+   "final": true,
+   "yard": true,
+   "wallH": 0.8,
+   "wall": "#8d8a84",
+   "roof": "none"
   }
  ],
  "bridges": [

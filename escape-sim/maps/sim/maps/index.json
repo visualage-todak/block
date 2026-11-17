@@ -8,13 +8,13 @@
   },
   {
    "id": "human-acts",
-   "title": "소년이 온다 — 기억의 정원 맵",
+   "title": "소년이 온다 — 오월의 언덕 마을",
    "map": "maps/human-acts.json",
    "scenario": "scenarios/human-acts.json"
   },
   {
    "id": "star-night",
-   "title": "별 헤는 밤 — 별빛 언덕 맵",
+   "title": "별 헤는 밤 — 별빛 언덕 마을",
    "map": "maps/star-night.json",
    "scenario": "scenarios/star-night.json"
   }
