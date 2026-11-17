@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>방탈출 시뮬레이션 — 시나리오 뱅크</title>
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#dfe7ee;font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:#1d2733;-webkit-user-select:none;user-select:none}
+  #c{position:fixed;inset:0;touch-action:none}
+  .card{background:rgba(255,255,255,.93);backdrop-filter:blur(8px);border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+  #hud{position:fixed;left:10px;top:10px;width:310px;padding:12px 14px;font-size:12.5px}
+  #hud h1{font-size:15px;margin:0 0 2px}
+  .row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  #clock{font:700 26px/1 ui-monospace,Menlo,monospace;letter-spacing:1px;margin:6px 0}
+  #clock.warn{color:#c0392b}
+  button{border:1px solid #c5d0da;background:#fff;border-radius:999px;padding:6px 11px;font-size:12px;cursor:pointer;color:#1d2733}
+  button.on{background:#1f5f8b;color:#fff;border-color:#1f5f8b}
+  button.go{background:#1e8e5a;border-color:#1e8e5a;color:#fff;font-weight:600}
+  .teams{margin-top:8px;border-top:1px solid #e3e8ed;padding-top:6px}
+  .team{display:grid;grid-template-columns:12px 52px 62px 1fr;gap:6px;align-items:center;padding:3px 0;font-size:12px}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .pips{letter-spacing:1px;font-size:11px}
+  .st{color:#5b6875;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #log{position:fixed;left:10px;bottom:10px;width:310px;padding:8px 12px;font-size:11.5px;line-height:1.55;max-height:150px;overflow:hidden}
+  #log div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #log .t{color:#8a96a3;font-family:ui-monospace,Menlo,monospace;margin-right:4px}
+  #who{position:fixed;right:10px;top:10px;width:220px;padding:12px 14px;font-size:12.5px;display:none}
+  #who h2{margin:0 0 4px;font-size:15px}
+  .bar{height:6px;background:#e6ebf0;border-radius:3px;overflow:hidden;margin:2px 0 5px}
+  .bar i{display:block;height:100%;background:#1f5f8b}
+  #result{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(10,20,30,.45);z-index:5}
+  #result .card{padding:18px 20px;width:min(360px,90vw);font-size:13px}
+  #result h2{margin:0 0 10px}
+  #result table{width:100%;border-collapse:collapse}
+  #result td{padding:5px 3px;border-bottom:1px solid #eef1f4}
+  #toggle{display:none;float:right;padding:3px 9px}
+  select{border:1px solid #c5d0da;border-radius:8px;padding:4px 6px;font-size:12.5px;background:#fff;color:#1d2733;max-width:220px}
+  #rules .story{background:#f4f7fa;border-radius:10px;padding:10px 12px;margin:2px 0 6px}
+  #rules{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(10,20,30,.5);z-index:7}
+  #rules .card{width:min(520px,92vw);max-height:86vh;display:flex;flex-direction:column;padding:0;overflow:hidden}
+  #rules .head{padding:16px 18px 10px;border-bottom:1px solid #e3e8ed}
+  #rules .head h2{margin:0;font-size:18px}
+  #rules .scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 18px 16px;font-size:13.5px;line-height:1.65;-webkit-user-select:text;user-select:text}
+  #rules .scroll h3{font-size:14px;margin:14px 0 4px;color:#1f5f8b}
+  #rules .scroll ol,#rules .scroll ul{margin:4px 0;padding-left:20px}
+  #rules .scroll table{border-collapse:collapse;width:100%;font-size:12.5px;margin-top:4px}
+  #rules .scroll td{border-bottom:1px solid #eef1f4;padding:4px 3px;vertical-align:top}
+  #rules .foot{padding:10px 18px 14px;border-top:1px solid #e3e8ed;display:flex;gap:8px;align-items:center;justify-content:flex-end;background:#fff}
+  #rules .foot .go{padding:9px 18px;font-size:14px}
+  #rules .hintScroll{margin-right:auto;font-size:11.5px;color:#8a96a3}
+  #report{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(10,20,30,.45);z-index:6}
+  #report .card{padding:16px 18px;width:min(560px,94vw);max-height:84vh;display:flex;flex-direction:column;font-size:12px}
+  #report h2{margin:0 0 6px;font-size:16px}
+  #repBody{overflow:auto;-webkit-user-select:text;user-select:text}
+  #repBody table{width:100%;border-collapse:collapse}
+  #repBody td{padding:4px 3px;border-bottom:1px solid #eef1f4;vertical-align:top}
+  #repBody .t{font-family:ui-monospace,Menlo,monospace;color:#8a96a3;white-space:nowrap}
+  .muted{color:#5b6875;font-size:11px}
+  @media (max-width:640px){
+    #hud{left:6px;right:6px;top:6px;width:auto;padding:8px 10px}
+    #hud.collapsed .body{display:none}
+    #toggle{display:inline-block}
+    #clock{font-size:20px;margin:3px 0}
+    #log{left:6px;right:6px;bottom:6px;width:auto;max-height:84px;font-size:11px}
+    #who{right:6px;left:auto;top:auto;bottom:100px;width:200px}
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div id="hud" class="card">
+  <button id="toggle">접기</button>
+  <h1 id="hTitle">불러오는 중…</h1>
+  <div class="row" style="margin:4px 0 2px"><span class="muted">시나리오</span><select id="scnSel"></select></div>
+  <div class="muted"><span id="hSub"></span> · 시드 <b id="seed">-</b></div>
+  <div id="clock">60:00</div>
+  <div class="row">
+    <button id="play" class="go">▶ 시작</button>
+    <button data-sp="1" class="on">1x</button>
+    <button data-sp="3">3x</button>
+    <button data-sp="8">8x</button>
+    <button id="reset">↺ 새 게임</button>
+    <button id="repBtn">📋 기록</button>
+  </div>
+  <div class="body">
+    <div class="row" style="margin-top:6px">
+      <button data-f="all" class="on">전체</button>
+      <button data-f="0">1층</button>
+      <button data-f="1">2층</button>
+      <button data-f="2">3층</button>
+      <button id="shell">외관</button>
+    </div>
+    <div class="teams" id="teams"></div>
+    <div class="muted" style="margin-top:4px" id="hHelp"></div>
+  </div>
+</div>
+<div id="log" class="card"></div>
+<div id="who" class="card"></div>
+<div id="rules"><div class="card">
+  <div class="head"><h2 id="rTitle">게임 규칙</h2><div class="muted"><span id="rSub"></span> · 시드 <b id="rSeed">-</b></div><div class="row" style="margin-top:6px"><span class="muted">시나리오</span><select id="scnSel2"></select></div></div>
+  <div class="scroll" id="rulesScroll"></div>
+  <div class="foot"><span class="hintScroll" id="scrollHint">↓ 끝까지 읽어 보세요</span><button id="rulesClose">닫기</button><button class="go" id="rulesStart">▶ 게임 시작</button></div>
+</div></div>
+<div id="report"><div class="card"><h2>시뮬레이션 기록</h2><div id="repBody"></div><div class="row" style="margin-top:10px"><button id="repCopy">텍스트 복사</button><button id="repClose">닫기</button></div></div></div>
+<div id="result"><div class="card"><h2>결과</h2><div id="resBody"></div><div class="row" style="margin-top:12px"><button class="go" id="again">다시 하기</button><button id="closeRes">닫기</button></div></div></div>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+/* ================= Scene ================= */
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xdfe7ee);
+scene.fog = new THREE.Fog(0xdfe7ee, 140, 300);
+const camera = new THREE.PerspectiveCamera(40, 1, .3, 600);
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.maxPolarAngle = Math.PI*.47;
+controls.minDistance = 8; controls.maxDistance = 170;
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8a9a7a, .95));
+const sun = new THREE.DirectionalLight(0xfff3e0, 1.9);
+sun.position.set(40,70,30); sun.castShadow = true;
+sun.shadow.mapSize.set(2048,2048);
+Object.assign(sun.shadow.camera,{left:-50,right:50,top:50,bottom:-50,near:1,far:220});
+scene.add(sun);
+
+const mat = c => new THREE.MeshStandardMaterial({color:c, roughness:.75});
+const M = {
+  ground:mat(0x9fb38a), site:mat(0xc9c5bc), road:mat(0x5d6166), line:new THREE.MeshBasicMaterial({color:0xf2f2f2}),
+  panel:mat(0xeeeeea), brick:mat(0xa0634a), dark:new THREE.MeshStandardMaterial({color:0x3b4249,roughness:.5,metalness:.4}),
+  glass:new THREE.MeshStandardMaterial({color:0x8fb8d0,roughness:.1,transparent:true,opacity:.5}),
+  slab:mat(0xd8d8d2), wall:mat(0xf3f1ec), floor:mat(0xcdb994), corridor:mat(0xb9b2a4), core:mat(0xa9b0b6),
+  shelf:mat(0x8a6a48), desk:mat(0xf4f1ea), tree:mat(0x5f8a4c), trunk:mat(0x6b4f3a), stair:mat(0x9aa1a8),
+  screen:new THREE.MeshStandardMaterial({color:0x223344,emissive:0x2a6fa8,emissiveIntensity:.6}),
+  skin:mat(0xf1c9a5), hair:mat(0x2a211c), navy:mat(0x2d3a55), skirt:mat(0x3b4a6b), sock:mat(0x2a2a35)
+};
+function box(w,h,d,m,x,y,z,parent,shadow=true){
+  const o = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), m);
+  o.position.set(x,y,z); o.castShadow = shadow; o.receiveShadow = true; parent.add(o); return o;
+}
+function label(text, w=4, color='#1d2733', bg='rgba(255,255,255,.88)'){
+  const c = document.createElement('canvas'); c.width=512; c.height=128;
+  const x = c.getContext('2d');
+  x.fillStyle=bg; x.beginPath(); x.roundRect(4,14,504,100,40); x.fill();
+  x.fillStyle=color; x.font='bold 50px "Apple SD Gothic Neo","Noto Sans KR",sans-serif';
+  x.textAlign='center'; x.textBaseline='middle'; x.fillText(text,256,66);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({map:t, depthTest:false, transparent:true}));
+  s.scale.set(w, w/4, 1); s.renderOrder = 10; return s;
+}
+
+// Ground & site
+const g = new THREE.Mesh(new THREE.PlaneGeometry(500,500), M.ground);
+g.rotation.x=-Math.PI/2; g.receiveShadow=true; scene.add(g);
+box(48,.3,40,M.site,0,.15,0,scene,false);
+box(160,.25,9,M.road,0,.12,25,scene,false);
+for(let x=-75;x<80;x+=8) box(3.5,.02,.25,M.line,x,.27,25,scene,false);
+box(8,.25,120,M.road,-28,.12,-30,scene,false);
+function tree(x,z,s){ const t=new THREE.Group();
+  const a=new THREE.Mesh(new THREE.CylinderGeometry(.18*s,.25*s,2.2*s,8),M.trunk); a.position.y=1.1*s; a.castShadow=true; t.add(a);
+  const b=new THREE.Mesh(new THREE.IcosahedronGeometry(1.7*s,1),M.tree); b.position.y=3.3*s; b.castShadow=true; t.add(b);
+  t.position.set(x,.3,z); scene.add(t); }
+[[-22,18],[-14,18],[22,18],[23,8],[23,-4],[22,-16],[-6,-19],[6,-19],[14,-19]].forEach(([x,z],i)=>tree(x,z,.9+(i%4)*.08));
+
+/* ================= Building layout ================= */
+const W=28, D=18, FH=4.2, GAP=6;
+const RZ0=-5.5, CZ=-7.3;        // 방/복도 경계, 복도 중심선
+const building = new THREE.Group(); building.position.set(4,.3,-1); scene.add(building);
+
+const ROOM_GEOM = [
+  {id:'lobby',  f:0, x0:-14, x1:-6, door:-10, start:true},
+  {id:'edu',    f:0, x0:-6,  x1:1,  door:-2.5},
+  {id:'cafe',   f:0, x0:1,   x1:7,  door:4},
+  {id:'kids',   f:1, x0:-14, x1:-3, door:-8.5},
+  {id:'clubA',  f:1, x0:-3,  x1:2,  door:-.5},
+  {id:'clubB',  f:1, x0:2,   x1:7,  door:4.5},
+  {id:'stacks', f:2, x0:-14, x1:-4, door:-9},
+  {id:'digital',f:2, x0:-4,  x1:2,  door:-1},
+  {id:'vault',  f:2, x0:2,   x1:7,  door:4.5, final:true}
+];
+// ---- 시나리오 (scenarios/*.json 에서 불러옴) ----
+let SCN=null, ROOMS=ROOM_GEOM.map(g=>({...g,name:g.id})), roomById=Object.fromEntries(ROOMS.map(r=>[r.id,r]));
+let PUZ={}, IDEAS={obs:[''],logic:[''],both:['']}, TEAMS=[], NEED={0:1,1:2,2:1}, LIMIT=3600;
+const hexNum=c=>parseInt(c.replace('#',''),16);
+const DONE=()=>(SCN&&SCN.doneWord)||'탈출', DONE_ICON=()=>(SCN&&SCN.doneIcon)||'🏆';
+function applyScenario(sc){
+  SCN=sc;
+  ROOMS=ROOM_GEOM.map(g=>({...g,...(sc.rooms[g.id]||{})}));
+  ROOMS.forEach(r=>{ if(!r.short) r.short=r.name.replace(/\s*\(최종\)/,''); });
+  roomById=Object.fromEntries(ROOMS.map(r=>[r.id,r]));
+  PUZ=sc.puzzles; IDEAS=sc.ideas;
+  TEAMS=sc.teams.map(t=>({name:t.name,css:t.color,color:hexNum(t.color)}));
+  NEED={0:+sc.need['0'],1:+sc.need['1'],2:+sc.need['2']}; LIMIT=sc.limit||3600;
+}
+const floors = [], lowWalls = [], shells = [], layers = [];
+let labels = [], stations = [];
+
+function seg(x0,x1,z0,z1,h,m,parent){ // wall from (x0,z0) to (x1,z1), axis aligned
+  const t=.18;
+  if(z0===z1) box(Math.abs(x1-x0),h,t,m,(x0+x1)/2,.35+h/2,z0,parent);
+  else box(t,h,Math.abs(z1-z0),m,x0,.35+h/2,(z0+z1)/2,parent);
+}
+
+for(let f=0; f<3; f++){
+  const fl = new THREE.Group(); fl.userData.baseY = f*FH; fl.position.y = f*FH;
+  building.add(fl); floors.push(fl);
+  box(W,.35,D,M.slab,0,.175,0,fl);
+  box(21-.2,.04,3.4,M.corridor,-3.5,.37,CZ,fl,false);        // 복도
+  box(6.8,.04,D-.2,M.core,10.5,.37,0,fl,false);              // 코어(계단·화장실)
+  const lw = new THREE.Group(); fl.add(lw); lowWalls.push(lw);
+  const H = 2.3;
+  // 외곽 낮은 벽
+  seg(-14,14,-9,-9,1.1,M.wall,lw); seg(-14,14,9,9,1.1,M.wall,lw);
+  seg(-14,-14,-9,9,1.1,M.wall,lw); seg(14,14,-9,9,1.1,M.wall,lw);
+  // 복도-방 경계 (문 틈 포함)
+  const rs = ROOM_GEOM.filter(r=>r.f===f);
+  let cur = -14;
+  rs.forEach(r=>{ seg(cur, r.door-.75, RZ0,RZ0,H,M.wall,lw); cur = r.door+.75; });
+  seg(cur, 7, RZ0,RZ0,H,M.wall,lw);
+  // 방 사이 벽
+  rs.forEach(r=>{ if(r.x0>-14) seg(r.x0,r.x0,RZ0,9,H,M.wall,lw); });
+  seg(7,7,RZ0,9,H,M.wall,lw);
+  seg(7,14,-2.8,-2.8,H,M.wall,lw);                       // 계단실/화장실
+  const layer = new THREE.Group(); fl.add(layer); layers.push(layer);
+  // (방 바닥·라벨·장식·퍼즐 대는 buildScenario()에서)
+  if(false) rs.forEach(r=>{
+    const w=r.x1-r.x0, cx=(r.x0+r.x1)/2, fl=null;
+    (r.puzzles||[]).forEach((p,i)=>{
+      const n = r.puzzles.length;
+      const sx = n===1 ? cx : r.x0 + w*(i===0?.3:.7);
+      const sz = r.final ? 3.5 : 2.2;
+      const ped = new THREE.Group(); ped.position.set(sx,.35,sz); fl.add(ped);
+      const top = new THREE.MeshStandardMaterial({color:0x9a9a9a, emissive:0x000000});
+      box(.7,.9,.7,M.dark,0,.45,0,ped); box(.6,.08,.6,top,0,.94,0,ped);
+      const bg = box(1,.08,.08,mat(0x333333),0,1.45,0,ped,false); bg.visible=false;
+      const fillMat = new THREE.MeshBasicMaterial({color:0x2ecc71});
+      const fill = box(1,.1,.1,fillMat,0,1.45,0,ped,false); fill.visible=false;
+      stations.push({room:r, x:sx, z:sz, puzzle:p[0], type:p[1], busy:null, top, bg, fill, fillMat, done:[]});
+    });
+  });
+  // 외관용 외피 (외관 모드에서만)
+  const sh = new THREE.Group(); fl.add(sh); shells.push(sh); sh.visible=false;
+  const h = FH-.35, y = .35+h/2;
+  box(7,h,D,f===0?M.brick:M.panel,10.5,y,0,sh);
+  box(21,h,.12,M.glass,-3.5,y,D/2-.06,sh,false);
+  box(.12,h,D,M.glass,-W/2+.06,y,0,sh,false);
+  for(let x=-14;x<=7.01;x+=3) box(.12,h,.2,M.dark,x,y,D/2-.05,sh);
+  for(let z=-9;z<=9.01;z+=3) box(.2,h,.12,M.dark,-W/2+.05,y,z,sh);
+  box(21,h,.3,M.panel,-3.5,y,-D/2+.15,sh);
+}
+const roof = new THREE.Group(); building.add(roof); roof.visible=false;
+box(W+.6,.45,D+.6,M.slab,0,.225,0,roof);
+box(4,1.4,3,M.dark,8,1.15,-3,roof);
+const sign = label('가남교육도서관',6,'#ffffff','#1f5f8b'); sign.material.depthTest=true; sign.position.set(10.5,2*FH+2.4,D/2+.3); building.add(sign); sign.visible=false;
+
+function disposeTree(o){ o.traverse(c=>{ if(c.geometry) c.geometry.dispose(); if(c.material&&c.material.map) c.material.map.dispose(); }); }
+function buildScenario(){
+  layers.forEach(l=>{ disposeTree(l); l.clear(); });
+  labels=[]; stations=[];
+  ROOMS.forEach(r=>{
+    const fl=layers[r.f], w=r.x1-r.x0, cx=(r.x0+r.x1)/2;
+    const fm = mat(r.floor?hexNum(r.floor):(r.final?0xb79a7a:0xcdb994));
+    box(w-.25,.04,9+5.5-.25,fm,cx,.38,(RZ0+9)/2,fl,false);
+    const lb = label(r.name, Math.min(4.6,w*.8)); lb.position.set(cx,3.2,1.5); fl.add(lb); labels.push(lb);
+    furnish(r,fl);
+    (r.puzzles||[]).forEach((p,i)=>{
+      const n = r.puzzles.length;
+      const sx = n===1 ? cx : r.x0 + w*(i===0?.3:.7);
+      const sz = r.final ? 3.5 : 2.2;
+      const ped = new THREE.Group(); ped.position.set(sx,.35,sz); fl.add(ped);
+      const top = new THREE.MeshStandardMaterial({color:0x9a9a9a, emissive:0x000000});
+      box(.7,.9,.7,M.dark,0,.45,0,ped); box(.6,.08,.6,top,0,.94,0,ped);
+      const bg = box(1,.08,.08,mat(0x333333),0,1.45,0,ped,false); bg.visible=false;
+      const fillMat = new THREE.MeshBasicMaterial({color:0x2ecc71});
+      const fill = box(1,.1,.1,fillMat,0,1.45,0,ped,false); fill.visible=false;
+      stations.push({room:r, x:sx, z:sz, puzzle:p[0], type:p[1], busy:null, top, bg, fill, fillMat, done:[]});
+    });
+  });
+  labels.forEach(l=>l.visible=!shellMode);
+}
+function furnish(r,fl){
+  const cx=(r.x0+r.x1)/2, w=r.x1-r.x0;
+  const add=(w,h,d,m,x,z)=>box(w,h,d,m,x,.35+h/2,z,fl);
+  const cyl=(rt,rb,h,m,x,z,y0=0,seg=12)=>{ const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg),m); o.position.set(x,.35+y0+h/2,z); o.castShadow=true; fl.add(o); return o; };
+  const ball=(r0,m,x,y,z)=>{ const o=new THREE.Mesh(new THREE.SphereGeometry(r0,12,8),m); o.position.set(x,.35+y,z); o.castShadow=true; fl.add(o); return o; };
+  const RNG=mulberry32(r.x0*100+r.f*7+13), rr=(a,b)=>a+RNG()*(b-a);
+  switch(r.decor||r.id){
+    case 'lobby': add(3.5,1,1,M.desk,cx,-1); add(.4,1.8,4,M.shelf,r.x0+.5,4); break;
+    case 'edu': for(let i=0;i<2;i++) for(let j=0;j<2;j++) add(1.8,.75,.8,M.desk,r.x0+1.8+i*3.3,5+j*1.8); add(4,1.3,.1,M.dark,cx,8.8); break;
+    case 'cafe': for(let i=0;i<3;i++) cyl(.55,.55,.75,M.desk,r.x0+1.2+i*1.8,6,0,16); add(5,1.8,.4,M.shelf,cx,8.6); break;
+    case 'kids': for(let i=0;i<4;i++) add(2,.9,.4,M.shelf,r.x0+1.5+i*2.5,6.5); add(3,.5,3,mat(0xf4a261),r.x0+3,-2.5); break;
+    case 'club': add(3,.75,1.4,M.desk,cx,6); break;
+    case 'stacks': for(let i=0;i<4;i++) add(.45,2,3.2,M.shelf,r.x0+1.5+i*2.2,6.5); break;
+    case 'digital': for(let i=0;i<3;i++){ add(1.4,.75,.7,M.desk,r.x0+1.2+i*1.8,6.5); box(.6,.4,.05,M.screen,r.x0+1.2+i*1.8,1.35,6.4,fl);} break;
+    case 'vault': add(.45,2,3.5,M.shelf,r.x0+.5,4.5); add(.45,2,3.5,M.shelf,r.x1-.5,4.5); add(1.2,1.4,1,mat(0x6c6f75),cx,8.2); break;
+    // ---- 어린왕자 장식 (원작 그림이 아닌 일반 소품) ----
+    case 'desert': {
+      const sand=mat(0xd9b97a); for(let i=0;i<5;i++){ const d=ball(rr(.6,1.1),sand,rr(r.x0+1,r.x1-1),-.35,rr(4,8.3)); d.scale.y=.35; }
+      const pl=mat(0xb0b7bf); add(3.2,.55,.6,pl,cx,6.3); add(.5,.08,3.4,pl,cx+.3,6.3); add(.25,.7,.08,pl,cx-1.5,6.3);
+      box(.08,.5,.08,M.dark,cx+1.65,.62,6.3,fl); break; }
+    case 'throne': {
+      add(1.2,.04,6,mat(0xa8323e),cx,4.5); const gold=mat(0xd4a93b);
+      add(1.4,.6,1.2,gold,cx,8); add(1.4,1.9,.25,gold,cx,8.6); ball(.18,gold,cx-.6,2.1,8.6); ball(.18,gold,cx+.6,2.1,8.6); break; }
+    case 'mirrors': {
+      const mir=new THREE.MeshStandardMaterial({color:0xcfe3ef,metalness:.6,roughness:.15}), fr=mat(0xc9a14a);
+      for(let i=0;i<4;i++){ const x=r.x0+.9+i*(w-1.8)/3; add(.9,1.7,.08,fr,x,8.75); box(.75,1.5,.1,mir,x,1.2,8.72,fl); }
+      cyl(.05,.05,1.5,M.dark,cx,6); ball(.3,mat(0x5b3f8a),cx,1.6,6); break; }
+    case 'lamp': {
+      cyl(.08,.1,2.6,M.dark,cx,6.5); ball(.32,new THREE.MeshStandardMaterial({color:0xffe9a8,emissive:0xffcf55,emissiveIntensity:1.2}),cx,2.75,6.5);
+      const star=new THREE.MeshBasicMaterial({color:0xfff6c8}); for(let i=0;i<14;i++) ball(.05,star,rr(r.x0+.5,r.x1-.5),rr(1.8,2.6),rr(-4.5,8.5)); break; }
+    case 'ledger': {
+      add(2.6,.75,1.2,M.desk,cx,6); const pap=mat(0xf3efe2); for(let i=0;i<4;i++) add(.35,.15+i*.12,.45,pap,cx-1+i*.6,6);
+      add(1.6,1.2,.6,mat(0x7a5b3c),r.x1-1,8.4); break; }
+    case 'globe': {
+      cyl(.06,.25,.9,M.dark,cx,6.5); ball(.55,mat(0x4f86b8),cx,1.45,6.5); add(1.6,.12,1.1,mat(0x7a3b2e),cx-1.5,7.8); add(.45,2,3,M.shelf,r.x1-.5,5.5); break; }
+    case 'roses': {
+      const red=mat(0xc8283a), stem=mat(0x3f7a35);
+      for(let i=0;i<36;i++){ const x=r.x0+.7+(i%9)*(w-1.4)/8, z=4.6+Math.floor(i/9)*1.1; cyl(.02,.02,.5,stem,x,z); ball(.11,red,x,.6,z); } break; }
+    case 'wheat': {
+      const wh=mat(0xd9a93b); for(let i=0;i<40;i++) cyl(0,.09,rr(.6,1),wh,rr(r.x0+.5,r.x1-.5),rr(4.4,8.5),0,6); break; }
+    // ---- 소년이 온다 (추모·독서 소품) ----
+    case 'candles': {
+      const wax=mat(0xf4efe4), flame=new THREE.MeshStandardMaterial({color:0xffd27a,emissive:0xffb347,emissiveIntensity:1.3});
+      add(w-1.6,.7,.8,mat(0x5a4636),cx,8.2);
+      for(let i=0;i<9;i++){ const x=r.x0+1.1+i*(w-2.2)/8; cyl(.06,.06,.25,wax,x,8.2,.7); ball(.045,flame,x,1.02,8.2); }
+      add(1.6,.75,.8,M.desk,cx,5.5); add(.9,.04,.6,mat(0xffffff),cx,5.5); break; }
+    case 'nightroom': {
+      const star=new THREE.MeshBasicMaterial({color:0xdfe6ff}); for(let i=0;i<18;i++) ball(.04,star,rr(r.x0+.4,r.x1-.4),rr(1.6,2.4),rr(-4.8,8.6));
+      cyl(.05,.05,.22,mat(0xf4efe4),cx,6.5,.75); ball(.05,new THREE.MeshStandardMaterial({color:0xffd27a,emissive:0xffb347,emissiveIntensity:1.3}),cx,1.05,6.5);
+      add(1.4,.75,.8,M.desk,cx,6.5); break; }
+    case 'manuscript': {
+      add(2.4,.75,1.1,M.desk,cx,6.2); const pap=mat(0xf3efe2), blk=mat(0x222222);
+      for(let i=0;i<3;i++){ add(.5,.03+i*.04,.7,pap,cx-.8+i*.8,6.2); }
+      box(.4,.02,.04,blk,cx,1.15,6.1,fl); box(.4,.02,.04,blk,cx,1.15,6.25,fl);
+      add(.45,2,3,M.shelf,r.x1-.5,5.5); break; }
+    case 'tape': {
+      add(1.6,.75,1,M.desk,cx,6.2); add(.5,.18,.3,mat(0x2b2b2b),cx-.3,6.2); [0,1,2,3].forEach(i=>add(.18,.04,.12,mat(0x8a6a48),cx+.2+i*.22,6.3));
+      add(.6,.45,.6,mat(0x6b6f75),cx-1.4,6.2); add(.6,.45,.6,mat(0x6b6f75),cx+1.4,6.2); break; }
+    case 'sewing': {
+      add(1.4,.75,.7,M.desk,cx,6.4); add(.5,.3,.2,mat(0x2b2b2b),cx,6.4); add(.12,.25,.12,mat(0x2b2b2b),cx-.2,6.4);
+      add(.5,1.6,.4,mat(0x9a7b5a),r.x1-.8,8.2); const lamp=new THREE.MeshStandardMaterial({color:0xfff1c1,emissive:0xffd27a,emissiveIntensity:.8}); ball(.12,lamp,cx+.6,1.35,6.4); break; }
+    case 'flowers': {
+      const col=[0xf2d14b,0xffffff,0xe58fb1]; const stem=mat(0x3f7a35);
+      for(let i=0;i<5;i++){ const x=r.x0+1+i*(w-2)/4; cyl(.18,.14,.35,mat(0x8a5a3c),x,7.8); for(let k=0;k<4;k++){ const dx=rr(-.12,.12),dz=rr(-.12,.12); cyl(.015,.015,.35,stem,x+dx,7.8+dz,.35); ball(.07,mat(col[(i+k)%3]),x+dx,.75,7.8+dz);} }
+      add(w-1,.04,.06,mat(0xbfe0ff),cx,8.95); break; }
+    case 'snowlamp': {
+      const snow=mat(0xffffff); for(let i=0;i<7;i++){ const b=add(rr(.6,1),rr(.3,.7),rr(.5,.8),mat(0xc9b38f),rr(r.x0+1,r.x1-1),rr(4.5,8.2)); }
+      for(let i=0;i<10;i++){ const d=ball(rr(.25,.5),snow,rr(r.x0+.6,r.x1-.6),-.2,rr(4,8.6)); d.scale.y=.35; }
+      cyl(.08,.12,.3,mat(0x2b2b2b),cx,6.5); ball(.16,new THREE.MeshStandardMaterial({color:0xfff1c1,emissive:0xffcf55,emissiveIntensity:1.2}),cx,.45,6.5); break; }
+    case 'memorial': {
+      add(.45,2,3.5,M.shelf,r.x0+.5,4.5); add(.45,2,3.5,M.shelf,r.x1-.5,4.5);
+      add(1.8,.8,.6,mat(0x5a4636),cx,8.3); const flame=new THREE.MeshStandardMaterial({color:0xffd27a,emissive:0xffb347,emissiveIntensity:1.3});
+      for(let i=0;i<5;i++){ cyl(.05,.05,.22,mat(0xf4efe4),cx-.6+i*.3,8.3,.8); ball(.04,flame,cx-.6+i*.3,1.1,8.3); }
+      for(let i=0;i<7;i++) add(.12,.5,.35,mat([0x8a3b3b,0x3b5a8a,0x3b7a4a,0x8a7a3b][i%4]),cx-.45+i*.15,7.4); break; }
+    case 'b612': {
+      const rock=mat(0x6e5848), lava=new THREE.MeshStandardMaterial({color:0xff7a2e,emissive:0xff5a1a,emissiveIntensity:.8});
+      [[r.x0+.9,7.8,true],[r.x0+2.1,8.3,true],[r.x1-.9,7.9,false]].forEach(([x,z,act])=>{ cyl(.12,.45,.55,rock,x,z,0,10); if(act) ball(.1,lava,x,.58,z); });
+      cyl(.015,.015,.45,mat(0x3f7a35),cx,6.2); ball(.12,mat(0xd02a3c),cx,.5,6.2);
+      cyl(0,.12,.3,mat(0x4c9a3c),cx+1.2,6.8,0,6); break; }
+  }
+}
+// Stairs (scaled with floor gap)
+const stairs = [];
+for(let f=0; f<2; f++){
+  const s = new THREE.Group(); building.add(s); stairs.push(s);
+  const n=10;
+  for(let i=0;i<n;i++){
+    const t=(i+.5)/n;
+    box(.45,.12,1.3,M.stair, 8.6+(12.9-8.6)*t, .35+FH*.5*t, -7.5, s);
+    box(.45,.12,1.3,M.stair, 12.9-(12.9-8.6)*t, .35+FH*.5+FH*.5*t, -4.6, s);
+  }
+  box(1.2,.15,4.2,M.stair,13.3,.35+FH*.5,-6.05,s);
+}
+
+/* ================= Nav graph ================= */
+const nodes={}, adj={};
+const addNode=(id,x,z,f)=>{nodes[id]={id,x,z,f}; adj[id]=[];};
+const link=(a,b,via=[])=>{ adj[a].push({to:b,via}); adj[b].push({to:a,via:via.slice().reverse()}); };
+for(let f=0;f<3;f++) addNode('S'+f, 8.6, CZ, f);
+ROOMS.forEach(r=>{
+  addNode('in_'+r.id, r.door, -3.4, r.f);
+  addNode('dr_'+r.id, r.door, RZ0, r.f);
+  addNode('c_'+r.id, r.door, CZ, r.f);
+  link('in_'+r.id,'dr_'+r.id); link('dr_'+r.id,'c_'+r.id);
+});
+for(let f=0;f<3;f++){
+  const cs = ROOMS.filter(r=>r.f===f).map(r=>'c_'+r.id).concat(['S'+f]).sort((a,b)=>nodes[a].x-nodes[b].x);
+  for(let i=0;i<cs.length-1;i++) link(cs[i],cs[i+1]);
+}
+for(let f=0;f<2;f++) link('S'+f,'S'+(f+1),[{x:12.9,z:-7.5,f:f+.5},{x:12.9,z:-4.6,f:f+.5},{x:8.6,z:-4.6,f:f+1}]);
+const P = n=>({x:nodes[n].x, z:nodes[n].z, f:nodes[n].f});
+function d3(a,b){ return Math.hypot(a.x-b.x, a.z-b.z, (a.f-b.f)*FH*1.6); }
+function route(from,to){
+  const dist={[from]:0}, prev={}, q=new Set(Object.keys(nodes));
+  while(q.size){
+    let u=null; for(const k of q) if(dist[k]!==undefined && (u===null||dist[k]<dist[u])) u=k;
+    if(u===null||u===to) break; q.delete(u);
+    for(const e of adj[u]){
+      let len=0, p=P(u); for(const v of e.via){ len+=d3(p,v); p=v; } len+=d3(p,P(e.to));
+      const nd=dist[u]+len; if(dist[e.to]===undefined||nd<dist[e.to]){ dist[e.to]=nd; prev[e.to]={u,via:e.via}; }
+    }
+  }
+  const out=[]; let c=to;
+  while(c!==from){ const pr=prev[c]; if(!pr) return []; out.unshift(P(c)); for(let i=pr.via.length-1;i>=0;i--) out.unshift(pr.via[i]); c=pr.u; }
+  return out;
+}
+
+/* ================= People ================= */
+const BOYS=['민준','서준','도윤','하준','지호','준우','현우','시우','지훈','건우'];
+const GIRLS=['서연','지우','하은','민서','수아','지아','채원','윤서','다은','예린'];
+
+const josa=(w,a,b)=>{const c=w.charCodeAt(w.length-1)-0xAC00; return w+((c>=0&&c%28)?a:b);};
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+let SEED=2026, R=mulberry32(SEED);
+const rnd=(a,b)=>a+R()*(b-a), ri=(a,b)=>Math.floor(rnd(a,b+1));
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(R()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const pick=a=>a[Math.floor(R()*a.length)];
+
+const agentRoot = new THREE.Group(); building.add(agentRoot);
+let agents=[], teams=[];
+
+function makeBody(a){
+  const gr=new THREE.Group();
+  const shirt=mat(a.team.color);
+  const legs=[];
+  for(const sx of [-.09,.09]){
+    const p=new THREE.Group(); p.position.set(sx,.78,0);
+    box(.13,.74,.15, a.gender==='M'?M.navy:M.sock, 0,-.37,0,p,false); gr.add(p); legs.push(p);
+  }
+  if(a.gender==='F'){ const sk=new THREE.Mesh(new THREE.CylinderGeometry(.17,.29,.36,10),M.skirt); sk.position.y=.8; gr.add(sk); }
+  else box(.34,.16,.2,M.navy,0,.82,0,gr,false);
+  box(.4,.52,.24,shirt,0,1.12,0,gr);
+  const arms=[];
+  for(const sx of [-.26,.26]){ const p=new THREE.Group(); p.position.set(sx,1.36,0); box(.1,.5,.12,shirt,0,-.25,0,p,false); gr.add(p); arms.push(p); }
+  const head=new THREE.Mesh(new THREE.SphereGeometry(.15,14,10),M.skin); head.position.y=1.55; gr.add(head);
+  const hair=new THREE.Mesh(new THREE.SphereGeometry(.165,14,10,0,Math.PI*2,0,Math.PI*.55),M.hair); hair.position.y=1.57; gr.add(hair);
+  if(a.gender==='F') box(.3,.36,.09,M.hair,0,1.42,-.11,gr,false);
+  const ring=new THREE.Mesh(new THREE.RingGeometry(.25,.34,20),new THREE.MeshBasicMaterial({color:a.team.color,side:THREE.DoubleSide}));
+  ring.rotation.x=-Math.PI/2; ring.position.y=.03; gr.add(ring);
+  gr.traverse(o=>{ if(o.isMesh) o.userData.agent=a; });
+  a.mesh=gr; a.legs=legs; a.arms=arms; a.ring=ring;
+  agentRoot.add(gr);
+}
+
+function newGame(seed){
+  if(seed!==undefined) SEED=seed;
+  R=mulberry32(SEED); acc=0;
+  agents.forEach(a=>agentRoot.remove(a.mesh));
+  teams.forEach(t=>t.tag&&agentRoot.remove(t.tag));
+  stations.forEach(s=>{ s.busy=null; s.done=[]; s.top.color.set(0x9a9a9a); s.top.emissive.set(0); s.bg.visible=s.fill.visible=false; });
+  agents=[]; teams=[];
+  const bs=shuffle(BOYS.slice()), gs=shuffle(GIRLS.slice());
+  TEAMS.forEach((T,ti)=>{
+    const team={...T, idx:ti, members:[], clues:0, need:{...NEED}, solved:new Set(), state:'ready', station:null, progress:0, elapsed:0, dur:0, hints:0, finish:null, retry:0, waitF:null, minuteMark:0, waitStart:null, waitTotal:0, hintsHere:0, record:[], tagText:''};
+    const nb = ti<2?3:2;
+    const names=[...bs.splice(0,nb).map(n=>[n,'M']), ...gs.splice(0,5-nb).map(n=>[n,'F'])];
+    names.forEach(([name,gender])=>{
+      const a={name,gender,team,obs:ri(1,5),logic:ri(1,5),coop:ri(2,5),speed:rnd(.45,.62),
+        x:rnd(-13,-7),z:rnd(-2.5,7.5),f:0,room:'lobby',node:null,path:[],think:0,phase:rnd(0,6),contrib:0,yaw:0,act:'대기'};
+      makeBody(a); team.members.push(a); agents.push(a);
+    });
+    team.tag=label(team.name,3.2,'#ffffff',team.css); agentRoot.add(team.tag);
+    teams.push(team);
+  });
+  clock=0; running=false; ended=false; endReason=''; logs.length=0; events.length=0;
+  document.getElementById('seed').textContent=SEED;
+  playBtn.textContent='▶ 시작'; playBtn.classList.add('go');
+  document.getElementById('result').style.display='none';
+  hideWho();
+  ev('setup',null,`20명이 ${roomById.lobby.name}에 모였어요. ▶ 시작을 누르세요.`,
+    teams.map(t=>`${t.name}: `+t.members.map(m=>`${m.name}(${m.gender==='M'?'남':'여'}, 관찰${m.obs}·논리${m.logic}·협동${m.coop})`).join(', ')).join(' / '));
+  renderTeams();
+}
+
+/* ================= Movement ================= */
+function regionOf(a){
+  const fr=Math.round(a.f), onStair=Math.abs(a.f-fr)>.01;
+  if(!onStair && a.z>RZ0 && a.x<7){ const r=ROOMS.find(r=>r.f===fr && a.x>=r.x0 && a.x<=r.x1); if(r) return {room:r.id}; }
+  if(onStair) return {node:'S'+fr};
+  let best=null, bd=1e9;
+  for(const id in nodes){ const n=nodes[id]; if(n.f!==fr || !(id[0]==='S'||id.startsWith('c_'))) continue;
+    const d=Math.hypot(n.x-a.x,n.z-a.z); if(d<bd){bd=d;best=id;} }
+  return {node:best};
+}
+function goTo(a, roomId, pt){
+  const pts=[], reg=regionOf(a);
+  if(reg.room && reg.room===roomId){ pts.push(pt); a.path=pts; a.dest=roomId; a.room=roomId; return; }
+  let from;
+  if(reg.room){ from='in_'+reg.room; pts.push(P(from)); } else { from=reg.node; pts.push(P(from)); }
+  const to = roomId ? 'in_'+roomId : pt.node;
+  if(from!==to) pts.push(...route(from,to));
+  pts.push(pt);
+  a.path=pts; a.room=null; a.dest=roomId; a.destNode=roomId?null:pt.node;
+}
+function randInRoom(r){ return {x:rnd(r.x0+.7,r.x1-.7), z:rnd(RZ0+1,8.3), f:r.f}; }
+function stepAgent(a,dt){
+  if(a.path.length){
+    const t=a.path[0];
+    const dx=t.x-a.x, dz=t.z-a.z, df=(t.f-a.f)*FH*1.6;
+    const dist=Math.hypot(dx,dz,df);
+    const sp=a.speed*(a.team.state==='escaped'?1.2:1)*dt;
+    if(dist<=sp){ a.x=t.x; a.z=t.z; a.f=t.f; a.path.shift();
+      if(!a.path.length){ if(a.dest){ a.room=a.dest; } else a.node=a.destNode; }
+    } else { a.x+=dx/dist*sp; a.z+=dz/dist*sp; a.f+=(t.f-a.f)/dist*sp*(df?1:0); if(Math.abs(dx)+Math.abs(dz)>.01) a.yaw=Math.atan2(dx,dz); }
+    a.walking=true;
+  } else a.walking=false;
+}
+function separate(){
+  for(let i=0;i<agents.length;i++) for(let j=i+1;j<agents.length;j++){
+    const a=agents[i], b=agents[j];
+    if(Math.abs(a.f-b.f)>.2) continue;
+    const dx=b.x-a.x, dz=b.z-a.z, d=Math.hypot(dx,dz);
+    if(d>0 && d<.5){ const p=(.5-d)*.25; a.x-=dx/d*p; a.z-=dz/d*p; b.x+=dx/d*p; b.z+=dz/d*p; }
+  }
+  agents.forEach(a=>{ if(a.room){ const r=roomById[a.room]; a.x=Math.min(r.x1-.35,Math.max(r.x0+.35,a.x)); a.z=Math.min(8.6,Math.max(RZ0+.35,a.z)); } });
+}
+
+/* ================= Game logic ================= */
+let clock=0, running=false, ended=false, speed=1, acc=0;
+const GS_PER_S=6;
+const fmt=s=>{s=Math.max(0,Math.floor(s)); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');};
+const logs=[], events=[]; let endReason='';
+function log(text,css){ logs.unshift({t:fmt(clock),text,css}); if(logs.length>40) logs.pop(); renderLog(); }
+function ev(type,team,text,detail=''){ events.push({sec:clock,t:fmt(clock),type,team:team?team.name:'',text,detail}); log(text,team?team.css:undefined); }
+
+function targetFloor(t){ return [0,1,2].find(f=>t.need[f]>0); }
+function stationSlot(st,i,n){ const ang=(i/n)*Math.PI*2+.4; return {x:st.x+Math.cos(ang)*.85, z:st.z+Math.sin(ang)*.85+.2, f:st.room.f}; }
+
+function decide(t){
+  const tf=targetFloor(t);
+  let cands;
+  if(tf===undefined) cands=stations.filter(s=>s.room.final && !s.busy);
+  else cands=stations.filter(s=>s.room.f===tf && !s.room.final && !s.busy && !t.solved.has(s.room.id));
+  if(cands.length){
+    const ref=t.members[0];
+    const sc=cands.map((c,i)=>({c,i,v:Math.hypot(c.x-ref.x,c.z-ref.z)+Math.abs(c.room.f-ref.f)*20+rnd(-3,3)}));
+    sc.sort((a,b)=>a.v-b.v||a.i-b.i);
+    const st=sc[0].c;
+    if(t.waitStart!==null){ const w=clock-t.waitStart; t.waitTotal+=w; ev('waitEnd',t,`${t.name} 대기 끝 (${fmt(w)} 기다림) → 자리가 났어요`); t.waitStart=null; }
+    st.busy=t; t.station=st; t.state='moving'; t.waitF=null; t.hintsHere=0; t.moveStart=clock;
+    st.top.color.set(t.color); st.top.emissive.set(t.color); st.top.emissiveIntensity=.5;
+    t.members.forEach((m,i)=>{ goTo(m, st.room.id, stationSlot(st,i,5)); m.act=`${st.room.name}로 이동`; });
+    ev('go',t,`${t.name} → ${(st.room.f+1)}층 ${st.room.name} '${st.puzzle}' 도전`, PUZ[st.puzzle].desc);
+  } else {
+    const wf = tf===undefined?2:tf;
+    if(t.waitF!==wf){
+      t.waitF=wf; t.state='waiting'; if(t.waitStart===null) t.waitStart=clock;
+      t.waitWhy = tf===undefined?`${roomById.vault.short} ${SCN.finalThing} 2개를 다른 팀이 모두 사용 중`:(wf+1)+'층 남은 퍼즐을 다른 팀이 모두 사용 중';
+      t.members.forEach(m=>{ goTo(m,null,{x:rnd(4.5,8),z:CZ+rnd(-1.2,1.2),f:wf,node:'S'+wf}); m.act='복도 대기'; });
+      const occ=stations.filter(s=>(tf===undefined?s.room.final:(s.room.f===wf&&!s.room.final&&!t.solved.has(s.room.id)))&&s.busy).map(s=>`${s.room.name} ${s.puzzle}(${s.busy.name})`).join(', ');
+      ev('wait',t,`${t.name}: ${t.waitWhy} → ${wf+1}층 복도에서 대기`, '사용 중: '+occ);
+    }
+    t.state='waiting'; t.retry=clock+8;
+  }
+}
+
+function pickBy(t,key){ // weighted pick of member by skill
+  const arr=t.members; const tot=arr.reduce((s,m)=>s+(key==='both'?m.obs+m.logic:m[key]),0);
+  let r=R()*tot; for(const m of arr){ r-=(key==='both'?m.obs+m.logic:m[key]); if(r<=0) return m; } return arr[0];
+}
+
+function updateTeam(t,dt){
+  if(t.state==='ready') return decide(t);
+  if(t.state==='waiting'){
+    if(clock>=t.retry){ decide(t); if(t.state!=='waiting') return; }
+    t.members.forEach(m=>{ if(!m.path.length && clock>m.think && Math.round(m.f)===t.waitF){ m.think=clock+rnd(8,20);
+      goTo(m,null,{x:rnd(3.2,8.3),z:CZ+rnd(-1.3,1.3),f:t.waitF,node:'S'+t.waitF}); m.act=pick(['복도 대기 (서성임)',`복도 대기 (${SCN.clue} 정리)`,'복도 대기 (작전 회의)']); } });
+    return;
+  }
+  if(t.state==='moving'){
+    const st=t.station;
+    const here=t.members.filter(m=>m.room===st.room.id).length;
+    if(here>=4){
+      t.state='solving'; t.progress=0; t.elapsed=0; t.minuteMark=0;
+      t.dur=(st.room.final?7.5:6.8)*rnd(.8,1.6);
+      st.bg.visible=st.fill.visible=true; st.fillMat.color.set(t.color);
+      t.members.forEach(m=>m.act=`${SCN.clue} 찾는 중`);
+      const pres=t.members.filter(m=>m.room===st.room.id).map(m=>m.name);
+      ev('start',t,`${t.name} ${st.room.name} '${st.puzzle}' 풀이 시작 (${pres.length}명 도착)`, `도착: ${pres.join(', ')} · 이동 ${fmt(clock-t.moveStart)}`);
+      t.solveStart=clock;
+    }
+    return;
+  }
+  if(t.state==='solving'){
+    const st=t.station, key=st.type;
+    const present=t.members.filter(m=>m.room===st.room.id);
+    const sk=present.reduce((s,m)=>s+(key==='both'?(m.obs+m.logic)/2:m[key]),0)/15;
+    const coop=present.reduce((s,m)=>s+m.coop,0)/Math.max(1,present.length);
+    const power=sk*(1+.06*(coop-3.5));
+    t.progress+=power*dt/(t.dur*60); t.elapsed+=dt;
+    // 1분마다 이벤트 판정
+    if(t.elapsed-t.minuteMark>=60){
+      t.minuteMark+=60;
+      if(R()<.22){ const m=pickBy(t,key); m.contrib++; const g=rnd(.08,.15); t.progress+=g; ev('idea',t,`${josa(m.name,'이가','가')} ${pick(IDEAS[key])} → 진행 +${Math.round(g*100)}%`, `${st.puzzle} 진행률 ${Math.round(Math.min(1,t.progress)*100)}%`); }
+      if(t.elapsed>t.dur*60*.7 && t.progress<.7 && t.hints<3){ t.hints++; const h=PUZ[st.puzzle].hints[Math.min(2,t.hintsHere++)]; t.progress+=.2;
+        ev('hint',t,`${t.name} 힌트 요청 (${t.hints}/3): "${h}"`, `${st.puzzle} — 풀이 ${fmt(t.elapsed)} 경과, 진행률 ${Math.round((t.progress-.2)*100)}%에서 요청`); }
+    }
+    st.fill.scale.x=Math.max(.01,Math.min(1,t.progress)); st.fill.position.x=-(1-st.fill.scale.x)/2;
+    if(t.progress>=1){
+      const finder=pickBy(t,key); finder.contrib+=2; finder.jump=clock;
+      t.record.push({room:st.room.name,f:st.room.f+1,puzzle:st.puzzle,start:t.solveStart,end:clock,finder:finder.name,hints:t.hintsHere});
+      st.busy=null; st.bg.visible=st.fill.visible=false; st.done.push(t);
+      st.top.emissive.set(0); st.top.color.set(0x5d6d7e);
+      if(st.room.final){
+        t.state='escaped'; t.finish=clock; t.clues++;
+        const rank=teams.filter(x=>x.finish!==null).length;
+        ev('escape',t,`${DONE_ICON()} ${t.name} ${DONE()}! ${rank}위 · 기록 ${fmt(clock)}`, `${josa(finder.name,'이가','가')} '${st.puzzle}' 해결 (정답: ${PUZ[st.puzzle].answer}) · 풀이 ${fmt(clock-t.solveStart)}`);
+        const lobby=roomById.lobby;
+        t.members.forEach(m=>{ goTo(m,'lobby',randInRoom(lobby)); m.act=DONE()+'!'; });
+        checkEnd();
+      } else {
+        t.clues++; t.need[st.room.f]--; t.solved.add(st.room.id); t.state='ready'; t.station=null;
+        ev('solve',t,`${t.name} ${SCN.clue} ${t.clues}/4 — ${josa(finder.name,'이가','가')} '${st.puzzle}' 해결`, `정답: ${PUZ[st.puzzle].answer} · 풀이 ${fmt(clock-t.solveStart)} · 이 퍼즐 힌트 ${t.hintsHere}개`);
+      }
+      return;
+    }
+    // 멤버 행동: 일부는 퍼즐 앞, 일부는 방 수색
+    t.members.forEach((m,i)=>{
+      if(m.room===st.room.id && !m.path.length && clock>m.think){
+        m.think=clock+rnd(15,45);
+        if(R()<.5){ goTo(m,st.room.id,stationSlot(st,i,5)); m.act='퍼즐 푸는 중'; }
+        else { goTo(m,st.room.id,randInRoom(st.room)); m.act='방 수색 중'; }
+      }
+    });
+  }
+  if(t.state==='escaped'){
+    t.members.forEach(m=>{ if(m.room==='lobby' && !m.path.length && clock>m.think){ m.think=clock+rnd(10,30); goTo(m,'lobby',randInRoom(roomById.lobby)); } });
+  }
+}
+
+function checkEnd(){
+  if(ended) return;
+  const allOut=teams.every(t=>t.state==='escaped');
+  if(allOut || clock>=LIMIT){
+    ended=true; running=false; playBtn.textContent='▶ 시작'; playBtn.classList.add('go');
+    teams.forEach(t=>{ if(t.state!=='escaped' && t.state==='solving') ev('fail',t,`${t.name} 미완료: '${t.station.puzzle}' 진행률 ${Math.round(t.progress*100)}%에서 시간 종료`,`${SCN.clue} ${t.clues}/4 · 힌트 ${t.hints}/3 사용 · 대기 ${fmt(t.waitTotal)}`); });
+    teams.forEach(t=>{ if(t.state!=='escaped'){ t.state='failed'; if(t.station){ t.station.busy=null; t.station.bg.visible=t.station.fill.visible=false; t.station.top.emissive.set(0);} t.members.forEach(m=>m.act='시간 초과'); } });
+    endReason = allOut ? `4팀 모두 ${DONE()}, ${fmt(clock)}에 게임 종료` : `제한시간 60분이 끝나 게임 종료 (미완료: ${teams.filter(t=>t.state==='failed').map(t=>t.name).join(', ')})`;
+    ev('end',null,(allOut?'🎉 ':'⏰ ')+endReason);
+    showResult();
+  }
+}
+
+function tickSim(dt){
+  clock+=dt;
+  teams.forEach(t=>updateTeam(t,dt));
+  agents.forEach(a=>stepAgent(a,dt));
+  separate();
+  if(clock>=LIMIT) checkEnd();
+}
+
+/* ================= UI ================= */
+const playBtn=document.getElementById('play');
+function startRun(){
+  if(ended) newGame();
+  running=true;
+  playBtn.textContent='❚❚ 일시정지'; playBtn.classList.remove('go');
+  if(clock===0) log('게임 시작! 팀별로 첫 번째 방을 찾아 흩어집니다.');
+}
+const rulesEl=document.getElementById('rules');
+function rulesHTML(){
+  const sc=SCN, c=sc.clue, fin=roomById.vault, ft=sc.finalThing, mins=Math.round(sc.limit/60);
+  const fl=f=>ROOMS.filter(r=>r.f===f).map(r=>r.final?`${r.short}(최종 ${ft} 2개)`:r.start?`${r.name}(출발·도착)`:r.name).join(', ');
+  const pz=ROOMS.filter(r=>r.puzzles&&!r.final).map(r=>`<tr><td><b>${r.f+1}층 ${r.name}</b></td><td>${r.puzzles.map(p=>`${p[0]} <span class="muted">(${p[1]==='obs'?'관찰':'논리'})</span>`).join('<br>')}</td></tr>`).join('');
+  return `<div class="story">${sc.story}</div>
+  <h3>목표</h3><p>${sc.goalText} ${mins}분 안에 못 끝내면 실패예요.</p>
+  <h3>팀 구성</h3><p>남녀를 섞어 5명씩 4팀(${TEAMS.map(t=>`<b style="color:${t.css}">${t.name}</b>`).join('·')})으로 나눠요. 학생마다 <b>관찰력·논리력·협동심</b>이 1~5점으로 무작위로 정해지고, 성별과는 상관없어요.</p>
+  <h3>진행 순서</h3><ol>
+   <li>20명 모두 1층 ${roomById.lobby.name}에서 출발해요.</li>
+   <li>${josa(c,'은','는')} <b>1층 ${NEED[0]}개 → 2층 ${NEED[1]}개 → 3층 ${NEED[2]}개</b> 순서로 모아요. 아래층을 다 모아야 위층으로 올라가요.</li>
+   <li>방마다 퍼즐 대가 2개 있고, 퍼즐 대 하나는 한 팀만 쓸 수 있어요. 한 팀은 한 방에서 퍼즐 하나만 풀어요.</li>
+   <li>팀원 4명 이상이 방에 도착해야 풀기 시작해요. 일부는 퍼즐 앞에서 풀고, 일부는 방을 뒤져요.</li>
+   <li>${c} 4개를 모으면 ${fin.short}의 <b>${ft} A·B</b> 중 빈 곳에 도전해요. 성공하면 ${DONE()}!</li></ol>
+  <h3>방 배치</h3><table><tr><td><b>1층</b></td><td>${fl(0)}</td></tr><tr><td><b>2층</b></td><td>${fl(1)}</td></tr><tr><td><b>3층</b></td><td>${fl(2)}</td></tr></table>
+  <h3>방별 퍼즐</h3><table>${pz}</table>
+  <h3>퍼즐 푸는 속도</h3><ul><li><b>관찰형</b> 퍼즐은 관찰력이, <b>논리형</b>은 논리력이 높을수록 빨라요. 최종 ${ft}는 둘 다 써요.</li><li>협동심이 높은 팀은 조금 더 빨라요.</li><li>퍼즐마다 난이도가 무작위로 달라요.</li></ul>
+  <h3>아이디어와 힌트</h3><ul><li><b>아이디어:</b> 가끔 한 학생이 실마리를 찾아 진행률이 껑충 올라요.</li><li><b>힌트:</b> 팀당 최대 3번. 오래 막히면 요청하고, 진행률이 20% 올라요.</li></ul>
+  <h3>기다리기</h3><p>가야 할 방이나 ${ft}가 모두 차 있으면 복도에서 기다려요. 머리 위에 <b>⏳ 대기 시간</b>이 표시돼요.</p>
+  <h3>끝나는 조건</h3><p>4팀이 모두 ${DONE()}하거나 ${mins}분이 지나면 끝나요. 끝나면 순위·기록·팀별 MVP가 나와요.</p>
+  <h3>화면 보는 법</h3><ul><li>팀 머리 위: 🔍 풀이 중(진행률) · → 이동 · ⏳ 대기 · ${DONE_ICON()} ${DONE()}</li><li>퍼즐 대 위 막대가 진행률이에요.</li><li>학생을 탭하면 이름·능력치·지금 하는 일이 보여요.</li><li>1x/3x/8x로 속도를 바꿔요. 1x에서 60분 게임이 약 10분이에요.</li><li>📋 기록으로 지금까지 일어난 일을 모두 볼 수 있어요.</li><li>시나리오 메뉴에서 다른 시나리오를 불러올 수 있어요.</li></ul>`;
+}
+
+function showRules(){ document.getElementById('rSeed').textContent=SEED; document.getElementById('rTitle').textContent='🔐 '+SCN.title+' — 게임 규칙'; document.getElementById('rSub').textContent=SCN.subtitle; document.getElementById('rulesScroll').innerHTML=rulesHTML(); const sc=document.getElementById('rulesScroll'); sc.scrollTop=0; document.getElementById('scrollHint').style.visibility='visible'; rulesEl.style.display='flex'; }
+document.getElementById('rulesScroll').addEventListener('scroll',e=>{ const t=e.target; if(t.scrollTop+t.clientHeight>=t.scrollHeight-8) document.getElementById('scrollHint').style.visibility='hidden'; });
+document.getElementById('rulesStart').onclick=()=>{ rulesEl.style.display='none'; startRun(); };
+document.getElementById('rulesClose').onclick=()=>{ rulesEl.style.display='none'; };
+playBtn.onclick=()=>{
+  if(!SCN) return;
+  if(!running && (clock===0 || ended)){ if(ended) newGame(); showRules(); return; }
+  running=!running;
+  playBtn.textContent=running?'❚❚ 일시정지':'▶ 계속'; playBtn.classList.toggle('go',!running);
+  if(running && clock===0) log('게임 시작! 팀별로 첫 번째 방을 찾아 흩어집니다.');
+};
+document.querySelectorAll('[data-sp]').forEach(b=>b.onclick=()=>{ speed=+b.dataset.sp; document.querySelectorAll('[data-sp]').forEach(x=>x.classList.toggle('on',x===b)); });
+document.getElementById('reset').onclick=()=>newGame(Math.floor(Math.random()*90000)+10000);
+document.getElementById('repBtn').onclick=()=>{
+  const rows=events.map(e=>`<tr><td class="t">${e.t}</td><td>${e.team||'-'}</td><td>${e.text}${e.detail?`<div class="muted">${e.detail}</div>`:''}</td></tr>`).join('');
+  document.getElementById('repBody').innerHTML=`<div class="muted">${SCN.title} · 시드 ${SEED} · 경과 ${fmt(clock)}${endReason?' · '+endReason:''}</div><table>${rows}</table>`;
+  document.getElementById('report').style.display='flex';
+};
+document.getElementById('repClose').onclick=()=>document.getElementById('report').style.display='none';
+document.getElementById('repCopy').onclick=async()=>{
+  const txt=`${SCN.title} 기록 (시드 ${SEED})\n`+events.map(e=>`[${e.t}] ${e.team?e.team+' | ':''}${e.text}${e.detail?' — '+e.detail:''}`).join('\n');
+  try{ await navigator.clipboard.writeText(txt); document.getElementById('repCopy').textContent='복사됨'; }catch(_){ document.getElementById('repCopy').textContent='복사 실패'; }
+};
+document.getElementById('again').onclick=()=>{ newGame(Math.floor(Math.random()*90000)+10000); playBtn.click(); };
+document.getElementById('closeRes').onclick=()=>document.getElementById('result').style.display='none';
+const hud=document.getElementById('hud');
+document.getElementById('toggle').onclick=e=>{ hud.classList.toggle('collapsed'); e.target.textContent=hud.classList.contains('collapsed')?'펼치기':'접기'; };
+
+let focus='all', shellMode=false;
+document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{
+  focus=b.dataset.f==='all'?'all':+b.dataset.f;
+  document.querySelectorAll('[data-f]').forEach(x=>x.classList.toggle('on',x===b));
+  if(shellMode) toggleShell();
+  aimCamera();
+});
+function toggleShell(){
+  shellMode=!shellMode; document.getElementById('shell').classList.toggle('on',shellMode);
+  shells.forEach(s=>s.visible=shellMode); lowWalls.forEach(w=>w.visible=!shellMode);
+  labels.forEach(l=>l.visible=!shellMode); roof.visible=sign.visible=shellMode;
+  if(shellMode){ focus='all'; document.querySelectorAll('[data-f]').forEach(x=>x.classList.toggle('on',x.dataset.f==='all')); }
+  aimCamera();
+}
+document.getElementById('shell').onclick=toggleShell;
+
+let camGoal=null;
+function aimCamera(){
+  const narrow=innerWidth<640;
+  if(focus==='all'){
+    const y=shellMode?6:10;
+    camGoal={t:new THREE.Vector3(3,y,-1), p:new THREE.Vector3(36,y+30,48).multiplyScalar(narrow?1.35:1)};
+  } else {
+    const y=focus*(FH+GAP)+1;
+    camGoal={t:new THREE.Vector3(1,y,0), p:new THREE.Vector3(14,y+24,26).multiplyScalar(1).add(new THREE.Vector3(0,narrow?8:0,narrow?10:0))};
+  }
+}
+
+function renderTeams(){
+  document.getElementById('teams').innerHTML=teams.map(t=>{
+    const pips='●'.repeat(t.clues)+'○'.repeat(5-t.clues);
+    let s;
+    if(t.state==='solving') s=`${t.station.room.name} ${Math.min(99,Math.floor(t.progress*100))}%`;
+    else if(t.state==='moving') s=`→ ${t.station.room.name}`;
+    else if(t.state==='waiting') s='복도 대기';
+    else if(t.state==='escaped') s=`${DONE()} ${fmt(t.finish)}`;
+    else if(t.state==='failed') s='실패';
+    else s='출발 대기';
+    if(t.hints) s+=` · 힌트${t.hints}`;
+    return `<div class="team"><span class="dot" style="background:${t.css}"></span><b>${t.name}</b><span class="pips" style="color:${t.css}">${pips}</span><span class="st">${s}</span></div>`;
+  }).join('');
+}
+function renderLog(){
+  document.getElementById('log').innerHTML=logs.slice(0,8).map(l=>`<div><span class="t">${l.t}</span><span style="color:${l.css||'#1d2733'}">${l.text}</span></div>`).join('');
+}
+let selected=null;
+function showWho(a){
+  selected=a; const w=document.getElementById('who'); w.style.display='block';
+  const bar=(k,v)=>`${k} <div class="bar"><i style="width:${v*20}%"></i></div>`;
+  w.innerHTML=`<h2 style="color:${a.team.css}">${a.name}</h2><div class="muted">${a.team.name} · ${a.gender==='M'?'남학생':'여학생'} · 중학생</div>
+  <div style="margin-top:8px">${bar('관찰력',a.obs)}${bar('논리력',a.logic)}${bar('협동심',a.coop)}</div>
+  <div>지금: <b>${a.act}</b></div><div class="muted">기여 점수 ${a.contrib}</div>`;
+}
+function hideWho(){ selected=null; document.getElementById('who').style.display='none'; }
+
+function showResult(){
+  const ranked=teams.slice().sort((a,b)=>(a.finish??1e9)-(b.finish??1e9)||b.clues-a.clues);
+  document.getElementById('resBody').innerHTML='<table>'+ranked.map((t,i)=>{
+    const mvp=t.members.slice().sort((a,b)=>b.contrib-a.contrib)[0];
+    return `<tr><td>${t.finish!==null?(i+1)+'위':'-'}</td><td style="color:${t.css}"><b>${t.name}</b></td><td>${t.finish!==null?fmt(t.finish):'실패 ('+t.clues+'/5)'}</td><td class="muted">힌트 ${t.hints} · MVP ${mvp.name}</td></tr>`;
+  }).join('')+'</table>';
+  document.getElementById('result').style.display='flex';
+}
+
+// picking
+const ray=new THREE.Raycaster(), ptr=new THREE.Vector2(); let down=null;
+canvas.addEventListener('pointerdown',e=>down=[e.clientX,e.clientY]);
+canvas.addEventListener('pointerup',e=>{
+  if(!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>6) return;
+  ptr.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1); ray.setFromCamera(ptr,camera);
+  const hits=ray.intersectObjects(agents.filter(a=>a.mesh.visible).map(a=>a.mesh),true);
+  if(hits.length) showWho(hits[0].object.userData.agent); else hideWho();
+});
+
+function resize(){
+  renderer.setSize(innerWidth,innerHeight,false);
+  camera.aspect=innerWidth/innerHeight; camera.fov=innerWidth<640?55:40; camera.updateProjectionMatrix();
+}
+addEventListener('resize',()=>{resize();});
+
+/* ================= Render loop ================= */
+let exploded=1, last=performance.now(), uiTimer=0;
+function floorY(f){
+  const i=Math.min(2,Math.max(0,Math.floor(f))), t=f-i;
+  const y0=floors[i].position.y, y1=i<2?floors[i+1].position.y:y0;
+  return y0+(y1-y0)*t+.37;
+}
+function frame(now){
+  const rdt=Math.min(.1,(now-last)/1000); last=now;
+  if(running && !ended){
+    acc+=rdt*GS_PER_S*speed;
+    while(acc>=.5 && !ended){ tickSim(.5); acc-=.5; }
+  } else if(ended){ const s=rdt*GS_PER_S*speed; agents.forEach(a=>stepAgent(a,s)); }
+  // floors explode / collapse
+  const ex = shellMode?0:1; exploded += (ex-exploded)*.1;
+  floors.forEach((fl,i)=>{ fl.position.y=fl.userData.baseY+i*GAP*exploded; fl.visible = focus==='all' || i<=focus; });
+  floors.forEach((fl,i)=>{ if(focus!=='all' && i===focus) fl.visible=true; });
+  roof.position.y=floors[2].position.y+FH;
+  stairs.forEach((s,i)=>{ s.position.y=floors[i].position.y; s.scale.y=(floors[i+1].position.y-floors[i].position.y)/FH; s.visible = focus==='all' || i<focus; });
+  // agents
+  const t=now/1000;
+  agents.forEach(a=>{
+    const m=a.mesh;
+    m.position.set(a.x, floorY(a.f), a.z);
+    m.rotation.y=a.yaw;
+    const anim = a.walking && running ? Math.sin(t*9*Math.min(3,speed)+a.phase) : 0;
+    a.legs[0].rotation.x=anim*.5; a.legs[1].rotation.x=-anim*.5;
+    a.arms[0].rotation.x=-anim*.4; a.arms[1].rotation.x=anim*.4;
+    let hop=0;
+    if(a.team.state==='escaped' && !a.walking) hop=Math.max(0,Math.sin(t*6+a.phase))*.25;
+    if(a.jump!==undefined && clock-a.jump<20) hop=Math.max(hop,Math.abs(Math.sin(t*8))*.3);
+    if(a.team.state==='failed') m.rotation.x=0;
+    m.position.y+=hop;
+    m.visible = focus==='all' || Math.round(a.f)===focus;
+    a.ring.scale.setScalar(selected===a?1.6:1);
+  });
+  teams.forEach(tm=>{
+    const vis=tm.members.filter(m=>m.mesh.visible);
+    tm.tag.visible=!shellMode && vis.length>0;
+    if(!vis.length) return;
+    let cx=0,cy=0,cz=0; vis.forEach(m=>{cx+=m.mesh.position.x;cy+=m.mesh.position.y;cz+=m.mesh.position.z;});
+    tm.tag.position.set(cx/vis.length, cy/vis.length+2.4, cz/vis.length);
+    let txt=tm.name;
+    if(tm.state==='waiting') txt+=' ⏳ 대기 '+fmt(clock-(tm.waitStart??clock));
+    else if(tm.state==='solving') txt+=' 🔍 '+Math.min(99,Math.floor(tm.progress*100))+'%';
+    else if(tm.state==='moving') txt+=' → 이동';
+    else if(tm.state==='escaped') txt+=' '+DONE_ICON()+' '+DONE();
+    else if(tm.state==='failed') txt+=' ✖ 실패';
+    if(txt!==tm.tagText){ tm.tagText=txt; const old=tm.tag.material.map; const nl=label(txt,3.6,'#ffffff',tm.css); tm.tag.material.map=nl.material.map; tm.tag.scale.copy(nl.scale); old.dispose(); }
+  });
+  // camera easing
+  if(camGoal){ controls.target.lerp(camGoal.t,.08); camera.position.lerp(camGoal.p,.08); if(camera.position.distanceTo(camGoal.p)<.3) camGoal=null; }
+  controls.update();
+  uiTimer+=rdt;
+  if(uiTimer>.25){ uiTimer=0;
+    const left=LIMIT-clock, ck=document.getElementById('clock'); ck.textContent=fmt(left); ck.classList.toggle('warn',left<600);
+    renderTeams(); if(selected) showWho(selected);
+  }
+  renderer.render(scene,camera);
+  requestAnimationFrame(frame);
+}
+
+// ---- 시나리오 뱅크 (scenarios/index.json) ----
+let BANK=[];
+function fillSelects(){
+  for(const id of ['scnSel','scnSel2']){ const el=document.getElementById(id);
+    el.innerHTML=BANK.map(b=>`<option value="${b.id}">${b.title}</option>`).join(''); el.value=SCN.id;
+    el.onchange=()=>loadScenario(el.value); }
+}
+function loadScenario(id){
+  const sc=BANK.find(b=>b.id===id)||BANK[0];
+  running=false; applyScenario(sc); buildScenario(); newGame(sc.defaultSeed||1);
+  document.getElementById('hTitle').textContent=sc.title; document.getElementById('hSub').textContent=sc.subtitle;
+  document.getElementById('hHelp').textContent=`층마다 ${sc.clue} ${NEED[0]}·${NEED[1]}·${NEED[2]}개를 모으고 3층 ${roomById.vault.short} ${sc.finalThing}${josa(sc.finalThing,'을','를')} ${sc.finalVerb||'열면'} ${DONE()}. 학생을 탭하면 정보가 보여요.`;
+  document.title=sc.title+' 시뮬레이션';
+  fillSelects();
+  if(location.hash.slice(1)!==sc.id){ try{ history.replaceState(null,'','#'+sc.id); }catch(_){ } }
+  if(document.getElementById('rules').style.display==='flex') showRules();
+}
+async function initBank(){
+  try{
+    const idx=await (await fetch('scenarios/index.json')).json();
+    BANK=await Promise.all(idx.scenarios.map(async e=>(await fetch('scenarios/'+e.file)).json()));
+  }catch(e){
+    document.getElementById('hTitle').textContent='시나리오를 불러오지 못했어요'; console.error(e); return;
+  }
+  const want=location.hash.slice(1);
+  loadScenario(BANK.some(b=>b.id===want)?want:BANK[0].id);
+}
+addEventListener('hashchange',()=>{ const id=location.hash.slice(1); if(SCN && id!==SCN.id && BANK.some(b=>b.id===id)) loadScenario(id); });
+resize(); aimCamera();
+camera.position.copy(camGoal.p); controls.target.copy(camGoal.t); camGoal=null;
+requestAnimationFrame(frame);
+initBank();
+
+</script>
+</body>
+</html>
