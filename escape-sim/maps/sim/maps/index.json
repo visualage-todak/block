@@ -2,9 +2,8 @@
  "maps": [
   {
    "id": "library",
-   "title": "가남교육도서관 — 도서관 건물 맵",
-   "map": "maps/library.json",
-   "scenario": "scenarios/library.json"
+   "title": "가남교육도서관 — 도서관 건물",
+   "href": "../../index.html#library"
   },
   {
    "id": "little-prince",

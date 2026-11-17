@@ -1,5 +1,22 @@
 {
  "scenarios": [
-  {"id": "library", "file": "library.json"}
+  {
+   "id": "library",
+   "file": "library.json"
+  }
+ ],
+ "links": [
+  {
+   "title": "어린왕자 — 별 맵",
+   "href": "maps/sim/index.html#little-prince"
+  },
+  {
+   "title": "소년이 온다 — 오월의 언덕 마을",
+   "href": "maps/sim/index.html#human-acts"
+  },
+  {
+   "title": "별 헤는 밤 — 별빛 언덕 마을",
+   "href": "maps/sim/index.html#star-night"
+  }
  ]
 }

@@ -1033,13 +1033,13 @@ function buildWorld(){
 
 }
 function loadMap(id){
-  const e=MAPS.find(m=>m.id===id)||MAPS[0];
+  const e=MAPS.find(m=>m.id===id&&!m.href)||MAPS.find(m=>!m.href);
   running=false; MAP=e.map;
   const sc=JSON.parse(JSON.stringify(e.scenario)); if(MAP.story) sc.story=MAP.story; if(MAP.goal) sc.goalText=MAP.goal;
   PLANETS=MAP.planets.map(p=>({...p,top:hexNum(p.top),rock:hexNum(p.rock)})); BRIDGES=MAP.bridges; PL=Object.fromEntries(PLANETS.map(p=>[p.id,p]));
   applyScenario(sc); buildWorld(); newGame(sc.defaultSeed||7);
   for(const sid of ['scnSel','scnSel2']){ const el=document.getElementById(sid);
-    el.innerHTML=MAPS.map(m=>`<option value="${m.id}">${m.title}</option>`).join(''); el.value=e.id; el.onchange=()=>loadMap(el.value); }
+    el.innerHTML=MAPS.map(m=>`<option value="${m.id}">${m.title}</option>`).join(''); el.value=e.id; el.onchange=()=>{ const m=MAPS.find(x=>x.id===el.value); if(m&&m.href){ location.href=m.href; el.value=e.id; } else loadMap(el.value); }; }
   document.title=e.title+' — 맵 시뮬레이션';
   if(location.hash.slice(1)!==e.id){ try{ history.replaceState(null,'','#'+e.id); }catch(_){ } }
   const vs=document.getElementById('viewSel'); vs.innerHTML=`<option value="all">보기: 전체</option>`+[0,1,2].map(f=>`<option value="${f}">보기: ${tierName(f)}</option>`).join('')+`<option value="vault">보기: ${roomById.vault.short}</option>`+(isTown()?'<option value="roof">보기: 외관(지붕)</option>':'');
@@ -1049,12 +1049,13 @@ function loadMap(id){
 async function init(){
   try{
     const idx=await (await fetch('maps/index.json')).json();
-    MAPS=await Promise.all(idx.maps.map(async m=>({id:m.id,title:m.title,map:await (await fetch(m.map)).json(),scenario:await (await fetch(m.scenario)).json()})));
+    MAPS=await Promise.all(idx.maps.map(async m=> m.href ? ({id:m.id,title:m.title,href:m.href}) : ({id:m.id,title:m.title,map:await (await fetch(m.map)).json(),scenario:await (await fetch(m.scenario)).json()})));
   }catch(e){ document.getElementById('scnSel').innerHTML='<option>맵을 불러오지 못했어요</option>'; console.error(e); return; }
-  const want=location.hash.slice(1); loadMap(MAPS.some(m=>m.id===want)?want:MAPS[0].id);
+  const want=location.hash.slice(1), wl=MAPS.find(m=>m.id===want&&m.href); if(wl){ location.href=wl.href; return; }
+  loadMap(MAPS.some(m=>m.id===want&&!m.href)?want:MAPS.find(m=>!m.href).id);
   camera.position.copy(camGoal.p); controls.target.copy(camGoal.t);
 }
-addEventListener('hashchange',()=>{ const id=location.hash.slice(1); if(MAP && MAPS.some(m=>m.id===id) && MAPS.find(m=>m.id===id).map!==MAP) loadMap(id); });
+addEventListener('hashchange',()=>{ const id=location.hash.slice(1), m=MAPS.find(x=>x.id===id); if(!m||!MAP) return; if(m.href){ location.href=m.href; return; } if(m.map!==MAP) loadMap(id); });
 resize(); aimCamera(); camera.position.copy(camGoal.p); controls.target.copy(camGoal.t); camGoal=null;
 requestAnimationFrame(frame);
 init();

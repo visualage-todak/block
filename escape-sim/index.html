@@ -899,11 +899,11 @@ function frame(now){
 }
 
 // ---- 시나리오 뱅크 (scenarios/index.json) ----
-let BANK=[];
+let BANK=[], LINKS=[];
 function fillSelects(){
   for(const id of ['scnSel','scnSel2']){ const el=document.getElementById(id);
-    el.innerHTML=BANK.map(b=>`<option value="${b.id}">${b.title}</option>`).join(''); el.value=SCN.id;
-    el.onchange=()=>loadScenario(el.value); }
+    el.innerHTML=BANK.map(b=>`<option value="${b.id}">${b.title}</option>`).join('')+LINKS.map((l,i)=>`<option value="go:${i}">${l.title}</option>`).join(''); el.value=SCN.id;
+    el.onchange=()=>{ const v=el.value; if(v.startsWith('go:')){ location.href=LINKS[+v.slice(3)].href; el.value=SCN.id; } else loadScenario(v); }; }
 }
 function loadScenario(id){
   const sc=BANK.find(b=>b.id===id)||BANK[0];
@@ -918,6 +918,7 @@ function loadScenario(id){
 async function initBank(){
   try{
     const idx=await (await fetch('scenarios/index.json')).json();
+    LINKS=idx.links||[];
     BANK=await Promise.all(idx.scenarios.map(async e=>(await fetch('scenarios/'+e.file)).json()));
   }catch(e){
     document.getElementById('hTitle').textContent='시나리오를 불러오지 못했어요'; console.error(e); return;
