@@ -1,0 +1,370 @@
+{
+ "id": "hong-gildong",
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "giwa",
+ "roofGhost": 0.22,
+ "roofColor": "#3b4048",
+ "wallColor": "#f2ede0",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#a08f6c",
+ "lampStyle": "lantern",
+ "lampColor": "#ffcf7a",
+ "archColor": "#7a3a2a",
+ "windowGlow": "#ffd99a",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffd9a0",
+ "roomLightI": 11,
+ "ringR": 74,
+ "mountains": [
+  [
+   -125,
+   10,
+   46,
+   70
+  ],
+  [
+   125,
+   0,
+   50,
+   70
+  ],
+  [
+   0,
+   95,
+   34,
+   60
+  ],
+  [
+   -150,
+   -60,
+   40,
+   55
+  ],
+  [
+   150,
+   -55,
+   40,
+   55
+  ]
+ ],
+ "sea": {
+  "z0": -82,
+  "level": 0.8,
+  "island": [
+   0,
+   -112,
+   15
+  ],
+  "color": "#2a6f8f",
+  "sand": "#cdbb8e"
+ },
+ "piers": [
+  [
+   "stacks",
+   "vault"
+  ],
+  [
+   "digital",
+   "vault"
+  ]
+ ],
+ "gates": [
+  "lobby",
+  "stacks",
+  "vault"
+ ],
+ "extras": [
+  {
+   "type": "palisade",
+   "room": "kids",
+   "gap": 2
+  },
+  {
+   "type": "wall",
+   "points": [
+    [
+     -66,
+     -62
+    ],
+    [
+     -52,
+     -70
+    ],
+    [
+     -40,
+     -78
+    ]
+   ],
+   "h": 3,
+   "tower": [
+    -52,
+    -70
+   ]
+  },
+  {
+   "type": "pavilion",
+   "x": 44,
+   "z": -60
+  },
+  {
+   "type": "jangseung",
+   "x": 0,
+   "z": 15
+  },
+  {
+   "type": "boat",
+   "x": 32,
+   "z": -96,
+   "rot": 0.5
+  },
+  {
+   "type": "boat",
+   "x": -34,
+   "z": -102,
+   "rot": -0.6
+  },
+  {
+   "type": "boat",
+   "x": 16,
+   "z": -134,
+   "rot": 1.2
+  }
+ ],
+ "theme": {
+  "bg": "#9cc3e0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#dfe9ff",
+   "#4a5a3a",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff1d6",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#6f8f4e",
+   "#55753e",
+   "#7a7464",
+   "#8d8a84"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#e09a6a",
+   "#9cc3e0"
+  ]
+ },
+ "dress": {
+  "houses": 18,
+  "houseWalls": [
+   "#f2ede0",
+   "#e6dcc6"
+  ],
+  "houseRoof": "mix",
+  "trees": 170,
+  "treeShape": "cone",
+  "treeLeaf": "#35583a",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "story": "조선 시대 고을과 팔도 산하, 바다 건너 섬나라까지 이어진 맵이에요. 기와집과 초가집이 섞인 고을에서 출발해, 솟을대문이 선 홍 판서 댁과 길동의 별당, 장터를 지나 산채와 해인사, 감영 창고, 한양 궁궐과 서해 나루터로 올라가요. 활빈 표식 4개를 모으면 나무 다리를 건너 바다 위 율도국 왕궁에 들어갈 수 있어요.",
+ "goal": "고을에서 한양과 바닷가까지 길을 따라 활빈 표식 4개를 모은 뒤, 나무 다리를 건너 율도국 왕궁에서 옥새를 먼저 찾는 팀이 활동을 마쳐요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 0,
+   "y": 0,
+   "r": 9,
+   "top": "#c9b48e",
+   "rock": "#7d786e",
+   "decor": "sarangchae",
+   "start": true
+  },
+  {
+   "id": "edu",
+   "f": 0,
+   "x": -22,
+   "z": -10,
+   "y": 0.6,
+   "r": 6.5,
+   "top": "#d8c9a8",
+   "rock": "#7d786e",
+   "decor": "byeoldang"
+  },
+  {
+   "id": "cafe",
+   "f": 0,
+   "x": 22,
+   "z": -14,
+   "y": 0.5,
+   "r": 7.5,
+   "top": "#b8a57e",
+   "rock": "#7d786e",
+   "decor": "market",
+   "yard": true,
+   "wallH": 0.9,
+   "wall": "#8e8a82",
+   "roof": "none"
+  },
+  {
+   "id": "kids",
+   "f": 1,
+   "x": -34,
+   "z": -40,
+   "y": 4,
+   "r": 8,
+   "top": "#8a7a5a",
+   "rock": "#7d786e",
+   "decor": "hideout",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#7a5b3c",
+   "roof": "none"
+  },
+  {
+   "id": "clubA",
+   "f": 1,
+   "x": -4,
+   "z": -44,
+   "y": 5,
+   "r": 8,
+   "top": "#cbbf9e",
+   "rock": "#7d786e",
+   "decor": "temple",
+   "dancheong": true,
+   "wall": "#f2ede0"
+  },
+  {
+   "id": "clubB",
+   "f": 1,
+   "x": 28,
+   "z": -40,
+   "y": 3,
+   "r": 6.5,
+   "top": "#bfae86",
+   "rock": "#7d786e",
+   "decor": "warehouse",
+   "roof": "choga"
+  },
+  {
+   "id": "stacks",
+   "f": 2,
+   "x": -18,
+   "z": -66,
+   "y": 5.5,
+   "r": 8.5,
+   "top": "#c9b896",
+   "rock": "#7d786e",
+   "decor": "palace",
+   "dancheong": true
+  },
+  {
+   "id": "digital",
+   "f": 2,
+   "x": 18,
+   "z": -68,
+   "y": 2.5,
+   "r": 6.5,
+   "top": "#a8875f",
+   "rock": "#7d786e",
+   "decor": "ferry",
+   "yard": true,
+   "wallH": 0.6,
+   "wall": "#8e8a82",
+   "roof": "none"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -112,
+   "y": 2.6,
+   "r": 8.5,
+   "top": "#c9a96e",
+   "rock": "#7d786e",
+   "decor": "yuldo",
+   "final": true,
+   "dancheong": true,
+   "roofColor": "#2f343b"
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "edu"
+  ],
+  [
+   "lobby",
+   "cafe"
+  ],
+  [
+   "edu",
+   "kids"
+  ],
+  [
+   "edu",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubB"
+  ],
+  [
+   "kids",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "digital"
+  ],
+  [
+   "clubB",
+   "digital"
+  ],
+  [
+   "stacks",
+   "vault"
+  ],
+  [
+   "digital",
+   "vault"
+  ]
+ ],
+ "tiers": [
+  "고을",
+  "팔도 산하",
+  "한양과 바닷길"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "길",
+  "layout": "조선 팔도 배치 (위로 갈수록 한양과 바다)"
+ },
+ "roomNames": {
+  "lobby": "홍 판서 댁 (출발)",
+  "vault": "율도국 왕궁 (최종)"
+ },
+ "startHour": 15
+}

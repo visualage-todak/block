@@ -22,6 +22,12 @@
    "title": "별 헤는 밤 — 별빛 언덕 마을",
    "map": "maps/star-night.json",
    "scenario": "scenarios/star-night.json"
+  },
+  {
+   "id": "hong-gildong",
+   "title": "홍길동전 — 조선 팔도와 율도국",
+   "map": "maps/hong-gildong.json",
+   "scenario": "scenarios/hong-gildong.json"
   }
  ]
 }

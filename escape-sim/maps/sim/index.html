@@ -409,6 +409,57 @@ function decor(p,g){
       const pl=mat2(0x8a6a48); for(let i=0;i<8;i++) box(r*1.5,.05,.5,pl,0,.03,-3+i*.6,g);
       box(1.2,.05,.6,mat2(0x5a3f2a),1.2,.06,.3,g); box(.7,.3,.5,mat2(0xa38b6a),1.2,.2,.3,g); box(.5,.03,.35,mat2(0xf3efe2),1.2,.37,.3,g);
       box(3,1.6,.2,mat2(0xd9cdb0),0,.8,-r+1,g); break; }
+    case 'sarangchae': { // 사랑채: 보료·안석·병풍·서안·문방사우
+      box(r*1.3,.06,r*1.0,mat2(0xc9a96e),0,.03,-.5,g);
+      box(2.4,.18,1.2,mat2(0x8e2b2b),0,.12,-r+2.2,g); box(2.4,.6,.25,mat2(0x8e2b2b),0,.4,-r+1.6,g);
+      for(let i=0;i<8;i++){ const pn=box(.62,1.9,.06,mat2(i%2?0xe9dfc6:0xe2d5b6),-2.17+i*.62,.95,-r+1.2,g); pn.rotation.y=(i%2?.18:-.18); }
+      box(1.5,.35,.6,mat2(0x5a3f2a),2.6,.18,-1,g); box(.25,.04,.15,mat2(0x111111),2.3,.38,-1,g); box(.5,.02,.35,mat2(0xf6eed8),2.8,.37,-1,g);
+      cyl(.08,.08,.3,mat2(0x3b6e5e),3.1,.36,-1.1,g,8); break; }
+    case 'byeoldang': { // 별당: 낡은 병서·검·연못
+      box(1.4,.3,.7,mat2(0x5a3f2a),-1.5,.15,-2.6,g); for(let i=0;i<4;i++) box(.5,.08,.35,mat2(i%2?0xd9c79e:0xc4b083),-1.9+i*.28,.34+i*.08,-2.6,g);
+      const sw=box(.08,.08,1.6,mat2(0xb8bcc2,{metalness:.7,roughness:.3}),1.8,.9,-r+1.3,g); sw.rotation.x=.3; box(.5,.6,.1,mat2(0x5a3f2a),1.8,1.4,-r+1.1,g);
+      cyl(.04,.04,.9,mat2(0x5a3f2a),-3,0,1.8,g,6); box(.5,.6,.5,glow(0xffd28a,.9),-3,1.2,1.8,g,false);
+      const pond=new THREE.Mesh(new THREE.CylinderGeometry(1.4,1.4,.06,20),mat2(0x2f6f86,{roughness:.2})); pond.position.set(2,.05,2.2); g.add(pond); break; }
+    case 'market': { // 장터: 차양·좌판·항아리·짚단
+      for(const [x,z,c] of [[-3.2,-2.6,0xd8c79c],[0,-3.4,0xc9a24a],[3.2,-2.6,0x9b2c22],[-3,2.4,0xd8c79c],[3,2.6,0x2f7a5e]]){
+        box(2.2,.7,1.2,mat2(0x7a5b3c),x,.35,z,g); for(const sx of [-1,1]) cyl(.05,.05,2.2,mat2(0x5a3f2a),x+sx*1.1,0,z+.6,g,6);
+        const aw=box(2.6,.05,1.8,mat2(c),x,2.2,z+.2,g); aw.rotation.x=-.18; for(let k=0;k<3;k++) ball(.18,mat2([0xd97b2a,0xb83a2e,0xe8d27a][k]),x-.6+k*.6,.82,z,g); }
+      for(let i=0;i<4;i++){ const j=cyl(.32,.25,.7,mat2(0x5a3a28,{roughness:.4}),-1.2+i*.8,0,.2,g,12); } break; }
+    case 'hideout': { // 활빈당 산채: 모닥불·깃발·통나무 의자·무기 걸이
+      for(let i=0;i<6;i++){ const a=i/6*6.28, l=box(.15,.15,1,mat2(0x5a3f2a),Math.cos(a)*.4,.12,Math.sin(a)*.4,g); l.rotation.y=-a; }
+      const fire=new THREE.Mesh(new THREE.ConeGeometry(.45,1,8),glow(0xff8a2a,2.2)); fire.position.set(0,.6,0); g.add(fire); const fl=new THREE.PointLight(0xff9a40,8,10,2); fl.position.set(0,1.4,0); g.add(fl);
+      for(let i=0;i<5;i++){ const a=i/5*6.28+.3; const lg=cyl(.32,.32,.45,mat2(0x7a5b3c),Math.cos(a)*2.6,0,Math.sin(a)*2.6,g,10); }
+      cyl(.06,.06,4.5,mat2(0x3b2b1f),r-2,0,-r+2,g,6); const fg=box(.05,1,1.6,mat2(0xd8c79c),r-2,4,-r+1.2,g); const fd=box(.06,.4,.4,mat2(0x9b2c22),r-2,4,-r+1.2,g);
+      box(2,.1,.12,mat2(0x5a3f2a),-r+2,1.6,-r+1.6,g); for(let i=0;i<3;i++) cyl(.03,.03,1.8,mat2(0x3b2b1f),-r+1.4+i*.6,.3,-r+1.7,g,6); break; }
+    case 'temple': { // 해인사: 석탑·석등·불단·범종
+      const st=mat2(0x9d998f,{flatShading:true});
+      box(1.6,.5,1.6,st,0,.25,1.6,g); for(let i=0;i<3;i++){ const w=1.3-i*.25; box(w*.7,.55,w*.7,st,0,.78+i*.75,1.6,g); box(w,.12,w,st,0,1.12+i*.75,1.6,g); } cyl(.05,.05,.7,st,0,3.2,1.6,g,6);
+      for(const sx of [-1,1]){ cyl(.15,.2,.9,st,sx*3.4,0,2,g,8); box(.55,.55,.55,glow(0xffd28a,.9),sx*3.4,1.15,2,g,false); const ct=new THREE.Mesh(new THREE.ConeGeometry(.5,.35,4),st); ct.position.set(sx*3.4,1.6,2); ct.rotation.y=Math.PI/4; g.add(ct); }
+      box(3.4,1,1.2,mat2(0x9b2c22),0,.5,-r+1.6,g); box(1,.15,.7,mat2(0xc9a24a,{metalness:.6,roughness:.35}),0,1.08,-r+1.6,g); ball(.4,mat2(0xc9a24a,{metalness:.6,roughness:.35}),0,1.55,-r+1.6,g);
+      const bell=new THREE.Mesh(new THREE.CylinderGeometry(.45,.6,1.2,14),mat2(0x4a5a4a,{metalness:.5,roughness:.4})); bell.position.set(-r+1.6,1.5,-1,g); g.add(bell); box(1.4,.12,.12,mat2(0x5a3f2a),-r+1.6,2.2,-1,g); break; }
+    case 'warehouse': { // 감영 창고: 볏섬·항아리·장부
+      for(let i=0;i<3;i++) for(let j=0;j<3;j++) for(let k=0;k<(j===1?2:1);k++){ const sk=cyl(.42,.42,1,mat2(0xc9b07a,{roughness:1}),-2.6+i*1.0,k*.85+.42,-r+1.5+j*.0,g,10); sk.rotation.z=Math.PI/2; sk.position.z=-r+1.4+(j*.9); }
+      for(let i=0;i<4;i++) cyl(.38,.3,.85,mat2(0x5a3a28,{roughness:.4}),1.2+i*.9,0,-r+1.6,g,12);
+      box(2,.75,.9,mat2(0x6b4a34),1,.38,1.8,g); box(.6,.04,.45,mat2(0xf6eed8),.8,.78,1.8,g); box(.6,.04,.45,mat2(0xf6eed8),1.5,.78,1.7,g);
+      box(.4,1.8,.12,mat2(0x2b1d14),-3.6,.9,2.4,g); break; }
+    case 'palace': { // 궁궐 편전: 월대·어좌·일월오봉도
+      box(r*1.2,.3,3,mat2(0x9d998f),0,.15,-r+2,g); box(2,.9,1,mat2(0x9b2c22),0,.75,-r+2,g); box(2,1.2,.15,mat2(0x9b2c22),0,1.4,-r+1.5,g);
+      const scr=new THREE.Group(); scr.position.set(0,0,-r+.9); g.add(scr); box(5,2.8,.1,mat2(0x2f6f86),0,1.6,0,scr);
+      for(let i=0;i<5;i++){ const m=new THREE.Mesh(new THREE.ConeGeometry(.5,1.4+(i===2?.5:0),4),mat2(0x2f7a5e)); m.position.set(-2+i,1.2+(i===2?.25:0),.08); scr.add(m); }
+      ball(.28,glow(0xd93b2e,.8),-1.5,2.55,.1,scr); ball(.26,glow(0xf2f0e6,.8),1.5,2.55,.1,scr);
+      for(let i=0;i<3;i++) for(const sx of [-1,1]) box(.3,.5,.2,mat2(0x9d998f),sx*(1.5+i*.6),.25,1+i*1.2,g); break; }
+    case 'ferry': { // 나루터: 밧줄 기둥·짐짝·뱃사공 등불
+      for(let i=0;i<5;i++) box(r*1.5,.05,.5,mat2(0x8a6a48),0,.03,-2+i*.7,g);
+      for(const sx of [-1,1]) cyl(.18,.2,1.2,mat2(0x5a3f2a),sx*2.5,0,-r+1.3,g,8);
+      const rope=new THREE.Mesh(new THREE.TorusGeometry(.35,.07,6,14),mat2(0xb59a6a)); rope.rotation.x=Math.PI/2; rope.position.set(-2.5,.5,-r+1.3); g.add(rope);
+      for(let i=0;i<3;i++) box(.8,.6,.8,mat2(0x7a5b3c),2+i*.2,.3+i*.6*(i>1?0:1)*0,1.8-i*.9,g);
+      cyl(.04,.04,1.6,mat2(0x3b2b1f),-3,0,2,g,6); box(.4,.5,.4,glow(0xffd28a,1),-3,1.8,2,g,false); break; }
+    case 'yuldo': { // 율도국 왕궁: 어좌·옥새 받침·깃발
+      box(r*1.1,.4,3.2,mat2(0x9d998f),0,.2,-r+2.2,g); box(r*.8,.3,2.4,mat2(0x9d998f),0,.55,-r+2,g);
+      box(2.2,1,1.1,mat2(0xc9a24a,{metalness:.5,roughness:.35}),0,1.2,-r+2,g); box(2.2,1.4,.15,mat2(0xc9a24a,{metalness:.5,roughness:.35}),0,1.9,-r+1.5,g);
+      cyl(.5,.6,1.1,mat2(0x9b2c22),0,0,1.2,g,12); const seal=box(.6,.45,.6,glow(0xf0d68a,1.2),0,1.35,1.2,g); ball(.2,glow(0xf0d68a,1.2),0,1.75,1.2,g);
+      for(const sx of [-1,1]){ cyl(.06,.06,4,mat2(0x3b2b1f),sx*(r-1.5),0,1,g,6); box(.05,1,1.3,mat2(sx>0?0x2c5d8a:0x9b2c22),sx*(r-1.5),3.4,.3,g); }
+      const pl=new THREE.PointLight(0xffe6a8,9,12,2); pl.position.set(0,3.5,-1); g.add(pl); break; }
     case 'starroom': {
       const big=glow(0xffe9a8,1.4);
       for(let i=0;i<50;i++) ball(rr(.03,.06),new THREE.MeshBasicMaterial({color:0xfff6c8}),rr(-r,r),rr(2,5),rr(-r,r),g);
@@ -441,8 +492,10 @@ function terrainNatural(x,z){
   let w=0, s=0; for(const p of PLANETS){ const d=Math.hypot(x-p.x,z-p.z)+4; const k=1/(d*d); w+=k; s+=k*p.y; }
   let h=s/w + noise2(x,z)*.8;
   const cx=0, cz=-44, D=Math.hypot((x-cx)*.85,z-cz);
-  if(D>62) h+=Math.pow(D-62,1.35)*.42*(1+.35*Math.sin(Math.atan2(z-cz,x-cx)*5+1.7));
+  const RR=MAP.ringR||62; if(D>RR) h+=Math.pow(D-RR,1.35)*.42*(1+.35*Math.sin(Math.atan2(z-cz,x-cx)*5+1.7));
   for(const m of (MAP.mountains||[])){ const d=Math.hypot(x-m[0],z-m[1]); if(d<m[3]) h+=m[2]*Math.pow(Math.cos(d/m[3]*Math.PI/2),1.6); }
+  if(MAP.sea){ const S=MAP.sea, w=smooth(0,9,S.z0-z+noise2(x*2,0)*1.5); h=h*(1-w)+(S.level-4)*w;
+    if(S.island){ const [ix,iz,ir]=S.island, di=Math.hypot(x-ix,z-iz); if(di<ir+6){ const k=1-smooth(ir-4,ir+6,di); h=Math.max(h,(S.level-4)*(1-k)+(S.level+1.2+noise2(x,z)*.3)*k); } } }
   return h;
 }
 const smooth=(e0,e1,x)=>{ const t=Math.min(1,Math.max(0,(x-e0)/(e1-e0))); return t*t*(3-2*t); };
@@ -451,7 +504,7 @@ function terrainH(x,z){
   for(const p of PLANETS){ const hb=bHalf(p)+1.2, dx=Math.abs(x-p.x)-hb, dz=Math.abs(z-p.z)-hb, d=Math.max(dx,dz,0)+Math.min(Math.max(dx,dz),0)*0; const w=1-smooth(0,6,Math.max(0,Math.max(dx,dz)));
     if(w>wMax){ wMax=w; tgt=p.y-.02; } }
   for(const s of bridgeSegs){ const vx=x-s.ax, vz=z-s.az, t=vx*s.ux+vz*s.uz, dd=Math.abs(-vx*s.uz+vz*s.ux);
-    if(t<-3||t>s.len+3) continue; const k=Math.min(1,Math.max(0,t/s.len)); const w=1-smooth(BW/2+.8,BW/2+5,dd);
+    if(t<-3||t>s.len+3||s.pier) continue; const k=Math.min(1,Math.max(0,t/s.len)); const w=1-smooth(BW/2+.8,BW/2+5,dd);
     if(w>wMax){ wMax=w; tgt=s.ay+(s.by-s.ay)*k-.04; } }
   return h*(1-wMax)+tgt*wMax;
 }
@@ -461,7 +514,7 @@ function buildTerrain(){
   const pos=g.attributes.position, col=new Float32Array(pos.count*3);
   const c0=new THREE.Color(hexNum(th.terrain[0])), c1=new THREE.Color(hexNum(th.terrain[1])), c2=new THREE.Color(hexNum(th.terrain[2])), c3=new THREE.Color(hexNum(th.terrain[3]||th.terrain[2])), tmp=new THREE.Color();
   for(let i=0;i<pos.count;i++){ const x=pos.getX(i), z=pos.getZ(i), h=terrainH(x,z); pos.setY(i,h);
-    const nat=h; if(nat<8) tmp.copy(c0).lerp(c1,Math.min(1,Math.max(0,(nat+1)/9)+ (noise2(x*3,z*3)*.05))); else if(nat<26) tmp.copy(c1).lerp(c2,(nat-8)/18); else tmp.copy(c2).lerp(c3,Math.min(1,(nat-26)/16));
+    const nat=h; if(MAP.sea && h<MAP.sea.level+1.0 && (z<MAP.sea.z0+3 || (MAP.sea.island && Math.hypot(x-MAP.sea.island[0],z-MAP.sea.island[1])<MAP.sea.island[2]+6))) tmp.set(hexNum(MAP.sea.sand||'#c9b78c')); else if(nat<8) tmp.copy(c0).lerp(c1,Math.min(1,Math.max(0,(nat+1)/9)+ (noise2(x*3,z*3)*.05))); else if(nat<26) tmp.copy(c1).lerp(c2,(nat-8)/18); else tmp.copy(c2).lerp(c3,Math.min(1,(nat-26)/16));
     col[i*3]=tmp.r; col[i*3+1]=tmp.g; col[i*3+2]=tmp.b; }
   g.setAttribute('color',new THREE.BufferAttribute(col,3)); g.computeVertexNormals();
   const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({vertexColors:true,roughness:.95,flatShading:false})); m.receiveShadow=true; worldRoot.add(m);
@@ -474,9 +527,11 @@ function wallSide(p,side,par,wm,H){
   if(cur<h) segs.push([cur,h]);
   for(const [a,b] of segs){ const L=b-a, c=(a+b)/2;
     if(side==='N'||side==='S'){ const z=side==='N'?-h:h; box(L,H,T,wm,c,H/2,z,par);
-      if(!p.yard) for(let x=a+1;x<b-.8;x+=2.2) box(.9,.8,.06,MAP.winM,x+.4,H*.6,z+(side==='N'?-.14:.14),par,false); }
+      if(!p.yard) for(let x=a+1;x<b-.8;x+=2.2){ box(.9,.8,.06,MAP.winM,x+.4,H*.6,z+(side==='N'?-.14:.14),par,false); if(MAP.joseon) addLattice(par,x,H*.6,z+(side==='N'?-.17:.17),true); }
+      if(MAP.joseon && p.yard){ box(L+.1,.22,.6,mat2(JC.tileEdge),c,H+.08,z,par); } }
     else { const x=side==='W'?-h:h; box(T,H,L,wm,x,H/2,c,par);
-      if(!p.yard) for(let z=a+1;z<b-.8;z+=2.2) box(.06,.8,.9,MAP.winM,x+(side==='W'?-.14:.14),H*.6,z+.4,par,false); } }
+      if(!p.yard) for(let z=a+1;z<b-.8;z+=2.2){ box(.06,.8,.9,MAP.winM,x+(side==='W'?-.14:.14),H*.6,z+.4,par,false); if(MAP.joseon) addLattice(par,x+(side==='W'?-.17:.17),H*.6,z,false); }
+      if(MAP.joseon && p.yard){ box(.6,.22,L+.1,mat2(JC.tileEdge),x,H+.08,c,par); } } }
   if(!p.yard) for(const gp of gaps){ // 문틀
     if(side==='N'||side==='S'){ const z=side==='N'?-h:h; box(2.5,.3,T+.1,MAP.trimM,gp,2.25,z,par); }
     else { const x=side==='W'?-h:h; box(T+.1,.3,2.5,MAP.trimM,x,2.25,gp,par); } }
@@ -484,6 +539,8 @@ function wallSide(p,side,par,wm,H){
 function makeRoof(p,par,style,w,d,y){
   const g=new THREE.Group(); g.position.y=y; par.add(g);
   if(style==='none') return g;
+  if(style==='giwa'){ giwaRoof(g,w,d,{dancheong:p.dancheong,tile:p.roofColor?hexNum(p.roofColor):undefined}); return g; }
+  if(style==='choga'){ chogaRoof(g,w,d); return g; }
   if(style==='hanok'){ const tile=mat2(hexNum(p.roofColor||MAP.roofColor||'#3a3f47'));
     box(w+.6,.25,d+.6,mat2(0x6b4f3a),0,0,0,g);
     const r=new THREE.Mesh(new THREE.ConeGeometry(1,1,4,1),tile); r.rotation.y=Math.PI/4; r.scale.set((w+2.4)*.72,Math.min(w,d)*.42,(d+2.4)*.72); r.position.y=Math.min(w,d)*.21+.1; r.castShadow=true; g.add(r);
@@ -499,12 +556,14 @@ function makeBuilding(p){
   const g=new THREE.Group(); g.position.set(p.x,p.y,p.z); worldRoot.add(g); p.group=g;
   const h=bHalf(p), H=p.wallH||2.4;
   const fl=new THREE.Mesh(new THREE.BoxGeometry(h*2,.3,h*2),mat2(p.top)); fl.position.y=-.14; fl.receiveShadow=true; g.add(fl);
-  box(h*2+.6,.5,h*2+.6,mat2(p.rock),0,-.45,0,g); // 기단
+  if(MAP.joseon){ const bh=p.yard?.6:1.1; box(h*2+.9,bh,h*2+.9,mat2(JC.stone,{flatShading:true}),0,-bh/2-.25,0,g); if(!p.yard) box(h*2+1.1,.12,h*2+1.1,mat2(0x9d998f),0,-.22,0,g); }
+  else box(h*2+.6,.5,h*2+.6,mat2(p.rock),0,-.45,0,g); // 기단
   const wm=mat2(hexNum(p.wall||MAP.wallColor||'#e8e1d2')); if(p.yard) MAP._yard=true;
   for(const s of ['N','S','E','W']) wallSide(p,s,g,wm,H);
+  if(MAP.joseon && !p.yard){ joseonFrame(p,g,H); box(h*2,.35,h*2+.02,mat2(JC.wood),0,.17,0,g).scale.set(1.002,1,1); }
   for(const d of p.doors){ box(2.2,.06,1.6,mat2(hexNum(MAP.stepColor||'#a69f92')),d.x-p.x,-.05,d.z-p.z,g,false); }
   const light=new THREE.PointLight(hexNum(MAP.roomLight||'#ffd9a0'),MAP.roomLightI??10,h*2.6,2); light.position.set(0,2.6,0); g.add(light);
-  const roof=makeRoof(p,g,p.roof||MAP.roofStyle||'flat',h*2,h*2,H+.15); roof.visible=false; roofs.push(roof);
+  const roof=makeRoof(p,g,p.roof||MAP.roofStyle||'flat',h*2,h*2,H+(MAP.joseon?.12:.15)); roof.visible=false; roofs.push(roof);
   decor(p,g);
 }
 function makeRoad(a,b){
@@ -513,12 +572,13 @@ function makeRoad(a,b){
   const da=doorPoint(A,ux,uz,.6), db=doorPoint(B,-ux,-uz,.6);
   const sx=da.x, sz=da.z, ex=db.x, ez=db.z;
   const ai=doorPoint(A,ux,uz,-1.1), bi=doorPoint(B,-ux,-uz,-1.1);
-  const seg={ax:sx,az:sz,ay:A.y,bx:ex,bz:ez,by:B.y,ux,uz,len:Math.hypot(ex-sx,ez-sz),from:a,to:b,ain:ai,bin:bi};
+  const seg={ax:sx,az:sz,ay:A.y,bx:ex,bz:ez,by:B.y,ux,uz,len:Math.hypot(ex-sx,ez-sz),from:a,to:b,ain:ai,bin:bi,pier:!!(MAP.piers&&MAP.piers.some(([p,q])=>(p===a&&q===b)||(p===b&&q===a)))};
   bridgeSegs.push(seg);
 }
 function drawRoad(seg){
   const A=PL[seg.from], B=PL[seg.to], {ax:sx,az:sz,bx:ex,bz:ez,ux,uz}=seg;
   const len3=Math.hypot(seg.len,B.y-A.y);
+  if(seg.pier) return drawPier(seg);
   const road=new THREE.Mesh(new THREE.BoxGeometry(BW+.6,.12,len3+1.2),mat2(hexNum(MAP.pathColor||'#6b6660')));
   road.position.set((sx+ex)/2,(A.y+B.y)/2+.02,(sz+ez)/2); road.rotation.order='YXZ'; road.rotation.y=Math.atan2(ux,uz); road.rotation.x=-Math.atan2(B.y-A.y,seg.len);
   road.receiveShadow=true; worldRoot.add(road);
@@ -537,6 +597,15 @@ function drawRoad(seg){
     const beam=box(BW+1.6,.25,.3,wood,gx,A.y+3.1,gz,worldRoot); beam.rotation.y=Math.atan2(ux,uz)+Math.PI/2;
     const lb=label(txt,3.8,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(gx,A.y+4,gz); worldRoot.add(lb);
   }
+}
+function drawPier(seg){
+  const A=PL[seg.from], B=PL[seg.to], {ax:sx,az:sz,bx:ex,bz:ez,ux,uz}=seg, pm=mat2(0x8a6a48), post=mat2(0x5a3f2a), lv=MAP.sea?MAP.sea.level:0;
+  const n=Math.ceil(seg.len/1.1), rot=Math.atan2(ux,uz);
+  for(let i=0;i<=n;i++){ const t=i/n, x=sx+(ex-sx)*t, z=sz+(ez-sz)*t, y=A.y+(B.y-A.y)*t; const pl=box(BW+.8,.14,.95,pm,x,y-.02,z,worldRoot); pl.rotation.y=rot;
+    if(i%3===0) for(const sd of [-1,1]){ const px=x-uz*sd*(BW/2+.35), pz=z+ux*sd*(BW/2+.35), bot=Math.min(lv-1.5,terrainH(px,pz)); cyl(.13,.15,y-bot+.9,post,px,bot,pz,worldRoot,8); } }
+  for(const sd of [-1,1]){ const len3=Math.hypot(seg.len,B.y-A.y), r=new THREE.Mesh(new THREE.BoxGeometry(.08,.08,len3),post); r.position.set((sx+ex)/2-uz*sd*(BW/2+.35),(A.y+B.y)/2+.85,(sz+ez)/2+ux*sd*(BW/2+.35)); r.rotation.order='YXZ'; r.rotation.y=rot; r.rotation.x=-Math.atan2(B.y-A.y,seg.len); worldRoot.add(r); }
+  const lampM=glow(hexNum(MAP.lampColor||'#ffcf7a'),1.8); for(let i=1;i<4;i++){ const t=i/4, sd=i%2?1:-1, x=sx+(ex-sx)*t-uz*sd*(BW/2+.35), z=sz+(ez-sz)*t+ux*sd*(BW/2+.35), y=A.y+(B.y-A.y)*t; box(.3,.4,.3,lampM,x,y+1.25,z,worldRoot,false); }
+  if(B.final && !A.final){ const lb=label(`${B.short} · ${SCN.clue} 4개`,3.8,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(sx+ux*2.2,A.y+3.6,sz+uz*2.2); worldRoot.add(lb); }
 }
 function drawStackLink(seg){
   const A=PL[seg.from], B=PL[seg.to], {ax:sx,az:sz,bx:ex,bz:ez,ux,uz}=seg, rise=B.y-A.y;
@@ -557,6 +626,90 @@ function buildStackShell(){
     const lb=label(tierName(f),3,'#ffffff','rgba(31,95,139,.9)'); lb.position.set(x0-1.5,y+1.2,(z0+z1)/2); worldRoot.add(lb); }
   if(MAP.sign){ const lb=label(MAP.sign,7,'#ffffff','#1f5f8b'); const top=Math.max(...PLANETS.map(p=>p.y)); lb.position.set(0,top+7,Math.min(...PLANETS.map(p=>p.z))-4); worldRoot.add(lb); }
 }
+
+/* ================= 조선 건축 (기와·초가·기단·기둥·창호·단청·솟을대문·성곽·정자·장승·목책·바다·배) ================= */
+const JC={tile:0x474c54, tileEdge:0x34383e, choga:0xb9975b, wood:0x6b4a34, red:0x9b2c22, green:0x2f7a5e, blue:0x2c5d8a, stone:0x8e8a82, plaster:0xf2ede0, paper:0xf6eed8};
+function giwaRoof(g,w,d,opt={}){
+  const o=opt.over??1.1, W=w+2*o, D=d+2*o, hh=Math.max(1.1,Math.min(w,d)*.26), tile=mat2(opt.tile??JC.tile,{roughness:.7}), edge=mat2(JC.tileEdge);
+  // 처마 아래 단청/서까래 띠
+  box(W-.3,.18,D-.3,mat2(opt.dancheong?JC.green:JC.wood),0,-.05,0,g);
+  if(opt.dancheong){ box(W-.1,.07,D-.1,mat2(JC.red),0,-.16,0,g); }
+  // 아래 우진각 부분 (사각뿔대)
+  const fr=new THREE.Mesh(new THREE.CylinderGeometry(.62,1,hh,4,1),tile); fr.rotation.y=Math.PI/4; fr.scale.set(W/Math.SQRT2,1,D/Math.SQRT2); fr.position.y=hh/2+.05; fr.castShadow=true; g.add(fr);
+  // 위 맞배 부분 (합각)
+  const gw=W*.62, gd=D*.62, gh=hh*.85, sh=new THREE.Shape(); sh.moveTo(-gd/2,0); sh.lineTo(0,gh); sh.lineTo(gd/2,0); sh.lineTo(-gd/2,0);
+  const ge=new THREE.ExtrudeGeometry(sh,{depth:gw,bevelEnabled:false}); ge.translate(0,0,-gw/2); const gm=new THREE.Mesh(ge,tile); gm.rotation.y=Math.PI/2; gm.position.y=hh+.04; gm.castShadow=true; g.add(gm);
+  // 합각 벽 (삼각 벽면)
+  for(const s of [-1,1]){ const tri=new THREE.Mesh(new THREE.ShapeGeometry(sh),mat2(opt.dancheong?JC.red:JC.wood)); tri.position.set(s*(gw/2-.02),hh+.05,0); tri.rotation.y=s>0?Math.PI/2:-Math.PI/2; tri.scale.set(.86,.86,1); g.add(tri); }
+  // 용마루 + 양 끝 취두
+  box(gw+.5,.28,.42,edge,0,hh+gh+.06,0,g);
+  for(const s of [-1,1]){ const c=box(.38,.5,.46,edge,s*(gw/2+.25),hh+gh+.22,0,g); c.rotation.z=-s*.25; }
+  // 추녀 끝 들림 (네 귀퉁이)
+  for(const sx of [-1,1]) for(const sz of [-1,1]){ const cn=new THREE.Mesh(new THREE.BoxGeometry(1.5,.16,.42),edge);
+    cn.position.set(sx*(W/2-.35),.16,sz*(D/2-.35)); cn.rotation.y=Math.atan2(-sz,sx)*1; cn.rotation.order='YZX'; cn.rotation.y=-Math.atan2(sz,sx); cn.rotation.z=.32; g.add(cn); }
+  return g;
+}
+function chogaRoof(g,w,d,opt={}){
+  const W=w+1.4, D=d+1.4, hh=Math.max(1.3,Math.min(w,d)*.32);
+  const m=new THREE.Mesh(new THREE.SphereGeometry(1,28,14,0,Math.PI*2,0,Math.PI/2),mat2(opt.color??JC.choga,{roughness:1,flatShading:true}));
+  m.scale.set(W/2*1.08,hh,D/2*1.08); m.position.y=.05; m.castShadow=true; g.add(m);
+  const rope=new THREE.Mesh(new THREE.TorusGeometry(1,.035,6,40),mat2(0x7a6236)); rope.rotation.x=Math.PI/2; rope.scale.set(W/2*.75,D/2*.75,1); rope.position.y=hh*.62; g.add(rope);
+  return g;
+}
+function joseonFrame(p,g,H){
+  // 기둥 + 창방(위 가로 부재)
+  const h=bHalf(p), pc=mat2(p.pillar?hexNum(p.pillar):(p.dancheong?JC.red:JC.wood)), bm=mat2(p.dancheong?JC.green:JC.wood);
+  const inDoor=(side,v)=>p.doors.some(d=>d.side===side && Math.abs((side==='E'||side==='W'?d.along-p.z:d.along-p.x)-v)<1.25);
+  const n=Math.max(2,Math.round(h*2/2.3));
+  for(const side of ['N','S','E','W']) for(let i=0;i<=n;i++){ const v=-h+i*(2*h/n); if(inDoor(side,v)) continue;
+    const x= side==='E'?h: side==='W'?-h: v, z= side==='S'?h: side==='N'?-h: v; cyl(.17,.19,H,pc,x,0,z,g,10); }
+  for(const [x,z,L,rot] of [[0,-h,2*h,0],[0,h,2*h,0],[-h,0,2*h,1],[h,0,2*h,1]]){ const b=box(L+.4,.26,.3,bm,x,H-.1,z,g); if(rot) b.rotation.y=Math.PI/2; }
+}
+function addLattice(par,x,y,z,alongX){
+  const bar=mat2(0x5a3f2a);
+  for(let k=-1;k<=1;k++){ if(alongX) box(.04,.8,.05,bar,x+.4+k*.28,y,z,par,false); else box(.05,.8,.04,bar,x,y,z+.4+k*.28,par,false); }
+  if(alongX) box(.9,.04,.05,bar,x+.4,y,z,par,false); else box(.05,.04,.9,bar,x,y,z+.4,par,false);
+}
+function sosulGate(p){
+  const d=p.doors[0]; if(!d) return; const ux=d.x-p.x, uz=d.z-p.z, L=Math.hypot(ux,uz), nx=ux/L, nz=uz/L;
+  const gx=p.x+nx*(bHalf(p)+.9), gz=p.z+nz*(bHalf(p)+.9), gy=p.y, g=new THREE.Group(); g.position.set(gx,gy,gz); g.rotation.y=Math.atan2(nx,nz); worldRoot.add(g);
+  const wood=mat2(p.dancheong?JC.red:JC.wood);
+  for(const s of [-1,1]){ cyl(.2,.22,3.4,wood,s*1.5,0,0,g,10); box(.6,.5,.6,mat2(JC.stone),s*1.5,.1,0,g); }
+  box(3.6,.3,.35,wood,0,3.25,0,g);
+  const rg=new THREE.Group(); rg.position.y=3.45; g.add(rg); giwaRoof(rg,3.2,1.2,{over:.7,dancheong:p.dancheong});
+}
+function buildExtras(){
+  for(const e of (MAP.extras||[])){
+    if(e.type==='wall'){ const sm=mat2(JC.stone,{flatShading:true}), cap=mat2(JC.tileEdge);
+      for(let i=0;i<e.points.length-1;i++){ const [x1,z1]=e.points[i],[x2,z2]=e.points[i+1], L=Math.hypot(x2-x1,z2-z1), n=Math.ceil(L/2);
+        for(let k=0;k<n;k++){ const t=(k+.5)/n, x=x1+(x2-x1)*t, z=z1+(z2-z1)*t, y=terrainH(x,z), seg=box(L/n+.05,e.h||3,1.2,sm,x,y+(e.h||3)/2-.4,z,worldRoot); seg.rotation.y=-Math.atan2(z2-z1,x2-x1);
+          if(k%2===0){ const c=box(.9,.6,1.25,sm,x,y+(e.h||3)-.1,z,worldRoot); c.rotation.y=seg.rotation.y; } } }
+      if(e.tower){ const [x,z]=e.tower, y=terrainH(x,z), g=new THREE.Group(); g.position.set(x,y+(e.h||3)-.4,z); worldRoot.add(g);
+        for(const sx of [-1,1]) for(const sz of [-1,1]) cyl(.18,.2,2.4,mat2(JC.red),sx*1.6,0,sz*1.2,g,10);
+        const rg=new THREE.Group(); rg.position.y=2.5; g.add(rg); giwaRoof(rg,3.6,2.8,{dancheong:true}); } }
+    else if(e.type==='pavilion'){ const y=terrainH(e.x,e.z), g=new THREE.Group(); g.position.set(e.x,y,e.z); worldRoot.add(g);
+      box(4.4,.7,4.4,mat2(JC.stone),0,.0,0,g); box(4,.15,4,mat2(0x8a6a48),0,.42,0,g);
+      for(const sx of [-1,1]) for(const sz of [-1,1]) cyl(.15,.17,2.6,mat2(JC.red),sx*1.7,.45,sz*1.7,g,10);
+      const rg=new THREE.Group(); rg.position.y=3.1; g.add(rg); giwaRoof(rg,3.6,3.6,{dancheong:true}); }
+    else if(e.type==='jangseung'){ for(const [i,s] of [[0,-1],[1,1]]){ const x=e.x+s*1.4, z=e.z, y=terrainH(x,z);
+        cyl(.28,.32,2.8,mat2(0x8a6a48),x,y,z,worldRoot,10); const hd=ball(.42,mat2(0x9a7a58),x,y+3,z); hd.scale.set(1,1.25,1);
+        box(.5,.12,.08,mat2(0x2b1d14),x,y+3.05,z+.38,worldRoot,false); box(.5,.08,.06,mat2(i?0xb03a2e:0x2b1d14),x,y+2.75,z+.4,worldRoot,false);
+        const hat=new THREE.Mesh(new THREE.CylinderGeometry(.5,.5,.08,16),mat2(0x2b1d14)); hat.position.set(x,y+3.5,z); worldRoot.add(hat); } }
+    else if(e.type==='palisade'){ const p=PL[e.room], h=bHalf(p)+(e.gap||2), sm=mat2(0x7a5b3c);
+      for(const side of ['N','S','E','W']) for(let v=-h;v<=h;v+=.7){ const x=side==='E'?p.x+h:side==='W'?p.x-h:p.x+v, z=side==='S'?p.z+h:side==='N'?p.z-h:p.z+v;
+        if(bridgeSegs.some(s=>{ const vx=x-s.ax, vz=z-s.az, t=vx*s.ux+vz*s.uz, dd=Math.abs(-vx*s.uz+vz*s.ux); return t>-4&&t<s.len+4&&dd<BW/2+1.2; })) continue;
+        if(p.doors.some(d=>Math.hypot(d.x-x,d.z-z)<2.4)) continue;
+        const y=terrainH(x,z), hgt=2+((v*7)%1+1)%1*.6; cyl(.12,.13,hgt,sm,x,y-.2,z,worldRoot,6); const tip=new THREE.Mesh(new THREE.ConeGeometry(.13,.35,6),sm); tip.position.set(x,y-.2+hgt+.17,z); worldRoot.add(tip); } }
+    else if(e.type==='boat'){ const g=new THREE.Group(); g.position.set(e.x,(MAP.sea?.level??0)+.05,e.z); g.rotation.y=e.rot||0; worldRoot.add(g);
+      const hm=mat2(0x7a5b3c); box(4.2,.6,1.4,hm,0,.15,0,g); const bow=new THREE.Mesh(new THREE.ConeGeometry(.75,1.2,4),hm); bow.rotation.z=-Math.PI/2; bow.rotation.x=Math.PI/4; bow.position.set(2.6,.15,0); g.add(bow);
+      cyl(.06,.07,3.2,mat2(0x5a3f2a),.3,.4,0,g,6); const sail=box(.05,2.2,1.6,mat2(0xe8dcc0),.35,2.3,0,g); }
+  }
+  if(MAP.sea){ const S=MAP.sea, wm=new THREE.MeshStandardMaterial({color:hexNum(S.color||'#2a6f8f'),transparent:true,opacity:.86,roughness:.25,metalness:.1,emissive:0x0a2030,emissiveIntensity:.4});
+    const w=new THREE.Mesh(new THREE.PlaneGeometry(420,260),wm); w.rotation.x=-Math.PI/2; w.position.set(0,S.level,S.z0-125); worldRoot.add(w); }
+  for(const id of (MAP.gates||[])) sosulGate(PL[id]);
+}
+function setRoofMode(solid){ for(const r of roofs) r.traverse(o=>{ if(o.isMesh){ o.material.transparent=!solid; o.material.opacity=solid?1:(MAP.roofGhost??.22); o.material.depthWrite=solid; } }); }
+
 function nearRoadOrBuilding(x,z,pad){
   for(const p of PLANETS) if(Math.abs(x-p.x)<bHalf(p)+pad && Math.abs(z-p.z)<bHalf(p)+pad) return true;
   for(const s of bridgeSegs){ const vx=x-s.ax, vz=z-s.az, t=vx*s.ux+vz*s.uz, d=Math.abs(-vx*s.uz+vz*s.ux); if(t>-pad&&t<s.len+pad&&d<BW/2+pad) return true; }
@@ -570,16 +723,19 @@ function scatterTown(){
     const s=bridgeSegs[Math.floor(rr(0,bridgeSegs.length))], t=rr(.15,.85), side=rr(0,1)<.5?-1:1, off=rr(6,10);
     const x=s.ax+(s.bx-s.ax)*t-s.uz*side*off, z=s.az+(s.bz-s.az)*t+s.ux*side*off;
     if(nearRoadOrBuilding(x,z,3.4) || houses.some(h=>Math.hypot(h[0]-x,h[1]-z)<8)) continue;
+    if(MAP.sea && terrainH(x,z)<MAP.sea.level+1.5) continue; if((MAP.extras||[]).some(e=>e.x!=null&&Math.hypot(x-e.x,z-e.z)<6)) continue;
     houses.push([x,z]); placed++;
     const y=terrainH(x,z), w=rr(4,5.5), d=rr(3.6,4.6), hg=new THREE.Group(); hg.position.set(x,y,z); hg.rotation.y=Math.atan2(s.ux,s.uz)+(side>0?Math.PI/2:-Math.PI/2); worldRoot.add(hg);
     const wc=(D.houseWalls||['#e8e1d2'])[placed%(D.houseWalls||[1]).length];
     box(w,2.6,d,mat2(hexNum(wc)),0,1.1,0,hg); box(w+.3,.5,d+.3,mat2(0x6e6a62),0,-.25,0,hg);
     box(.9,1.6,.08,mat2(0x5a3f2a),0,.8,d/2+.02,hg,false); box(.8,.6,.06,MAP.winM,w/4,1.6,d/2+.02,hg,false); box(.8,.6,.06,MAP.winM,-w/4,1.6,d/2+.02,hg,false);
-    makeRoof({},hg,D.houseRoof||'gable',w,d,2.45);
+    if(MAP.joseon){ box(w+.6,.6,d+.6,mat2(JC.stone,{flatShading:true}),0,-.1,0,hg); for(const sx of [-1,1]) for(const sz of [-1,1]) cyl(.13,.15,2.4,mat2(JC.wood),sx*w/2,0,sz*d/2,hg,8); }
+    const hr=D.houseRoof==='mix'?(placed%3===0?'giwa':'choga'):(D.houseRoof||'gable'); makeRoof({},hg,hr,w,d,2.45);
   }
   // 나무
   for(let i=0;i<(D.trees||160);i++){ const a=rr(0,6.28), dist=rr(8,95), x=Math.cos(a)*dist*1.1, z=Math.sin(a)*dist-44;
     if(nearRoadOrBuilding(x,z,2.2) || houses.some(h=>Math.hypot(h[0]-x,h[1]-z)<4)) continue;
+    if(MAP.sea && terrainH(x,z)<MAP.sea.level+.8) continue; if(MAP.extras&&MAP.extras.some(e=>e.type==='palisade'&&Math.hypot(x-PL[e.room].x,z-PL[e.room].z)<bHalf(PL[e.room])+4)) continue;
     const y=terrainH(x,z), s=rr(.7,1.5);
     cyl(.12*s,.18*s,1.4*s,tk,x,y,z);
     if(D.treeShape==='round'){ ball(1.1*s,tr,x,y+1.4*s+.8*s,z); }
@@ -931,7 +1087,7 @@ document.getElementById('closeRes').onclick=()=>document.getElementById('result'
 const hud=document.getElementById('hud');
 document.getElementById('toggle').onclick=e=>{ hud.classList.toggle('collapsed'); e.target.textContent=hud.classList.contains('collapsed')?'▾':'▴'; };
 document.getElementById('spSel').onchange=e=>document.querySelector(`[data-sp="${e.target.value}"]`).click();
-document.getElementById('viewSel').onchange=e=>{ const v=e.target.value; const rf=v==='roof'; roofs.forEach(r=>r.visible=rf); labels.forEach(l=>l.visible=!rf); focus=rf?'all':v; aimCamera(); };
+document.getElementById('viewSel').onchange=e=>{ const v=e.target.value; const rf=v==='roof'; roofs.forEach(r=>r.visible=rf||!!MAP.roofGhost); if(MAP.roofGhost) setRoofMode(rf); labels.forEach(l=>l.visible=!rf); focus=rf?'all':v; aimCamera(); };
 document.getElementById('menuSel').onchange=e=>{ const v=e.target.value; e.target.value='';
   if(v==='rules'){ if(SCN) showRules(); } else if(v==='rec') document.getElementById('repBtn').click(); else if(v==='new') document.getElementById('reset').click(); else if(v==='app') window.__installApp(); };
 
@@ -1096,7 +1252,7 @@ function buildWorld(){
   if(isTown()){
     MAP.winM=new THREE.MeshStandardMaterial({color:0x2a3440,emissive:hexNum(MAP.windowGlow||'#ffcf8a'),emissiveIntensity:MAP.windowGlowI??.6});
     MAP.trimM=mat2(hexNum(MAP.trimColor||'#6b4f3a'));
-    computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawRoad); buildTerrain(); scatterTown();
+    computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawRoad); buildTerrain(); scatterTown(); buildExtras();
   } else if(isStack()){
     MAP.winM=new THREE.MeshStandardMaterial({color:0x8fb8d0,emissive:0x000000}); MAP.trimM=mat2(hexNum(MAP.trimColor||'#3b4249'));
     computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawStackLink); buildStackShell();
@@ -1115,7 +1271,7 @@ function loadMap(id){
   document.title=e.title+' — 맵 시뮬레이션';
   if(location.hash.slice(1)!==e.id){ try{ history.replaceState(null,'','#'+e.id); }catch(_){ } }
   const vs=document.getElementById('viewSel'); vs.innerHTML=`<option value="all">보기: 전체</option>`+[0,1,2].map(f=>`<option value="${f}">보기: ${tierName(f)}</option>`).join('')+`<option value="vault">보기: ${roomById.vault.short}</option>`+(isTown()?'<option value="roof">보기: 외관(지붕)</option>':'');
-  focus='all'; vs.value='all'; roofs.forEach(r=>r.visible=false); aimCamera();
+  focus='all'; vs.value='all'; roofs.forEach(r=>r.visible=!!MAP.roofGhost); if(MAP.roofGhost) setRoofMode(false); aimCamera();
   if(document.getElementById('rules').style.display==='flex') showRules();
 }
 async function init(){
