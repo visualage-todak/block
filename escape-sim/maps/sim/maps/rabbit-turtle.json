@@ -1,0 +1,382 @@
+{
+ "id": "rabbit-turtle",
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "giwa",
+ "roofGhost": 0.22,
+ "roofColor": "#2f6f7a",
+ "wallColor": "#f2ede0",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#b5a37a",
+ "lampStyle": "lantern",
+ "lampColor": "#bff3ff",
+ "archColor": "#2f6f7a",
+ "windowGlow": "#ffe2a8",
+ "windowGlowI": 0.9,
+ "roomLight": "#d9f2ff",
+ "roomLightI": 11,
+ "ringR": 62,
+ "ringNorthOnly": true,
+ "mountains": [
+  [
+   0,
+   -175,
+   60,
+   95
+  ],
+  [
+   -125,
+   -85,
+   42,
+   62
+  ],
+  [
+   125,
+   -95,
+   46,
+   62
+  ]
+ ],
+ "water": {
+  "level": 0,
+  "color": "#1aa6d6",
+  "opacity": 0.36,
+  "bed": "#c2b38a",
+  "sand": "#e2d3a6",
+  "weeds": 150,
+  "fish": [
+   [
+    0,
+    -4,
+    6,
+    10,
+    "#f2a33a",
+    7
+   ],
+   [
+    -24,
+    -4,
+    -6,
+    8,
+    "#e85a5a",
+    5
+   ],
+   [
+    24,
+    -4,
+    -10,
+    8,
+    "#f5d36b",
+    5
+   ],
+   [
+    -30,
+    -1.5,
+    -36,
+    7,
+    "#7ad0e8",
+    4
+   ],
+   [
+    10,
+    -3,
+    22,
+    12,
+    "#ffffff",
+    9
+   ]
+  ],
+  "jara": [
+   [
+    -8,
+    -30,
+    1.6,
+    0.4
+   ]
+  ],
+  "rabbits": [
+   [
+    8,
+    -82,
+    1.1,
+    2.6
+   ],
+   [
+    -30,
+    -60,
+    1,
+    0.8
+   ]
+  ]
+ },
+ "gates": [
+  "lobby",
+  "edu"
+ ],
+ "extras": [
+  {
+   "type": "pavilion",
+   "x": 42,
+   "z": -60
+  },
+  {
+   "type": "jangseung",
+   "x": -6,
+   "z": -58
+  },
+  {
+   "type": "boat",
+   "x": 30,
+   "z": -24,
+   "rot": 0.4
+  }
+ ],
+ "theme": {
+  "bg": "#9cc3e0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#dfe9ff",
+   "#4a5a3a",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff1d6",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#6f8f4e",
+   "#55753e",
+   "#7a7464",
+   "#8d8a84"
+  ],
+  "charGlow": 0.35,
+  "sky": [
+   "#0f1a33",
+   "#e09a6a",
+   "#9cc3e0"
+  ]
+ },
+ "dress": {
+  "houses": 12,
+  "houseWalls": [
+   "#f2ede0",
+   "#e6dcc6"
+  ],
+  "houseRoof": "mix",
+  "trees": 190,
+  "treeShape": "round",
+  "treeLeaf": "#3f6f3a",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "story": "바닷속 수정궁에서 시작해 바닷가 모래톱과 산골짜기, 계곡까지 올라가는 맵이에요. 청기와를 얹은 용궁 건물 둘레에는 해초와 산호가 흔들리고 물고기 떼가 헤엄쳐요. 얕은 바다의 별주부 집을 지나 물 밖으로 나오면 모래톱과 산짐승 모임터가 있고, 더 오르면 토끼의 산골짜기와 토끼 굴이 나와요. 진주 4개를 모으면 계곡 너럭바위에서 토끼의 꾀를 풀 수 있어요.",
+ "goal": "바닷속 용궁에서 출발해 물 밖 바닷가와 산골짜기를 지나며 진주 4개를 모은 뒤, 계곡 너럭바위에서 토끼의 꾀를 먼저 풀어내는 팀이 활동을 마쳐요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 0,
+   "y": -9,
+   "r": 9,
+   "top": "#cdbb8e",
+   "rock": "#7d786e",
+   "decor": "sujeong",
+   "start": true,
+   "dancheong": true
+  },
+  {
+   "id": "edu",
+   "f": 0,
+   "x": -22,
+   "z": -10,
+   "y": -8.5,
+   "r": 6.5,
+   "top": "#cdbb8e",
+   "rock": "#7d786e",
+   "decor": "yakbang",
+   "dancheong": true
+  },
+  {
+   "id": "cafe",
+   "f": 0,
+   "x": 22,
+   "z": -14,
+   "y": -8,
+   "r": 7.5,
+   "top": "#d8c9a0",
+   "rock": "#7d786e",
+   "decor": "coral",
+   "yard": true,
+   "wallH": 0.7,
+   "wall": "#e8735a",
+   "roof": "none"
+  },
+  {
+   "id": "kids",
+   "f": 1,
+   "x": -32,
+   "z": -40,
+   "y": -3.5,
+   "r": 7,
+   "top": "#b8a882",
+   "rock": "#7d786e",
+   "decor": "jarahome",
+   "yard": true,
+   "wallH": 0.6,
+   "wall": "#6f6a62",
+   "roof": "none"
+  },
+  {
+   "id": "clubA",
+   "f": 1,
+   "x": -2,
+   "z": -46,
+   "y": 1.2,
+   "r": 8,
+   "top": "#e2d3a6",
+   "rock": "#7d786e",
+   "decor": "beach",
+   "yard": true,
+   "wallH": 0.4,
+   "wall": "#7a756c",
+   "roof": "none"
+  },
+  {
+   "id": "clubB",
+   "f": 1,
+   "x": 28,
+   "z": -42,
+   "y": 2.5,
+   "r": 7,
+   "top": "#9a8a5a",
+   "rock": "#7d786e",
+   "decor": "animals",
+   "yard": true,
+   "wallH": 0.6,
+   "wall": "#7a5b3c",
+   "roof": "none"
+  },
+  {
+   "id": "stacks",
+   "f": 2,
+   "x": -17,
+   "z": -68,
+   "y": 6,
+   "r": 8,
+   "top": "#7f9a54",
+   "rock": "#7d786e",
+   "decor": "rabbitvalley",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#7a5b3c",
+   "roof": "none"
+  },
+  {
+   "id": "digital",
+   "f": 2,
+   "x": 18,
+   "z": -70,
+   "y": 6.5,
+   "r": 6.5,
+   "top": "#8a7a54",
+   "rock": "#7d786e",
+   "decor": "burrow",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#7a5b3c",
+   "roof": "none"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -93,
+   "y": 10,
+   "r": 8.5,
+   "top": "#9d998f",
+   "rock": "#7d786e",
+   "decor": "neobeok",
+   "final": true,
+   "yard": true,
+   "wallH": 0.6,
+   "wall": "#8d8a84",
+   "roof": "none"
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "edu"
+  ],
+  [
+   "lobby",
+   "cafe"
+  ],
+  [
+   "edu",
+   "kids"
+  ],
+  [
+   "edu",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubB"
+  ],
+  [
+   "kids",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "digital"
+  ],
+  [
+   "clubB",
+   "digital"
+  ],
+  [
+   "stacks",
+   "vault"
+  ],
+  [
+   "digital",
+   "vault"
+  ]
+ ],
+ "tiers": [
+  "바닷속 용궁",
+  "바닷가",
+  "산골짜기"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "길",
+  "layout": "바닷속에서 산으로 (위로 갈수록 육지)"
+ },
+ "roomNames": {
+  "lobby": "수정궁 정전 (출발)",
+  "vault": "계곡 너럭바위 (최종)"
+ },
+ "startHour": 9
+}

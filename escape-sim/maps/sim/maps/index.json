@@ -28,6 +28,12 @@
    "title": "홍길동전 — 조선 팔도와 율도국",
    "map": "maps/hong-gildong.json",
    "scenario": "scenarios/hong-gildong.json"
+  },
+  {
+   "id": "rabbit-turtle",
+   "title": "별주부전 — 바닷속 용궁과 산골짜기",
+   "map": "maps/rabbit-turtle.json",
+   "scenario": "scenarios/rabbit-turtle.json"
   }
  ]
 }

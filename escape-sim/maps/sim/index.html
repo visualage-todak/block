@@ -460,6 +460,48 @@ function decor(p,g){
       cyl(.5,.6,1.1,mat2(0x9b2c22),0,0,1.2,g,12); const seal=box(.6,.45,.6,glow(0xf0d68a,1.2),0,1.35,1.2,g); ball(.2,glow(0xf0d68a,1.2),0,1.75,1.2,g);
       for(const sx of [-1,1]){ cyl(.06,.06,4,mat2(0x3b2b1f),sx*(r-1.5),0,1,g,6); box(.05,1,1.3,mat2(sx>0?0x2c5d8a:0x9b2c22),sx*(r-1.5),3.4,.3,g); }
       const pl=new THREE.PointLight(0xffe6a8,9,12,2); pl.position.set(0,3.5,-1); g.add(pl); break; }
+    case 'sujeong': { // 수정궁 정전: 용상·병든 용왕 침상·진주 기둥
+      box(r*1.1,.3,3,mat2(0x9d998f),0,.15,-r+2,g); box(2.2,1,1.1,mat2(0x2f8a8a),0,.8,-r+2,g); box(2.2,1.5,.15,mat2(0x2f8a8a),0,1.6,-r+1.5,g);
+      const dr=new THREE.Mesh(new THREE.TorusGeometry(.7,.12,8,20,Math.PI*1.4),mat2(0xc9a24a,{metalness:.6,roughness:.3})); dr.position.set(0,2.6,-r+1.5); g.add(dr);
+      box(2.6,.5,1.4,mat2(0x8e2b2b),2.8,.25,0,g); box(.8,.25,1.2,mat2(0xf6eed8),2.1,.6,0,g);
+      for(const sx of [-1,1]) for(const sz of [-1,1]){ cyl(.22,.22,3,new THREE.MeshStandardMaterial({color:0xbfe6f0,transparent:true,opacity:.7,roughness:.1}),sx*(r-2),0,sz*(r-2.5),g,12); ball(.3,glow(0xf6f0e0,.6),sx*(r-2),3.2,sz*(r-2.5),g); }
+      makeJara(g,-2.2,0,1.6,1.2,Math.PI*.8); break; }
+    case 'yakbang': { // 어의 약방: 약장·약탕기·처방 두루마리
+      for(let i=0;i<4;i++) for(let j=0;j<3;j++) box(.6,.5,.5,mat2(i%2^j%2?0x7a5034:0x6b4a34),-2+i*.62,.3+j*.52,-r+1.2,g);
+      for(let i=0;i<4;i++) for(let j=0;j<3;j++) ball(.04,mat2(0xc9a24a),-2+i*.62,.3+j*.52,-r+1.47,g);
+      cyl(.35,.28,.5,mat2(0x5a3a28),1.8,0,-1,g,12); const fire=box(.5,.12,.5,glow(0xff8a2a,1.4),1.8,.02,-1,g,false);
+      box(1.6,.35,.8,mat2(0x5a3f2a),-1,.18,1.6,g); const sc=box(1.1,.02,.5,mat2(0xf6eed8),-1,.37,1.6,g); break; }
+    case 'coral': { // 산호 정원 + 화공의 화첩(토끼 그림)
+      for(let i=0;i<7;i++){ const a=i/7*6.28; coral(p.x+Math.cos(a)*(r-2.2),p.y,p.z+Math.sin(a)*(r-2.2),1.1); }
+      const ea=new THREE.Group(); ea.position.set(0,0,-1); g.add(ea); for(const sx of [-1,1]){ const l=box(.08,2,.08,mat2(0x5a3f2a),sx*.5,1,0,ea); l.rotation.z=sx*.12; }
+      box(1.3,1,.06,mat2(0xf6eed8),0,1.5,.08,ea); makeRabbit(ea,0,1.12,.12,.45,0,0x8a7a6a); box(2.2,.06,1.2,mat2(0x7a5b3c),1.8,.6,1.2,g); break; }
+    case 'jarahome': { // 별주부의 집: 바위 굴·조개·자라
+      for(let i=0;i<5;i++){ const rk=ball(rr(.6,1.1),mat2(0x6f6a62,{flatShading:true}),-r+1.6+i*1.1,.3,-r+1.4,g); rk.scale.y=.7; }
+      for(let i=0;i<6;i++){ const sh=new THREE.Mesh(new THREE.SphereGeometry(.25,10,6,0,Math.PI*2,0,Math.PI/2),mat2(0xf2d6c0)); sh.position.set(rr(-3,3),.02,rr(0,3)); sh.scale.y=.4; g.add(sh); }
+      makeJara(g,0,0,.2,1.6,Math.PI); makeJara(g,2.2,0,1.6,1.0,-2.3); break; }
+    case 'beach': { // 바닷가 모래톱: 갯바위·자라가 오른 자리
+      for(let i=0;i<6;i++){ const rk=ball(rr(.5,1.2),mat2(0x7a756c,{flatShading:true}),rr(-r+2,r-2),.2,rr(-r+2,-1),g); rk.scale.y=.6; }
+      makeJara(g,-1,0,1.2,1.5,.6); for(let i=0;i<5;i++) box(.18,.02,.28,mat2(0xb8a67a),.3+i*.45,.02,1.6-i*.5,g,false);
+      cyl(.05,.05,1.5,mat2(0x5a3f2a),3,0,2,g,6); box(.9,.6,.05,mat2(0xd8c79c),3,1.6,2,g); break; }
+    case 'animals': { // 산짐승 모임터: 그루터기 둘레·짐승 모형
+      for(let i=0;i<7;i++){ const a=i/7*6.28; cyl(.45,.5,.5,mat2(0x7a5b3c),Math.cos(a)*3,0,Math.sin(a)*3,g,10); }
+      makeRabbit(g,0,0,0,1,0); const fx=ball(.45,mat2(0xc9702a),2.2,.5,-2.2,g); fx.scale.set(.8,.8,1.4); ball(.28,mat2(0xc9702a),2.2,.8,-1.6,g);
+      const bear=ball(.75,mat2(0x4a3628),-2.4,.75,-1.8,g); ball(.4,mat2(0x4a3628),-2.4,1.5,-1.4,g); const dr=ball(.5,mat2(0x9a7a4a),-2.3,.9,2.2,g); dr.scale.set(.8,1,1.5); break; }
+    case 'rabbitvalley': { // 토끼의 산골짜기: 꽃·풀·토끼와 자라
+      for(let i=0;i<26;i++) ball(.12,mat2([0xf2d23a,0xe86a8a,0xffffff,0xb48ae8][i%4]),rr(-r+1,r-1),.15,rr(-r+1,r-1),g);
+      for(let i=0;i<14;i++){ const gr=new THREE.Mesh(new THREE.ConeGeometry(.15,.6,4),mat2(0x5a8a3a)); gr.position.set(rr(-r+1,r-1),.3,rr(-r+1,r-1)); g.add(gr); }
+      makeRabbit(g,-1.2,0,0,1.3,.8); makeJara(g,1.4,0,.6,1.3,-2.2); break; }
+    case 'burrow': { // 토끼 굴: 흙 둔덕·그물·독수리 그림자
+      const md=ball(r*.5,mat2(0x7a5a3a,{flatShading:true}),0,-r*.25,-1.5,g); md.scale.set(1,.55,.8); box(1.2,1,.3,mat2(0x1a120c),0,.6,-1.5+r*.38,g);
+      const net=new THREE.Mesh(new THREE.PlaneGeometry(3,2,6,4),new THREE.MeshBasicMaterial({color:0xb59a6a,wireframe:true})); net.position.set(2.8,1,2); net.rotation.y=-.6; g.add(net);
+      for(const sx of [-1,1]) cyl(.05,.05,2,mat2(0x5a3f2a),2.8+sx*1.3*Math.cos(.6),0,2+sx*1.3*Math.sin(.6),g,6);
+      makeRabbit(g,-2,0,2,1,2.4); break; }
+    case 'neobeok': { // 계곡 너럭바위(최종): 시냇물·바위·토끼
+      const rk=box(5,1,3.4,mat2(0x8d8a84,{flatShading:true}),0,.5,-1.6,g); rk.rotation.y=.12;
+      const st=new THREE.Mesh(new THREE.PlaneGeometry(2,r*2),mat2(0x4fa3c4,{roughness:.1,emissive:0x1a4f6a,emissiveIntensity:.3})); st.rotation.x=-Math.PI/2; st.position.set(r-2.2,.04,0); g.add(st);
+      makeRabbit(g,0,1,-1.6,1.4,.2); makeJara(g,-2.8,0,2,1.4,.8);
+      for(let i=0;i<30;i++) ball(rr(.03,.06),new THREE.MeshBasicMaterial({color:0xfff6c8}),rr(-r,r),rr(2.5,5),rr(-r,r),g);
+      const pl=new THREE.PointLight(0xffe6a8,9,12,2); pl.position.set(0,3.5,-1); g.add(pl); break; }
     case 'starroom': {
       const big=glow(0xffe9a8,1.4);
       for(let i=0;i<50;i++) ball(rr(.03,.06),new THREE.MeshBasicMaterial({color:0xfff6c8}),rr(-r,r),rr(2,5),rr(-r,r),g);
@@ -492,7 +534,7 @@ function terrainNatural(x,z){
   let w=0, s=0; for(const p of PLANETS){ const d=Math.hypot(x-p.x,z-p.z)+4; const k=1/(d*d); w+=k; s+=k*p.y; }
   let h=s/w + noise2(x,z)*.8;
   const cx=0, cz=-44, D=Math.hypot((x-cx)*.85,z-cz);
-  const RR=MAP.ringR||62; if(D>RR) h+=Math.pow(D-RR,1.35)*.42*(1+.35*Math.sin(Math.atan2(z-cz,x-cx)*5+1.7));
+  const RR=MAP.ringR||62; if(D>RR && !(MAP.ringNorthOnly && z>cz)) h+=Math.pow(D-RR,1.35)*.42*(1+.35*Math.sin(Math.atan2(z-cz,x-cx)*5+1.7));
   for(const m of (MAP.mountains||[])){ const d=Math.hypot(x-m[0],z-m[1]); if(d<m[3]) h+=m[2]*Math.pow(Math.cos(d/m[3]*Math.PI/2),1.6); }
   if(MAP.sea){ const S=MAP.sea, w=smooth(0,9,S.z0-z+noise2(x*2,0)*1.5); h=h*(1-w)+(S.level-4)*w;
     if(S.island){ const [ix,iz,ir]=S.island, di=Math.hypot(x-ix,z-iz); if(di<ir+6){ const k=1-smooth(ir-4,ir+6,di); h=Math.max(h,(S.level-4)*(1-k)+(S.level+1.2+noise2(x,z)*.3)*k); } } }
@@ -514,7 +556,7 @@ function buildTerrain(){
   const pos=g.attributes.position, col=new Float32Array(pos.count*3);
   const c0=new THREE.Color(hexNum(th.terrain[0])), c1=new THREE.Color(hexNum(th.terrain[1])), c2=new THREE.Color(hexNum(th.terrain[2])), c3=new THREE.Color(hexNum(th.terrain[3]||th.terrain[2])), tmp=new THREE.Color();
   for(let i=0;i<pos.count;i++){ const x=pos.getX(i), z=pos.getZ(i), h=terrainH(x,z); pos.setY(i,h);
-    const nat=h; if(MAP.sea && h<MAP.sea.level+1.0 && (z<MAP.sea.z0+3 || (MAP.sea.island && Math.hypot(x-MAP.sea.island[0],z-MAP.sea.island[1])<MAP.sea.island[2]+6))) tmp.set(hexNum(MAP.sea.sand||'#c9b78c')); else if(nat<8) tmp.copy(c0).lerp(c1,Math.min(1,Math.max(0,(nat+1)/9)+ (noise2(x*3,z*3)*.05))); else if(nat<26) tmp.copy(c1).lerp(c2,(nat-8)/18); else tmp.copy(c2).lerp(c3,Math.min(1,(nat-26)/16));
+    const nat=h; if(MAP.water && h<MAP.water.level+.6) tmp.set(hexNum(h<MAP.water.level-1.5?(MAP.water.bed||'#c8b88a'):(MAP.water.sand||'#e2d3a6'))).lerp(new THREE.Color(0x6a7f6a),Math.min(.35,Math.max(0,(MAP.water.level-h)/40))); else if(MAP.sea && h<MAP.sea.level+1.0 && (z<MAP.sea.z0+3 || (MAP.sea.island && Math.hypot(x-MAP.sea.island[0],z-MAP.sea.island[1])<MAP.sea.island[2]+6))) tmp.set(hexNum(MAP.sea.sand||'#c9b78c')); else if(nat<8) tmp.copy(c0).lerp(c1,Math.min(1,Math.max(0,(nat+1)/9)+ (noise2(x*3,z*3)*.05))); else if(nat<26) tmp.copy(c1).lerp(c2,(nat-8)/18); else tmp.copy(c2).lerp(c3,Math.min(1,(nat-26)/16));
     col[i*3]=tmp.r; col[i*3+1]=tmp.g; col[i*3+2]=tmp.b; }
   g.setAttribute('color',new THREE.BufferAttribute(col,3)); g.computeVertexNormals();
   const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({vertexColors:true,roughness:.95,flatShading:false})); m.receiveShadow=true; worldRoot.add(m);
@@ -710,6 +752,45 @@ function buildExtras(){
 }
 function setRoofMode(solid){ for(const r of roofs) r.traverse(o=>{ if(o.isMesh){ o.material.transparent=!solid; o.material.opacity=solid?1:(MAP.roofGhost??.22); o.material.depthWrite=solid; } }); }
 
+
+/* ================= 바닷속 (수면·해초·산호·물고기·거품·자라·토끼) ================= */
+let ANIM=[];
+const isWet=(x,z)=>MAP.water && terrainH(x,z)<MAP.water.level-.6;
+function makeJara(par,x,y,z,s=1,rot=0){ const g=new THREE.Group(); g.position.set(x,y,z); g.rotation.y=rot; g.scale.setScalar(s); par.add(g);
+  const sh=new THREE.Mesh(new THREE.SphereGeometry(.7,16,10,0,Math.PI*2,0,Math.PI/2),mat2(0x4f6b3a,{flatShading:true})); sh.scale.set(1,.55,1.25); sh.position.y=.15; g.add(sh);
+  box(1.2,.1,1.5,mat2(0x8a9a5a),0,.15,0,g); const hd=ball(.22,mat2(0x7d8f55),0,.3,1.05,g); hd.scale.set(1,.9,1.3);
+  for(const sx of [-1,1]) for(const sz of [-1,1]){ const f=box(.32,.08,.18,mat2(0x7d8f55),sx*.62,.12,sz*.55,g); f.rotation.y=sx*sz*.5; }
+  for(const sx of [-1,1]) ball(.04,mat2(0x111111),sx*.1,.38,1.25,g); return g; }
+function makeRabbit(par,x,y,z,s=1,rot=0,c=0xf3efe6){ const g=new THREE.Group(); g.position.set(x,y,z); g.rotation.y=rot; g.scale.setScalar(s); par.add(g); const m=mat2(c);
+  const b=ball(.42,m,0,.42,0,g); b.scale.set(.9,1,1.15); const h=ball(.27,m,0,.85,.32,g);
+  for(const sx of [-1,1]){ const e=new THREE.Mesh(new THREE.CapsuleGeometry(.07,.42,4,8),m); e.position.set(sx*.1,1.25,.25); e.rotation.z=sx*-.18; g.add(e); const ei=box(.05,.3,.02,mat2(0xf2b6b6),sx*.1,1.25,.31,g,false); ei.rotation.z=sx*-.18; ball(.035,mat2(0x2a1a1a),sx*.11,.9,.57,g); }
+  ball(.12,m,0,.4,-.5,g); ball(.04,mat2(0xe89a9a),0,.82,.6,g); return g; }
+function seaweed(x,y,z,s=1){ const g=new THREE.Group(); g.position.set(x,y,z); worldRoot.add(g); const m=mat2([0x2f7a4a,0x3c8a3a,0x5a7a2a][Math.floor(rr(0,3))],{roughness:.6});
+  for(let k=0;k<3;k++){ const h=rr(1.6,3.4)*s, bl=new THREE.Mesh(new THREE.CylinderGeometry(.04,.12,h,5,4),m); const pa=bl.geometry.attributes.position; for(let i=0;i<pa.count;i++){ const yy=pa.getY(i)+h/2; pa.setX(i,pa.getX(i)+Math.sin(yy*2.2)*.18*yy/h); } bl.geometry.computeVertexNormals();
+    bl.position.set(rr(-.35,.35),h/2,rr(-.35,.35)); bl.rotation.y=rr(0,6); g.add(bl); }
+  ANIM.push({o:g,t:'sway',ph:rr(0,6)}); }
+function coral(x,y,z,s=1){ const c=[0xe8735a,0xf2a65a,0xd9548c,0xf5d36b,0xb46fd9][Math.floor(rr(0,5))], m=mat2(c,{roughness:.5});
+  for(let k=0;k<5;k++){ const h=rr(.5,1.4)*s, b=cyl(.07*s,.12*s,h,m,x+rr(-.5,.5)*s,y,z+rr(-.5,.5)*s,worldRoot,6); b.rotation.set(rr(-.5,.5),0,rr(-.5,.5)); ball(.13*s,m,b.position.x,y+h,b.position.z); } }
+function fishSchool(x,y,z,n=8,col=0xf2a33a,R=6){ const g=new THREE.Group(); g.position.set(x,y,z); worldRoot.add(g); const m=mat2(col,{roughness:.4,emissive:col,emissiveIntensity:.15});
+  for(let i=0;i<n;i++){ const f=new THREE.Group(), a=i/n*6.28; f.position.set(Math.cos(a)*R*rr(.7,1.1),rr(-.8,.8),Math.sin(a)*R*rr(.7,1.1)); f.rotation.y=-a;
+    const b=ball(.22,m,0,0,0,f); b.scale.set(.55,.8,1.5); const t=new THREE.Mesh(new THREE.ConeGeometry(.2,.35,4),m); t.rotation.x=-Math.PI/2; t.position.z=-.42; f.add(t); g.add(f); }
+  ANIM.push({o:g,t:'spin',sp:rr(.15,.3)*(Math.random()<.5?-1:1)}); }
+function bubbles(x,y0,z,top){ const m=new THREE.MeshStandardMaterial({color:0xdff6ff,transparent:true,opacity:.55,roughness:.1});
+  for(let i=0;i<6;i++){ const b=ball(rr(.06,.16),m,x+rr(-.4,.4),y0,z+rr(-.4,.4)); ANIM.push({o:b,t:'rise',y0,top,sp:rr(.6,1.2),ph:rr(0,1)}); } }
+function animWorld(t){ for(const a of ANIM){ if(a.t==='sway') a.o.rotation.z=Math.sin(t*1.2+a.ph)*.08, a.o.rotation.x=Math.cos(t*.9+a.ph)*.06;
+  else if(a.t==='spin') a.o.rotation.y=t*a.sp; else if(a.t==='rise'){ const k=((t*a.sp*.25+a.ph)%1); a.o.position.y=a.y0+(a.top-a.y0)*k; } } }
+function buildWater(){
+  const W=MAP.water; if(!W) return;
+  const wm=new THREE.MeshStandardMaterial({color:hexNum(W.color||'#1f7f9a'),transparent:true,opacity:W.opacity??.42,roughness:.15,metalness:.1,emissive:0x0a3040,emissiveIntensity:1,depthWrite:false,side:THREE.DoubleSide});
+  const w=new THREE.Mesh(new THREE.PlaneGeometry(460,460,1,1),wm); w.rotation.x=-Math.PI/2; w.position.set(0,W.level,-44); w.renderOrder=2; worldRoot.add(w);
+  // 바닷속 꾸미기
+  for(let i=0;i<(W.weeds||120);i++){ const a=rr(0,6.28), d=rr(4,110), x=Math.cos(a)*d*1.1, z=Math.sin(a)*d-44; if(!isWet(x,z)||nearRoadOrBuilding(x,z,1.6)) continue; const y=terrainH(x,z); (i%3===0?coral:seaweed)(x,y,z,rr(.8,1.4)); }
+  for(const f of (W.fish||[])) fishSchool(f[0],f[1],f[2],f[3]||8,hexNum(f[4]||'#f2a33a'),f[5]||6);
+  for(const p of PLANETS) if(p.y<W.level-1) for(let k=0;k<2;k++){ const a=rr(0,6.28), d=bHalf(p)+rr(2,5); bubbles(p.x+Math.cos(a)*d,terrainH(p.x+Math.cos(a)*d,p.z+Math.sin(a)*d),p.z+Math.sin(a)*d,W.level-.2); }
+  for(const j of (W.jara||[])) makeJara(worldRoot,j[0],terrainH(j[0],j[1]),j[1],j[2]||1.4,j[3]||0);
+  for(const r of (W.rabbits||[])) makeRabbit(worldRoot,r[0],terrainH(r[0],r[1]),r[1],r[2]||1.2,r[3]||0);
+}
+
 function nearRoadOrBuilding(x,z,pad){
   for(const p of PLANETS) if(Math.abs(x-p.x)<bHalf(p)+pad && Math.abs(z-p.z)<bHalf(p)+pad) return true;
   for(const s of bridgeSegs){ const vx=x-s.ax, vz=z-s.az, t=vx*s.ux+vz*s.uz, d=Math.abs(-vx*s.uz+vz*s.ux); if(t>-pad&&t<s.len+pad&&d<BW/2+pad) return true; }
@@ -723,7 +804,7 @@ function scatterTown(){
     const s=bridgeSegs[Math.floor(rr(0,bridgeSegs.length))], t=rr(.15,.85), side=rr(0,1)<.5?-1:1, off=rr(6,10);
     const x=s.ax+(s.bx-s.ax)*t-s.uz*side*off, z=s.az+(s.bz-s.az)*t+s.ux*side*off;
     if(nearRoadOrBuilding(x,z,3.4) || houses.some(h=>Math.hypot(h[0]-x,h[1]-z)<8)) continue;
-    if(MAP.sea && terrainH(x,z)<MAP.sea.level+1.5) continue; if((MAP.extras||[]).some(e=>e.x!=null&&Math.hypot(x-e.x,z-e.z)<6)) continue;
+    if(MAP.sea && terrainH(x,z)<MAP.sea.level+1.5) continue; if(MAP.water && terrainH(x,z)<MAP.water.level+1.2) continue; if((MAP.extras||[]).some(e=>e.x!=null&&Math.hypot(x-e.x,z-e.z)<6)) continue;
     houses.push([x,z]); placed++;
     const y=terrainH(x,z), w=rr(4,5.5), d=rr(3.6,4.6), hg=new THREE.Group(); hg.position.set(x,y,z); hg.rotation.y=Math.atan2(s.ux,s.uz)+(side>0?Math.PI/2:-Math.PI/2); worldRoot.add(hg);
     const wc=(D.houseWalls||['#e8e1d2'])[placed%(D.houseWalls||[1]).length];
@@ -735,7 +816,7 @@ function scatterTown(){
   // 나무
   for(let i=0;i<(D.trees||160);i++){ const a=rr(0,6.28), dist=rr(8,95), x=Math.cos(a)*dist*1.1, z=Math.sin(a)*dist-44;
     if(nearRoadOrBuilding(x,z,2.2) || houses.some(h=>Math.hypot(h[0]-x,h[1]-z)<4)) continue;
-    if(MAP.sea && terrainH(x,z)<MAP.sea.level+.8) continue; if(MAP.extras&&MAP.extras.some(e=>e.type==='palisade'&&Math.hypot(x-PL[e.room].x,z-PL[e.room].z)<bHalf(PL[e.room])+4)) continue;
+    if(MAP.sea && terrainH(x,z)<MAP.sea.level+.8) continue; if(MAP.water && terrainH(x,z)<MAP.water.level+.6) continue; if(MAP.extras&&MAP.extras.some(e=>e.type==='palisade'&&Math.hypot(x-PL[e.room].x,z-PL[e.room].z)<bHalf(PL[e.room])+4)) continue;
     const y=terrainH(x,z), s=rr(.7,1.5);
     cyl(.12*s,.18*s,1.4*s,tk,x,y,z);
     if(D.treeShape==='round'){ ball(1.1*s,tr,x,y+1.4*s+.8*s,z); }
@@ -1164,7 +1245,7 @@ function frame(now){
     acc+=rdt*GS_PER_S*speed;
     while(acc>=.5 && !ended){ tickSim(.5); acc-=.5; }
   } else if(ended){ const s=rdt*GS_PER_S*speed; agents.forEach(a=>stepAgent(a,s)); }
-  const t=now/1000;
+  const t=now/1000; if(ANIM.length) animWorld(t);
   agents.forEach(a=>{
     const m=a.mesh;
     m.position.set(a.x, a.f, a.z);
@@ -1247,12 +1328,12 @@ function updateDayCycle(){
 let MAPS=[];
 function buildWorld(){
   worldRoot.children.slice().forEach(c=>{ disposeTree(c); worldRoot.remove(c); });
-  labels=[]; stations=[]; bridgeSegs.length=0; roofs=[]; dseed=7;
+  labels=[]; stations=[]; bridgeSegs.length=0; roofs=[]; dseed=7; ANIM=[];
   buildTheme(MAP.theme||{});
   if(isTown()){
     MAP.winM=new THREE.MeshStandardMaterial({color:0x2a3440,emissive:hexNum(MAP.windowGlow||'#ffcf8a'),emissiveIntensity:MAP.windowGlowI??.6});
     MAP.trimM=mat2(hexNum(MAP.trimColor||'#6b4f3a'));
-    computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawRoad); buildTerrain(); scatterTown(); buildExtras();
+    computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawRoad); buildTerrain(); scatterTown(); buildExtras(); buildWater();
   } else if(isStack()){
     MAP.winM=new THREE.MeshStandardMaterial({color:0x8fb8d0,emissive:0x000000}); MAP.trimM=mat2(hexNum(MAP.trimColor||'#3b4249'));
     computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawStackLink); buildStackShell();
