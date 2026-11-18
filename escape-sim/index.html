@@ -982,6 +982,7 @@ async function initBank(){
   try{
     const idx=await (await fetch('scenarios/index.json')).json();
     LINKS=idx.links||[];
+    try{ (JSON.parse(localStorage.getItem('escCustom')||'[]')).forEach(c=>LINKS.push({title:'✏️ '+c.title,href:'maps/sim/index.html#'+c.id})); }catch(_){ }
     BANK=await Promise.all(idx.scenarios.map(async e=>(await fetch('scenarios/'+e.file)).json()));
   }catch(e){
     document.getElementById('hTitle').textContent='시나리오를 불러오지 못했어요'; console.error(e); return;

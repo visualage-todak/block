@@ -93,6 +93,22 @@
   #repBody td{padding:4px 3px;border-bottom:1px solid #eef1f4;vertical-align:top}
   #repBody .t{font-family:ui-monospace,Menlo,monospace;color:#8a96a3;white-space:nowrap}
   .muted{color:#5b6875;font-size:11px}
+
+  #editor,#history,#recView{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(10,20,30,.5);z-index:8}
+  #editor .card,#history .card,#recView .card{width:min(640px,96vw);max-height:92vh;display:flex;flex-direction:column;padding:12px 14px;font-size:12.5px}
+  #editor h2,#history h2,#recView h2{margin:0 0 6px;font-size:16px}
+  #edTabs{display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap} #edTabs button{flex:1;min-width:70px} #edTabs button.on{background:#1f5f8b;color:#fff;border-color:#1f5f8b}
+  #edBody,#histBody,#recBody{overflow:auto;flex:1;-webkit-overflow-scrolling:touch;padding-right:2px}
+  .ef{display:flex;flex-direction:column;gap:2px;margin:5px 0;flex:1 1 140px;min-width:0} .ef span{font-size:11px;color:#5b6875}
+  .ef input,.ef textarea,.ef select{font:inherit;padding:6px 7px;border:1px solid #c9d2dc;border-radius:8px;background:#fff;width:100%;box-sizing:border-box}
+  .ef input[type=color]{padding:1px;height:32px} .ef input[type=checkbox]{width:22px;height:22px}
+  .eg{display:flex;flex-wrap:wrap;gap:0 8px} .er{border:1px solid #dfe5ec;border-radius:10px;padding:4px 9px;margin:6px 0;background:#fafcfe} .er summary{cursor:pointer;padding:5px 0;font-size:13px}
+  .ep{border-top:1px dashed #d4dbe3;margin-top:6px;padding-top:4px} #editor h4{margin:10px 0 2px;font-size:13px}
+  .btnlike{display:inline-flex;align-items:center;padding:6px 10px;border:1px solid #c9d2dc;border-radius:8px;background:#fff;cursor:pointer;font-size:12.5px}
+  button.danger{color:#b03a2e;border-color:#e3b5b0} .hi{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid #e6ebf0;padding:7px 0}
+  #recBody table{width:100%;border-collapse:collapse} #recBody td{border-bottom:1px solid #eef1f4;padding:3px 4px;vertical-align:top} #recBody td.t{white-space:nowrap;color:#5b6875} #recBody td:nth-child(2){white-space:nowrap} #recBody h3{font-size:13px;margin:10px 0 4px}
+  #toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:rgba(20,30,45,.9);color:#fff;padding:8px 14px;border-radius:18px;font-size:13px;z-index:20;opacity:0;transition:opacity .3s;pointer-events:none}
+  @media print{ body.printing>*:not(#recView){display:none!important} body.printing #recView{position:static;display:block!important;background:none} body.printing #recView .card{max-height:none;width:auto;box-shadow:none} body.printing #recView .row{display:none} body.printing #recBody{overflow:visible} }
   @media (max-width:640px){
     #hud{left:6px;right:6px;top:6px;width:auto;padding:6px 8px}
     #toggle{display:inline-block}
@@ -114,7 +130,7 @@
   <div class="hrow body2">
     <select id="spSel" aria-label="속도"><option value="1">속도 1x</option><option value="3">속도 3x</option><option value="8">속도 8x</option></select>
     <select id="viewSel" aria-label="보기"><option value="all">보기: 전체</option><option value="0">보기: 1층 별</option><option value="1">보기: 2층 별</option><option value="2">보기: 3층 별</option><option value="vault">보기: 최종 장소</option><option value="roof">보기: 외관(지붕)</option></select>
-    <select id="menuSel" aria-label="메뉴"><option value="">메뉴</option><option value="rules">📖 규칙 보기</option><option value="rec">📋 기록 보기</option><option value="new">↺ 새 게임(새 시드)</option><option value="app">📲 앱으로 설치</option></select>
+    <select id="menuSel" aria-label="메뉴"><option value="">메뉴</option><option value="rules">📖 규칙 보기</option><option value="rec">📋 기록 보기</option><option value="new">↺ 새 게임(새 시드)</option><option value="edit">✏️ 시나리오 편집</option><option value="editmap">🗺 맵 편집</option><option value="mynew">➕ 새 시나리오 만들기</option><option value="hist">🗂 지난 기록</option><option value="offline">⬇️ 인터넷 없이 쓰기</option><option value="app">📲 앱으로 설치</option></select>
     <span class="muted">시드 <b id="seed">-</b></span>
   </div>
   <div class="body"><div class="teams" id="teams"></div></div>
@@ -133,6 +149,12 @@
   <div class="foot"><span class="hintScroll" id="scrollHint">↓ 끝까지 읽어 보세요</span><button id="rulesClose">닫기</button><button class="go" id="rulesStart">▶ 게임 시작</button></div>
 </div></div>
 <div id="report"><div class="card"><h2>시뮬레이션 기록</h2><div id="repBody"></div><div class="row" style="margin-top:10px"><button id="repCopy">텍스트 복사</button><button id="repClose">닫기</button></div></div></div>
+<div id="editor"><div class="card"><h2 id="edTitle">편집</h2>
+  <div id="edTabs"><button data-t="story">이야기·팀</button><button data-t="rooms">장소·퍼즐</button><button data-t="map">맵</button><button data-t="file">새로 만들기·파일</button></div>
+  <div id="edBody"></div>
+  <div class="row" style="margin-top:8px"><button id="edClose">닫기</button><span style="flex:1"></span><button id="edApply">적용해서 보기</button><button class="go" id="edSave">저장하고 닫기</button></div></div></div>
+<div id="history"><div class="card"><h2>🗂 지난 기록</h2><div id="histBody"></div><div class="row" style="margin-top:8px"><button id="histClose">닫기</button></div></div></div>
+<div id="recView"><div class="card"><h2 id="recTitle">기록</h2><div id="recBody"></div><div class="row" style="margin-top:8px;flex-wrap:wrap"><button id="recPdf">🖨 PDF로 저장</button><button id="recTxt">📄 텍스트 파일</button><button id="recCsv">📊 표(CSV) 파일</button><button id="recShare">📤 공유</button><button id="recClose">닫기</button></div></div></div>
 <div id="result"><div class="card"><h2>결과</h2><div id="resBody"></div><div class="row" style="margin-top:12px"><button class="go" id="again">다시 하기</button><button id="closeRes">닫기</button></div></div></div>
 
 <script type="importmap">
@@ -1127,7 +1149,7 @@ function newGame(seed){
     team.tag=label(team.name,3.2,'#ffffff',team.css); agentRoot.add(team.tag);
     teams.push(team);
   });
-  clock=0; running=false; ended=false; endReason=''; logs.length=0; events.length=0;
+  clock=0; running=false; ended=false; endReason=''; histSaved=false; logs.length=0; events.length=0;
   document.getElementById('seed').textContent=SEED;
   playBtn.textContent='▶'; playBtn.classList.add('go');
   document.getElementById('result').style.display='none';
@@ -1142,7 +1164,7 @@ function newGame(seed){
 let clock=0, running=false, ended=false, speed=1, acc=0;
 const GS_PER_S=6;
 const fmt=s=>{s=Math.max(0,Math.floor(s)); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');};
-const logs=[], events=[]; let endReason='';
+const logs=[], events=[]; let endReason='', histSaved=false;
 function log(text,css){ logs.unshift({t:fmt(clock),text,css}); if(logs.length>40) logs.pop(); renderLog(); }
 function ev(type,team,text,detail=''){ events.push({sec:clock,t:fmt(clock),type,team:team?team.name:'',text,detail}); log(text,team?team.css:undefined); }
 
@@ -1334,7 +1356,8 @@ document.getElementById('toggle').onclick=e=>{ hud.classList.toggle('collapsed')
 document.getElementById('spSel').onchange=e=>document.querySelector(`[data-sp="${e.target.value}"]`).click();
 document.getElementById('viewSel').onchange=e=>{ const v=e.target.value; const rf=v==='roof'; roofs.forEach(r=>r.visible=rf||!!MAP.roofGhost); if(MAP.roofGhost) setRoofMode(rf); labels.forEach(l=>l.visible=!rf); focus=rf?'all':v; aimCamera(); };
 document.getElementById('menuSel').onchange=e=>{ const v=e.target.value; e.target.value='';
-  if(v==='rules'){ if(SCN) showRules(); } else if(v==='rec') document.getElementById('repBtn').click(); else if(v==='new') document.getElementById('reset').click(); else if(v==='app') window.__installApp(); };
+  if(v==='rules'){ if(SCN) showRules(); } else if(v==='rec') showRecord(currentRecord()); else if(v==='new') document.getElementById('reset').click(); else if(v==='app') window.__installApp();
+  else if(v==='edit') openEditor('rooms'); else if(v==='editmap') openEditor('map'); else if(v==='mynew') openEditor('file'); else if(v==='hist') openHistory(); else if(v==='offline') cacheAll(); };
 
 let focus='all';
 let camGoal=null;
@@ -1383,6 +1406,7 @@ function showResult(){
     return `<tr><td>${t.finish!==null?(i+1)+'위':'-'}</td><td style="color:${t.css}"><b>${t.name}</b></td><td>${t.finish!==null?fmt(t.finish):'실패 ('+t.clues+'/5)'}</td><td class="muted">힌트 ${t.hints} · MVP ${mvp.name}</td></tr>`;
   }).join('')+'</table>';
   document.getElementById('result').style.display='flex';
+  if(!histSaved){ histSaved=true; saveHistory(); }
 }
 
 // picking
@@ -1520,11 +1544,165 @@ function loadMap(id){
   focus='all'; vs.value='all'; roofs.forEach(r=>r.visible=!!MAP.roofGhost); if(MAP.roofGhost) setRoofMode(false); aimCamera();
   if(document.getElementById('rules').style.display==='flex') showRules();
 }
+
+/* ================= 앱 안 편집기 · 지난 기록 · 파일 저장 ================= */
+const LS={get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(_){ return d; } }, set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v,(kk,vv)=>(kk==='winM'||kk==='trimM'||kk==='_yard')?undefined:vv)); return true; }catch(_){ alert('저장 공간이 부족해 저장하지 못했어요.'); return false; } }};
+const clone=o=>JSON.parse(JSON.stringify(o,(k,v)=>(k==='winM'||k==='trimM'||k==='_yard')?undefined:v));
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let ORIG={};
+function applyLocalEdits(){
+  for(const m of MAPS) if(!m.href) ORIG[m.id]={title:m.title,map:clone(m.map),scenario:clone(m.scenario)};
+  const ed=LS.get('escEdits',{});
+  for(const m of MAPS){ const o=ed[m.id]; if(o&&!m.href){ m.map=o.map; m.scenario=o.scenario; if(o.title) m.title=o.title; m.edited=true; } }
+  for(const c of LS.get('escCustom',[])){ if(!MAPS.some(m=>m.id===c.id)) MAPS.push({id:c.id,title:c.title,map:c.map,scenario:c.scenario,custom:true}); }
+}
+function saveEntry(e){
+  if(e.custom){ const cs=LS.get('escCustom',[]).filter(c=>c.id!==e.id); cs.push({id:e.id,title:e.title,map:e.map,scenario:e.scenario}); return LS.set('escCustom',cs); }
+  const ed=LS.get('escEdits',{}); ed[e.id]={title:e.title,map:e.map,scenario:e.scenario}; e.edited=true; return LS.set('escEdits',ed);
+}
+function downloadFile(name,text,type='application/json'){ const b=new Blob([text],{type}); const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },500); }
+const DECORS={lobby:'로비',edu:'교실',cafe:'카페',kids:'어린이방',club:'동아리방',stacks:'서가',digital:'컴퓨터실',vault:'금고방',desert:'사막',throne:'왕좌',mirrors:'거울',lamp:'가로등',ledger:'장부',globe:'지구본',roses:'장미',wheat:'밀밭',b612:'B612',readingplaza:'독서 광장',candles:'촛불',nightroom:'밤의 방',manuscript:'원고',tape:'테이프',sewing:'재봉',flowers:'꽃',snowlamp:'눈과 등',memorial:'추모',well:'우물',school:'학교',campus:'교정',tatami:'다다미방',hill:'언덕',floorboards:'마룻바닥',starroom:'별의 방',sarangchae:'사랑채',byeoldang:'별당',market:'장터',hideout:'산채',temple:'절',warehouse:'창고',palace:'궁궐',ferry:'나루터',yuldo:'왕궁',sujeong:'수정궁',yakbang:'약방',coral:'산호 정원',jarahome:'자라 집',beach:'모래톱',animals:'짐승 모임터',rabbitvalley:'산골짜기',burrow:'토끼 굴',neobeok:'너럭바위',riverbank:'강둑',doorhall:'문 많은 복도',tears:'눈물 웅덩이',rabbithouse:'토끼 집',caterpillar:'애벌레 버섯',cheshire:'고양이 숲',teaparty:'티파티',croquet:'크로케',trial:'재판정',reformclub:'신사 클럽',suez:'항구',bombay:'사원',jungle:'정글',calcutta:'법정',hongkong:'항구 매표소',yokohama:'곡예단',sanfran:'기차역',clubreturn:'클럽 귀환'};
+const ROOFS={none:'없음(마당)',flat:'평지붕',gable:'박공지붕',hanok:'한옥',giwa:'기와(팔작)',choga:'초가',dome:'돔'};
+const ROOM_IDS=['lobby','edu','cafe','kids','clubA','clubB','stacks','digital','vault'];
+const ROOM_ROLE={lobby:'출발',edu:'1단계',cafe:'1단계',kids:'2단계',clubA:'2단계',clubB:'2단계',stacks:'3단계',digital:'3단계',vault:'최종'};
+let edEntry=null, edTab='story';
+function curEntry(){ return MAPS.find(m=>m.map===MAP); }
+function openEditor(tab){
+  const e=curEntry(); if(!e) return; running=false; playBtn.textContent='▶'; playBtn.classList.add('go');
+  edEntry={...e, map:clone(e.map), scenario:clone(e.scenario)}; edTab=tab||edTab; renderEditor(); document.getElementById('editor').style.display='flex';
+}
+function fld(label,id,val,type='text',extra=''){ return `<label class="ef"><span>${label}</span>${type==='area'?`<textarea id="${id}" rows="3" ${extra}>${esc(val)}</textarea>`:`<input id="${id}" type="${type}" value="${esc(val)}" ${extra}>`}</label>`; }
+function sel(label,id,val,opts){ return `<label class="ef"><span>${label}</span><select id="${id}">${Object.entries(opts).map(([k,v])=>`<option value="${k}" ${k===val?'selected':''}>${v}</option>`).join('')}</select></label>`; }
+function renderEditor(){
+  const e=edEntry, sc=e.scenario, mp=e.map, body=document.getElementById('edBody');
+  document.querySelectorAll('#edTabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===edTab));
+  document.getElementById('edTitle').textContent='✏️ 편집 — '+e.title+(e.custom?' (내가 만든 것)':e.edited?' (수정됨)':'');
+  let h='';
+  if(edTab==='story'){
+    h+=fld('메뉴에 보일 제목','e_title',e.title)+fld('시나리오 제목','e_stitle',sc.title)+fld('부제','e_sub',sc.subtitle)
+      +fld('이야기 (규칙 창 첫머리)','e_story',mp.story||sc.story,'area','rows="6"')+fld('목표','e_goal',mp.goal||sc.goalText,'area')
+      +`<div class="eg">`+fld('모을 단서 이름','e_clue',sc.clue)+fld('최종 과제 이름','e_fin',sc.finalThing)+fld('끝났을 때 말','e_done',sc.doneWord)+fld('끝 아이콘','e_icon',sc.doneIcon)+`</div>`
+      +`<h4>팀</h4><div class="eg">`+sc.teams.map((t,i)=>fld(`팀 ${i+1} 이름`,'e_tn'+i,t.name)+fld('색','e_tc'+i,t.color,'color')).join('')+`</div>`
+      +`<h4>단계 이름</h4><div class="eg">`+[0,1,2].map(f=>fld(`${f+1}단계`,'e_tier'+f,(mp.tiers||[])[f]||'')).join('')+`</div>`;
+  } else if(edTab==='rooms'){
+    h+=`<p class="muted">장소마다 이름과 퍼즐 2개(이름·종류·설명·정답·힌트 3개)를 고칠 수 있어요. 퍼즐 이름은 겹치지 않게 써 주세요.</p>`;
+    for(const id of ROOM_IDS){ const r=sc.rooms[id]||{}; const nm=(mp.roomNames&&mp.roomNames[id])||r.name||id;
+      h+=`<details class="er" ${id==='edu'?'open':''}><summary><b>${ROOM_ROLE[id]}</b> · ${esc(nm)}</summary>`+fld('장소 이름','e_rn_'+id,nm);
+      (r.puzzles||[]).forEach((pz,k)=>{ const P=sc.puzzles[pz[0]]||{desc:'',answer:'',hints:['','','']};
+        h+=`<div class="ep"><div class="eg">`+fld(`퍼즐 ${k+1} 이름`,`e_pn_${id}_${k}`,pz[0])+sel('종류',`e_pt_${id}_${k}`,pz[1],{obs:'관찰',logic:'논리',both:'둘 다'})+`</div>`
+          +fld('설명',`e_pd_${id}_${k}`,P.desc,'area')+fld('정답',`e_pa_${id}_${k}`,P.answer)+`<div class="eg">`+[0,1,2].map(j=>fld(`힌트 ${j+1}`,`e_ph_${id}_${k}_${j}`,(P.hints||[])[j]||'')).join('')+`</div></div>`; });
+      h+=`</details>`; }
+  } else if(edTab==='map'){
+    h+=`<div class="eg">`+fld('시작 시각 (0~23시)','e_hour',mp.startHour??9,'number','min="0" max="23"')+(mp.islandStyle==='town'?sel('기본 지붕','e_roof',mp.roofStyle||'flat',ROOFS):'')+`</div>`
+      +`<p class="muted">x는 왼쪽(−)·오른쪽(+), z는 위쪽(−)·아래쪽(+), 높이는 땅 높이예요. 숫자를 바꾸고 <b>적용</b>을 누르면 맵이 다시 그려져요.</p>`;
+    for(const p of mp.planets){ const nm=(mp.roomNames&&mp.roomNames[p.id])||(sc.rooms[p.id]||{}).name||p.id;
+      h+=`<details class="er"><summary><b>${ROOM_ROLE[p.id]||''}</b> · ${esc(nm)}</summary><div class="eg">`
+        +fld('x','e_mx_'+p.id,p.x,'number','step="1"')+fld('z','e_mz_'+p.id,p.z,'number','step="1"')+fld('높이','e_my_'+p.id,p.y,'number','step="0.5"')+fld('크기(반지름)','e_mr_'+p.id,p.r,'number','step="0.5" min="4" max="14"')
+        +sel('장식','e_md_'+p.id,p.decor,DECORS)+(mp.islandStyle==='town'?sel('지붕','e_mf_'+p.id,p.roof||'',{'':'기본',...ROOFS}):'')+fld('바닥색','e_mc_'+p.id,p.top,'color')
+        +(mp.islandStyle==='town'?`<label class="ef"><span>담장만 (마당)</span><input type="checkbox" id="e_myd_${p.id}" ${p.yard?'checked':''}></label>`:'')+`</div></details>`; }
+  } else if(edTab==='file'){
+    h+=`<h4>새로 만들기</h4><p class="muted">지금 맵과 시나리오를 복사해 새 이름으로 만들어요. 제목 메뉴 맨 아래에 나타나요.</p><div class="row"><input id="e_newname" placeholder="새 시나리오 이름" style="flex:1"><button class="go" id="e_dup">복사해서 만들기</button></div>
+      <h4>파일로 주고받기</h4><p class="muted">편집한 시나리오를 파일로 저장해 다른 휴대폰·컴퓨터로 옮기거나, 받은 파일을 불러와요.</p>
+      <div class="row"><button id="e_export">📤 파일로 저장</button><label class="btnlike">📥 파일 불러오기<input type="file" id="e_import" accept=".json,application/json" hidden></label></div>
+      <h4>되돌리기</h4><div class="row">${e.custom?'<button id="e_del" class="danger">이 시나리오 지우기</button>':`<button id="e_reset" ${e.edited?'':'disabled'}>원래대로 되돌리기</button>`}</div>
+      <p class="muted">편집 내용은 이 기기(브라우저·앱)에만 저장돼요. 다른 기기에서 쓰려면 파일로 저장해 옮겨 주세요.</p>`;
+  }
+  body.innerHTML=h; body.scrollTop=0;
+  if(edTab==='file') bindFileTab();
+}
+const gv=id=>{ const el=document.getElementById(id); return el?(el.type==='checkbox'?el.checked:el.value):undefined; };
+function collectEditor(){
+  const e=edEntry, sc=e.scenario, mp=e.map;
+  if(edTab==='story'){
+    e.title=gv('e_title')||e.title; sc.title=gv('e_stitle'); sc.subtitle=gv('e_sub');
+    const st=gv('e_story'), gl=gv('e_goal'); sc.story=st; sc.goalText=gl; if(mp.story!==undefined) mp.story=st; if(mp.goal!==undefined) mp.goal=gl;
+    sc.clue=gv('e_clue')||sc.clue; sc.finalThing=gv('e_fin')||sc.finalThing; sc.doneWord=gv('e_done')||sc.doneWord; sc.doneIcon=gv('e_icon')||sc.doneIcon;
+    sc.teams.forEach((t,i)=>{ t.name=gv('e_tn'+i)||t.name; t.color=gv('e_tc'+i)||t.color; });
+    const tiers=[0,1,2].map(f=>gv('e_tier'+f)); if(tiers.some(Boolean)) mp.tiers=tiers.map((t,f)=>t||(mp.tiers||[])[f]||`${f+1}단계`);
+  } else if(edTab==='rooms'){
+    const newP={};
+    for(const id of ROOM_IDS){ const r=sc.rooms[id]; if(!r) continue; const nm=gv('e_rn_'+id); if(nm){ r.name=nm; if(mp.roomNames&&mp.roomNames[id]!==undefined) mp.roomNames[id]=nm; if(id==='vault') r.short=nm.replace(/\s*\(.*\)/,''); }
+      (r.puzzles||[]).forEach((pz,k)=>{ let n=(gv(`e_pn_${id}_${k}`)||pz[0]).trim(); while(newP[n]) n+=' ʹ'; pz[0]=n; pz[1]=gv(`e_pt_${id}_${k}`)||pz[1];
+        newP[n]={desc:gv(`e_pd_${id}_${k}`)||'',answer:gv(`e_pa_${id}_${k}`)||'',hints:[0,1,2].map(j=>gv(`e_ph_${id}_${k}_${j}`)||'')}; }); }
+    sc.puzzles=newP;
+  } else if(edTab==='map'){
+    const hr=+gv('e_hour'); if(!isNaN(hr)) mp.startHour=Math.max(0,Math.min(23,hr)); if(gv('e_roof')) mp.roofStyle=gv('e_roof');
+    for(const p of mp.planets){ const n=k=>{ const v=parseFloat(gv(k+p.id)); return isNaN(v)?undefined:v; };
+      p.x=n('e_mx_')??p.x; p.z=n('e_mz_')??p.z; p.y=n('e_my_')??p.y; p.r=Math.max(4,Math.min(14,n('e_mr_')??p.r)); p.decor=gv('e_md_'+p.id)||p.decor; p.top=gv('e_mc_'+p.id)||p.top;
+      const rf=gv('e_mf_'+p.id); if(rf!==undefined){ if(rf) p.roof=rf; else delete p.roof; } const yd=gv('e_myd_'+p.id); if(yd!==undefined) p.yard=yd; }
+  }
+}
+function applyEditor(close){
+  collectEditor(); const e=MAPS.find(m=>m.id===edEntry.id); Object.assign(e,{title:edEntry.title,map:edEntry.map,scenario:edEntry.scenario});
+  if(!saveEntry(e)) return; loadMap(e.id); if(close) document.getElementById('editor').style.display='none'; else openEditor(edTab);
+  toast('저장했어요 · 이 기기에 보관돼요');
+}
+function bindFileTab(){
+  document.getElementById('e_dup').onclick=()=>{ const nm=(gv('e_newname')||'').trim()||edEntry.title+' (복사본)'; const id='my-'+Date.now().toString(36);
+    const ne={id,title:nm,map:clone(edEntry.map),scenario:clone(edEntry.scenario),custom:true}; ne.map.id=id; ne.scenario.id=id; ne.scenario.title=nm; MAPS.push(ne); if(saveEntry(ne)){ loadMap(id); openEditor('story'); toast('새 시나리오를 만들었어요'); } };
+  document.getElementById('e_export').onclick=()=>{ const e=edEntry; downloadFile(`${e.title.replace(/[\\/:*?"<>|]/g,'_')}.escape.json`,JSON.stringify({format:'escape-sim/1',id:e.id,title:e.title,map:e.map,scenario:e.scenario},null,1)); };
+  document.getElementById('e_import').onchange=async ev=>{ const f=ev.target.files[0]; if(!f) return; try{ const d=JSON.parse(await f.text()); if(!d.map||!d.scenario||!d.map.planets) throw 0;
+      const id='my-'+Date.now().toString(36), ne={id,title:d.title||d.scenario.title||'불러온 시나리오',map:d.map,scenario:d.scenario,custom:true}; ne.map.id=id; ne.scenario.id=id; MAPS.push(ne); if(saveEntry(ne)){ loadMap(id); openEditor('story'); toast('파일을 불러왔어요'); } }catch(_){ alert('이 파일은 방탈출 시나리오 파일이 아니에요.'); } };
+  const rs=document.getElementById('e_reset'); if(rs) rs.onclick=()=>{ if(!confirm('편집한 내용을 지우고 원래대로 되돌릴까요?')) return; const ed=LS.get('escEdits',{}); delete ed[edEntry.id]; LS.set('escEdits',ed);
+    const e=MAPS.find(m=>m.id===edEntry.id), o=ORIG[e.id]; Object.assign(e,{title:o.title,map:clone(o.map),scenario:clone(o.scenario),edited:false}); loadMap(e.id); openEditor('file'); toast('원래대로 되돌렸어요'); };
+  const dl=document.getElementById('e_del'); if(dl) dl.onclick=()=>{ if(!confirm('이 시나리오를 지울까요? 되돌릴 수 없어요.')) return; LS.set('escCustom',LS.get('escCustom',[]).filter(c=>c.id!==edEntry.id));
+    const i=MAPS.findIndex(m=>m.id===edEntry.id); MAPS.splice(i,1); document.getElementById('editor').style.display='none'; loadMap(MAPS.find(m=>!m.href).id); toast('지웠어요'); };
+}
+function toast(t){ let el=document.getElementById('toast'); if(!el){ el=document.createElement('div'); el.id='toast'; document.body.appendChild(el); } el.textContent=t; el.style.opacity=1; clearTimeout(el._t); el._t=setTimeout(()=>el.style.opacity=0,2200); }
+/* 지난 기록 */
+function saveHistory(){
+  const e=curEntry(); if(!e) return; const ranked=teams.slice().sort((a,b)=>(a.finish??1e9)-(b.finish??1e9)||b.clues-a.clues);
+  const rec={at:new Date().toISOString(),mapId:e.id,title:e.title,seed:SEED,reason:endReason,clock,
+    ranking:ranked.map((t,i)=>({rank:t.finish!==null?i+1:null,team:t.name,color:t.css,time:t.finish!==null?fmt(t.finish):null,clues:t.clues,hints:t.hints,mvp:t.members.slice().sort((a,b)=>b.contrib-a.contrib)[0].name,members:t.members.map(m=>m.name)})),
+    events:events.map(x=>({t:x.t,team:x.team,text:x.text,detail:x.detail}))};
+  const h=LS.get('escHistory',[]); h.unshift(rec); while(h.length>40) h.pop(); LS.set('escHistory',h);
+}
+function recText(r){ return `${r.title} — 시뮬레이션 기록\n${new Date(r.at).toLocaleString('ko-KR')} · 시드 ${r.seed}\n${r.reason||''}\n\n[순위]\n`+r.ranking.map(t=>`${t.rank?t.rank+'위':'-'} ${t.team} ${t.time||'실패 ('+t.clues+'/5)'} · 힌트 ${t.hints} · MVP ${t.mvp} · ${t.members.join(', ')}`).join('\n')+`\n\n[시간대별 기록]\n`+r.events.map(x=>`[${x.t}] ${x.team?x.team+' | ':''}${x.text}${x.detail?' — '+x.detail:''}`).join('\n'); }
+function recCSV(r){ const q=s=>`"${String(s??'').replace(/"/g,'""')}"`; return '﻿시각,팀,내용,자세히\n'+r.events.map(x=>[x.t,x.team,x.text,x.detail].map(q).join(',')).join('\n'); }
+function recHTML(r){ return `<div class="muted">${new Date(r.at).toLocaleString('ko-KR')} · 시드 ${r.seed} · ${esc(r.reason||'')}</div><h3>순위</h3><table>`+r.ranking.map(t=>`<tr><td>${t.rank?t.rank+'위':'-'}</td><td style="color:${t.color}"><b>${esc(t.team)}</b></td><td>${t.time||'실패 ('+t.clues+'/5)'}</td><td class="muted">힌트 ${t.hints} · MVP ${esc(t.mvp)}</td></tr>`).join('')+`</table><h3>시간대별 기록</h3><table>`+r.events.map(x=>`<tr><td class="t">${x.t}</td><td>${esc(x.team||'-')}</td><td>${esc(x.text)}${x.detail?`<div class="muted">${esc(x.detail)}</div>`:''}</td></tr>`).join('')+`</table>`; }
+function openHistory(){
+  const h=LS.get('escHistory',[]), body=document.getElementById('histBody');
+  body.innerHTML=h.length?h.map((r,i)=>{ const w=r.ranking.find(t=>t.rank===1); return `<div class="hi"><div><b>${esc(r.title)}</b><div class="muted">${new Date(r.at).toLocaleString('ko-KR')} · 시드 ${r.seed} · 1위 ${w?esc(w.team)+' '+w.time:'없음'}</div></div><div class="row"><button data-hv="${i}">보기</button><button data-hd="${i}" class="danger">지우기</button></div></div>`; }).join(''):'<p class="muted">아직 저장된 기록이 없어요. 게임이 끝나면 자동으로 저장돼요.</p>';
+  body.querySelectorAll('[data-hv]').forEach(b=>b.onclick=()=>showRecord(h[+b.dataset.hv]));
+  body.querySelectorAll('[data-hd]').forEach(b=>b.onclick=()=>{ h.splice(+b.dataset.hd,1); LS.set('escHistory',h); openHistory(); });
+  document.getElementById('history').style.display='flex';
+}
+let curRec=null;
+function showRecord(r){ curRec=r; document.getElementById('recTitle').textContent=r.title; document.getElementById('recBody').innerHTML=recHTML(r); document.getElementById('recView').style.display='flex'; }
+function currentRecord(){ const e=curEntry(); const ranked=teams.slice().sort((a,b)=>(a.finish??1e9)-(b.finish??1e9)||b.clues-a.clues);
+  return {at:new Date().toISOString(),title:e?e.title:SCN.title,seed:SEED,reason:endReason||('진행 중 · 경과 '+fmt(clock)),ranking:ranked.map((t,i)=>({rank:t.finish!==null?i+1:null,team:t.name,color:t.css,time:t.finish!==null?fmt(t.finish):null,clues:t.clues,hints:t.hints,mvp:t.members.slice().sort((a,b)=>b.contrib-a.contrib)[0].name,members:t.members.map(m=>m.name)})),events:events.map(x=>({t:x.t,team:x.team,text:x.text,detail:x.detail}))}; }
+function bindAppUI(){
+  document.querySelectorAll('#edTabs button').forEach(b=>b.onclick=()=>{ collectEditor(); edTab=b.dataset.t; renderEditor(); });
+  document.getElementById('edApply').onclick=()=>applyEditor(false);
+  document.getElementById('edSave').onclick=()=>applyEditor(true);
+  document.getElementById('edClose').onclick=()=>document.getElementById('editor').style.display='none';
+  document.getElementById('histClose').onclick=()=>document.getElementById('history').style.display='none';
+  document.getElementById('recClose').onclick=()=>document.getElementById('recView').style.display='none';
+  const nm=()=>`${curRec.title}_${curRec.at.slice(0,16).replace(/[:T]/g,'-')}`.replace(/[\\/:*?"<>|\s]/g,'_');
+  document.getElementById('recTxt').onclick=()=>downloadFile(nm()+'.txt',recText(curRec),'text/plain;charset=utf-8');
+  document.getElementById('recCsv').onclick=()=>downloadFile(nm()+'.csv',recCSV(curRec),'text/csv;charset=utf-8');
+  document.getElementById('recPdf').onclick=()=>{ document.body.classList.add('printing'); setTimeout(()=>{ window.print(); setTimeout(()=>document.body.classList.remove('printing'),500); },100); };
+  document.getElementById('recShare').onclick=async()=>{ const t=recText(curRec); try{ if(navigator.share) await navigator.share({title:curRec.title,text:t}); else { await navigator.clipboard.writeText(t); toast('복사했어요'); } }catch(_){ } };
+}
+
+async function cacheAll(){
+  if(!('caches' in window)){ alert('이 브라우저는 오프라인 저장을 지원하지 않아요.'); return; }
+  const base=new URL('../../',location.href).href, here=new URL('./',location.href).href;
+  const urls=[base+'index.html',base+'manifest.json',base+'icon-192.png',base+'icon-512.png',base+'scenarios/index.json',here+'index.html',here+'maps/index.json',
+    'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js','https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js'];
+  try{ const bi=await (await fetch(base+'scenarios/index.json')).json(); (bi.scenarios||[]).forEach(x=>urls.push(base+'scenarios/'+x.file)); }catch(_){}
+  try{ const mi=await (await fetch(here+'maps/index.json')).json(); (mi.maps||[]).forEach(m=>{ if(m.map) urls.push(here+m.map); if(m.scenario) urls.push(here+m.scenario); }); }catch(_){}
+  const c=await caches.open('escape-sim-v1'); let ok=0;
+  for(const u of urls){ try{ const r=await fetch(u,{cache:'reload'}); if(r.ok){ await c.put(u,r.clone()); ok++; } }catch(_){} toast(`저장 중… ${ok}/${urls.length}`); }
+  LS.set('escOffline',{at:new Date().toISOString(),n:ok});
+  toast(ok===urls.length?`인터넷 없이 쓸 준비가 됐어요 (${ok}개 파일)`:`${ok}/${urls.length}개만 저장했어요. 인터넷이 될 때 다시 눌러 주세요`);
+}
 async function init(){
   try{
     const idx=await (await fetch('maps/index.json')).json();
     MAPS=await Promise.all(idx.maps.map(async m=> m.href ? ({id:m.id,title:m.title,href:m.href}) : ({id:m.id,title:m.title,map:await (await fetch(m.map)).json(),scenario:await (await fetch(m.scenario)).json()})));
   }catch(e){ document.getElementById('scnSel').innerHTML='<option>맵을 불러오지 못했어요</option>'; console.error(e); return; }
+  applyLocalEdits(); bindAppUI();
   const want=location.hash.slice(1), wl=MAPS.find(m=>m.id===want&&m.href); if(wl){ location.href=wl.href; return; }
   loadMap(MAPS.some(m=>m.id===want&&!m.href)?want:MAPS.find(m=>!m.href).id);
   camera.position.copy(camGoal.p); controls.target.copy(camGoal.t); camGoal=null;
