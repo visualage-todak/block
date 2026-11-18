@@ -1,0 +1,354 @@
+{
+ "id": "sherlock",
+ "islandStyle": "town",
+ "roofStyle": "gable",
+ "gableColor": "#3a3d44",
+ "wallColor": "#8a4a3a",
+ "trimColor": "#2a2a30",
+ "stepColor": "#8a8a86",
+ "pathColor": "#5d5e62",
+ "chimneys": true,
+ "lampStyle": "street",
+ "lampColor": "#ffd27a",
+ "archColor": "#2a2a30",
+ "windowGlow": "#ffd38a",
+ "windowGlowI": 1.0,
+ "roomLight": "#ffd9a0",
+ "roomLightI": 11,
+ "ringR": 70,
+ "mountains": [
+  [
+   -40,
+   -112,
+   30,
+   40
+  ],
+  [
+   40,
+   -112,
+   34,
+   42
+  ],
+  [
+   0,
+   -150,
+   40,
+   40
+  ],
+  [
+   0,
+   -118,
+   -16,
+   13
+  ],
+  [
+   -120,
+   -40,
+   30,
+   50
+  ],
+  [
+   120,
+   -50,
+   30,
+   50
+  ]
+ ],
+ "extras": [
+  {
+   "type": "falls",
+   "x": 0,
+   "z": -106.5,
+   "top": 15.5,
+   "bot": 1,
+   "w": 4.5
+  },
+  {
+   "type": "cab",
+   "x": 10,
+   "z": 10,
+   "rot": 0.3
+  },
+  {
+   "type": "cab",
+   "x": -12,
+   "z": -24,
+   "rot": 1.6
+  },
+  {
+   "type": "cab",
+   "x": 30,
+   "z": -6,
+   "rot": -0.6
+  },
+  {
+   "type": "sign",
+   "x": -14,
+   "z": 12,
+   "text": "런던 · 베이커 가",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -46,
+   "z": -44,
+   "text": "잉글랜드 시골",
+   "h": 6
+  },
+  {
+   "type": "sign",
+   "x": -36,
+   "z": -70,
+   "text": "다트무어",
+   "h": 7
+  },
+  {
+   "type": "sign",
+   "x": 18,
+   "z": -100,
+   "text": "스위스 · 라이헨바흐",
+   "h": 7
+  }
+ ],
+ "theme": {
+  "bg": "#9aa3ab",
+  "fog": [
+   70,
+   240
+  ],
+  "hemi": [
+   "#d8dde4",
+   "#3a3a34",
+   1.05
+  ],
+  "sun": 0.85,
+  "sunColor": "#f2e6d0",
+  "stars": 1600,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#5f6e4a",
+   "#4f5e3e",
+   "#5e5d58",
+   "#aeb3b8"
+  ],
+  "charGlow": 0.35,
+  "sky": [
+   "#121822",
+   "#b88a6a",
+   "#a8b4be"
+  ],
+  "nightHemi": 0.5
+ },
+ "dress": {
+  "houses": 20,
+  "houseWalls": [
+   "#8a4a3a",
+   "#7a4232",
+   "#9a5a44",
+   "#6e6a64"
+  ],
+  "houseRoof": "gable",
+  "trees": 110,
+  "treeShape": "round",
+  "treeLeaf": "#3f5a36",
+  "treeTrunk": "#4a3628",
+  "poles": false
+ },
+ "story": "안개가 자욱한 빅토리아 시대 런던에서 시작하는 맵이에요. 굴뚝 달린 붉은 벽돌집 사이 돌길에 가스등이 켜지고 이륜마차가 다녀요. 베이커 가 221B를 나서 런던의 빈집과 전당포를 지나, 시골 저택과 크리스마스 거위 좌판, 춤추는 사람 암호가 그려진 벽, 안개 낀 다트무어 황야와 브라이어니 로지를 거쳐요. 증거 4개를 모으면 가장 높은 곳, 물안개 피어오르는 라이헨바흐 폭포 절벽에서 마지막 추리를 할 수 있어요.",
+ "goal": "가스등 켜진 런던에서 시골과 황야로 나아가며 증거 4개를 모은 뒤, 라이헨바흐 폭포 절벽에서 마지막 추리를 먼저 끝내는 팀이 활동을 마쳐요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 0,
+   "y": 0,
+   "r": 9,
+   "top": "#7a5a44",
+   "rock": "#5a5550",
+   "decor": "baker221b",
+   "start": true,
+   "wall": "#8a4a3a"
+  },
+  {
+   "id": "edu",
+   "f": 0,
+   "x": -22,
+   "z": -10,
+   "y": 0.4,
+   "r": 6.5,
+   "top": "#8a7a6a",
+   "rock": "#5a5550",
+   "decor": "rache",
+   "wall": "#6e6a64"
+  },
+  {
+   "id": "cafe",
+   "f": 0,
+   "x": 22,
+   "z": -14,
+   "y": 0.4,
+   "r": 7,
+   "top": "#7a6a5a",
+   "rock": "#5a5550",
+   "decor": "pawnshop",
+   "wall": "#7a4232"
+  },
+  {
+   "id": "kids",
+   "f": 1,
+   "x": -32,
+   "z": -40,
+   "y": 3,
+   "r": 7,
+   "top": "#8a6a50",
+   "rock": "#5a5550",
+   "decor": "speckled",
+   "wall": "#9a8a70",
+   "roofColor": "#4a4038"
+  },
+  {
+   "id": "clubA",
+   "f": 1,
+   "x": -2,
+   "z": -44,
+   "y": 3.5,
+   "r": 7.5,
+   "top": "#9a8a70",
+   "rock": "#5a5550",
+   "decor": "goose",
+   "yard": true,
+   "wallH": 0.8,
+   "wall": "#6e6a64",
+   "roof": "none"
+  },
+  {
+   "id": "clubB",
+   "f": 1,
+   "x": 28,
+   "z": -40,
+   "y": 3,
+   "r": 7,
+   "top": "#8a9a7a",
+   "rock": "#5a5550",
+   "decor": "dancingmen",
+   "wall": "#9a8a70",
+   "roofColor": "#5a4a3a"
+  },
+  {
+   "id": "stacks",
+   "f": 2,
+   "x": -18,
+   "z": -68,
+   "y": 7,
+   "r": 8,
+   "top": "#5a6a4a",
+   "rock": "#5a5550",
+   "decor": "moor",
+   "yard": true,
+   "wallH": 0.4,
+   "wall": "#6a6862",
+   "roof": "none"
+  },
+  {
+   "id": "digital",
+   "f": 2,
+   "x": 18,
+   "z": -70,
+   "y": 6.5,
+   "r": 7,
+   "top": "#8a6a6a",
+   "rock": "#5a5550",
+   "decor": "briony",
+   "wall": "#d8cfc0",
+   "roofColor": "#3a3d44"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -95,
+   "y": 15.5,
+   "r": 8.5,
+   "top": "#8d8a84",
+   "rock": "#5a5550",
+   "decor": "reichenbach",
+   "final": true,
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#7a7a72",
+   "roof": "none"
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "edu"
+  ],
+  [
+   "lobby",
+   "cafe"
+  ],
+  [
+   "edu",
+   "kids"
+  ],
+  [
+   "edu",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubB"
+  ],
+  [
+   "kids",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "digital"
+  ],
+  [
+   "clubB",
+   "digital"
+  ],
+  [
+   "stacks",
+   "vault"
+  ],
+  [
+   "digital",
+   "vault"
+  ]
+ ],
+ "tiers": [
+  "런던",
+  "잉글랜드 시골",
+  "황야와 알프스"
+ ],
+ "words": {
+  "place": "사건 현장",
+  "link": "돌길",
+  "layout": "사건 지도 (위로 갈수록 런던을 벗어나요)"
+ },
+ "roomNames": {
+  "lobby": "베이커 가 221B (출발)",
+  "vault": "라이헨바흐 폭포 (최종)"
+ },
+ "startHour": 16
+}
