@@ -34,6 +34,12 @@
    "title": "별주부전 — 바닷속 용궁과 산골짜기",
    "map": "maps/rabbit-turtle.json",
    "scenario": "scenarios/rabbit-turtle.json"
+  },
+  {
+   "id": "alice",
+   "title": "이상한 나라의 앨리스 — 토끼굴 아래로",
+   "map": "maps/alice.json",
+   "scenario": "scenarios/alice.json"
   }
  ]
 }

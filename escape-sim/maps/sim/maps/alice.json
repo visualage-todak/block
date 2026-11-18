@@ -1,0 +1,380 @@
+{
+ "id": "alice",
+ "islandStyle": "town",
+ "roofStyle": "gable",
+ "gableColor": "#b5523b",
+ "wallColor": "#fbf3e4",
+ "trimColor": "#6b3a5a",
+ "stepColor": "#d8c9b0",
+ "pathColor": "#d8c9b0",
+ "roadChecker": [
+  "#1d1d1d",
+  "#f4f1ea"
+ ],
+ "lampStyle": "street",
+ "lampColor": "#ffd27a",
+ "archColor": "#8e2b4a",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 11,
+ "ringR": 66,
+ "mountains": [
+  [
+   0,
+   -185,
+   50,
+   90
+  ],
+  [
+   -130,
+   -60,
+   40,
+   60
+  ],
+  [
+   130,
+   -70,
+   44,
+   60
+  ]
+ ],
+ "extras": [
+  {
+   "type": "hole",
+   "x": 9,
+   "z": -8,
+   "r": 2.2
+  },
+  {
+   "type": "stream",
+   "points": [
+    [
+     -60,
+     14
+    ],
+    [
+     -20,
+     10
+    ],
+    [
+     10,
+     14
+    ],
+    [
+     60,
+     8
+    ]
+   ],
+   "w": 3.2
+  },
+  {
+   "type": "clock",
+   "x": -12,
+   "z": -26,
+   "s": 2.6,
+   "rot": 0.4
+  },
+  {
+   "type": "teacup",
+   "x": 38,
+   "z": -58,
+   "s": 3,
+   "c": "#f2c6d6"
+  },
+  {
+   "type": "teacup",
+   "x": -40,
+   "z": -58,
+   "s": 2.6,
+   "c": "#c6e2f2"
+  },
+  {
+   "type": "cards",
+   "x": -8,
+   "z": -84,
+   "n": 5,
+   "rot": 0
+  },
+  {
+   "type": "cards",
+   "x": 30,
+   "z": -84,
+   "n": 4,
+   "rot": 0.6
+  },
+  {
+   "type": "mushroom",
+   "x": -12,
+   "z": -50,
+   "s": 4.5,
+   "c": "#8e5bd1"
+  },
+  {
+   "type": "mushroom",
+   "x": 14,
+   "z": -46,
+   "s": 3.6,
+   "c": "#f2b33a"
+  },
+  {
+   "type": "mushroom",
+   "x": 44,
+   "z": -30,
+   "s": 4,
+   "c": "#d9443a"
+  }
+ ],
+ "theme": {
+  "bg": "#a8d4f0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#f2f0ff",
+   "#5a7a3a",
+   1.2
+  ],
+  "sun": 1.05,
+  "sunColor": "#fff1d6",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#86c45e",
+   "#6aa84a",
+   "#8a8070",
+   "#9a958c"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#1a1640",
+   "#f0a07a",
+   "#a8d4f0"
+  ]
+ },
+ "dress": {
+  "houses": 10,
+  "houseWalls": [
+   "#fbf3e4",
+   "#f2dfe8",
+   "#e4eef8"
+  ],
+  "houseRoof": "gable",
+  "trees": 150,
+  "treeShape": "round",
+  "treeLeaf": "#4f9a3f",
+  "treeTrunk": "#6b4a34",
+  "poles": false,
+  "mushrooms": 46
+ },
+ "story": "강둑의 토끼굴로 떨어지면, 아래로 내려갈수록 점점 더 이상해지는 나라가 펼쳐져요. 체크무늬 길을 따라 거대한 버섯과 찻잔, 회중시계 사이를 지나요. 문이 많은 복도와 눈물 웅덩이, 흰 토끼의 집, 애벌레의 버섯, 체셔 고양이의 숲, 미친 티파티, 여왕의 크로케 경기장을 거치며 하트 카드 4개를 모으면, 가장 깊은 곳의 하트 여왕 재판정에 들어갈 수 있어요.",
+ "goal": "강둑에서 토끼굴 아래로 내려가며 하트 카드 4개를 모은 뒤, 가장 깊은 곳 하트 여왕의 재판정에서 꿈을 먼저 끝내는 팀이 활동을 마쳐요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 0,
+   "y": 10,
+   "r": 9,
+   "top": "#8fc06a",
+   "rock": "#8a7d6a",
+   "decor": "riverbank",
+   "start": true,
+   "yard": true,
+   "wallH": 0.4,
+   "wall": "#6aa84a",
+   "roof": "none"
+  },
+  {
+   "id": "edu",
+   "f": 0,
+   "x": -22,
+   "z": -12,
+   "y": 6.5,
+   "r": 6.5,
+   "top": "#f4f1ea",
+   "rock": "#8a7d6a",
+   "decor": "doorhall",
+   "roof": "gable",
+   "roofColor": "#5a3f8a",
+   "wall": "#f2dfe8"
+  },
+  {
+   "id": "cafe",
+   "f": 0,
+   "x": 22,
+   "z": -14,
+   "y": 6,
+   "r": 7.5,
+   "top": "#cfe3c0",
+   "rock": "#8a7d6a",
+   "decor": "tears",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#9ad0e8",
+   "roof": "none"
+  },
+  {
+   "id": "kids",
+   "f": 1,
+   "x": -32,
+   "z": -40,
+   "y": 3,
+   "r": 6.5,
+   "top": "#e8d9b0",
+   "rock": "#8a7d6a",
+   "decor": "rabbithouse",
+   "roof": "gable",
+   "roofColor": "#c0392b",
+   "wall": "#fbf3e4"
+  },
+  {
+   "id": "clubA",
+   "f": 1,
+   "x": -2,
+   "z": -44,
+   "y": 2.5,
+   "r": 8,
+   "top": "#8fc06a",
+   "rock": "#8a7d6a",
+   "decor": "caterpillar",
+   "yard": true,
+   "wallH": 0.4,
+   "wall": "#6aa84a",
+   "roof": "none"
+  },
+  {
+   "id": "clubB",
+   "f": 1,
+   "x": 28,
+   "z": -40,
+   "y": 3,
+   "r": 7,
+   "top": "#6f9a54",
+   "rock": "#8a7d6a",
+   "decor": "cheshire",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#5a7a3a",
+   "roof": "none"
+  },
+  {
+   "id": "stacks",
+   "f": 2,
+   "x": -17,
+   "z": -66,
+   "y": 0,
+   "r": 8,
+   "top": "#d9c9e8",
+   "rock": "#8a7d6a",
+   "decor": "teaparty",
+   "yard": true,
+   "wallH": 0.6,
+   "wall": "#b48ae8",
+   "roof": "none"
+  },
+  {
+   "id": "digital",
+   "f": 2,
+   "x": 18,
+   "z": -68,
+   "y": 0,
+   "r": 8,
+   "top": "#7fbf5a",
+   "rock": "#8a7d6a",
+   "decor": "croquet",
+   "yard": true,
+   "wallH": 1.4,
+   "wall": "#2f6f3a",
+   "roof": "none"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -94,
+   "y": -2.5,
+   "r": 8.5,
+   "top": "#f2d6dc",
+   "rock": "#8a7d6a",
+   "decor": "trial",
+   "final": true,
+   "roof": "gable",
+   "roofColor": "#c0392b",
+   "wall": "#fbeef0"
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "edu"
+  ],
+  [
+   "lobby",
+   "cafe"
+  ],
+  [
+   "edu",
+   "kids"
+  ],
+  [
+   "edu",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubB"
+  ],
+  [
+   "kids",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "digital"
+  ],
+  [
+   "clubB",
+   "digital"
+  ],
+  [
+   "stacks",
+   "vault"
+  ],
+  [
+   "digital",
+   "vault"
+  ]
+ ],
+ "tiers": [
+  "토끼굴 입구",
+  "이상한 숲",
+  "여왕의 정원"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "체크무늬 길",
+  "layout": "토끼굴 아래로 (갈수록 깊어져요)"
+ },
+ "roomNames": {
+  "lobby": "강둑 (출발)",
+  "vault": "하트 여왕의 재판정 (최종)"
+ },
+ "startHour": 11
+}

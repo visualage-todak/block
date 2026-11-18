@@ -502,6 +502,51 @@ function decor(p,g){
       makeRabbit(g,0,1,-1.6,1.4,.2); makeJara(g,-2.8,0,2,1.4,.8);
       for(let i=0;i<30;i++) ball(rr(.03,.06),new THREE.MeshBasicMaterial({color:0xfff6c8}),rr(-r,r),rr(2.5,5),rr(-r,r),g);
       const pl=new THREE.PointLight(0xffe6a8,9,12,2); pl.position.set(0,3.5,-1); g.add(pl); break; }
+    case 'riverbank': { // 강둑: 나무 아래 돗자리·그림 없는 책·시계 든 흰 토끼
+      cyl(.5,.7,3,mat2(0x6b4a34),-3,0,-3,g,10); ball(2.6,mat2(0x4f9a3f),-3,4.2,-3,g);
+      box(3,.04,2.2,mat2(0xe8d9b0),0,.03,0,g); box(.7,.12,.5,mat2(0x7a3a2a),.2,.1,.2,g); makeRabbitW(g,2.8,0,1.5,1.2,-2.2); break; }
+    case 'doorhall': { // 문이 많은 복도: 체크무늬 바닥·작은 문·유리 탁자 위 황금 열쇠와 병
+      for(let i=-3;i<=3;i++) for(let j=-3;j<=3;j++) box(1.6,.03,1.6,mat2((i+j)&1?0x1d1d1d:0xf4f1ea),i*1.65,.02,j*1.65,g,false);
+      const gl=new THREE.MeshStandardMaterial({color:0xbfe6f0,transparent:true,opacity:.45,roughness:.05}); box(1.6,.06,1,gl,0,.9,0,g); for(const sx of [-1,1]) cyl(.04,.04,.9,gl,sx*.7,0,0,g,6);
+      box(.3,.06,.06,mat2(0xd4a94a,{metalness:.8,roughness:.2}),-.3,.96,0,g); cyl(.1,.12,.35,new THREE.MeshStandardMaterial({color:0x7ad0e8,transparent:true,opacity:.7}),.4,.93,0,g,10); box(.18,.1,.01,mat2(0xfbf6e6),.4,1.1,.13,g,false);
+      for(let i=0;i<4;i++){ box(.9,1.6,.08,mat2([0x8e5bd1,0x2f7a5e,0xc0392b,0x2e86c1][i]),-3+i*2,.8,-r+1.1,g); ball(.06,mat2(0xd4a94a),-2.7+i*2,.8,-r+1.17,g); }
+      box(.45,.6,.06,mat2(0xd4a94a),r-1.3,.3,1.5,g); box(.7,.9,.04,mat2(0x8e2b2b),r-1.25,.45,1.5,g).rotation.y=Math.PI/2; break; }
+    case 'tears': { // 눈물 웅덩이: 물·도도새·생쥐·경주 둘레
+      const pool=new THREE.Mesh(new THREE.CylinderGeometry(r-2,r-2,.08,28),mat2(0x6ec3e6,{roughness:.1,emissive:0x1a4f6a,emissiveIntensity:.25})); pool.position.set(0,.05,-.6); g.add(pool);
+      const dodo=ball(.55,mat2(0x7f8c8d),2.6,.7,2.6,g); dodo.scale.set(.9,1,1.2); ball(.3,mat2(0x7f8c8d),2.6,1.4,3,g); const bk=new THREE.Mesh(new THREE.ConeGeometry(.12,.45,6),mat2(0xd4a94a)); bk.rotation.x=Math.PI/2.4; bk.position.set(2.6,1.35,3.4); g.add(bk);
+      const ms=ball(.2,mat2(0x9a8a7a),-2.6,.2,2.8,g); ms.scale.z=1.4; for(let i=0;i<10;i++){ const a=i/10*6.28; box(.1,.02,.3,mat2(0xfbf6e6),Math.cos(a)*(r-1),.03,Math.sin(a)*(r-1),g,false).rotation.y=-a; } break; }
+    case 'rabbithouse': { // 흰 토끼의 집: 장갑과 부채가 놓인 탁자·작은 병·놋쇠 문패
+      box(1.6,.75,1,mat2(0x8a6a48),-1.5,.38,-2,g); box(.3,.05,.2,mat2(0xfbfaf5),-1.8,.78,-2,g); box(.3,.05,.2,mat2(0xfbfaf5),-1.4,.78,-2.1,g); const fan=new THREE.Mesh(new THREE.CircleGeometry(.35,10,0,Math.PI),mat2(0xf2a6c0)); fan.rotation.x=-Math.PI/2; fan.position.set(-1,.8,-1.9); g.add(fan);
+      cyl(.08,.1,.3,new THREE.MeshStandardMaterial({color:0x7ad0e8,transparent:true,opacity:.7}),-2.1,.76,-1.8,g,10);
+      box(2.6,.5,1.4,mat2(0xd8c0a0),2.2,.25,1.5,g); box(2.6,.15,1.4,mat2(0xfbfaf5),2.2,.58,1.5,g); makeRabbitW(g,0,0,1.6,1,0.6); break; }
+    case 'caterpillar': { // 버섯 위의 애벌레
+      mushroom(g,0,0,-1,2.2,0xd9443a); const cm=mat2(0x3a8ad9); for(let i=0;i<5;i++) ball(.28-i*.02,cm,-.6+i*.32,3.2+(i===4?.4:0)+Math.sin(i)*.05,-1,g); ball(.3,cm,1,3.9,-1,g);
+      cyl(.18,.25,.5,mat2(0x6a3fa0),-.2,2.95,-.4,g,10); cyl(.02,.02,.9,mat2(0x3b2b1f),.3,3.4,-.6,g,5);
+      for(let i=0;i<6;i++){ const p=ball(.25+i*.06,new THREE.MeshStandardMaterial({color:0xdfe6ee,transparent:true,opacity:.4}),1.3+i*.3,4.4+i*.35,-1+i*.1,g); }
+      mushroom(g,3,0,2,.8,0x8e5bd1); mushroom(g,-3,0,2.2,1,0xf2b33a); break; }
+    case 'cheshire': { // 체셔 고양이의 숲: 나뭇가지 위에 떠 있는 웃음
+      cyl(.45,.6,4,mat2(0x5a3f2a),-2,0,-2,g,10); const br=cyl(.15,.2,3.5,mat2(0x5a3f2a),-2,3,-2,g,8); br.rotation.z=-1.1; ball(2,mat2(0x3f7f3a),-2.5,5,-2.5,g);
+      const sm=new THREE.Mesh(new THREE.TorusGeometry(.7,.09,8,24,Math.PI),glow(0xfff1f8,1.2)); sm.rotation.z=Math.PI; sm.position.set(0,4.2,-1.6); g.add(sm);
+      for(let i=0;i<7;i++) box(.06,.14,.04,glow(0xffffff,1),-.55+i*.18,4.05-Math.sin(i/6*Math.PI)*.5,-1.55,g,false);
+      for(const sx of [-1,1]) ball(.14,glow(0xf2d23a,1.2),sx*.45,4.7,-1.6,g);
+      for(let i=0;i<3;i++){ const pt=cyl(.03,.03,1.6,mat2(0x5a3f2a),2+i*.3,0,1.5+i*.4,g,5); const sg=box(.9,.25,.05,mat2(0xe8d9b0),2.3+i*.3,1.4,1.5+i*.4,g); sg.rotation.y=i*.6-.6; } break; }
+    case 'teaparty': { // 미친 티파티: 긴 식탁·찻잔·주전자·모자
+      box(r*1.3,.08,1.8,mat2(0xfbfaf5),0,.85,0,g); for(const sx of [-1,1]) for(const sz of [-1,1]) cyl(.06,.06,.85,mat2(0x6b4a34),sx*(r*.6),0,sz*.7,g,6);
+      for(let i=0;i<9;i++) teacup(g,-r*.55+i*r*.14,.89,(i%2?.4:-.4),.35,[0xf3e9f8,0xf2c6d6,0xc6e2f2][i%3]);
+      const tp=ball(.4,mat2(0xd8e8f0,{roughness:.2}),0,1.25,0,g); tp.scale.y=.85; const sp=cyl(.05,.08,.4,mat2(0xd8e8f0),.4,1.2,0,g,6); sp.rotation.z=-.9; ball(.14,mat2(0x9a8a7a),0,1.7,0,g);
+      const hat=cyl(.35,.35,.7,mat2(0x3a2a5a),-2.8,.89,.7,g,16); cyl(.55,.55,.05,mat2(0x3a2a5a),-2.8,.89,.7,g,16); box(.25,.15,.02,mat2(0xfbf6e6),-2.6,1.2,1.04,g,false);
+      for(let i=0;i<6;i++) box(.7,.9,.7,mat2([0x8e5bd1,0xc0392b,0x2e86c1][i%3]),-r*.5+i*r*.2,.45,(i%2?1.6:-1.6),g); pocketClock(g,r-1.6,0,-r+1.5,.8,0); break; }
+    case 'croquet': { // 하트 여왕의 크로케: 홍학 채·고슴도치 공·카드 골대·장미 칠하기
+      for(let i=0;i<4;i++){ const x=-3+i*2, z=(i%2?-1:1)*1.4; cardSoldier(g,x,0,z,'♠',0,.9); const s2=cardSoldier(g,x,0,z,'♠',0,.9); s2.rotation.z=0; }
+      for(let i=0;i<3;i++){ flamingo(g,-3.5+i*3,0,3,i); hedgehog(g,-3+i*3,0,2.2); }
+      for(let i=0;i<6;i++){ const bush=ball(.55,mat2(0x2f6f3a),-r+1.5+i*1.6,.5,-r+1.3,g); for(let k=0;k<4;k++) ball(.13,mat2(i<3?0xc0392b:0xfbfaf5),-r+1.3+i*1.6+k*.15,.85,-r+1.6,g); }
+      cyl(.25,.22,.4,mat2(0x7a7a7a),-1,0,-r+2.4,g,10); const pt=new THREE.Mesh(new THREE.CircleGeometry(.22,12),mat2(0xc0392b)); pt.rotation.x=-Math.PI/2; pt.position.set(-1,.41,-r+2.4); g.add(pt);
+      cardSoldier(g,-2,0,-r+2.6,'♠',.4,.9); cardSoldier(g,.2,0,-r+2.6,'♠',-.4,.9); break; }
+    case 'trial': { // 하트 여왕의 재판정: 왕좌·배심원석·타르트 접시
+      box(r*1.1,.5,2.4,mat2(0x8e2b2b),0,.25,-r+1.8,g); for(const sx of [-1,1]){ box(1.2,1.6,1,mat2(0xc0392b),sx*.9,1.3,-r+1.6,g); const h=new THREE.Mesh(new THREE.CircleGeometry(.3,3),mat2(0xfbf6e6)); h.position.set(sx*.9,2.3,-r+2.12); h.rotation.z=Math.PI; g.add(h); }
+      box(3,.9,1.6,mat2(0x6b4a34),r-2.5,.45,0,g); for(let i=0;i<12;i++) ball(.18,mat2([0x9a8a7a,0x7f8c8d,0xd4a94a,0x8a6a48][i%4]),r-3.7+(i%6)*.48,1.05,-.4+Math.floor(i/6)*.8,g);
+      box(1.4,.75,.9,mat2(0x6b4a34),0,.38,.6,g); cyl(.45,.45,.05,mat2(0xfbfaf5),0,.76,.6,g,18); for(let i=0;i<5;i++) cyl(.1,.12,.08,mat2(0xc98a3a),Math.cos(i*1.25)*.25,.8,.6+Math.sin(i*1.25)*.25,g,8);
+      cardSoldier(g,-2.6,0,1.8,'♥',0,1); cardSoldier(g,2.6,0,1.8,'♥',0,1); makeRabbitW(g,-1.6,0,-1,1,0); break; }
     case 'starroom': {
       const big=glow(0xffe9a8,1.4);
       for(let i=0;i<50;i++) ball(rr(.03,.06),new THREE.MeshBasicMaterial({color:0xfff6c8}),rr(-r,r),rr(2,5),rr(-r,r),g);
@@ -624,6 +669,8 @@ function drawRoad(seg){
   const road=new THREE.Mesh(new THREE.BoxGeometry(BW+.6,.12,len3+1.2),mat2(hexNum(MAP.pathColor||'#6b6660')));
   road.position.set((sx+ex)/2,(A.y+B.y)/2+.02,(sz+ez)/2); road.rotation.order='YXZ'; road.rotation.y=Math.atan2(ux,uz); road.rotation.x=-Math.atan2(B.y-A.y,seg.len);
   road.receiveShadow=true; worldRoot.add(road);
+  if(MAP.roadChecker){ const n=Math.floor(len3/1.2), cA=mat2(hexNum(MAP.roadChecker[0])), cB=mat2(hexNum(MAP.roadChecker[1])), tg=new THREE.Group(); tg.position.copy(road.position); tg.rotation.copy(road.rotation); worldRoot.add(tg);
+    for(let i=0;i<n;i++) for(let j=0;j<2;j++){ box((BW+.6)/2-.02,.03,len3/n-.02,(i+j)%2?cA:cB,(j-.5)*(BW+.6)/2,.075,-len3/2+(i+.5)*len3/n,tg,false); } }
   if(MAP.roadLine){ const ln=new THREE.Mesh(new THREE.BoxGeometry(.12,.02,len3),new THREE.MeshBasicMaterial({color:hexNum(MAP.roadLine)})); ln.position.copy(road.position); ln.position.y+=.08; ln.rotation.copy(road.rotation); worldRoot.add(ln); }
   // 가로등 / 등불
   const n=Math.floor(seg.len/6), lampM=glow(hexNum(MAP.lampColor||'#ffcf7a'),1.8), postM=mat2(0x2b2b33);
@@ -789,6 +836,46 @@ function buildWater(){
   for(const p of PLANETS) if(p.y<W.level-1) for(let k=0;k<2;k++){ const a=rr(0,6.28), d=bHalf(p)+rr(2,5); bubbles(p.x+Math.cos(a)*d,terrainH(p.x+Math.cos(a)*d,p.z+Math.sin(a)*d),p.z+Math.sin(a)*d,W.level-.2); }
   for(const j of (W.jara||[])) makeJara(worldRoot,j[0],terrainH(j[0],j[1]),j[1],j[2]||1.4,j[3]||0);
   for(const r of (W.rabbits||[])) makeRabbit(worldRoot,r[0],terrainH(r[0],r[1]),r[1],r[2]||1.2,r[3]||0);
+}
+
+
+/* ================= 이상한 나라 (버섯·카드 병정·홍학·찻잔·시계·시냇물·토끼굴) ================= */
+function mushroom(par,x,y,z,s=1,cap=0xd9443a){ const g=new THREE.Group(); g.position.set(x,y,z); g.scale.setScalar(s); par.add(g);
+  cyl(.28,.38,1.4,mat2(0xf3ecd8),0,0,0,g,12); const c=new THREE.Mesh(new THREE.SphereGeometry(1,20,10,0,Math.PI*2,0,Math.PI/2),mat2(cap,{roughness:.5})); c.scale.set(1,.6,1); c.position.y=1.3; c.castShadow=true; g.add(c);
+  const dm=mat2(0xfaf6ea); for(let i=0;i<7;i++){ const a=i/7*6.28+.3, e=i%2?.55:.25; const d=ball(.12,dm,Math.cos(a)*Math.sin(e*2.4)*.95,1.3+Math.cos(e*2.4)*.58,Math.sin(a)*Math.sin(e*2.4)*.95,g); d.scale.y=.4; } return g; }
+function cardSoldier(par,x,y,z,suit='♥',rot=0,s=1){ const g=new THREE.Group(); g.position.set(x,y,z); g.rotation.y=rot; g.scale.setScalar(s); par.add(g);
+  const red=suit==='♥'||suit==='♦'; box(.9,1.3,.08,mat2(0xfbfaf5),0,1.15,0,g); const sm=mat2(red?0xc0392b:0x1d1d1d);
+  for(const [sx,sy] of [[-.28,.4],[.28,-.4],[0,0]]){ const d=new THREE.Mesh(new THREE.CircleGeometry(sy===0?.16:.09,suit==='♦'?4:12),sm); d.position.set(sx,1.15+sy,.05); g.add(d); const d2=d.clone(); d2.position.z=-.05; d2.rotation.y=Math.PI; g.add(d2); }
+  const sk=mat2(0xf1c9a5); ball(.2,sk,0,2.0,0,g); for(const sx of [-1,1]){ cyl(.05,.05,.5,sm,sx*.22,0,0,g,6); cyl(.04,.04,.55,sk,sx*.5,1.0,0,g,6); } return g; }
+function flamingo(par,x,y,z,rot=0){ const g=new THREE.Group(); g.position.set(x,y,z); g.rotation.y=rot; par.add(g); const pk=mat2(0xf28aa6);
+  const b=ball(.32,pk,0,1.1,0,g); b.scale.set(.8,.8,1.3); const n=cyl(.05,.06,.8,pk,0,1.2,.3,g,6); n.rotation.x=.4; ball(.12,pk,0,2.0,.55,g); const bk=new THREE.Mesh(new THREE.ConeGeometry(.05,.2,5),mat2(0x2a2a2a)); bk.rotation.x=Math.PI/2; bk.position.set(0,1.97,.72); g.add(bk);
+  cyl(.025,.025,.8,mat2(0xd86a86),0,0,0,g,5); return g; }
+function hedgehog(par,x,y,z){ const h=ball(.22,mat2(0x6b5a48,{flatShading:true}),x,y+.18,z,par); h.scale.set(1,.75,1.3); for(let i=0;i<8;i++){ const sp=new THREE.Mesh(new THREE.ConeGeometry(.04,.16,4),mat2(0x3b2b1f)); const a=i/8*6.28; sp.position.set(x+Math.cos(a)*.15,y+.33,z+Math.sin(a)*.18); par.add(sp); } }
+function teacup(par,x,y,z,s=1,c=0xf3e9f8){ const g=new THREE.Group(); g.position.set(x,y,z); g.scale.setScalar(s); par.add(g); const m=mat2(c,{roughness:.3});
+  const cup=new THREE.Mesh(new THREE.CylinderGeometry(.5,.32,.55,18,1,true),m); cup.material.side=THREE.DoubleSide; cup.position.y=.32; g.add(cup); cyl(.32,.32,.04,m,0,.04,0,g,18);
+  const tea=new THREE.Mesh(new THREE.CircleGeometry(.46,18),mat2(0x8a4f2a)); tea.rotation.x=-Math.PI/2; tea.position.y=.5; g.add(tea);
+  const hd=new THREE.Mesh(new THREE.TorusGeometry(.16,.04,6,12),m); hd.position.set(.55,.32,0); g.add(hd); cyl(.7,.7,.04,m,0,0,0,g,20); return g; }
+function pocketClock(par,x,y,z,s=1,rot=0){ const g=new THREE.Group(); g.position.set(x,y,z); g.rotation.y=rot; g.scale.setScalar(s); par.add(g);
+  const gold=mat2(0xd4a94a,{metalness:.7,roughness:.3}); const rim=new THREE.Mesh(new THREE.CylinderGeometry(1,1,.25,28),gold); rim.rotation.x=Math.PI/2; rim.position.y=1.2; g.add(rim);
+  const face=new THREE.Mesh(new THREE.CircleGeometry(.88,28),mat2(0xfbf6e6)); face.position.set(0,1.2,.13); g.add(face);
+  for(let i=0;i<12;i++){ const a=i/12*6.28; box(.05,.14,.02,mat2(0x222222),Math.sin(a)*.72,1.2+Math.cos(a)*.72,.14,g,false).rotation.z=-a; }
+  const hh=box(.06,.45,.02,mat2(0x222222),0,1.2+.2,.15,g,false); hh.geometry.translate(0,0,0); const mh=box(.04,.65,.02,mat2(0x222222),.0,1.2-.3,.16,g,false);
+  ball(.12,gold,0,2.28,0,g); cyl(.05,.05,.9,gold,0,0,0,g,6); return g; }
+function makeRabbitW(par,x,y,z,s=1,rot=0){ const g=makeRabbit(par,x,y,z,s,rot); box(.62,.42,.5,mat2(0xc0392b),0,.55,.05,g); const w=ball(.1,mat2(0xd4a94a,{metalness:.7,roughness:.3}),.25,.55,.35,g); return g; }
+function buildWonder(){
+  for(const e of (MAP.extras||[])){
+    if(e.type==='mushroom') mushroom(worldRoot,e.x,terrainH(e.x,e.z),e.z,e.s||3,hexNum(e.c||'#d9443a'));
+    else if(e.type==='clock') pocketClock(worldRoot,e.x,terrainH(e.x,e.z),e.z,e.s||2.5,e.rot||0);
+    else if(e.type==='teacup') teacup(worldRoot,e.x,terrainH(e.x,e.z),e.z,e.s||2.5,hexNum(e.c||'#f3e9f8'));
+    else if(e.type==='cards'){ for(let i=0;i<(e.n||5);i++){ const x=e.x+i*1.4*Math.cos(e.rot||0), z=e.z-i*1.4*Math.sin(e.rot||0); cardSoldier(worldRoot,x,terrainH(x,z),z,['♥','♠','♦','♣'][i%4],(e.rot||0)+Math.PI/2,e.s||1.3); } }
+    else if(e.type==='hole'){ const y=terrainH(e.x,e.z); const rim=new THREE.Mesh(new THREE.TorusGeometry(e.r||2.2,.6,8,24),mat2(0x6b4a2a,{flatShading:true})); rim.rotation.x=Math.PI/2; rim.position.set(e.x,y+.15,e.z); worldRoot.add(rim);
+      const d=new THREE.Mesh(new THREE.CircleGeometry(e.r||2.2,24),new THREE.MeshBasicMaterial({color:0x0c0806})); d.rotation.x=-Math.PI/2; d.position.set(e.x,y+.2,e.z); worldRoot.add(d); }
+    else if(e.type==='stream'){ const wm=mat2(0x5fb4d9,{roughness:.15,emissive:0x1a4f6a,emissiveIntensity:.25});
+      for(let i=0;i<e.points.length-1;i++){ const [x1,z1]=e.points[i],[x2,z2]=e.points[i+1], L=Math.hypot(x2-x1,z2-z1), n=Math.ceil(L/1.5);
+        for(let k=0;k<n;k++){ const t=(k+.5)/n, x=x1+(x2-x1)*t, z=z1+(z2-z1)*t; if(nearRoadOrBuilding(x,z,.4)) continue; const b=box(L/n+.3,.06,e.w||3,wm,x,terrainH(x,z)+.08,z,worldRoot,false); b.rotation.y=-Math.atan2(z2-z1,x2-x1); } } }
+  }
+  const D=MAP.dress||{}; const caps=(D.mushroomCaps||['#d9443a','#8e5bd1','#f2b33a','#3aa6d9']).map(hexNum);
+  for(let i=0,c=0;i<400 && c<(D.mushrooms||0);i++){ const a=rr(0,6.28), d=rr(8,90), x=Math.cos(a)*d*1.1, z=Math.sin(a)*d-44; if(nearRoadOrBuilding(x,z,2.5)) continue; c++; mushroom(worldRoot,x,terrainH(x,z),z,rr(.8,2.6),caps[c%caps.length]); }
 }
 
 function nearRoadOrBuilding(x,z,pad){
@@ -957,7 +1044,7 @@ function newGame(seed){
     const names=[...bs.splice(0,nb).map(n=>[n,'M']), ...gs.splice(0,5-nb).map(n=>[n,'F'])];
     names.forEach(([name,gender])=>{
       const a={name,gender,team,obs:ri(1,5),logic:ri(1,5),coop:ri(2,5),speed:rnd(.45,.62),
-        x:rnd(-5,5),z:rnd(-2,6),f:0,room:'lobby',cur:'lobby',lastWp:null,node:null,path:[],think:0,phase:rnd(0,6),contrib:0,yaw:0,act:'대기'};
+        x:(PL.lobby?PL.lobby.x:0)+rnd(-5,5),z:(PL.lobby?PL.lobby.z:0)+rnd(-2,6),f:(PL.lobby?PL.lobby.y:0),room:'lobby',cur:'lobby',lastWp:null,node:null,path:[],think:0,phase:rnd(0,6),contrib:0,yaw:0,act:'대기'};
       makeBody(a); team.members.push(a); agents.push(a);
     });
     team.tag=label(team.name,3.2,'#ffffff',team.css); agentRoot.add(team.tag);
@@ -1333,7 +1420,7 @@ function buildWorld(){
   if(isTown()){
     MAP.winM=new THREE.MeshStandardMaterial({color:0x2a3440,emissive:hexNum(MAP.windowGlow||'#ffcf8a'),emissiveIntensity:MAP.windowGlowI??.6});
     MAP.trimM=mat2(hexNum(MAP.trimColor||'#6b4f3a'));
-    computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawRoad); buildTerrain(); scatterTown(); buildExtras(); buildWater();
+    computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawRoad); buildTerrain(); scatterTown(); buildExtras(); buildWater(); buildWonder();
   } else if(isStack()){
     MAP.winM=new THREE.MeshStandardMaterial({color:0x8fb8d0,emissive:0x000000}); MAP.trimM=mat2(hexNum(MAP.trimColor||'#3b4249'));
     computeDoors(); BRIDGES.forEach(([a,b])=>makeRoad(a,b)); PLANETS.forEach(makeBuilding); bridgeSegs.forEach(drawStackLink); buildStackShell();
