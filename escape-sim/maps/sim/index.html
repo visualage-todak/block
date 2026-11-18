@@ -648,6 +648,38 @@ function decor(p,g){
       const lg=box(r*1.2,.4,3,mat2(0x7a7a72,{flatShading:true}),0,.2,-r+1.8,g); cyl(.04,.04,1.5,mat2(0x6b4a34),1.4,.1,-r+1.8,g,6).rotation.z=.4; box(.35,.06,.25,mat2(0xc9ccd2,{metalness:.8,roughness:.2}),.6,.43,-r+1.8,g); box(.3,.01,.2,mat2(0xfbfaf5),.6,.47,-r+1.8,g,false);
       for(let i=0;i<6;i++){ const rk=ball(rr(.5,1),mat2(0x7a7a72,{flatShading:true}),rr(-r+1,r-1),.3,rr(0,r-1),g); rk.scale.y=.6; }
       const pl=new THREE.PointLight(0xdff0ff,8,12,2); pl.position.set(0,3.5,-1); g.add(pl); break; }
+    case 'okham': { // 강가에 떠내려온 옥함
+      const rv=new THREE.Mesh(new THREE.PlaneGeometry(r*2,3.4),mat2(0x4f9ac4,{roughness:.1,emissive:0x1a4f6a,emissiveIntensity:.2})); rv.rotation.x=-Math.PI/2; rv.position.set(0,.04,1.6); g.add(rv);
+      const ok=box(1.2,.5,.8,mat2(0x7ac8a8,{roughness:.25,metalness:.2}),.4,.3,1.6,g); ok.rotation.y=.3; box(1.3,.08,.9,mat2(0x5aa888),.4,.58,1.6,g).rotation.y=.3;
+      for(let i=0;i<6;i++){ const rd=cyl(.03,.03,rr(1,1.6),mat2(0x6a8a3a),-r+1+i*.5,0,.2+rr(-.2,.2),g,5); } for(let i=0;i<4;i++){ const rk=ball(rr(.4,.7),mat2(0x8a8a82,{flatShading:true}),rr(-3,3),.2,-r+2+rr(0,1.5),g); rk.scale.y=.6; } break; }
+    case 'hut': { // 비리공덕 할미·할아비의 오두막: 부뚜막·가마솥·멍석·짚신
+      box(2.2,.9,1,mat2(0x8a7a6a),-1.5,.45,-r+1.4,g); cyl(.45,.35,.4,mat2(0x2a2a2a,{metalness:.4}),-1.5,.9,-r+1.4,g,14); box(.4,.3,.1,glow(0xff8a2a,1.2),-1.5,.3,-r+1.92,g,false);
+      const ms=new THREE.Mesh(new THREE.CylinderGeometry(1.2,1.2,.04,20),mat2(0xc9a96e)); ms.position.set(1,.03,.6); g.add(ms); for(const sx of [-1,1]) box(.18,.08,.42,mat2(0xd8c08a),2.6+sx*.15,.05,2.4,g);
+      for(let i=0;i<3;i++) cyl(.3,.25,.6,mat2(0x5a3a28,{roughness:.4}),r-1.4,0,-r+1.4+i*.75,g,12); break; }
+    case 'netherriver': { // 저승의 강: 검은 물·나룻배·떠도는 넋
+      const rv=new THREE.Mesh(new THREE.PlaneGeometry(r*2,4),mat2(0x1a2a3a,{roughness:.1,emissive:0x0a1a2a,emissiveIntensity:.5})); rv.rotation.x=-Math.PI/2; rv.position.set(0,.04,0); g.add(rv);
+      const bt=new THREE.Group(); bt.position.set(1,.05,0); g.add(bt); box(3,.4,1,mat2(0x3a2a20),0,.2,0,bt); cyl(.04,.04,2.4,mat2(0x2a1a10),-1.2,.2,0,bt,5);
+      for(let i=0;i<10;i++) ball(rr(.1,.18),glow(0xbfe0ff,1.6),rr(-r+1,r-1),rr(1.2,3.5),rr(-r+1,r-1),g); break; }
+    case 'thorns': { // 가시밭 고개: 가시덤불·좁은 길·돌탑
+      for(let i=0;i<16;i++){ const x=rr(-r+1,r-1), z=rr(-r+1,r-1); if(Math.abs(x)<1.2) continue; const b=ball(rr(.4,.8),mat2(0x3a3a2a,{flatShading:true}),x,.4,z,g); for(let k=0;k<5;k++){ const t=new THREE.Mesh(new THREE.ConeGeometry(.05,.4,4),mat2(0x5a4a3a)); t.position.set(x+rr(-.5,.5),.6+rr(0,.4),z+rr(-.5,.5)); t.rotation.set(rr(-1,1),0,rr(-1,1)); g.add(t); } }
+      for(let i=0;i<5;i++) box(.7-i*.1,.3,.6-i*.08,mat2(0x8a8a82,{flatShading:true}),r-2,.15+i*.3,r-2,g); break; }
+    case 'soulroad': { // 넋들의 길: 떠 있는 등불·흰 천 깃발
+      for(let i=0;i<7;i++){ const x=-r+1.5+i*((2*r-3)/6), z=Math.sin(i)*2; cyl(.04,.04,2.6,mat2(0x3a2a20),x,0,z,g,5); const f=box(.04,1.4,.6,mat2(0xf4f1ea),x,1.8,z+.3,g); }
+      for(let i=0;i<12;i++) ball(rr(.1,.2),glow(0xffe2a8,1.4),rr(-r+1,r-1),rr(1.5,4),rr(-r+1,r-1),g); break; }
+    case 'mujang': { // 무장승의 집: 물동이·장작·도끼·아궁이 (물 긷기·불 때기·나무하기)
+      for(let i=0;i<4;i++) cyl(.32,.26,.7,mat2(0x6a4a30,{roughness:.4}),-3+i*.8,0,-r+1.5,g,12);
+      for(let i=0;i<3;i++) for(let j=0;j<4;j++){ const lg=cyl(.15,.15,1.4,mat2(0x7a5b3c),2.2+j*.32,.15+i*.3,-r+1.6,g,8); lg.rotation.x=Math.PI/2; lg.position.set(2.2+j*.32,.15+i*.3,-r+1.6); }
+      const ax=box(.06,.9,.06,mat2(0x5a3f2a),1,.45,1.6,g); ax.rotation.z=.4; box(.3,.2,.05,mat2(0x8a8f96,{metalness:.7}),1.2,.85,1.6,g);
+      box(1.6,.7,.9,mat2(0x8a7a6a),-1.8,.35,1.8,g); box(.5,.3,.1,glow(0xff8a2a,1.1),-1.8,.25,2.27,g,false); break; }
+    case 'lifeflowers': { // 생명의 꽃밭: 숨살이꽃·뼈살이꽃·살살이꽃
+      const cols=[0xf2d23a,0xfbfaf5,0xe86a8a]; for(let i=0;i<36;i++){ const x=rr(-r+1,r-1), z=rr(-r+1,r-1), c=cols[i%3]; cyl(.02,.02,.5,mat2(0x4a8a3a),x,0,z,g,4); for(let k=0;k<5;k++){ const a=k/5*6.28; ball(.07,mat2(c),x+Math.cos(a)*.09,.52,z+Math.sin(a)*.09,g); } ball(.05,glow(0xffe08a,1),x,.53,z,g); }
+      for(let i=0;i<3;i++){ cyl(.04,.04,1.6,mat2(0x5a3f2a),-3+i*3,0,-r+1.2,g,5); box(.9,.4,.04,mat2([0xf2d23a,0xfbfaf5,0xe86a8a][i]),-3+i*3,1.5,-r+1.2,g); } break; }
+    case 'yaksu': { // 약수 우물과 상여(최종)
+      cyl(1.1,1.2,.8,mat2(0x8a8a82,{flatShading:true}),0,0,-1.5,g,14); const wt=new THREE.Mesh(new THREE.CircleGeometry(.95,20),glow(0x8af0ff,1.4)); wt.rotation.x=-Math.PI/2; wt.position.set(0,.78,-1.5); g.add(wt);
+      for(const sx of [-1,1]) cyl(.07,.07,2,mat2(0x5a3f2a),sx*1.2,0,-1.5,g,6); box(2.6,.12,.15,mat2(0x5a3f2a),0,2,-1.5,g);
+      const sy=new THREE.Group(); sy.position.set(0,0,2.4); g.add(sy); box(3,.6,1.1,mat2(0x9b2c22),0,.9,0,sy); box(3.1,.15,1.2,mat2(0x2f7a5e),0,1.25,0,sy); for(let i=0;i<3;i++) ball(.18,mat2([0xf2d23a,0x2c5d8a,0xe86a8a][i]),-1+i,1.45,0,sy);
+      for(const sz of [-1,1]) box(4.4,.1,.1,mat2(0x5a3f2a),0,.6,sz*.45,sy);
+      const pl=new THREE.PointLight(0x9af0ff,9,12,2); pl.position.set(0,2.5,-1.5); g.add(pl); break; }
     case 'starroom': {
       const big=glow(0xffe9a8,1.4);
       for(let i=0;i<50;i++) ball(rr(.03,.06),new THREE.MeshBasicMaterial({color:0xfff6c8}),rr(-r,r),rr(2,5),rr(-r,r),g);
@@ -975,7 +1007,9 @@ function pocketClock(par,x,y,z,s=1,rot=0){ const g=new THREE.Group(); g.position
 function makeRabbitW(par,x,y,z,s=1,rot=0){ const g=makeRabbit(par,x,y,z,s,rot); box(.62,.42,.5,mat2(0xc0392b),0,.55,.05,g); const w=ball(.1,mat2(0xd4a94a,{metalness:.7,roughness:.3}),.25,.55,.35,g); return g; }
 function buildWonder(){
   for(const e of (MAP.extras||[])){
-    if(e.type==='cab') hansom(worldRoot,e.x,terrainH(e.x,e.z),e.z,e.rot||0,e.s||1.1);
+    if(e.type==='mist'){ const fm=new THREE.MeshStandardMaterial({color:hexNum(e.c||'#d8dce6'),transparent:true,opacity:e.o||.22,depthWrite:false}); for(let i=0;i<(e.n||14);i++){ const x=e.x+rr(-e.r,e.r), z=e.z+rr(-e.r,e.r); ball(rr(1.5,3.2),fm,x,terrainH(x,z)+rr(.5,2),z); } }
+    else if(e.type==='souls'){ const g=new THREE.Group(); g.position.set(e.x,terrainH(e.x,e.z),e.z); worldRoot.add(g); for(let i=0;i<(e.n||8);i++){ const b=ball(rr(.12,.22),glow(hexNum(e.c||'#bfe0ff'),1.6),rr(-e.r,e.r),rr(1.5,4),rr(-e.r,e.r),g); } ANIM.push({o:g,t:'spin',sp:.08}); }
+    else if(e.type==='cab') hansom(worldRoot,e.x,terrainH(e.x,e.z),e.z,e.rot||0,e.s||1.1);
     else if(e.type==='falls') waterfall(e.x,e.z,e.top,e.bot,e.w||4);
     else if(e.type==='sign'){ const lb=label(e.text,e.w||7,'#ffffff',e.bg||'rgba(31,63,95,.85)'); lb.position.set(e.x,terrainH(e.x,e.z)+(e.h||6),e.z); worldRoot.add(lb); }
     else if(e.type==='track'){ const [x1,z1]=e.points[0],[x2,z2]=e.points[1], L=Math.hypot(x2-x1,z2-z1), rot=Math.atan2(x2-x1,z2-z1), n=Math.floor(L/.8), tie=mat2(0x5a3f2a), rail=mat2(0x8a8f96,{metalness:.7,roughness:.35});
@@ -1048,7 +1082,7 @@ function scatterTown(){
     const s=bridgeSegs[Math.floor(rr(0,bridgeSegs.length))], t=rr(.15,.85), side=rr(0,1)<.5?-1:1, off=rr(6,10);
     const x=s.ax+(s.bx-s.ax)*t-s.uz*side*off, z=s.az+(s.bz-s.az)*t+s.ux*side*off;
     if(nearRoadOrBuilding(x,z,3.4) || houses.some(h=>Math.hypot(h[0]-x,h[1]-z)<8)) continue;
-    if(MAP.sea && terrainH(x,z)<MAP.sea.level+1.5) continue; if(MAP.water && terrainH(x,z)<MAP.water.level+1.2) continue; if((MAP.extras||[]).some(e=>e.x!=null&&Math.hypot(x-e.x,z-e.z)<6)) continue;
+    if(MAP.sea && terrainH(x,z)<MAP.sea.level+1.5) continue; if((MAP.noHouse||[]).some(([hx,hz,hr])=>Math.hypot(x-hx,z-hz)<hr)) continue; if(MAP.water && terrainH(x,z)<MAP.water.level+1.2) continue; if((MAP.extras||[]).some(e=>e.x!=null&&Math.hypot(x-e.x,z-e.z)<6)) continue;
     houses.push([x,z]); placed++;
     const y=terrainH(x,z), w=rr(4,5.5), d=rr(3.6,4.6), hg=new THREE.Group(); hg.position.set(x,y,z); hg.rotation.y=Math.atan2(s.ux,s.uz)+(side>0?Math.PI/2:-Math.PI/2); worldRoot.add(hg);
     const wc=(D.houseWalls||['#e8e1d2'])[placed%(D.houseWalls||[1]).length];
@@ -1619,7 +1653,7 @@ function saveEntry(e){
   const ed=LS.get('escEdits',{}); ed[e.id]={title:e.title,map:e.map,scenario:e.scenario}; e.edited=true; return LS.set('escEdits',ed);
 }
 function downloadFile(name,text,type='application/json'){ const b=new Blob([text],{type}); const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },500); }
-const DECORS={lobby:'로비',edu:'교실',cafe:'카페',kids:'어린이방',club:'동아리방',stacks:'서가',digital:'컴퓨터실',vault:'금고방',desert:'사막',throne:'왕좌',mirrors:'거울',lamp:'가로등',ledger:'장부',globe:'지구본',roses:'장미',wheat:'밀밭',b612:'B612',readingplaza:'독서 광장',candles:'촛불',nightroom:'밤의 방',manuscript:'원고',tape:'테이프',sewing:'재봉',flowers:'꽃',snowlamp:'눈과 등',memorial:'추모',well:'우물',school:'학교',campus:'교정',tatami:'다다미방',hill:'언덕',floorboards:'마룻바닥',starroom:'별의 방',sarangchae:'사랑채',byeoldang:'별당',market:'장터',hideout:'산채',temple:'절',warehouse:'창고',palace:'궁궐',ferry:'나루터',yuldo:'왕궁',sujeong:'수정궁',yakbang:'약방',coral:'산호 정원',jarahome:'자라 집',beach:'모래톱',animals:'짐승 모임터',rabbitvalley:'산골짜기',burrow:'토끼 굴',neobeok:'너럭바위',riverbank:'강둑',doorhall:'문 많은 복도',tears:'눈물 웅덩이',rabbithouse:'토끼 집',caterpillar:'애벌레 버섯',cheshire:'고양이 숲',teaparty:'티파티',croquet:'크로케',trial:'재판정',reformclub:'신사 클럽',suez:'항구',bombay:'사원',jungle:'정글',calcutta:'법정',hongkong:'항구 매표소',yokohama:'곡예단',sanfran:'기차역',clubreturn:'클럽 귀환',baker221b:'탐정 하숙방',rache:'빈집',pawnshop:'전당포',speckled:'저택 침실',goose:'거위 좌판',dancingmen:'암호 벽',moor:'황야',briony:'거실',reichenbach:'폭포 절벽'};
+const DECORS={lobby:'로비',edu:'교실',cafe:'카페',kids:'어린이방',club:'동아리방',stacks:'서가',digital:'컴퓨터실',vault:'금고방',desert:'사막',throne:'왕좌',mirrors:'거울',lamp:'가로등',ledger:'장부',globe:'지구본',roses:'장미',wheat:'밀밭',b612:'B612',readingplaza:'독서 광장',candles:'촛불',nightroom:'밤의 방',manuscript:'원고',tape:'테이프',sewing:'재봉',flowers:'꽃',snowlamp:'눈과 등',memorial:'추모',well:'우물',school:'학교',campus:'교정',tatami:'다다미방',hill:'언덕',floorboards:'마룻바닥',starroom:'별의 방',sarangchae:'사랑채',byeoldang:'별당',market:'장터',hideout:'산채',temple:'절',warehouse:'창고',palace:'궁궐',ferry:'나루터',yuldo:'왕궁',sujeong:'수정궁',yakbang:'약방',coral:'산호 정원',jarahome:'자라 집',beach:'모래톱',animals:'짐승 모임터',rabbitvalley:'산골짜기',burrow:'토끼 굴',neobeok:'너럭바위',riverbank:'강둑',doorhall:'문 많은 복도',tears:'눈물 웅덩이',rabbithouse:'토끼 집',caterpillar:'애벌레 버섯',cheshire:'고양이 숲',teaparty:'티파티',croquet:'크로케',trial:'재판정',reformclub:'신사 클럽',suez:'항구',bombay:'사원',jungle:'정글',calcutta:'법정',hongkong:'항구 매표소',yokohama:'곡예단',sanfran:'기차역',clubreturn:'클럽 귀환',baker221b:'탐정 하숙방',rache:'빈집',pawnshop:'전당포',speckled:'저택 침실',goose:'거위 좌판',dancingmen:'암호 벽',moor:'황야',briony:'거실',reichenbach:'폭포 절벽',okham:'강가 옥함',hut:'오두막',netherriver:'저승의 강',thorns:'가시밭',soulroad:'넋의 길',mujang:'무장승의 집',lifeflowers:'생명의 꽃밭',yaksu:'약수 우물'};
 const ROOFS={none:'없음(마당)',flat:'평지붕',gable:'박공지붕',hanok:'한옥',giwa:'기와(팔작)',choga:'초가',dome:'돔'};
 const ROOM_IDS=['lobby','edu','cafe','kids','clubA','clubB','stacks','digital','vault'];
 const ROOM_ROLE={lobby:'출발',edu:'1단계',cafe:'1단계',kids:'2단계',clubA:'2단계',clubB:'2단계',stacks:'3단계',digital:'3단계',vault:'최종'};

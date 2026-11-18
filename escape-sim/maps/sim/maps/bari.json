@@ -1,0 +1,382 @@
+{
+ "id": "bari",
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "giwa",
+ "roofGhost": 0.22,
+ "roofColor": "#3b4048",
+ "wallColor": "#f2ede0",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#a08f6c",
+ "lampStyle": "lantern",
+ "lampColor": "#ffd9a0",
+ "archColor": "#7a3a2a",
+ "windowGlow": "#ffd99a",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffd9a0",
+ "roomLightI": 11,
+ "ringR": 66,
+ "mountains": [
+  [
+   0,
+   -170,
+   55,
+   90
+  ],
+  [
+   -125,
+   -60,
+   44,
+   62
+  ],
+  [
+   125,
+   -70,
+   46,
+   62
+  ],
+  [
+   0,
+   -44,
+   -6,
+   22
+  ]
+ ],
+ "gates": [
+  "lobby"
+ ],
+ "extras": [
+  {
+   "type": "stream",
+   "points": [
+    [
+     -60,
+     -2
+    ],
+    [
+     -30,
+     -6
+    ],
+    [
+     -22,
+     -6
+    ],
+    [
+     0,
+     -20
+    ],
+    [
+     30,
+     -24
+    ],
+    [
+     70,
+     -18
+    ]
+   ],
+   "w": 3
+  },
+  {
+   "type": "mist",
+   "x": 0,
+   "z": -44,
+   "r": 26,
+   "n": 26,
+   "c": "#c8ccd8",
+   "o": 0.2
+  },
+  {
+   "type": "souls",
+   "x": -6,
+   "z": -40,
+   "r": 20,
+   "n": 26,
+   "c": "#bfe0ff"
+  },
+  {
+   "type": "jangseung",
+   "x": -4,
+   "z": -24
+  },
+  {
+   "type": "pavilion",
+   "x": 40,
+   "z": -74
+  },
+  {
+   "type": "sign",
+   "x": -40,
+   "z": 6,
+   "text": "이승 · 불라국",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -48,
+   "z": -40,
+   "text": "저승길",
+   "h": 5,
+   "bg": "rgba(40,44,70,.88)"
+  },
+  {
+   "type": "sign",
+   "x": -38,
+   "z": -80,
+   "text": "서천서역국",
+   "h": 6,
+   "bg": "rgba(150,90,120,.88)"
+  }
+ ],
+ "theme": {
+  "bg": "#a8c4dc",
+  "fog": [
+   90,
+   280
+  ],
+  "hemi": [
+   "#e8ecff",
+   "#3a4a3a",
+   1.1
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff1d6",
+  "stars": 2600,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#5f7f4a",
+   "#465444",
+   "#6a6460",
+   "#8d8a84"
+  ],
+  "charGlow": 0.4,
+  "sky": [
+   "#121630",
+   "#d88a7a",
+   "#a8c4dc"
+  ]
+ },
+ "dress": {
+  "houses": 12,
+  "houseWalls": [
+   "#f2ede0",
+   "#e6dcc6"
+  ],
+  "houseRoof": "mix",
+  "trees": 160,
+  "treeShape": "cone",
+  "treeLeaf": "#35583a",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "story": "이승의 궁궐에서 시작해 어두운 저승길을 지나 꽃 피는 서천서역국까지 이어지는 맵이에요. 기와지붕과 단청을 한 불라국 궁궐을 나서면 시냇가에 옥함이 떠 있고, 초가 오두막이 있어요. 아래로 내려가면 안개가 깔리고 넋들이 반딧불처럼 떠도는 저승의 강, 가시밭 고개, 넋들의 길이 나와요. 다시 올라가면 무장승의 집과 생명의 꽃밭이 있고, 생명꽃 4송이를 모으면 가장 높은 곳 약수 우물에서 되살림을 할 수 있어요.",
+ "goal": "이승에서 안개 낀 저승길로 내려갔다가 서천서역국으로 올라가며 생명꽃 4송이를 모은 뒤, 약수 우물에서 부모를 먼저 되살리는 팀이 활동을 마쳐요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 6,
+   "y": 0,
+   "r": 9,
+   "top": "#c9b48e",
+   "rock": "#7d786e",
+   "decor": "palace",
+   "start": true,
+   "dancheong": true
+  },
+  {
+   "id": "edu",
+   "f": 0,
+   "x": -24,
+   "z": -8,
+   "y": -0.3,
+   "r": 6.5,
+   "top": "#b8a882",
+   "rock": "#7d786e",
+   "decor": "okham",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#8e8a82",
+   "roof": "none"
+  },
+  {
+   "id": "cafe",
+   "f": 0,
+   "x": 24,
+   "z": -12,
+   "y": 0,
+   "r": 6.5,
+   "top": "#a8986e",
+   "rock": "#7d786e",
+   "decor": "hut",
+   "roof": "choga"
+  },
+  {
+   "id": "kids",
+   "f": 1,
+   "x": -30,
+   "z": -40,
+   "y": -4,
+   "r": 7,
+   "top": "#3a4250",
+   "rock": "#7d786e",
+   "decor": "netherriver",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#3a3a44",
+   "roof": "none"
+  },
+  {
+   "id": "clubA",
+   "f": 1,
+   "x": -2,
+   "z": -44,
+   "y": -4.5,
+   "r": 7.5,
+   "top": "#5a5a48",
+   "rock": "#7d786e",
+   "decor": "thorns",
+   "yard": true,
+   "wallH": 0.4,
+   "wall": "#4a4a40",
+   "roof": "none"
+  },
+  {
+   "id": "clubB",
+   "f": 1,
+   "x": 28,
+   "z": -42,
+   "y": -4,
+   "r": 7,
+   "top": "#4a4a5a",
+   "rock": "#7d786e",
+   "decor": "soulroad",
+   "yard": true,
+   "wallH": 0.4,
+   "wall": "#3a3a44",
+   "roof": "none"
+  },
+  {
+   "id": "stacks",
+   "f": 2,
+   "x": -18,
+   "z": -70,
+   "y": 4,
+   "r": 7.5,
+   "top": "#b8a882",
+   "rock": "#7d786e",
+   "decor": "mujang",
+   "roofColor": "#4a4038"
+  },
+  {
+   "id": "digital",
+   "f": 2,
+   "x": 18,
+   "z": -72,
+   "y": 4.5,
+   "r": 7.5,
+   "top": "#8fb86a",
+   "rock": "#7d786e",
+   "decor": "lifeflowers",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#c98aa8",
+   "roof": "none"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -96,
+   "y": 8,
+   "r": 8.5,
+   "top": "#c9b896",
+   "rock": "#7d786e",
+   "decor": "yaksu",
+   "final": true,
+   "yard": true,
+   "wallH": 0.6,
+   "wall": "#8e8a82",
+   "roof": "none"
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "edu"
+  ],
+  [
+   "lobby",
+   "cafe"
+  ],
+  [
+   "edu",
+   "kids"
+  ],
+  [
+   "edu",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubB"
+  ],
+  [
+   "kids",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "digital"
+  ],
+  [
+   "clubB",
+   "digital"
+  ],
+  [
+   "stacks",
+   "vault"
+  ],
+  [
+   "digital",
+   "vault"
+  ]
+ ],
+ "tiers": [
+  "이승",
+  "저승길",
+  "서천서역국"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "길",
+  "layout": "바리의 길 (이승 → 저승 → 서천서역국)"
+ },
+ "roomNames": {
+  "lobby": "불라국 궁궐 (출발)",
+  "vault": "약수 우물 (최종)"
+ },
+ "startHour": 10,
+ "noHouse": [
+  [
+   0,
+   -42,
+   34
+  ]
+ ]
+}
