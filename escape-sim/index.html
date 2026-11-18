@@ -145,7 +145,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 /* ================= Scene ================= */
 const canvas = document.getElementById('c');
 const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const LOWPOWER = (matchMedia&&matchMedia('(pointer:coarse)').matches) || Math.min(innerWidth,innerHeight)<700;
+renderer.setPixelRatio(Math.min(devicePixelRatio, LOWPOWER?1.25:2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -154,14 +155,14 @@ scene.background = new THREE.Color(0xdfe7ee);
 scene.fog = new THREE.Fog(0xdfe7ee, 140, 300);
 const camera = new THREE.PerspectiveCamera(40, 1, .3, 600);
 const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
+controls.enableDamping = true; controls.addEventListener('start',()=>{ camGoal=null; });
 controls.maxPolarAngle = Math.PI*.47;
 controls.minDistance = 8; controls.maxDistance = 170;
 
 const hemi=new THREE.HemisphereLight(0xffffff, 0x8a9a7a, .95); scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xfff3e0, 1.9);
 sun.position.set(40,70,30); sun.castShadow = true;
-sun.shadow.mapSize.set(2048,2048);
+sun.shadow.mapSize.set(LOWPOWER?1024:2048,LOWPOWER?1024:2048);
 Object.assign(sun.shadow.camera,{left:-50,right:50,top:50,bottom:-50,near:1,far:220});
 scene.add(sun);
 
@@ -808,6 +809,7 @@ function toggleShell(){
 }
 document.getElementById('shell').onclick=toggleShell;
 
+let _lastCam=performance.now(); const rdtCam=()=>{ const n=performance.now(), d=(n-_lastCam)/1000; _lastCam=n; return d; };
 let camGoal=null;
 function aimCamera(){
   const narrow=innerWidth<640;
@@ -948,7 +950,7 @@ function frame(now){
   });
   // camera easing
   updateDayCycle();
-  if(camGoal){ controls.target.lerp(camGoal.t,.08); camera.position.lerp(camGoal.p,.08); if(camera.position.distanceTo(camGoal.p)<.3) camGoal=null; }
+  if(camGoal){ const k=1-Math.exp(-Math.min(.1,rdtCam())*5); controls.target.lerp(camGoal.t,k); camera.position.lerp(camGoal.p,k); if(camera.position.distanceTo(camGoal.p)<.5) camGoal=null; }
   controls.update();
   uiTimer+=rdt;
   if(uiTimer>.25){ uiTimer=0;

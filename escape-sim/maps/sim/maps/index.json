@@ -40,6 +40,12 @@
    "title": "이상한 나라의 앨리스 — 토끼굴 아래로",
    "map": "maps/alice.json",
    "scenario": "scenarios/alice.json"
+  },
+  {
+   "id": "eighty-days",
+   "title": "80일간의 세계일주 — 항로와 철길",
+   "map": "maps/eighty-days.json",
+   "scenario": "scenarios/eighty-days.json"
   }
  ]
 }

@@ -1,0 +1,480 @@
+{
+ "id": "eighty-days",
+ "islandStyle": "town",
+ "roofStyle": "flat",
+ "gableColor": "#7a3a2a",
+ "flatRoofColor": "#9a958c",
+ "wallColor": "#e8dcc8",
+ "trimColor": "#4a3a2a",
+ "stepColor": "#b8ad9a",
+ "pathColor": "#9a8a6a",
+ "roadStyle": "rail",
+ "autoTrains": true,
+ "autoShips": true,
+ "lampStyle": "street",
+ "lampColor": "#ffd27a",
+ "archColor": "#4a3a2a",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 11,
+ "ringR": 400,
+ "lands": [
+  [
+   0,
+   10,
+   22,
+   14
+  ],
+  [
+   -30,
+   -14,
+   11,
+   9
+  ],
+  [
+   -2,
+   -35,
+   31,
+   15
+  ],
+  [
+   38,
+   -50,
+   10,
+   8
+  ],
+  [
+   -16,
+   -74,
+   11,
+   8
+  ],
+  [
+   28,
+   -80,
+   19,
+   12
+  ],
+  [
+   0,
+   -106,
+   14,
+   10
+  ]
+ ],
+ "mountains": [
+  [
+   14,
+   18,
+   6,
+   8
+  ],
+  [
+   -8,
+   -28,
+   7,
+   9
+  ],
+  [
+   38,
+   -84,
+   9,
+   9
+  ]
+ ],
+ "water": {
+  "level": 0,
+  "color": "#1d5f9a",
+  "opacity": 0.9,
+  "bed": "#1f3a5a",
+  "sand": "#d9c9a0",
+  "weeds": 0
+ },
+ "extras": [
+  {
+   "type": "sign",
+   "x": -14,
+   "z": 18,
+   "text": "유럽 · 런던",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -40,
+   "z": -8,
+   "text": "이집트 · 수에즈",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -30,
+   "z": -28,
+   "text": "인도",
+   "h": 6
+  },
+  {
+   "type": "sign",
+   "x": 48,
+   "z": -46,
+   "text": "홍콩",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -28,
+   "z": -74,
+   "text": "일본 · 요코하마",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": 42,
+   "z": -72,
+   "text": "아메리카",
+   "h": 6
+  },
+  {
+   "type": "sign",
+   "x": 16,
+   "z": -110,
+   "text": "다시 런던",
+   "h": 5
+  },
+  {
+   "type": "ship",
+   "x": -50,
+   "z": -40,
+   "rot": 0.6,
+   "s": 1.2
+  },
+  {
+   "type": "ship",
+   "x": 55,
+   "z": -20,
+   "rot": -0.4
+  },
+  {
+   "type": "ship",
+   "x": -40,
+   "z": -100,
+   "rot": 1.2
+  },
+  {
+   "type": "palm",
+   "x": -36,
+   "z": -18
+  },
+  {
+   "type": "palm",
+   "x": -24,
+   "z": -8
+  },
+  {
+   "type": "palm",
+   "x": -14,
+   "z": -40
+  },
+  {
+   "type": "palm",
+   "x": 12,
+   "z": -38
+  },
+  {
+   "type": "palm",
+   "x": 30,
+   "z": -28
+  },
+  {
+   "type": "palm",
+   "x": 42,
+   "z": -54
+  },
+  {
+   "type": "track",
+   "points": [
+    [
+     29,
+     -74
+    ],
+    [
+     40,
+     -83
+    ]
+   ],
+   "train": 0.55
+  },
+  {
+   "type": "track",
+   "points": [
+    [
+     -9,
+     10
+    ],
+    [
+     -18,
+     16
+    ]
+   ],
+   "train": 0.5
+  },
+  {
+   "type": "track",
+   "points": [
+    [
+     -35,
+     -12
+    ],
+    [
+     -36,
+     -22
+    ]
+   ]
+  }
+ ],
+ "theme": {
+  "bg": "#9cc3e0",
+  "fog": [
+   120,
+   320
+  ],
+  "hemi": [
+   "#e8efff",
+   "#4a5a3a",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff1d6",
+  "stars": 2400,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#8aa860",
+   "#6f8f4e",
+   "#8a8070",
+   "#e8e8e8"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#e09a6a",
+   "#9cc3e0"
+  ],
+  "nightHemi": 0.6
+ },
+ "dress": {
+  "houses": 14,
+  "houseWalls": [
+   "#e8dcc8",
+   "#d9c9a3",
+   "#f2ede0"
+  ],
+  "houseRoof": "gable",
+  "trees": 120,
+  "treeShape": "round",
+  "treeLeaf": "#4f8a3f",
+  "treeTrunk": "#5a3f2a",
+  "poles": true
+ },
+ "story": "푸른 바다 위에 대륙이 떠 있는 세계 지도 맵이에요. 런던에서 출발해 증기선이 오가는 항로(나무 부두 다리)를 건너고, 대륙 안에서는 철길을 따라 기차와 함께 달려요. 수에즈, 봄베이, 인도 정글, 캘커타, 홍콩, 요코하마, 샌프란시스코를 지나 여권 도장 4개를 모으면, 지구를 한 바퀴 돌아 다시 런던 리폼 클럽에 들어갈 수 있어요.",
+ "goal": "런던에서 출발해 항로와 철길로 세계를 돌며 여권 도장 4개를 모은 뒤, 다시 리폼 클럽에 먼저 돌아와 귀환 시각을 맞추는 팀이 활동을 마쳐요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 8,
+   "y": 1.6,
+   "r": 9,
+   "top": "#8a6a48",
+   "rock": "#8a7d6a",
+   "decor": "reformclub",
+   "start": true,
+   "roof": "flat",
+   "wall": "#d8cfc0"
+  },
+  {
+   "id": "edu",
+   "f": 0,
+   "x": -30,
+   "z": -14,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#d9c9a3",
+   "rock": "#8a7d6a",
+   "decor": "suez",
+   "roof": "flat",
+   "wall": "#e8d6b0"
+  },
+  {
+   "id": "cafe",
+   "f": 0,
+   "x": 18,
+   "z": -26,
+   "y": 1.5,
+   "r": 7,
+   "top": "#d8c9a0",
+   "rock": "#8a7d6a",
+   "decor": "bombay",
+   "roof": "dome",
+   "wall": "#f2ede0"
+  },
+  {
+   "id": "kids",
+   "f": 1,
+   "x": -22,
+   "z": -38,
+   "y": 1.6,
+   "r": 7,
+   "top": "#7f9a54",
+   "rock": "#8a7d6a",
+   "decor": "jungle",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#5a7a3a",
+   "roof": "none"
+  },
+  {
+   "id": "clubA",
+   "f": 1,
+   "x": 4,
+   "z": -42,
+   "y": 1.6,
+   "r": 7.5,
+   "top": "#c9b896",
+   "rock": "#8a7d6a",
+   "decor": "calcutta",
+   "roof": "gable",
+   "roofColor": "#7a3a2a",
+   "wall": "#e8dcc8"
+  },
+  {
+   "id": "clubB",
+   "f": 1,
+   "x": 38,
+   "z": -50,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#b8a882",
+   "rock": "#8a7d6a",
+   "decor": "hongkong",
+   "roof": "gable",
+   "roofColor": "#3a4a5a",
+   "wall": "#e8dcc8"
+  },
+  {
+   "id": "stacks",
+   "f": 2,
+   "x": -16,
+   "z": -74,
+   "y": 1.6,
+   "r": 7,
+   "top": "#d8c9b0",
+   "rock": "#8a7d6a",
+   "decor": "yokohama",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#8a7a5a",
+   "roof": "none"
+  },
+  {
+   "id": "digital",
+   "f": 2,
+   "x": 22,
+   "z": -76,
+   "y": 1.8,
+   "r": 7.5,
+   "top": "#c9b48e",
+   "rock": "#8a7d6a",
+   "decor": "sanfran",
+   "yard": true,
+   "wallH": 0.6,
+   "wall": "#7a5b3c",
+   "roof": "none"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -106,
+   "y": 1.6,
+   "r": 8.5,
+   "top": "#8a6a48",
+   "rock": "#8a7d6a",
+   "decor": "clubreturn",
+   "final": true,
+   "roof": "flat",
+   "wall": "#d8cfc0"
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "edu"
+  ],
+  [
+   "lobby",
+   "cafe"
+  ],
+  [
+   "edu",
+   "kids"
+  ],
+  [
+   "edu",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubA"
+  ],
+  [
+   "cafe",
+   "clubB"
+  ],
+  [
+   "kids",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "stacks"
+  ],
+  [
+   "clubA",
+   "digital"
+  ],
+  [
+   "clubB",
+   "digital"
+  ],
+  [
+   "stacks",
+   "vault"
+  ],
+  [
+   "digital",
+   "vault"
+  ]
+ ],
+ "tiers": [
+  "유럽에서 인도로",
+  "인도와 중국",
+  "태평양과 대서양"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "항로와 철길",
+  "layout": "세계 일주 경로 (위로 갈수록 동쪽으로)"
+ },
+ "roomNames": {
+  "lobby": "런던 리폼 클럽 (출발)",
+  "vault": "리폼 클럽 귀환 (최종)"
+ },
+ "startHour": 17
+}
