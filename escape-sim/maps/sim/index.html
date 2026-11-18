@@ -157,6 +157,7 @@
 <div id="recView"><div class="card"><h2 id="recTitle">기록</h2><div id="recBody"></div><div class="row" style="margin-top:8px;flex-wrap:wrap"><button id="recPdf">🖨 PDF로 저장</button><button id="recTxt">📄 텍스트 파일</button><button id="recCsv">📊 표(CSV) 파일</button><button id="recShare">📤 공유</button><button id="recClose">닫기</button></div></div></div>
 <div id="result"><div class="card"><h2>결과</h2><div id="resBody"></div><div class="row" style="margin-top:12px"><button class="go" id="again">다시 하기</button><button id="closeRes">닫기</button></div></div></div>
 
+<script src="../../poster.js"></script>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
 </script>
@@ -1423,7 +1424,7 @@ document.getElementById('rulesScroll').addEventListener('scroll',e=>{ const t=e.
 document.getElementById('rulesStart').onclick=()=>{ rulesEl.style.display='none'; startRun(); };
 document.getElementById('rulesClose').onclick=()=>{ rulesEl.style.display='none'; };
 playBtn.onclick=()=>{
-  if(!SCN) return;
+  if(!SCN) return; if(window.TodakPoster) TodakPoster.hide();
   if(!running && (clock===0 || ended)){ if(ended) newGame(); showRules(); return; }
   running=!running;
   playBtn.textContent=running?'❚❚':'▶'; playBtn.classList.toggle('go',!running);
@@ -1622,7 +1623,7 @@ function buildWorld(){
   buildStations(); initNav(); setupDayCycle(); updateDayCycle();
 
 }
-function loadMap(id){
+function loadMap(id,quiet){
   const e=MAPS.find(m=>m.id===id&&!m.href)||MAPS.find(m=>!m.href);
   running=false; MAP=e.map;
   const sc=JSON.parse(JSON.stringify(e.scenario)); if(MAP.story) sc.story=MAP.story; if(MAP.goal) sc.goalText=MAP.goal;
@@ -1635,6 +1636,9 @@ function loadMap(id){
   const vs=document.getElementById('viewSel'); vs.innerHTML=`<option value="all">보기: 전체</option>`+[0,1,2].map(f=>`<option value="${f}">보기: ${tierName(f)}</option>`).join('')+`<option value="vault">보기: ${roomById.vault.short}</option>`+(isTown()?'<option value="roof">보기: 외관(지붕)</option>':'');
   focus='all'; vs.value='all'; roofs.forEach(r=>r.visible=!!MAP.roofGhost); if(MAP.roofGhost) setRoofMode(false); aimCamera();
   if(document.getElementById('rules').style.display==='flex') showRules();
+  if(!quiet && window.TodakPoster) TodakPoster.show({id:e.id,custom:!!e.custom,scenario:SCN,base:'../../',maps:MAPS.map(m=>({id:m.id,title:m.title})),
+    onStart:()=>{ document.getElementById('rules').style.display='none'; startRun(); }, onRules:()=>showRules(),
+    onPick:pid=>{ const m=MAPS.find(x=>x.id===pid); if(!m) return; if(m.href) location.href=m.href; else loadMap(pid); }});
 }
 
 /* ================= 앱 안 편집기 · 지난 기록 · 파일 저장 ================= */
@@ -1726,17 +1730,17 @@ function collectEditor(){
 }
 function applyEditor(close){
   collectEditor(); const e=MAPS.find(m=>m.id===edEntry.id); Object.assign(e,{title:edEntry.title,map:edEntry.map,scenario:edEntry.scenario});
-  if(!saveEntry(e)) return; loadMap(e.id); if(close) document.getElementById('editor').style.display='none'; else openEditor(edTab);
+  if(!saveEntry(e)) return; loadMap(e.id,true); if(close) document.getElementById('editor').style.display='none'; else openEditor(edTab);
   toast('저장했어요 · 이 기기에 보관돼요');
 }
 function bindFileTab(){
   document.getElementById('e_dup').onclick=()=>{ const nm=(gv('e_newname')||'').trim()||edEntry.title+' (복사본)'; const id='my-'+Date.now().toString(36);
-    const ne={id,title:nm,map:clone(edEntry.map),scenario:clone(edEntry.scenario),custom:true}; ne.map.id=id; ne.scenario.id=id; ne.scenario.title=nm; MAPS.push(ne); if(saveEntry(ne)){ loadMap(id); openEditor('story'); toast('새 시나리오를 만들었어요'); } };
+    const ne={id,title:nm,map:clone(edEntry.map),scenario:clone(edEntry.scenario),custom:true}; ne.map.id=id; ne.scenario.id=id; ne.scenario.title=nm; MAPS.push(ne); if(saveEntry(ne)){ loadMap(id,true); openEditor('story'); toast('새 시나리오를 만들었어요'); } };
   document.getElementById('e_export').onclick=()=>{ const e=edEntry; downloadFile(`${e.title.replace(/[\\/:*?"<>|]/g,'_')}.escape.json`,JSON.stringify({format:'escape-sim/1',id:e.id,title:e.title,map:e.map,scenario:e.scenario},null,1)); };
   document.getElementById('e_import').onchange=async ev=>{ const f=ev.target.files[0]; if(!f) return; try{ const d=JSON.parse(await f.text()); if(!d.map||!d.scenario||!d.map.planets) throw 0;
-      const id='my-'+Date.now().toString(36), ne={id,title:d.title||d.scenario.title||'불러온 시나리오',map:d.map,scenario:d.scenario,custom:true}; ne.map.id=id; ne.scenario.id=id; MAPS.push(ne); if(saveEntry(ne)){ loadMap(id); openEditor('story'); toast('파일을 불러왔어요'); } }catch(_){ alert('이 파일은 방탈출 시나리오 파일이 아니에요.'); } };
+      const id='my-'+Date.now().toString(36), ne={id,title:d.title||d.scenario.title||'불러온 시나리오',map:d.map,scenario:d.scenario,custom:true}; ne.map.id=id; ne.scenario.id=id; MAPS.push(ne); if(saveEntry(ne)){ loadMap(id,true); openEditor('story'); toast('파일을 불러왔어요'); } }catch(_){ alert('이 파일은 방탈출 시나리오 파일이 아니에요.'); } };
   const rs=document.getElementById('e_reset'); if(rs) rs.onclick=()=>{ if(!confirm('편집한 내용을 지우고 원래대로 되돌릴까요?')) return; const ed=LS.get('escEdits',{}); delete ed[edEntry.id]; LS.set('escEdits',ed);
-    const e=MAPS.find(m=>m.id===edEntry.id), o=ORIG[e.id]; Object.assign(e,{title:o.title,map:clone(o.map),scenario:clone(o.scenario),edited:false}); loadMap(e.id); openEditor('file'); toast('원래대로 되돌렸어요'); };
+    const e=MAPS.find(m=>m.id===edEntry.id), o=ORIG[e.id]; Object.assign(e,{title:o.title,map:clone(o.map),scenario:clone(o.scenario),edited:false}); loadMap(e.id,true); openEditor('file'); toast('원래대로 되돌렸어요'); };
   const dl=document.getElementById('e_del'); if(dl) dl.onclick=()=>{ if(!confirm('이 시나리오를 지울까요? 되돌릴 수 없어요.')) return; LS.set('escCustom',LS.get('escCustom',[]).filter(c=>c.id!==edEntry.id));
     const i=MAPS.findIndex(m=>m.id===edEntry.id); MAPS.splice(i,1); document.getElementById('editor').style.display='none'; loadMap(MAPS.find(m=>!m.href).id); toast('지웠어요'); };
 }
@@ -1782,6 +1786,7 @@ async function cacheAll(){
   const base=new URL('../../',location.href).href, here=new URL('./',location.href).href;
   const urls=[base+'index.html',base+'manifest.json',base+'icon-192.png',base+'icon-512.png',base+'scenarios/index.json',here+'index.html',here+'maps/index.json',
     'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js','https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js'];
+  urls.push(base+'poster.js'); if(window.TodakPoster) Object.keys(TodakPoster.data).forEach(k=>urls.push(base+'posters/'+k+'.jpg'));
   try{ const bi=await (await fetch(base+'scenarios/index.json')).json(); (bi.scenarios||[]).forEach(x=>urls.push(base+'scenarios/'+x.file)); }catch(_){}
   try{ const mi=await (await fetch(here+'maps/index.json')).json(); (mi.maps||[]).forEach(m=>{ if(m.map) urls.push(here+m.map); if(m.scenario) urls.push(here+m.scenario); }); }catch(_){}
   const c=await caches.open('escape-sim-v1'); let ok=0;
@@ -1804,6 +1809,7 @@ resize(); aimCamera(); camera.position.copy(camGoal.p); controls.target.copy(cam
 requestAnimationFrame(frame);
 init();
 window.__segs=()=>bridgeSegs.map(s=>s.from+'-'+s.to+':'+(s.pier?'P':'R')).join(' ');
+window.__hideSprites=()=>{ scene.traverse(o=>{ if(o.isSprite) o.visible=false; }); agents.forEach(a=>{ if(a.team&&a.team.tag) a.team.tag.visible=false; }); };
 window.__sim={tick:(n)=>{ for(let i=0;i<n;i++) tickSim(.5); }, get:()=>({agents,teams,events,clock,ended,stations}), start:()=>{ running=true; }, setSpeed:(x)=>speed=x, newGame, loadMap, cam:(px,py,pz,tx,ty,tz)=>{ camGoal=null; camera.position.set(px,py,pz); controls.target.set(tx,ty,tz); controls.update(); }};
 </script>
 </body>

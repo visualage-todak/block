@@ -135,6 +135,7 @@
 <div id="report"><div class="card"><h2>시뮬레이션 기록</h2><div id="repBody"></div><div class="row" style="margin-top:10px"><button id="repCopy">텍스트 복사</button><button id="repClose">닫기</button></div></div></div>
 <div id="result"><div class="card"><h2>결과</h2><div id="resBody"></div><div class="row" style="margin-top:12px"><button class="go" id="again">다시 하기</button><button id="closeRes">닫기</button></div></div></div>
 
+<script src="poster.js"></script>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
 </script>
@@ -762,7 +763,7 @@ function showRules(){ document.getElementById('rSeed').textContent=SEED; documen
 document.getElementById('rulesScroll').addEventListener('scroll',e=>{ const t=e.target; if(t.scrollTop+t.clientHeight>=t.scrollHeight-8) document.getElementById('scrollHint').style.visibility='hidden'; });
 document.getElementById('rulesStart').onclick=()=>{ rulesEl.style.display='none'; startRun(); };
 document.getElementById('rulesClose').onclick=()=>{ rulesEl.style.display='none'; };
-playBtn.onclick=()=>{
+playBtn.onclick=()=>{ if(window.TodakPoster) TodakPoster.hide();
   if(!SCN) return;
   if(!running && (clock===0 || ended)){ if(ended) newGame(); showRules(); return; }
   running=!running;
@@ -977,6 +978,9 @@ function loadScenario(id){
   fillSelects();
   if(location.hash.slice(1)!==sc.id){ try{ history.replaceState(null,'','#'+sc.id); }catch(_){ } }
   if(document.getElementById('rules').style.display==='flex') showRules();
+  if(window.TodakPoster) TodakPoster.show({id:sc.id,scenario:sc,base:'',maps:[...BANK.map(b=>({id:b.id,title:b.title})),...LINKS.map((l,i)=>({id:'go:'+i,title:l.title}))],
+    onStart:()=>{ document.getElementById('rules').style.display='none'; startRun(); }, onRules:()=>showRules(),
+    onPick:pid=>{ if(pid.startsWith('go:')) location.href=LINKS[+pid.slice(3)].href; else loadScenario(pid); }});
 }
 async function initBank(){
   try{
@@ -995,6 +999,7 @@ resize(); aimCamera();
 camera.position.copy(camGoal.p); controls.target.copy(camGoal.t); camGoal=null;
 requestAnimationFrame(frame);
 initBank();
+window.__hideSprites=()=>{ scene.traverse(o=>{ if(o.isSprite) o.visible=false; }); };
 window.__bank={tick:n=>{ running=true; speed=0; for(let i=0;i<n&&!ended;i++) tickSim(.5); }, cam:(px,py,pz,tx,ty,tz)=>{ camGoal=null; camera.position.set(px,py,pz); controls.target.set(tx,ty,tz); controls.update(); }};
 
 </script>
