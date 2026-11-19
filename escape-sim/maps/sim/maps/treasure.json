@@ -1,0 +1,349 @@
+{
+ "islandStyle": "town",
+ "roofStyle": "flat",
+ "gableColor": "#7a3a2a",
+ "flatRoofColor": "#9a958c",
+ "wallColor": "#e8dcc8",
+ "trimColor": "#4a3a2a",
+ "stepColor": "#b8ad9a",
+ "pathColor": "#9a8a6a",
+ "autoShips": true,
+ "lampStyle": "street",
+ "lampColor": "#ffd27a",
+ "archColor": "#4a3a2a",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 11,
+ "ringR": 400,
+ "theme": {
+  "bg": "#9cc3e0",
+  "fog": [
+   120,
+   320
+  ],
+  "hemi": [
+   "#e8efff",
+   "#4a5a3a",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff1d6",
+  "stars": 2400,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#8aa860",
+   "#6f8f4e",
+   "#8a8070",
+   "#e8e8e8"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#e09a6a",
+   "#9cc3e0"
+  ],
+  "nightHemi": 0.6
+ },
+ "dress": {
+  "houses": 14,
+  "houseWalls": [
+   "#e8dcc8",
+   "#d9c9a3",
+   "#f2ede0"
+  ],
+  "houseRoof": "gable",
+  "trees": 120,
+  "treeShape": "round",
+  "treeLeaf": "#4f8a3f",
+  "treeTrunk": "#5a3f2a",
+  "poles": true
+ },
+ "water": {
+  "level": 0,
+  "color": "#1f7fa8",
+  "opacity": 0.85,
+  "bed": "#1f3a5a",
+  "sand": "#e8d8a8",
+  "weeds": 0
+ },
+ "lands": [
+  [
+   -48,
+   46,
+   24,
+   18
+  ],
+  [
+   8,
+   -8,
+   64,
+   54
+  ]
+ ],
+ "mountains": [
+  [
+   34,
+   -40,
+   10,
+   26
+  ],
+  [
+   -36,
+   -50,
+   7,
+   20
+  ]
+ ],
+ "extras": [
+  {
+   "type": "ship",
+   "x": -26,
+   "z": 52,
+   "rot": 0.6
+  },
+  {
+   "type": "palm",
+   "x": -4,
+   "z": -14
+  },
+  {
+   "type": "palm",
+   "x": 14,
+   "z": 4
+  },
+  {
+   "type": "palm",
+   "x": 40,
+   "z": 30
+  },
+  {
+   "type": "palm",
+   "x": -30,
+   "z": -36
+  },
+  {
+   "type": "sign",
+   "x": -72,
+   "z": 62,
+   "text": "영국",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 16,
+   "z": -2,
+   "text": "X 갈림길",
+   "h": 3.5
+  },
+  {
+   "type": "sign",
+   "x": 62,
+   "z": -58,
+   "text": "보물",
+   "h": 4
+  }
+ ],
+ "story": "여관집 아들 짐 호킨스는 해적 빌리 본즈가 남긴 보물 지도를 얻어 보물섬으로 떠나요. 지도 위 X처럼 네 갈래로 뻗은 길 한가운데에서 방향을 골라야 해요.",
+ "goal": "벤보 제독 여관에서 출발해 X자로 엇갈린 섬의 길을 따라 금화 4닢을 모은 뒤, 해골이 가리키는 보물 구덩이에 먼저 닿는 팀이 이겨요.",
+ "tiers": [
+  "영국에서 바다로",
+  "섬 한가운데",
+  "보물 지도의 끝"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "오솔길",
+  "layout": "X자 보물 지도 (네 갈래 길이 섬 한가운데 상륙 해변에서 엇갈려요)"
+ },
+ "roomNames": {
+  "lobby": "벤보 제독 여관 (출발)",
+  "vault": "보물 구덩이 (최종)"
+ },
+ "startHour": 13,
+ "id": "treasure",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": -58,
+   "z": 56,
+   "y": 1.6,
+   "r": 8,
+   "top": "#b8a888",
+   "rock": "#6a6050",
+   "decor": "sarangchae",
+   "roof": "gable",
+   "start": true
+  },
+  {
+   "id": "bristol",
+   "f": 0,
+   "x": -36,
+   "z": 36,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#a8a090",
+   "rock": "#6a6050",
+   "decor": "ferry",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "barrel",
+   "f": 0,
+   "x": -16,
+   "z": 16,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#c8a878",
+   "rock": "#6a6050",
+   "decor": "warehouse",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "landing",
+   "f": 1,
+   "x": 4,
+   "z": -4,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#e2d3a6",
+   "rock": "#6a6050",
+   "decor": "beach",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "stockade",
+   "f": 1,
+   "x": -18,
+   "z": -26,
+   "y": 1.8,
+   "r": 6.5,
+   "top": "#8a7a5a",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "flat"
+  },
+  {
+   "id": "bengun",
+   "f": 2,
+   "x": -40,
+   "z": -48,
+   "y": 2,
+   "r": 6.5,
+   "top": "#8a8070",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "hands",
+   "f": 1,
+   "x": 28,
+   "z": 18,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#a89070",
+   "rock": "#6a6050",
+   "decor": "ferry",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "north",
+   "f": 2,
+   "x": 50,
+   "z": 38,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#d8c8a0",
+   "rock": "#6a6050",
+   "decor": "beach",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "skull",
+   "f": 2,
+   "x": 28,
+   "z": -30,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#7a8a50",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 50,
+   "z": -52,
+   "y": 2.6,
+   "r": 9,
+   "top": "#c8a868",
+   "rock": "#6a6050",
+   "decor": "vault",
+   "roof": "none",
+   "final": true,
+   "yard": true,
+   "wallH": 0.4
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "bristol"
+  ],
+  [
+   "bristol",
+   "barrel"
+  ],
+  [
+   "barrel",
+   "landing"
+  ],
+  [
+   "landing",
+   "stockade"
+  ],
+  [
+   "stockade",
+   "bengun"
+  ],
+  [
+   "landing",
+   "hands"
+  ],
+  [
+   "hands",
+   "north"
+  ],
+  [
+   "landing",
+   "skull"
+  ],
+  [
+   "skull",
+   "vault"
+  ]
+ ]
+}

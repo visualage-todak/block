@@ -1,0 +1,351 @@
+{
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "giwa",
+ "roofGhost": 0.22,
+ "roofColor": "#2f6f7a",
+ "wallColor": "#f2ede0",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#b5a37a",
+ "lampStyle": "lantern",
+ "lampColor": "#bff3ff",
+ "archColor": "#2f6f7a",
+ "windowGlow": "#ffe2a8",
+ "windowGlowI": 0.9,
+ "roomLight": "#d9f2ff",
+ "roomLightI": 11,
+ "theme": {
+  "bg": "#9cc3e0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#dfe9ff",
+   "#4a5a3a",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff1d6",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#6f8f4e",
+   "#55753e",
+   "#7a7464",
+   "#8d8a84"
+  ],
+  "charGlow": 0.35,
+  "sky": [
+   "#0f1a33",
+   "#e09a6a",
+   "#9cc3e0"
+  ]
+ },
+ "dress": {
+  "houses": 12,
+  "houseWalls": [
+   "#f2ede0",
+   "#e6dcc6"
+  ],
+  "houseRoof": "mix",
+  "trees": 190,
+  "treeShape": "round",
+  "treeLeaf": "#3f6f3a",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "water": {
+  "level": 0,
+  "color": "#1a8fc6",
+  "opacity": 0.5,
+  "bed": "#3a5a6a",
+  "sand": "#e2d3a6",
+  "weeds": 120,
+  "fish": [
+   [
+    -14,
+    -2.5,
+    -8,
+    8,
+    "#f2a33a",
+    6
+   ],
+   [
+    -40,
+    -2,
+    -6,
+    7,
+    "#e85a5a",
+    5
+   ],
+   [
+    10,
+    -2,
+    -24,
+    8,
+    "#f5d36b",
+    5
+   ]
+  ]
+ },
+ "lands": [
+  [
+   0,
+   40,
+   74,
+   28
+  ],
+  [
+   -46,
+   -2,
+   9,
+   8
+  ],
+  [
+   30,
+   -36,
+   15,
+   12
+  ]
+ ],
+ "mountains": [
+  [
+   -90,
+   60,
+   26,
+   40
+  ],
+  [
+   90,
+   58,
+   24,
+   40
+  ],
+  [
+   0,
+   90,
+   30,
+   50
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": -60,
+   "z": 62,
+   "text": "도화동",
+   "h": 4
+  },
+  {
+   "type": "boat",
+   "x": -30,
+   "z": 6,
+   "rot": 0.6
+  },
+  {
+   "type": "boat",
+   "x": 4,
+   "z": -22,
+   "rot": -0.4
+  },
+  {
+   "type": "sign",
+   "x": -56,
+   "z": -10,
+   "text": "인당수",
+   "h": 4
+  },
+  {
+   "type": "pavilion",
+   "x": 46,
+   "z": -44
+  },
+  {
+   "type": "jangseung",
+   "x": -34,
+   "z": 44
+  }
+ ],
+ "story": "앞 못 보는 심봉사의 딸 심청은 공양미 삼백 석에 몸을 팔아 인당수에 뛰어들어요. 용궁을 거쳐 연꽃을 타고 다시 세상에 나온 심청은 황후가 되어 아버지를 찾아요.",
+ "goal": "도화동에서 출발해 갈지자로 굽은 길을 따라 마을·포구·바다를 지나며 연꽃잎 4장을 모은 뒤, 황궁 맹인 잔치에서 아버지를 먼저 찾는 팀이 이겨요.",
+ "tiers": [
+  "도화동 마을길",
+  "장승상 댁과 포구",
+  "인당수와 용궁"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "길",
+  "layout": "갈지자 길 (마을을 왼쪽→오른쪽, 다시 오른쪽→왼쪽으로 굽이굽이 내려가 바다 건너 황궁으로)"
+ },
+ "roomNames": {
+  "lobby": "심봉사 집 (출발)",
+  "vault": "황궁 맹인 잔치 (최종)"
+ },
+ "startHour": 10,
+ "id": "simcheong",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": -48,
+   "z": 52,
+   "y": 1.6,
+   "r": 8,
+   "top": "#c9b48e",
+   "rock": "#6a6050",
+   "decor": "hut",
+   "roof": "choga",
+   "start": true
+  },
+  {
+   "id": "well",
+   "f": 0,
+   "x": -16,
+   "z": 52,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#9a9a90",
+   "rock": "#6a6050",
+   "decor": "well",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "brook",
+   "f": 0,
+   "x": 16,
+   "z": 52,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#8ab0b8",
+   "rock": "#6a6050",
+   "decor": "riverbank",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "jang",
+   "f": 1,
+   "x": 44,
+   "z": 30,
+   "y": 2.2,
+   "r": 6.5,
+   "top": "#b8a888",
+   "rock": "#6a6050",
+   "decor": "sarangchae",
+   "roof": "giwa"
+  },
+  {
+   "id": "temple",
+   "f": 1,
+   "x": 12,
+   "z": 26,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#a89a80",
+   "rock": "#6a6050",
+   "decor": "temple",
+   "roof": "giwa"
+  },
+  {
+   "id": "port",
+   "f": 1,
+   "x": -22,
+   "z": 24,
+   "y": 2.0,
+   "r": 6.5,
+   "top": "#a89a7a",
+   "rock": "#6a6050",
+   "decor": "ferry",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "rock",
+   "f": 2,
+   "x": -46,
+   "z": -2,
+   "y": 1.2,
+   "r": 6.5,
+   "top": "#c8c0a8",
+   "rock": "#6a6050",
+   "decor": "beach",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "palace",
+   "f": 2,
+   "x": -14,
+   "z": -8,
+   "y": -2.6,
+   "r": 6.5,
+   "top": "#6ab0c0",
+   "rock": "#6a6050",
+   "decor": "coral",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 30,
+   "z": -36,
+   "y": 2.4,
+   "r": 9,
+   "top": "#d8c8a0",
+   "rock": "#6a6050",
+   "decor": "palace",
+   "roof": "giwa",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "well"
+  ],
+  [
+   "well",
+   "brook"
+  ],
+  [
+   "brook",
+   "jang"
+  ],
+  [
+   "jang",
+   "temple"
+  ],
+  [
+   "temple",
+   "port"
+  ],
+  [
+   "port",
+   "rock"
+  ],
+  [
+   "rock",
+   "palace"
+  ],
+  [
+   "palace",
+   "vault"
+  ]
+ ]
+}

@@ -1,0 +1,264 @@
+{
+ "islandStyle": "town",
+ "roofStyle": "gable",
+ "gableColor": "#b5523b",
+ "wallColor": "#fbf3e4",
+ "trimColor": "#6b3a5a",
+ "stepColor": "#e8c84a",
+ "pathColor": "#e8c84a",
+ "lampStyle": "street",
+ "lampColor": "#ffd27a",
+ "archColor": "#8e2b4a",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 11,
+ "ringR": 66,
+ "theme": {
+  "bg": "#a8d4f0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#f2f0ff",
+   "#5a7a3a",
+   1.2
+  ],
+  "sun": 1.05,
+  "sunColor": "#fff1d6",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#86c45e",
+   "#6aa84a",
+   "#8a8070",
+   "#9a958c"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#1a1640",
+   "#f0a07a",
+   "#a8d4f0"
+  ]
+ },
+ "dress": {
+  "houses": 10,
+  "houseWalls": [
+   "#fbf3e4",
+   "#f2dfe8",
+   "#e4eef8"
+  ],
+  "houseRoof": "gable",
+  "trees": 150,
+  "treeShape": "round",
+  "treeLeaf": "#4f9a3f",
+  "treeTrunk": "#6b4a34",
+  "poles": false,
+  "mushrooms": 0
+ },
+ "mountains": [
+  [
+   0,
+   -150,
+   46,
+   70
+  ],
+  [
+   -120,
+   -40,
+   36,
+   50
+  ],
+  [
+   120,
+   -50,
+   38,
+   50
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": -54,
+   "z": 64,
+   "text": "노란 벽돌 길 시작",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": -42,
+   "z": -2,
+   "text": "에메랄드 시",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": 16,
+   "z": -64,
+   "text": "글린다의 성",
+   "h": 4
+  }
+ ],
+ "story": "캔자스의 소녀 도로시는 회오리바람에 집째 날아가 오즈의 나라에 떨어져요. 노란 벽돌 길이 S자로 굽이굽이 이어져요.",
+ "goal": "먼치킨 나라에서 출발해 S자로 굽은 노란 벽돌 길을 따라가며 노란 벽돌 2장을 모은 뒤, 글린다의 성에 먼저 닿는 팀이 이겨요.",
+ "tiers": [
+  "세 친구를 만나는 길",
+  "에메랄드 시와 서쪽 마녀"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "노란 벽돌 길",
+  "layout": "S자 노란 벽돌 길 (한 줄로 굽이굽이 이어져요)"
+ },
+ "roomNames": {
+  "lobby": "먼치킨 나라 (출발)",
+  "vault": "글린다의 성 (최종)"
+ },
+ "startHour": 10,
+ "id": "oz",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": -40,
+   "z": 54,
+   "y": 1.4,
+   "r": 8,
+   "top": "#9ad06a",
+   "rock": "#6a6050",
+   "decor": "flowers",
+   "roof": "gable",
+   "start": true
+  },
+  {
+   "id": "scare",
+   "f": 0,
+   "x": -6,
+   "z": 54,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#d8c870",
+   "rock": "#6a6050",
+   "decor": "wheat",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "tin",
+   "f": 0,
+   "x": 28,
+   "z": 40,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#8aa860",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "lion",
+   "f": 0,
+   "x": 30,
+   "z": 14,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#6f9a54",
+   "rock": "#6a6050",
+   "decor": "cheshire",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "poppy",
+   "f": 1,
+   "x": 0,
+   "z": 6,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#e86a5a",
+   "rock": "#6a6050",
+   "decor": "roses",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "emerald",
+   "f": 1,
+   "x": -28,
+   "z": -8,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#6ad08a",
+   "rock": "#6a6050",
+   "decor": "palace",
+   "roof": "gable"
+  },
+  {
+   "id": "castle",
+   "f": 1,
+   "x": -30,
+   "z": -36,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#5a4a6a",
+   "rock": "#6a6050",
+   "decor": "nightroom",
+   "roof": "gable"
+  },
+  {
+   "id": "vault",
+   "f": 1,
+   "x": 4,
+   "z": -56,
+   "y": 2.4,
+   "r": 9,
+   "top": "#f2d6dc",
+   "rock": "#6a6050",
+   "decor": "throne",
+   "roof": "gable",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "scare"
+  ],
+  [
+   "scare",
+   "tin"
+  ],
+  [
+   "tin",
+   "lion"
+  ],
+  [
+   "lion",
+   "poppy"
+  ],
+  [
+   "poppy",
+   "emerald"
+  ],
+  [
+   "emerald",
+   "castle"
+  ],
+  [
+   "castle",
+   "vault"
+  ]
+ ]
+}

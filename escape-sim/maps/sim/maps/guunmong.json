@@ -1,0 +1,350 @@
+{
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "choga",
+ "roofGhost": 0.22,
+ "roofColor": "#3b4048",
+ "wallColor": "#efe6d2",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#b09a70",
+ "lampStyle": "lantern",
+ "lampColor": "#ffcf7a",
+ "archColor": "#7a4a34",
+ "windowGlow": "#ffd99a",
+ "windowGlowI": 0.8,
+ "roomLight": "#ffe2b0",
+ "roomLightI": 10,
+ "theme": {
+  "bg": "#c8dcf0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#f6f4ff",
+   "#5a6a3a",
+   1.2
+  ],
+  "sun": 1.05,
+  "sunColor": "#fff4e4",
+  "stars": 2000,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#9ab866",
+   "#7a9a52",
+   "#8a7f62",
+   "#a89a90"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#f0a8a0",
+   "#c8dcf0"
+  ]
+ },
+ "dress": {
+  "houses": 12,
+  "houseWalls": [
+   "#efe6d2",
+   "#e2d6bc"
+  ],
+  "houseRoof": "mix",
+  "trees": 170,
+  "treeShape": "round",
+  "treeLeaf": "#e48aaa",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "mountains": [
+  [
+   0,
+   -200,
+   55,
+   90
+  ],
+  [
+   -150,
+   -80,
+   40,
+   60
+  ],
+  [
+   150,
+   -90,
+   44,
+   60
+  ]
+ ],
+ "extras": [
+  {
+   "type": "mist",
+   "x": 0,
+   "z": -24,
+   "r": 60,
+   "n": 40,
+   "c": "#f0e8f8",
+   "o": 0.2
+  },
+  {
+   "type": "sign",
+   "x": 14,
+   "z": -44,
+   "text": "연화봉",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 12,
+   "z": -10,
+   "text": "깨어나는 곳",
+   "h": 3.5
+  }
+ ],
+ "story": "연화봉의 젊은 승려 성진은 팔선녀를 만난 벌로 인간 세상에 양소유로 태어나 여덟 여인을 만나고 출세해요. 바깥으로 넓어지는 꿈길 끝에서 다시 연화봉으로 돌아오면 꿈에서 깨어나요.",
+ "goal": "연화봉 법당에서 출발해 바깥으로 빙글빙글 넓어지는 꿈길을 따라 다섯 구간에서 꿈 구슬을 하나씩 모은 뒤, 꿈길 끝에서 곧장 연화봉 암자로 돌아와 꿈을 먼저 깨는 팀이 이겨요.",
+ "tiers": [
+  "연화봉",
+  "젊은 양소유",
+  "정씨 댁과 연나라",
+  "전장과 용궁",
+  "승상의 영화"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "구름길",
+  "layout": "꿈길 나선 (연화봉에서 바깥으로 빙글빙글 넓어지다가, 끝에서 곧장 가운데 암자로 돌아와요)"
+ },
+ "roomNames": {
+  "lobby": "연화봉 법당 (출발)",
+  "vault": "연화봉 암자 (최종)"
+ },
+ "startHour": 7,
+ "id": "guunmong",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": -38,
+   "y": 1.4,
+   "r": 7.5,
+   "top": "#c8b088",
+   "rock": "#6a6050",
+   "decor": "temple",
+   "roof": "giwa",
+   "start": true
+  },
+  {
+   "id": "stonebridge",
+   "f": 0,
+   "x": 0.0,
+   "z": 6.0,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#a8b0b8",
+   "rock": "#6a6050",
+   "decor": "riverbank",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "dongjeong",
+   "f": 0,
+   "x": -22.2,
+   "z": 2.5,
+   "y": 1.8,
+   "r": 6.5,
+   "top": "#6ab0c0",
+   "rock": "#6a6050",
+   "decor": "coral",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "hwaeum",
+   "f": 1,
+   "x": -38.6,
+   "z": -17.2,
+   "y": 2.1,
+   "r": 6.5,
+   "top": "#c8d890",
+   "rock": "#6a6050",
+   "decor": "flowers",
+   "roof": "giwa"
+  },
+  {
+   "id": "cheonjin",
+   "f": 1,
+   "x": -37.9,
+   "z": -45.9,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#c8b088",
+   "rock": "#6a6050",
+   "decor": "market",
+   "roof": "giwa"
+  },
+  {
+   "id": "jeong",
+   "f": 1,
+   "x": -16.6,
+   "z": -69.5,
+   "y": 2.8,
+   "r": 6.5,
+   "top": "#b8a888",
+   "rock": "#6a6050",
+   "decor": "sarangchae",
+   "roof": "giwa"
+  },
+  {
+   "id": "garden",
+   "f": 2,
+   "x": 18.1,
+   "z": -73.8,
+   "y": 3.1,
+   "r": 6.5,
+   "top": "#e8a8b8",
+   "rock": "#6a6050",
+   "decor": "roses",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "yeon",
+   "f": 2,
+   "x": 49.9,
+   "z": -52.8,
+   "y": 3.5,
+   "r": 6.5,
+   "top": "#a89a80",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "giwa"
+  },
+  {
+   "id": "tibet",
+   "f": 3,
+   "x": 61.3,
+   "z": -13.2,
+   "y": 3.8,
+   "r": 6.5,
+   "top": "#9a9070",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "baekryong",
+   "f": 3,
+   "x": 42.9,
+   "z": 27.2,
+   "y": 4.2,
+   "r": 6.5,
+   "top": "#7aa0b0",
+   "rock": "#6a6050",
+   "decor": "riverbank",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "court",
+   "f": 4,
+   "x": 0.0,
+   "z": 47.4,
+   "y": 4.5,
+   "r": 6.5,
+   "top": "#d8c8a0",
+   "rock": "#6a6050",
+   "decor": "palace",
+   "roof": "giwa"
+  },
+  {
+   "id": "chancellor",
+   "f": 4,
+   "x": -48.9,
+   "z": 34.2,
+   "y": 4.9,
+   "r": 6.5,
+   "top": "#d8b890",
+   "rock": "#6a6050",
+   "decor": "market",
+   "roof": "giwa"
+  },
+  {
+   "id": "vault",
+   "f": 4,
+   "x": 0,
+   "z": -16,
+   "y": 2.0,
+   "r": 8,
+   "top": "#e8d8b0",
+   "rock": "#6a6050",
+   "decor": "temple",
+   "roof": "giwa",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "stonebridge"
+  ],
+  [
+   "stonebridge",
+   "dongjeong"
+  ],
+  [
+   "dongjeong",
+   "hwaeum"
+  ],
+  [
+   "hwaeum",
+   "cheonjin"
+  ],
+  [
+   "cheonjin",
+   "jeong"
+  ],
+  [
+   "jeong",
+   "garden"
+  ],
+  [
+   "garden",
+   "yeon"
+  ],
+  [
+   "yeon",
+   "tibet"
+  ],
+  [
+   "tibet",
+   "baekryong"
+  ],
+  [
+   "baekryong",
+   "court"
+  ],
+  [
+   "court",
+   "chancellor"
+  ],
+  [
+   "chancellor",
+   "vault"
+  ]
+ ]
+}

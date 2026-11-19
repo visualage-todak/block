@@ -1,0 +1,313 @@
+{
+ "islandStyle": "town",
+ "roofStyle": "gable",
+ "gableColor": "#b5523b",
+ "wallColor": "#fbf3e4",
+ "trimColor": "#6b3a5a",
+ "stepColor": "#d8c9b0",
+ "pathColor": "#d8c9b0",
+ "lampStyle": "street",
+ "lampColor": "#ffd27a",
+ "archColor": "#8e2b4a",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 11,
+ "ringR": 66,
+ "theme": {
+  "bg": "#a8d4f0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#f2f0ff",
+   "#5a7a3a",
+   1.2
+  ],
+  "sun": 1.05,
+  "sunColor": "#fff1d6",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#86c45e",
+   "#6aa84a",
+   "#8a8070",
+   "#9a958c"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#1a1640",
+   "#f0a07a",
+   "#a8d4f0"
+  ]
+ },
+ "dress": {
+  "houses": 10,
+  "houseWalls": [
+   "#fbf3e4",
+   "#f2dfe8",
+   "#e4eef8"
+  ],
+  "houseRoof": "gable",
+  "trees": 150,
+  "treeShape": "round",
+  "treeLeaf": "#4f9a3f",
+  "treeTrunk": "#6b4a34",
+  "poles": false,
+  "mushrooms": 0
+ },
+ "mountains": [
+  [
+   0,
+   -30,
+   8,
+   30
+  ],
+  [
+   0,
+   -62,
+   6,
+   26
+  ],
+  [
+   0,
+   -130,
+   40,
+   60
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": -10,
+   "z": 44,
+   "text": "1층 릴리펏",
+   "h": 3
+  },
+  {
+   "type": "sign",
+   "x": 10,
+   "z": 14,
+   "text": "2층 브롭딩낵",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -10,
+   "z": -14,
+   "text": "3층 라퓨타",
+   "h": 10
+  },
+  {
+   "type": "sign",
+   "x": 10,
+   "z": -46,
+   "text": "4층 후이늠",
+   "h": 8
+  },
+  {
+   "type": "ship",
+   "x": 40,
+   "z": 60,
+   "rot": 0.4
+  }
+ ],
+ "story": "배의 의사 레뮤얼 걸리버는 네 번의 항해에서 소인국, 거인국, 하늘을 나는 섬, 말의 나라에 닿아요. 한 나라가 한 층씩, 지그재그 계단을 오르며 여행해요.",
+ "goal": "브리스틀 항구에서 출발해 지그재그 계단을 한 층씩 오르며 네 나라에서 지도 조각을 하나씩 모은 뒤, 걸리버의 서재에서 항해 지도를 먼저 완성하는 팀이 이겨요.",
+ "tiers": [
+  "소인국 릴리펏",
+  "거인국 브롭딩낵",
+  "하늘 섬 라퓨타",
+  "말의 나라"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "계단길",
+  "layout": "지그재그 계단 (한 층에 두 곳, 층마다 반대쪽 끝에서 다음 층으로 올라가요)"
+ },
+ "roomNames": {
+  "lobby": "브리스틀 항구 (출발)",
+  "vault": "걸리버의 서재 (최종)"
+ },
+ "startHour": 10,
+ "id": "gulliver",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 58,
+   "y": 1.2,
+   "r": 8,
+   "top": "#b8b0a0",
+   "rock": "#6a6050",
+   "decor": "ferry",
+   "roof": "none",
+   "start": true,
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "lilA",
+   "f": 0,
+   "x": -24,
+   "z": 34,
+   "y": 2.2,
+   "r": 5.5,
+   "top": "#e8d8b0",
+   "rock": "#6a6050",
+   "decor": "palace",
+   "roof": "gable"
+  },
+  {
+   "id": "lilB",
+   "f": 0,
+   "x": 24,
+   "z": 30,
+   "y": 2.2,
+   "r": 5.5,
+   "top": "#e2d3a6",
+   "rock": "#6a6050",
+   "decor": "beach",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "broA",
+   "f": 1,
+   "x": 24,
+   "z": 4,
+   "y": 5,
+   "r": 9,
+   "top": "#d8c890",
+   "rock": "#6a6050",
+   "decor": "wheat",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "broB",
+   "f": 1,
+   "x": -24,
+   "z": 0,
+   "y": 5,
+   "r": 9,
+   "top": "#f2dfe8",
+   "rock": "#6a6050",
+   "decor": "rabbithouse",
+   "roof": "gable"
+  },
+  {
+   "id": "lapA",
+   "f": 2,
+   "x": -24,
+   "z": -28,
+   "y": 10,
+   "r": 6.5,
+   "top": "#c8d0e0",
+   "rock": "#6a6050",
+   "decor": "school",
+   "roof": "gable"
+  },
+  {
+   "id": "lapB",
+   "f": 2,
+   "x": 24,
+   "z": -32,
+   "y": 10,
+   "r": 6.5,
+   "top": "#b8c0d8",
+   "rock": "#6a6050",
+   "decor": "globe",
+   "roof": "gable"
+  },
+  {
+   "id": "houA",
+   "f": 3,
+   "x": 24,
+   "z": -60,
+   "y": 7.5,
+   "r": 6.5,
+   "top": "#a8c080",
+   "rock": "#6a6050",
+   "decor": "animals",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "houB",
+   "f": 3,
+   "x": -24,
+   "z": -64,
+   "y": 7.5,
+   "r": 6.5,
+   "top": "#7a8a50",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "vault",
+   "f": 3,
+   "x": 0,
+   "z": -92,
+   "y": 6,
+   "r": 8,
+   "top": "#d8c8a0",
+   "rock": "#6a6050",
+   "decor": "stacks",
+   "roof": "gable",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "lilA"
+  ],
+  [
+   "lilA",
+   "lilB"
+  ],
+  [
+   "lilB",
+   "broA"
+  ],
+  [
+   "broA",
+   "broB"
+  ],
+  [
+   "broB",
+   "lapA"
+  ],
+  [
+   "lapA",
+   "lapB"
+  ],
+  [
+   "lapB",
+   "houA"
+  ],
+  [
+   "houA",
+   "houB"
+  ],
+  [
+   "houB",
+   "vault"
+  ]
+ ]
+}

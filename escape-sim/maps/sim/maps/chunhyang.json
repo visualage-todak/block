@@ -1,0 +1,350 @@
+{
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "giwa",
+ "roofGhost": 0.22,
+ "roofColor": "#3b4048",
+ "wallColor": "#f2ede0",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#a08f6c",
+ "lampStyle": "lantern",
+ "lampColor": "#ffcf7a",
+ "archColor": "#7a3a2a",
+ "windowGlow": "#ffd99a",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffd9a0",
+ "roomLightI": 11,
+ "theme": {
+  "bg": "#9cc3e0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#dfe9ff",
+   "#4a5a3a",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff1d6",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#6f8f4e",
+   "#55753e",
+   "#7a7464",
+   "#8d8a84"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#e09a6a",
+   "#9cc3e0"
+  ]
+ },
+ "dress": {
+  "houses": 18,
+  "houseWalls": [
+   "#f2ede0",
+   "#e6dcc6"
+  ],
+  "houseRoof": "mix",
+  "trees": 170,
+  "treeShape": "cone",
+  "treeLeaf": "#35583a",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "mountains": [
+  [
+   -120,
+   0,
+   44,
+   66
+  ],
+  [
+   120,
+   -10,
+   46,
+   66
+  ],
+  [
+   0,
+   -150,
+   50,
+   80
+  ]
+ ],
+ "extras": [
+  {
+   "type": "pavilion",
+   "x": 10,
+   "z": 50
+  },
+  {
+   "type": "stream",
+   "points": [
+    [
+     -60,
+     40
+    ],
+    [
+     -20,
+     44
+    ],
+    [
+     20,
+     40
+    ],
+    [
+     60,
+     44
+    ]
+   ],
+   "w": 3
+  },
+  {
+   "type": "sign",
+   "x": -16,
+   "z": 52,
+   "text": "광한루",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 16,
+   "z": -14,
+   "text": "오리정 (갈림)",
+   "h": 3.5
+  },
+  {
+   "type": "jangseung",
+   "x": -12,
+   "z": -82
+  }
+ ],
+ "story": "남원 광한루에서 만난 이몽룡과 성춘향. 이몽룡이 한양으로 떠난 뒤 새 사또 변학도는 춘향을 옥에 가두고, 장원 급제한 이몽룡은 암행어사가 되어 돌아와요.",
+ "goal": "광한루에서 출발해 아래 고리(남원의 봄)와 위 고리(옥과 암행 길)를 오리정에서 갈아타며 가락지 조각 4개를 모은 뒤, 동헌에서 어사출두를 먼저 외치는 팀이 이겨요.",
+ "tiers": [
+  "광한루 봄날",
+  "이별과 과거",
+  "옥과 암행 길",
+  "남원으로 돌아오는 길"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "길",
+  "layout": "8자 길 (아래 고리와 위 고리가 오리정 한 점에서 만나요)"
+ },
+ "roomNames": {
+  "lobby": "광한루 (출발)",
+  "vault": "남원 동헌 생일 잔치 (최종)"
+ },
+ "startHour": 11,
+ "id": "chunhyang",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 38,
+   "y": 1.4,
+   "r": 8,
+   "top": "#c9b48e",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "giwa",
+   "start": true
+  },
+  {
+   "id": "swing",
+   "f": 0,
+   "x": -26,
+   "z": 20,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#b8d07a",
+   "rock": "#6a6050",
+   "decor": "flowers",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "bridge",
+   "f": 0,
+   "x": 26,
+   "z": 20,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#8ab0b8",
+   "rock": "#6a6050",
+   "decor": "riverbank",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "wolmae",
+   "f": 1,
+   "x": -30,
+   "z": -2,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#b8a888",
+   "rock": "#6a6050",
+   "decor": "sarangchae",
+   "roof": "giwa"
+  },
+  {
+   "id": "ori",
+   "f": 1,
+   "x": 0,
+   "z": -18,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#9aa860",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "exam",
+   "f": 1,
+   "x": 30,
+   "z": -2,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#c8c0a8",
+   "rock": "#6a6050",
+   "decor": "campus",
+   "roof": "giwa"
+  },
+  {
+   "id": "jail",
+   "f": 2,
+   "x": -30,
+   "z": -34,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#6a6a70",
+   "rock": "#6a6050",
+   "decor": "nightroom",
+   "roof": "giwa"
+  },
+  {
+   "id": "road",
+   "f": 2,
+   "x": 30,
+   "z": -34,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#a8a090",
+   "rock": "#6a6050",
+   "decor": "market",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "field",
+   "f": 3,
+   "x": -26,
+   "z": -60,
+   "y": 4.4,
+   "r": 6.5,
+   "top": "#a8b860",
+   "rock": "#6a6050",
+   "decor": "wheat",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "feast",
+   "f": 3,
+   "x": 26,
+   "z": -60,
+   "y": 4.4,
+   "r": 6.5,
+   "top": "#c8b088",
+   "rock": "#6a6050",
+   "decor": "market",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "vault",
+   "f": 3,
+   "x": 0,
+   "z": -80,
+   "y": 4.4,
+   "r": 9,
+   "top": "#d8c8a0",
+   "rock": "#6a6050",
+   "decor": "palace",
+   "roof": "giwa",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "swing"
+  ],
+  [
+   "lobby",
+   "bridge"
+  ],
+  [
+   "swing",
+   "wolmae"
+  ],
+  [
+   "bridge",
+   "exam"
+  ],
+  [
+   "wolmae",
+   "ori"
+  ],
+  [
+   "exam",
+   "ori"
+  ],
+  [
+   "ori",
+   "jail"
+  ],
+  [
+   "ori",
+   "road"
+  ],
+  [
+   "jail",
+   "field"
+  ],
+  [
+   "road",
+   "feast"
+  ],
+  [
+   "field",
+   "vault"
+  ],
+  [
+   "feast",
+   "vault"
+  ]
+ ]
+}

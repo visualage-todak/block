@@ -49,6 +49,30 @@
    "scenario": "scenarios/bari.json"
   },
   {
+   "id": "simcheong",
+   "title": "시즌1.9 · 심청전 — 갈지자 길과 인당수",
+   "map": "maps/simcheong.json",
+   "scenario": "scenarios/simcheong.json"
+  },
+  {
+   "id": "chunhyang",
+   "title": "시즌1.10 · 춘향전 — 8자 길 남원",
+   "map": "maps/chunhyang.json",
+   "scenario": "scenarios/chunhyang.json"
+  },
+  {
+   "id": "heungbu",
+   "title": "시즌1.11 · 흥부전 — 박 넝쿨 등뼈 길",
+   "map": "maps/heungbu.json",
+   "scenario": "scenarios/heungbu.json"
+  },
+  {
+   "id": "guunmong",
+   "title": "시즌1.12 · 구운몽 — 꿈길 나선",
+   "map": "maps/guunmong.json",
+   "scenario": "scenarios/guunmong.json"
+  },
+  {
    "id": "baekseok",
    "title": "시즌2.1 · 백석의 길 — 경성에서 만주까지",
    "map": "maps/baekseok.json",
@@ -113,6 +137,36 @@
    "title": "시즌2.11 · 탈출기 — 좁아지는 골짜기",
    "map": "maps/talchul.json",
    "scenario": "scenarios/talchul.json"
+  },
+  {
+   "id": "odyssey",
+   "title": "시즌3.1 · 오디세이아 — 지중해 섬 미로",
+   "map": "maps/odyssey.json",
+   "scenario": "scenarios/odyssey.json"
+  },
+  {
+   "id": "gulliver",
+   "title": "시즌3.2 · 걸리버 여행기 — 네 나라 지그재그 계단",
+   "map": "maps/gulliver.json",
+   "scenario": "scenarios/gulliver.json"
+  },
+  {
+   "id": "treasure",
+   "title": "시즌3.3 · 보물섬 — X자 보물 지도 길",
+   "map": "maps/treasure.json",
+   "scenario": "scenarios/treasure.json"
+  },
+  {
+   "id": "oz",
+   "title": "시즌3.4 · 오즈의 마법사 — S자 노란 벽돌 길",
+   "map": "maps/oz.json",
+   "scenario": "scenarios/oz.json"
+  },
+  {
+   "id": "pinocchio",
+   "title": "시즌3.5 · 피노키오의 모험 — T자 유혹의 갈림길",
+   "map": "maps/pinocchio.json",
+   "scenario": "scenarios/pinocchio.json"
   },
   {
    "id": "library",

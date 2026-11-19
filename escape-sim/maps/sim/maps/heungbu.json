@@ -1,0 +1,257 @@
+{
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "choga",
+ "roofGhost": 0.22,
+ "roofColor": "#3b4048",
+ "wallColor": "#efe6d2",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#a8936a",
+ "lampStyle": "lantern",
+ "lampColor": "#ffcf7a",
+ "archColor": "#7a4a34",
+ "windowGlow": "#ffd99a",
+ "windowGlowI": 0.8,
+ "roomLight": "#ffe2b0",
+ "roomLightI": 10,
+ "theme": {
+  "bg": "#bcd6ea",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#f2f6ff",
+   "#5a6a3a",
+   1.2
+  ],
+  "sun": 1.05,
+  "sunColor": "#fff4dc",
+  "stars": 2000,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#8fae5a",
+   "#6f9246",
+   "#8a7f62",
+   "#9a9486"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#f0b070",
+   "#bcd6ea"
+  ]
+ },
+ "dress": {
+  "houses": 16,
+  "houseWalls": [
+   "#efe6d2",
+   "#e2d6bc"
+  ],
+  "houseRoof": "mix",
+  "trees": 190,
+  "treeShape": "round",
+  "treeLeaf": "#c9b23a",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "mountains": [
+  [
+   -110,
+   -20,
+   40,
+   60
+  ],
+  [
+   110,
+   -30,
+   42,
+   60
+  ],
+  [
+   0,
+   -140,
+   50,
+   80
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": 12,
+   "z": 60,
+   "text": "흥부네 오두막",
+   "h": 4
+  },
+  {
+   "type": "jangseung",
+   "x": -12,
+   "z": -54
+  },
+  {
+   "type": "pavilion",
+   "x": 46,
+   "z": 40
+  }
+ ],
+ "story": "마음 착한 흥부와 욕심 많은 형 놀부. 다친 제비를 고쳐 준 흥부는 박씨를 얻고, 박에서는 놀라운 것들이 쏟아져요.",
+ "goal": "흥부네 오두막에서 가운데 줄기 길을 따라가며 양옆 곁가지 집에도 들러 박씨 2개를 모은 뒤, 형제 잔치 마당에 먼저 닿는 팀이 이겨요.",
+ "tiers": [
+  "제비가 온 봄",
+  "박이 열린 가을"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "길",
+  "layout": "등뼈 길 (가운데 줄기를 따라가다 양옆 곁가지 집에 들렀다 돌아와요)"
+ },
+ "roomNames": {
+  "lobby": "흥부네 오두막 (출발)",
+  "vault": "형제 잔치 마당 (최종)"
+ },
+ "startHour": 9,
+ "id": "heungbu",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 50,
+   "y": 1.4,
+   "r": 8,
+   "top": "#c9b48e",
+   "rock": "#6a6050",
+   "decor": "hut",
+   "roof": "choga",
+   "start": true
+  },
+  {
+   "id": "nolbu",
+   "f": 0,
+   "x": -34,
+   "z": 30,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#b8a888",
+   "rock": "#6a6050",
+   "decor": "sarangchae",
+   "roof": "giwa"
+  },
+  {
+   "id": "nest",
+   "f": 0,
+   "x": 0,
+   "z": 22,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#c8b890",
+   "rock": "#6a6050",
+   "decor": "hut",
+   "roof": "choga"
+  },
+  {
+   "id": "market",
+   "f": 0,
+   "x": 34,
+   "z": 14,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#a8a090",
+   "rock": "#6a6050",
+   "decor": "market",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "vine",
+   "f": 1,
+   "x": 0,
+   "z": -8,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#b8c870",
+   "rock": "#6a6050",
+   "decor": "hut",
+   "roof": "choga"
+  },
+  {
+   "id": "yard",
+   "f": 1,
+   "x": -34,
+   "z": -2,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#d8c890",
+   "rock": "#6a6050",
+   "decor": "wheat",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "nolbak",
+   "f": 1,
+   "x": 34,
+   "z": -16,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#8a7a64",
+   "rock": "#6a6050",
+   "decor": "warehouse",
+   "roof": "giwa"
+  },
+  {
+   "id": "vault",
+   "f": 1,
+   "x": 0,
+   "z": -40,
+   "y": 2.4,
+   "r": 9,
+   "top": "#c8b088",
+   "rock": "#6a6050",
+   "decor": "market",
+   "roof": "none",
+   "final": true,
+   "yard": true,
+   "wallH": 0.4
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "nest"
+  ],
+  [
+   "nest",
+   "nolbu"
+  ],
+  [
+   "nest",
+   "market"
+  ],
+  [
+   "nest",
+   "vine"
+  ],
+  [
+   "vine",
+   "yard"
+  ],
+  [
+   "vine",
+   "nolbak"
+  ],
+  [
+   "vine",
+   "vault"
+  ]
+ ]
+}

@@ -1,0 +1,397 @@
+{
+ "islandStyle": "town",
+ "roofStyle": "flat",
+ "gableColor": "#7a3a2a",
+ "flatRoofColor": "#9a958c",
+ "wallColor": "#e8dcc8",
+ "trimColor": "#4a3a2a",
+ "stepColor": "#b8ad9a",
+ "pathColor": "#9a8a6a",
+ "autoShips": true,
+ "lampStyle": "street",
+ "lampColor": "#ffd27a",
+ "archColor": "#4a3a2a",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 11,
+ "ringR": 400,
+ "theme": {
+  "bg": "#9cc3e0",
+  "fog": [
+   120,
+   320
+  ],
+  "hemi": [
+   "#e8efff",
+   "#4a5a3a",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff1d6",
+  "stars": 2400,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#8aa860",
+   "#6f8f4e",
+   "#8a8070",
+   "#e8e8e8"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#e09a6a",
+   "#9cc3e0"
+  ],
+  "nightHemi": 0.6
+ },
+ "dress": {
+  "houses": 14,
+  "houseWalls": [
+   "#e8dcc8",
+   "#d9c9a3",
+   "#f2ede0"
+  ],
+  "houseRoof": "gable",
+  "trees": 120,
+  "treeShape": "round",
+  "treeLeaf": "#4f8a3f",
+  "treeTrunk": "#5a3f2a",
+  "poles": true
+ },
+ "water": {
+  "level": 0,
+  "color": "#1d6fa8",
+  "opacity": 0.85,
+  "bed": "#1f3a5a",
+  "sand": "#e2d6b0",
+  "weeds": 0
+ },
+ "lands": [
+  [
+   0,
+   56,
+   13,
+   9
+  ],
+  [
+   -30,
+   34,
+   10,
+   9
+  ],
+  [
+   30,
+   34,
+   10,
+   9
+  ],
+  [
+   -46,
+   6,
+   10,
+   9
+  ],
+  [
+   -12,
+   12,
+   10,
+   9
+  ],
+  [
+   22,
+   6,
+   10,
+   9
+  ],
+  [
+   -20,
+   -22,
+   10,
+   9
+  ],
+  [
+   34,
+   -24,
+   10,
+   9
+  ],
+  [
+   -36,
+   -50,
+   10,
+   9
+  ],
+  [
+   10,
+   -56,
+   10,
+   9
+  ],
+  [
+   0,
+   -88,
+   13,
+   9
+  ]
+ ],
+ "mountains": [],
+ "extras": [
+  {
+   "type": "ship",
+   "x": -6,
+   "z": 40,
+   "rot": 0.3
+  },
+  {
+   "type": "ship",
+   "x": 40,
+   "z": -6,
+   "rot": -0.8
+  },
+  {
+   "type": "ship",
+   "x": -50,
+   "z": -30,
+   "rot": 1.1
+  },
+  {
+   "type": "sign",
+   "x": 14,
+   "z": 64,
+   "text": "트로이",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 14,
+   "z": -96,
+   "text": "이타카",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -24,
+   "z": 20,
+   "text": "막다른 섬",
+   "h": 3
+  }
+ ],
+ "story": "트로이 전쟁에서 이긴 오디세우스는 고향 이타카로 돌아가는 데 10년이 걸려요. 괴물과 마녀, 신들이 기다리는 지중해 섬들 사이에서 막다른 섬을 피해 길을 찾아야 해요.",
+ "goal": "트로이 해변에서 출발해 섬과 섬을 잇는 뱃길을 따라가며 막다른 섬을 피해 네 구간에서 올리브 잎을 하나씩 모은 뒤, 이타카 궁전에 먼저 닿는 팀이 이겨요.",
+ "tiers": [
+  "트로이를 떠나며",
+  "바람과 마녀의 바다",
+  "세이렌과 저승",
+  "마지막 두 섬"
+ ],
+ "words": {
+  "place": "섬",
+  "link": "뱃길",
+  "layout": "지중해 섬 미로 (갈림길과 막다른 섬이 섞인 다도해)"
+ },
+ "roomNames": {
+  "lobby": "트로이 해변 (출발)",
+  "vault": "이타카 궁전 (최종)"
+ },
+ "startHour": 8,
+ "id": "odyssey",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 56,
+   "y": 1.6,
+   "r": 8,
+   "top": "#e2d3a6",
+   "rock": "#6a6050",
+   "decor": "beach",
+   "roof": "none",
+   "start": true,
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "lotus",
+   "f": 0,
+   "x": -30,
+   "z": 34,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#c8d890",
+   "rock": "#6a6050",
+   "decor": "flowers",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "cyclops",
+   "f": 0,
+   "x": 30,
+   "z": 34,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#8a8070",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "flat"
+  },
+  {
+   "id": "aeolus",
+   "f": 1,
+   "x": -46,
+   "z": 6,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#a8b0a0",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "laestry",
+   "f": 1,
+   "x": -12,
+   "z": 12,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#7a7064",
+   "rock": "#6a6050",
+   "decor": "warehouse",
+   "roof": "flat"
+  },
+  {
+   "id": "circe",
+   "f": 1,
+   "x": 22,
+   "z": 6,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#b8a8c8",
+   "rock": "#6a6050",
+   "decor": "yakbang",
+   "roof": "flat"
+  },
+  {
+   "id": "sirens",
+   "f": 2,
+   "x": -20,
+   "z": -22,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#d8c8a8",
+   "rock": "#6a6050",
+   "decor": "beach",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "hades",
+   "f": 2,
+   "x": 34,
+   "z": -24,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#5a5a70",
+   "rock": "#6a6050",
+   "decor": "netherriver",
+   "roof": "flat"
+  },
+  {
+   "id": "calypso",
+   "f": 3,
+   "x": -36,
+   "z": -50,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#c8a8b0",
+   "rock": "#6a6050",
+   "decor": "roses",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "phaeacia",
+   "f": 3,
+   "x": 10,
+   "z": -56,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#d8c8a0",
+   "rock": "#6a6050",
+   "decor": "palace",
+   "roof": "flat"
+  },
+  {
+   "id": "vault",
+   "f": 3,
+   "x": 0,
+   "z": -88,
+   "y": 1.8,
+   "r": 9,
+   "top": "#e8d8b0",
+   "rock": "#6a6050",
+   "decor": "palace",
+   "roof": "flat",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "lotus"
+  ],
+  [
+   "lobby",
+   "cyclops"
+  ],
+  [
+   "lotus",
+   "aeolus"
+  ],
+  [
+   "lotus",
+   "laestry"
+  ],
+  [
+   "cyclops",
+   "circe"
+  ],
+  [
+   "aeolus",
+   "sirens"
+  ],
+  [
+   "circe",
+   "hades"
+  ],
+  [
+   "hades",
+   "sirens"
+  ],
+  [
+   "sirens",
+   "calypso"
+  ],
+  [
+   "calypso",
+   "phaeacia"
+  ],
+  [
+   "phaeacia",
+   "vault"
+  ]
+ ]
+}

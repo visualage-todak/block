@@ -1,0 +1,289 @@
+{
+ "islandStyle": "town",
+ "roofStyle": "gable",
+ "gableColor": "#b5523b",
+ "wallColor": "#fbf3e4",
+ "trimColor": "#6b3a5a",
+ "stepColor": "#d8c9b0",
+ "pathColor": "#d8c9b0",
+ "lampStyle": "street",
+ "lampColor": "#ffd27a",
+ "archColor": "#8e2b4a",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 11,
+ "ringR": 66,
+ "theme": {
+  "bg": "#a8d4f0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#f2f0ff",
+   "#5a7a3a",
+   1.2
+  ],
+  "sun": 1.05,
+  "sunColor": "#fff1d6",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#86c45e",
+   "#6aa84a",
+   "#8a8070",
+   "#9a958c"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#1a1640",
+   "#f0a07a",
+   "#a8d4f0"
+  ]
+ },
+ "dress": {
+  "houses": 10,
+  "houseWalls": [
+   "#fbf3e4",
+   "#f2dfe8",
+   "#e4eef8"
+  ],
+  "houseRoof": "gable",
+  "trees": 150,
+  "treeShape": "round",
+  "treeLeaf": "#4f9a3f",
+  "treeTrunk": "#6b4a34",
+  "poles": false,
+  "mushrooms": 0
+ },
+ "mountains": [
+  [
+   0,
+   -140,
+   46,
+   70
+  ],
+  [
+   -130,
+   30,
+   30,
+   50
+  ],
+  [
+   130,
+   40,
+   30,
+   50
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": -14,
+   "z": -30,
+   "text": "← 유혹의 길 | 바다의 길 →",
+   "h": 3.5
+  },
+  {
+   "type": "ship",
+   "x": 46,
+   "z": -38,
+   "rot": 0.4
+  },
+  {
+   "type": "stream",
+   "points": [
+    [
+     20,
+     -34
+    ],
+    [
+     50,
+     -40
+    ],
+    [
+     80,
+     -34
+    ]
+   ],
+   "w": 4
+  }
+ ],
+ "story": "목수 제페토가 깎은 나무 인형 피노키오는 학교 대신 인형극장으로, 여관과 기적의 들판과 장난감 나라로 헤매요. T자 갈림길에서 왼쪽은 유혹의 막다른 길, 오른쪽은 아버지를 찾는 바다의 길이에요.",
+ "goal": "제페토의 공방에서 학교 가는 길을 따라 올라가 붉은 가재 여관 갈림길에서 길을 골라 파란 별 4개를 모은 뒤, 바다 건너 푸른 요정의 집에 먼저 닿는 팀이 이겨요.",
+ "tiers": [
+  "학교 가는 길",
+  "유혹의 갈림길",
+  "아버지를 찾는 바다"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "길",
+  "layout": "T자 갈림길 (가운데 줄기 끝에서 왼쪽 유혹의 막다른 길과 오른쪽 바다의 길로 갈라져요)"
+ },
+ "roomNames": {
+  "lobby": "제페토의 공방 (출발)",
+  "vault": "푸른 요정의 집 (최종)"
+ },
+ "startHour": 9,
+ "id": "pinocchio",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 46,
+   "y": 1.4,
+   "r": 8,
+   "top": "#c8a878",
+   "rock": "#6a6050",
+   "decor": "floorboards",
+   "roof": "gable",
+   "start": true
+  },
+  {
+   "id": "school",
+   "f": 0,
+   "x": 0,
+   "z": 27,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#e8e0d0",
+   "rock": "#6a6050",
+   "decor": "school",
+   "roof": "gable"
+  },
+  {
+   "id": "puppet",
+   "f": 0,
+   "x": 0,
+   "z": 8,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#c84a4a",
+   "rock": "#6a6050",
+   "decor": "club",
+   "roof": "gable"
+  },
+  {
+   "id": "inn",
+   "f": 1,
+   "x": 0,
+   "z": -13,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#d8785a",
+   "rock": "#6a6050",
+   "decor": "cafe",
+   "roof": "gable"
+  },
+  {
+   "id": "field",
+   "f": 1,
+   "x": -26,
+   "z": -13,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#c8b870",
+   "rock": "#6a6050",
+   "decor": "wheat",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "toys",
+   "f": 1,
+   "x": -50,
+   "z": -13,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#e8a8d0",
+   "rock": "#6a6050",
+   "decor": "teaparty",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "cliff",
+   "f": 2,
+   "x": 26,
+   "z": -13,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#e2d3a6",
+   "rock": "#6a6050",
+   "decor": "beach",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "shark",
+   "f": 2,
+   "x": 50,
+   "z": -21,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#4a5a6a",
+   "rock": "#6a6050",
+   "decor": "nightroom",
+   "roof": "flat"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 46,
+   "z": -46,
+   "y": 3.4,
+   "r": 9,
+   "top": "#9ac0f0",
+   "rock": "#6a6050",
+   "decor": "flowers",
+   "roof": "gable",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "school"
+  ],
+  [
+   "school",
+   "puppet"
+  ],
+  [
+   "puppet",
+   "inn"
+  ],
+  [
+   "inn",
+   "field"
+  ],
+  [
+   "field",
+   "toys"
+  ],
+  [
+   "inn",
+   "cliff"
+  ],
+  [
+   "cliff",
+   "shark"
+  ],
+  [
+   "shark",
+   "vault"
+  ]
+ ]
+}
