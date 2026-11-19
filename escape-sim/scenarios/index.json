@@ -3,93 +3,97 @@
   {
    "id": "library",
    "file": "library.json",
-   "title": "시즌1.1 · 가남교육도서관 — 비밀서고의 금고"
+   "title": "SP.1 · 가남교육도서관 — 비밀서고의 금고"
   }
  ],
  "links": [
   {
-   "title": "시즌1.2 · 어린왕자 — 별을 건너 B612로",
+   "title": "시즌1.1 · 어린왕자 — 별을 건너 B612로",
    "href": "maps/sim/index.html#little-prince"
   },
   {
-   "title": "시즌1.3 · 소년이 온다 — 오월의 언덕 마을",
-   "href": "maps/sim/index.html#human-acts"
-  },
-  {
-   "title": "시즌1.4 · 별 헤는 밤 — 별빛 언덕 마을",
+   "title": "시즌1.2 · 별 헤는 밤 — 별빛 언덕 마을",
    "href": "maps/sim/index.html#star-night"
   },
   {
-   "title": "시즌1.5 · 홍길동전 — 조선 팔도와 율도국",
+   "title": "시즌1.3 · 홍길동전 — 조선 팔도와 율도국",
    "href": "maps/sim/index.html#hong-gildong"
   },
   {
-   "title": "시즌1.6 · 별주부전 — 바닷속 용궁과 산골짜기",
+   "title": "시즌1.4 · 별주부전 — 바닷속 용궁과 산골짜기",
    "href": "maps/sim/index.html#rabbit-turtle"
   },
   {
-   "title": "시즌1.7 · 이상한 나라의 앨리스 — 토끼굴 아래로",
+   "title": "시즌1.5 · 이상한 나라의 앨리스 — 토끼굴 아래로",
    "href": "maps/sim/index.html#alice"
   },
   {
-   "title": "시즌1.8 · 80일간의 세계일주 — 항로와 철길",
+   "title": "시즌1.6 · 80일간의 세계일주 — 항로와 철길",
    "href": "maps/sim/index.html#eighty-days"
   },
   {
-   "title": "시즌1.9 · 셜록 홈즈 — 안개 낀 런던과 폭포",
+   "title": "시즌1.7 · 셜록 홈즈 — 안개 낀 런던과 폭포",
    "href": "maps/sim/index.html#sherlock"
   },
   {
-   "title": "시즌1.10 · 바리데기 — 이승·저승·서천서역국",
+   "title": "시즌1.8 · 바리데기 — 이승·저승·서천서역국",
    "href": "maps/sim/index.html#bari"
   },
   {
-   "title": "시즌2.1 · 다다다 다른 별 학교 — 교실 광장",
-   "href": "maps/sim/index.html#dadada"
-  },
-  {
-   "title": "시즌2.2 · 백석의 길 — 경성에서 만주까지",
+   "title": "시즌2.1 · 백석의 길 — 경성에서 만주까지",
    "href": "maps/sim/index.html#baekseok"
   },
   {
-   "title": "시즌2.3 · 동백꽃 — 산골 마을 고리길",
+   "title": "시즌2.2 · 동백꽃 — 산골 마을 고리길",
    "href": "maps/sim/index.html#dongbaek"
   },
   {
-   "title": "시즌2.4 · 만년 샤쓰 — 창남이의 등굣길",
+   "title": "시즌2.3 · 만년 샤쓰 — 창남이의 등굣길",
    "href": "maps/sim/index.html#shirt"
   },
   {
-   "title": "시즌2.5 · 날개 — 경성 골목 미로",
+   "title": "시즌2.4 · 날개 — 경성 골목 미로",
    "href": "maps/sim/index.html#wings"
   },
   {
-   "title": "시즌2.6 · 진달래꽃 — 약산 나선길",
+   "title": "시즌2.5 · 진달래꽃 — 약산 나선길",
    "href": "maps/sim/index.html#azalea"
   },
   {
-   "title": "시즌2.7 · 운수 좋은 날 — 인력거 U자 길",
+   "title": "시즌2.6 · 운수 좋은 날 — 인력거 U자 길",
    "href": "maps/sim/index.html#lucky"
   },
   {
-   "title": "시즌2.8 · 향수 — 실개천 섬 잇기",
+   "title": "시즌2.7 · 향수 — 실개천 섬 잇기",
    "href": "maps/sim/index.html#hyangsu"
   },
   {
-   "title": "시즌2.9 · 메밀꽃 필 무렵 — 팔십 리 밤길",
+   "title": "시즌2.8 · 메밀꽃 필 무렵 — 팔십 리 밤길",
    "href": "maps/sim/index.html#memil"
   },
   {
-   "title": "시즌2.10 · 상록수 — 마주 보는 두 마을",
+   "title": "시즌2.9 · 상록수 — 마주 보는 두 마을",
    "href": "maps/sim/index.html#sangnoksu"
   },
   {
-   "title": "시즌2.11 · 태평천하 — 담장 안으로 한 겹씩",
+   "title": "시즌2.10 · 태평천하 — 담장 안으로 한 겹씩",
    "href": "maps/sim/index.html#taepyeong"
   },
   {
-   "title": "시즌2.12 · 탈출기 — 좁아지는 골짜기",
+   "title": "시즌2.11 · 탈출기 — 좁아지는 골짜기",
    "href": "maps/sim/index.html#talchul"
+  },
+  {
+   "title": "SP.1 · 가남교육도서관 — 비밀서고의 금고",
+   "bank": "library"
+  },
+  {
+   "title": "SP.2 · 소년이 온다 — 오월의 언덕 마을",
+   "href": "maps/sim/index.html#human-acts"
+  },
+  {
+   "title": "SP.3 · 다다다 다른 별 학교 — 교실 광장",
+   "href": "maps/sim/index.html#dadada"
   }
  ]
 }
