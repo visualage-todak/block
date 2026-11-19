@@ -8,7 +8,7 @@
   },
   {
    "id": "star-night",
-   "title": "시즌1.2 · 별 헤는 밤 — 별빛 언덕 마을",
+   "title": "시즌1.2 · 별 헤는 밤 — 북두칠성 별길",
    "map": "maps/star-night.json",
    "scenario": "scenarios/star-night.json"
   },
@@ -26,7 +26,7 @@
   },
   {
    "id": "alice",
-   "title": "시즌1.5 · 이상한 나라의 앨리스 — 토끼굴 아래로",
+   "title": "시즌1.5 · 이상한 나라의 앨리스 — 토끼굴 나선 내리막",
    "map": "maps/alice.json",
    "scenario": "scenarios/alice.json"
   },
@@ -121,7 +121,7 @@
   },
   {
    "id": "human-acts",
-   "title": "SP.2 · 소년이 온다 — 오월의 언덕 마을",
+   "title": "SP.2 · 소년이 온다 — 두 갈래 기억의 길",
    "map": "maps/human-acts.json",
    "scenario": "scenarios/human-acts.json"
   },
