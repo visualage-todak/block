@@ -1,0 +1,345 @@
+{
+ "id": "dongbaek",
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "choga",
+ "roofGhost": 0.22,
+ "roofColor": "#3b4048",
+ "wallColor": "#efe6d2",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#a8936a",
+ "lampStyle": "lantern",
+ "lampColor": "#ffcf7a",
+ "archColor": "#7a4a34",
+ "windowGlow": "#ffd99a",
+ "windowGlowI": 0.8,
+ "roomLight": "#ffe2b0",
+ "roomLightI": 10,
+ "ringR": 70,
+ "mountains": [
+  [
+   0,
+   0,
+   15,
+   20
+  ],
+  [
+   -110,
+   -40,
+   40,
+   50
+  ],
+  [
+   110,
+   -50,
+   44,
+   55
+  ],
+  [
+   0,
+   -120,
+   55,
+   70
+  ],
+  [
+   -90,
+   70,
+   22,
+   30
+  ],
+  [
+   95,
+   75,
+   24,
+   30
+  ]
+ ],
+ "extras": [
+  {
+   "type": "jangseung",
+   "x": 0,
+   "z": 46
+  },
+  {
+   "type": "sign",
+   "x": 12,
+   "z": 50,
+   "text": "강원도 산골 마을",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": 0,
+   "z": -48,
+   "text": "노란 동백꽃 덤불",
+   "h": 5
+  },
+  {
+   "type": "pavilion",
+   "x": -48,
+   "z": 20
+  },
+  {
+   "type": "stream",
+   "points": [
+    [
+     60,
+     40
+    ],
+    [
+     40,
+     30
+    ],
+    [
+     44,
+     0
+    ],
+    [
+     60,
+     -30
+    ]
+   ]
+  }
+ ],
+ "theme": {
+  "bg": "#bcd6ea",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#f2f6ff",
+   "#5a6a3a",
+   1.2
+  ],
+  "sun": 1.05,
+  "sunColor": "#fff4dc",
+  "stars": 2000,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#8fae5a",
+   "#6f9246",
+   "#8a7f62",
+   "#9a9486"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#f0b070",
+   "#bcd6ea"
+  ]
+ },
+ "dress": {
+  "houses": 16,
+  "houseWalls": [
+   "#efe6d2",
+   "#e2d6bc"
+  ],
+  "houseRoof": "mix",
+  "trees": 190,
+  "treeShape": "round",
+  "treeLeaf": "#c9b23a",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "story": "1930년대 강원도 산골 마을. 열일곱 살 '나'는 마름집 딸 점순이가 건넨 감자를 거절했다가, 그 뒤로 점순이네 수탉이 우리 수탉을 날마다 쪼아 대는 일을 겪어요. 마을 산을 빙 두른 고리길을 따라 닭 깃털 4개를 모으면, 맨 뒤 노란 동백꽃 덤불에서 두 사람의 오해를 풀 수 있어요.",
+ "goal": "나의 집에서 출발해 산을 두른 고리길의 왼쪽이나 오른쪽으로 돌며 닭 깃털 4개를 모은 뒤, 노란 동백꽃 덤불에서 화해의 동백꽃 다발을 가장 먼저 완성하는 팀이 이겨요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0.0,
+   "z": 32.0,
+   "y": 1.2,
+   "r": 9,
+   "top": "#b89a6a",
+   "rock": "#7a6a50",
+   "decor": "hut",
+   "roof": "choga",
+   "start": true
+  },
+  {
+   "id": "potato",
+   "f": 0,
+   "x": 18.8,
+   "z": 25.9,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#8a7a4a",
+   "rock": "#7a6a50",
+   "decor": "wheat",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "coop",
+   "f": 1,
+   "x": 30.4,
+   "z": 9.9,
+   "y": 2.0,
+   "r": 6.5,
+   "top": "#a08a5a",
+   "rock": "#7a6a50",
+   "decor": "animals",
+   "roof": "choga"
+  },
+  {
+   "id": "kitchen",
+   "f": 1,
+   "x": 30.4,
+   "z": -9.9,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#9a8a6a",
+   "rock": "#7a6a50",
+   "decor": "yakbang",
+   "roof": "choga"
+  },
+  {
+   "id": "slope",
+   "f": 2,
+   "x": 18.8,
+   "z": -25.9,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#7a8a4a",
+   "rock": "#7a6a50",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0.0,
+   "z": -32.0,
+   "y": 4.2,
+   "r": 8,
+   "top": "#c9b24a",
+   "rock": "#7a6a50",
+   "decor": "flowers",
+   "roof": "none",
+   "final": true,
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "rock",
+   "f": 2,
+   "x": -18.8,
+   "z": -25.9,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#8a8a70",
+   "rock": "#7a6a50",
+   "decor": "hideout",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "fightrock",
+   "f": 1,
+   "x": -30.4,
+   "z": 9.9,
+   "y": 2.0,
+   "r": 6.5,
+   "top": "#a89a7a",
+   "rock": "#7a6a50",
+   "decor": "market",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "yard",
+   "f": 1,
+   "x": -30.4,
+   "z": -9.9,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#b0a07a",
+   "rock": "#7a6a50",
+   "decor": "sarangchae",
+   "roof": "giwa"
+  },
+  {
+   "id": "fence",
+   "f": 0,
+   "x": -18.8,
+   "z": 25.9,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#a8916c",
+   "rock": "#7a6a50",
+   "decor": "warehouse",
+   "roof": "choga"
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "potato"
+  ],
+  [
+   "potato",
+   "coop"
+  ],
+  [
+   "coop",
+   "kitchen"
+  ],
+  [
+   "kitchen",
+   "slope"
+  ],
+  [
+   "slope",
+   "vault"
+  ],
+  [
+   "vault",
+   "rock"
+  ],
+  [
+   "rock",
+   "yard"
+  ],
+  [
+   "yard",
+   "fightrock"
+  ],
+  [
+   "fightrock",
+   "fence"
+  ],
+  [
+   "fence",
+   "lobby"
+  ]
+ ],
+ "tiers": [
+  "마을 아랫길",
+  "밭둑과 마당",
+  "산길"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "고리길",
+  "layout": "마을 산을 빙 두른 고리길 (앞이 나의 집, 맨 뒤가 동백꽃 덤불)"
+ },
+ "roomNames": {
+  "lobby": "나의 집 (출발)",
+  "vault": "노란 동백꽃 덤불 (최종)"
+ },
+ "startHour": 10
+}
