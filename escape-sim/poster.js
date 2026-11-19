@@ -13,7 +13,8 @@
     'bari':{ep:10,title:'바리데기',tag:'버려진 일곱째 공주,\n저승 끝에서 생명을 길어 오다',eng:'BARIDEGI · THE WATER OF LIFE',mission:'생명꽃 4송이를 모아 약수 우물에서 되살려라',credit:'원작 서사무가 「바리데기」 · 출연 중학생 20명 · 무대 이승에서 서천서역국까지',accent:'#f2a6c0',font:'serif'},
     'dadada':{season:2,ep:1,title:'다다다 다른 별 학교',tag:'모두 다른 별에서 온 우리 반,\n흩어진 별 스티커를 찾아라',eng:'DADADA · THE SCHOOL OF DIFFERENT STARS',mission:'별 스티커 2장을 모아 우리 반 별자리 지도를 완성하라',credit:'원작 윤진현 『다다다 다른 별 학교』(천개의바람) · 출연 초등학생 20명 · 무대 교실 광장과 친구들의 별 · 입문 (2단계)',accent:'#ff8ac2',font:'serif',rate:'초등학생 관람가'},
     'baekseok':{season:2,ep:2,title:'백석의 길',tag:'경성에서 통영으로, 정주에서 만주로,\n시인이 걸어간 길을 따라가라',eng:'BAEK SEOK · FROM GYEONGSEONG TO MANCHURIA',mission:'시 카드 5장을 모아 백석 시 지도를 완성하라',credit:'백석의 시 세계 · 출연 중학생 20명 · 무대 경성에서 만주까지 · 난이도 중 (4단계 12곳)',accent:'#d9c7a0',font:'serif'},
-    'dongbaek':{season:2,ep:3,title:'동백꽃',tag:'느 집엔 이거 없지?\n감자 세 알에서 시작된 산골 마을 닭싸움',eng:'CAMELLIA · THE VILLAGE LOOP',mission:'닭 깃털 4개를 모아 화해의 동백꽃 다발을 완성하라',credit:'원작 김유정 「동백꽃」(1936) · 출연 중학생 20명 · 무대 강원도 산골 마을 고리길 · 기본 (3단계 10곳)',accent:'#e8c547',font:'serif'}
+    'dongbaek':{season:2,ep:3,title:'동백꽃',tag:'느 집엔 이거 없지?\n감자 세 알에서 시작된 산골 마을 닭싸움',eng:'CAMELLIA · THE VILLAGE LOOP',mission:'닭 깃털 4개를 모아 화해의 동백꽃 다발을 완성하라',credit:'원작 김유정 「동백꽃」(1936) · 출연 중학생 20명 · 무대 강원도 산골 마을 고리길 · 기본 (3단계 10곳)',accent:'#e8c547',font:'serif'},
+    'shirt':{season:2,ep:4,title:'만년 샤쓰',tag:'셔츠가 없어도 웃으며 대답하는 아이,\n창남이의 겨울 등굣길',eng:'THE EVERLASTING SHIRT',mission:'셔츠 단추 2개를 찾아 만년 샤쓰 칭찬 배지를 완성하라',credit:'원작 방정환 「만년 샤쓰」 · 출연 초등학생 20명 · 무대 창남이네 골목에서 학교 운동장까지 · 입문 (2단계 8곳)',accent:'#9fc7e8',font:'serif',rate:'초등학생 관람가'}
   };
   const css=`
 #tdPoster{position:fixed;inset:0;z-index:30;display:none;background:#0b0d12;color:#f4efe4;font-family:'Noto Sans KR',system-ui,sans-serif;overflow:hidden}

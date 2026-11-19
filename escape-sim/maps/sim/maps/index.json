@@ -76,6 +76,12 @@
    "title": "시즌2 · 동백꽃 — 산골 마을 고리길",
    "map": "maps/dongbaek.json",
    "scenario": "scenarios/dongbaek.json"
+  },
+  {
+   "id": "shirt",
+   "title": "시즌2 · 만년 샤쓰 — 창남이의 등굣길",
+   "map": "maps/shirt.json",
+   "scenario": "scenarios/shirt.json"
   }
  ]
 }

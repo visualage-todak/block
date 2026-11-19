@@ -1,0 +1,281 @@
+{
+ "id": "shirt",
+ "islandStyle": "town",
+ "roofStyle": "gable",
+ "gableColor": "#5a4a3a",
+ "flatRoofColor": "#8a857c",
+ "roofColor": "#3b4048",
+ "wallColor": "#ece6da",
+ "trimColor": "#5a4a3a",
+ "stepColor": "#a8a49a",
+ "pathColor": "#9a948a",
+ "lampStyle": "street",
+ "lampColor": "#ffd9a0",
+ "archColor": "#5a4a3a",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.8,
+ "roomLight": "#ffe6c8",
+ "roomLightI": 10,
+ "ringR": 70,
+ "mountains": [
+  [
+   -100,
+   -80,
+   40,
+   50
+  ],
+  [
+   100,
+   -90,
+   44,
+   55
+  ],
+  [
+   0,
+   -140,
+   50,
+   70
+  ],
+  [
+   -110,
+   60,
+   20,
+   30
+  ],
+  [
+   110,
+   50,
+   22,
+   30
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": 12,
+   "z": 52,
+   "text": "창남이네 골목",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 12,
+   "z": -56,
+   "text": "학교 운동장",
+   "h": 5
+  },
+  {
+   "type": "jangseung",
+   "x": -10,
+   "z": 2
+  },
+  {
+   "type": "pavilion",
+   "x": 44,
+   "z": -4
+  }
+ ],
+ "theme": {
+  "bg": "#c8d4de",
+  "fog": [
+   100,
+   280
+  ],
+  "hemi": [
+   "#f4f6fa",
+   "#5a5e60",
+   1.15
+  ],
+  "sun": 0.9,
+  "sunColor": "#fff6ea",
+  "stars": 1800,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#d6dcd8",
+   "#b8c2bc",
+   "#8a8678",
+   "#f4f6f8"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#e8b890",
+   "#c8d4de"
+  ]
+ },
+ "dress": {
+  "houses": 20,
+  "houseWalls": [
+   "#ece6da",
+   "#ddd4c2"
+  ],
+  "houseRoof": "mix",
+  "trees": 120,
+  "treeShape": "cone",
+  "treeLeaf": "#4a5e50",
+  "treeTrunk": "#4a3a2a",
+  "poles": true
+ },
+ "story": "추운 겨울 아침, 창남이는 오늘도 웃으며 학교로 가요. 창남이네 골목에서 학교 운동장까지 큰길이 한 줄로 이어지고, 길 옆으로 불탄 이웃집 터, 구멍가게, 우물가, 교실, 교무실이 갈라져 나와요. 떨어진 셔츠 단추 2개를 찾아 운동장에 모이면 체조 시간이 시작돼요.",
+ "goal": "창남이네 골목에서 출발해 동네 갈림길에서 단추 1개, 학교 갈림길에서 단추 1개를 찾은 뒤, 학교 운동장에서 만년 샤쓰 칭찬 배지를 가장 먼저 완성하는 팀이 이겨요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 44,
+   "y": 1.4,
+   "r": 9,
+   "top": "#b8a88a",
+   "rock": "#7a7468",
+   "decor": "hut",
+   "roof": "choga",
+   "start": true
+  },
+  {
+   "id": "burnt",
+   "f": 0,
+   "x": -26,
+   "z": 20,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#6a6058",
+   "rock": "#7a7468",
+   "decor": "warehouse",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#4a423a"
+  },
+  {
+   "id": "shop",
+   "f": 0,
+   "x": 0,
+   "z": 16,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#c9b48e",
+   "rock": "#7a7468",
+   "decor": "market",
+   "roof": "gable",
+   "roofColor": "#5a4a3a"
+  },
+  {
+   "id": "well",
+   "f": 0,
+   "x": 26,
+   "z": 20,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#a8a49a",
+   "rock": "#7a7468",
+   "decor": "well",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "gate",
+   "f": 1,
+   "x": 0,
+   "z": -10,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#b8b0a0",
+   "rock": "#7a7468",
+   "decor": "lobby",
+   "roof": "giwa"
+  },
+  {
+   "id": "classroom",
+   "f": 1,
+   "x": -26,
+   "z": -22,
+   "y": 1.6,
+   "r": 7,
+   "top": "#c9b896",
+   "rock": "#7a7468",
+   "decor": "school",
+   "roof": "gable",
+   "roofColor": "#3a4a5a"
+  },
+  {
+   "id": "office",
+   "f": 1,
+   "x": 26,
+   "z": -22,
+   "y": 1.6,
+   "r": 7,
+   "top": "#c9b896",
+   "rock": "#7a7468",
+   "decor": "manuscript",
+   "roof": "gable",
+   "roofColor": "#3a4a5a"
+  },
+  {
+   "id": "vault",
+   "f": 1,
+   "x": 0,
+   "z": -42,
+   "y": 1.6,
+   "r": 10,
+   "top": "#cfc6b2",
+   "rock": "#7a7468",
+   "decor": "campus",
+   "roof": "none",
+   "final": true,
+   "yard": true,
+   "wallH": 0.5
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "burnt"
+  ],
+  [
+   "lobby",
+   "shop"
+  ],
+  [
+   "lobby",
+   "well"
+  ],
+  [
+   "shop",
+   "gate"
+  ],
+  [
+   "gate",
+   "classroom"
+  ],
+  [
+   "gate",
+   "office"
+  ],
+  [
+   "gate",
+   "vault"
+  ]
+ ],
+ "tiers": [
+  "동네 갈림길",
+  "학교 갈림길"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "골목길",
+  "layout": "한 줄 큰길에서 가지처럼 갈라진 길 (앞이 골목, 맨 뒤가 운동장)"
+ },
+ "roomNames": {
+  "lobby": "창남이네 골목 (출발)",
+  "vault": "학교 운동장 체조 시간 (최종)"
+ },
+ "startHour": 8
+}
