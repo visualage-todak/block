@@ -25,50 +25,32 @@
    "scenario": "scenarios/rabbit-turtle.json"
   },
   {
-   "id": "alice",
-   "title": "시즌1.5 · 이상한 나라의 앨리스 — 토끼굴 나선 내리막",
-   "map": "maps/alice.json",
-   "scenario": "scenarios/alice.json"
-  },
-  {
-   "id": "eighty-days",
-   "title": "시즌1.6 · 80일간의 세계일주 — 지구 한 바퀴",
-   "map": "maps/eighty-days.json",
-   "scenario": "scenarios/eighty-days.json"
-  },
-  {
-   "id": "sherlock",
-   "title": "시즌1.7 · 셜록 홈즈 — 바둑판 런던과 폭포",
-   "map": "maps/sherlock.json",
-   "scenario": "scenarios/sherlock.json"
-  },
-  {
    "id": "bari",
-   "title": "시즌1.8 · 바리데기 — V자 저승 골짜기",
+   "title": "시즌1.5 · 바리데기 — V자 저승 골짜기",
    "map": "maps/bari.json",
    "scenario": "scenarios/bari.json"
   },
   {
    "id": "simcheong",
-   "title": "시즌1.9 · 심청전 — 갈지자 길과 인당수",
+   "title": "시즌1.6 · 심청전 — 갈지자 길과 인당수",
    "map": "maps/simcheong.json",
    "scenario": "scenarios/simcheong.json"
   },
   {
    "id": "chunhyang",
-   "title": "시즌1.10 · 춘향전 — 8자 길 남원",
+   "title": "시즌1.7 · 춘향전 — 8자 길 남원",
    "map": "maps/chunhyang.json",
    "scenario": "scenarios/chunhyang.json"
   },
   {
    "id": "heungbu",
-   "title": "시즌1.11 · 흥부전 — 박 넝쿨 등뼈 길",
+   "title": "시즌1.8 · 흥부전 — 박 넝쿨 등뼈 길",
    "map": "maps/heungbu.json",
    "scenario": "scenarios/heungbu.json"
   },
   {
    "id": "guunmong",
-   "title": "시즌1.12 · 구운몽 — 꿈길 나선",
+   "title": "시즌1.9 · 구운몽 — 꿈길 나선",
    "map": "maps/guunmong.json",
    "scenario": "scenarios/guunmong.json"
   },
@@ -145,28 +127,58 @@
    "scenario": "scenarios/odyssey.json"
   },
   {
+   "id": "robinson",
+   "title": "시즌3.2 · 로빈슨 크루소 — 삼지창 섬길",
+   "map": "maps/robinson.json",
+   "scenario": "scenarios/robinson.json"
+  },
+  {
    "id": "gulliver",
-   "title": "시즌3.2 · 걸리버 여행기 — 네 나라 지그재그 계단",
+   "title": "시즌3.3 · 걸리버 여행기 — 네 나라 지그재그 계단",
    "map": "maps/gulliver.json",
    "scenario": "scenarios/gulliver.json"
   },
   {
+   "id": "alice",
+   "title": "시즌3.4 · 이상한 나라의 앨리스 — 토끼굴 나선 내리막",
+   "map": "maps/alice.json",
+   "scenario": "scenarios/alice.json"
+  },
+  {
+   "id": "eighty-days",
+   "title": "시즌3.5 · 80일간의 세계일주 — 지구 한 바퀴",
+   "map": "maps/eighty-days.json",
+   "scenario": "scenarios/eighty-days.json"
+  },
+  {
+   "id": "tomsawyer",
+   "title": "시즌3.6 · 톰 소여의 모험 — 열쇠 구멍 동굴길",
+   "map": "maps/tomsawyer.json",
+   "scenario": "scenarios/tomsawyer.json"
+  },
+  {
    "id": "treasure",
-   "title": "시즌3.3 · 보물섬 — X자 보물 지도 길",
+   "title": "시즌3.7 · 보물섬 — X자 보물 지도 길",
    "map": "maps/treasure.json",
    "scenario": "scenarios/treasure.json"
   },
   {
-   "id": "oz",
-   "title": "시즌3.4 · 오즈의 마법사 — S자 노란 벽돌 길",
-   "map": "maps/oz.json",
-   "scenario": "scenarios/oz.json"
-  },
-  {
    "id": "pinocchio",
-   "title": "시즌3.5 · 피노키오의 모험 — T자 유혹의 갈림길",
+   "title": "시즌3.8 · 피노키오의 모험 — T자 유혹의 갈림길",
    "map": "maps/pinocchio.json",
    "scenario": "scenarios/pinocchio.json"
+  },
+  {
+   "id": "sherlock",
+   "title": "시즌3.9 · 셜록 홈즈 — 바둑판 런던과 폭포",
+   "map": "maps/sherlock.json",
+   "scenario": "scenarios/sherlock.json"
+  },
+  {
+   "id": "oz",
+   "title": "시즌3.10 · 오즈의 마법사 — S자 노란 벽돌 길",
+   "map": "maps/oz.json",
+   "scenario": "scenarios/oz.json"
   },
   {
    "id": "library",

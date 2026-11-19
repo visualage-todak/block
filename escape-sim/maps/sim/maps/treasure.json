@@ -7,7 +7,7 @@
  "trimColor": "#4a3a2a",
  "stepColor": "#b8ad9a",
  "pathColor": "#9a8a6a",
- "autoShips": true,
+ "autoShips": false,
  "lampStyle": "street",
  "lampColor": "#ffd27a",
  "archColor": "#4a3a2a",
@@ -52,7 +52,7 @@
   "nightHemi": 0.6
  },
  "dress": {
-  "houses": 14,
+  "houses": 0,
   "houseWalls": [
    "#e8dcc8",
    "#d9c9a3",
@@ -63,8 +63,9 @@
   "treeShape": "round",
   "treeLeaf": "#4f8a3f",
   "treeTrunk": "#5a3f2a",
-  "poles": true
+  "poles": false
  },
+ "shipStyle": "galley",
  "water": {
   "level": 0,
   "color": "#1f7fa8",

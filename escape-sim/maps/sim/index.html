@@ -836,7 +836,7 @@ function drawPier(seg){
     if(i%3===0) for(const sd of [-1,1]){ const px=x-uz*sd*(BW/2+.35), pz=z+ux*sd*(BW/2+.35), bot=Math.min(lv-1.5,terrainH(px,pz)); cyl(.13,.15,y-bot+.9,post,px,bot,pz,worldRoot,8); } }
   for(const sd of [-1,1]){ const len3=Math.hypot(seg.len,B.y-A.y), r=new THREE.Mesh(new THREE.BoxGeometry(.08,.08,len3),post); r.position.set((sx+ex)/2-uz*sd*(BW/2+.35),(A.y+B.y)/2+.85,(sz+ez)/2+ux*sd*(BW/2+.35)); r.rotation.order='YXZ'; r.rotation.y=rot; r.rotation.x=-Math.atan2(B.y-A.y,seg.len); worldRoot.add(r); }
   const lampM=glow(hexNum(MAP.lampColor||'#ffcf7a'),1.8); for(let i=1;i<4;i++){ const t=i/4, sd=i%2?1:-1, x=sx+(ex-sx)*t-uz*sd*(BW/2+.35), z=sz+(ez-sz)*t+ux*sd*(BW/2+.35), y=A.y+(B.y-A.y)*t; box(.3,.4,.3,lampM,x,y+1.25,z,worldRoot,false); }
-  if(MAP.autoShips){ const sd=(bridgeSegs.indexOf(seg)%2)?1:-1; steamship(worldRoot,(sx+ex)/2-uz*sd*5,lv+.05,(sz+ez)/2+ux*sd*5,-Math.atan2(uz,ux),.9); }
+  if(MAP.autoShips){ const sd=(bridgeSegs.indexOf(seg)%2)?1:-1; shipFn(worldRoot,(sx+ex)/2-uz*sd*5,lv+.05,(sz+ez)/2+ux*sd*5,-Math.atan2(uz,ux),.9); }
   if(B.f>A.f && !B.final){ const lb=label(`${tierName(B.f)} · ${SCN.clue} ${reqAt(B.f)}개`,3.8,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(sx+ux*2.2,A.y+3.6,sz+uz*2.2); worldRoot.add(lb); }
   if(B.final && !A.final){ const lb=label(`${B.short} · ${SCN.clue} ${TOTAL()}개`,3.8,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(sx+ux*2.2,A.y+3.6,sz+uz*2.2); worldRoot.add(lb); }
 }
@@ -1016,7 +1016,7 @@ function buildWonder(){
     else if(e.type==='track'){ const [x1,z1]=e.points[0],[x2,z2]=e.points[1], L=Math.hypot(x2-x1,z2-z1), rot=Math.atan2(x2-x1,z2-z1), n=Math.floor(L/.8), tie=mat2(0x5a3f2a), rail=mat2(0x8a8f96,{metalness:.7,roughness:.35});
       for(let i=0;i<n;i++){ const t=(i+.5)/n, x=x1+(x2-x1)*t, z=z1+(z2-z1)*t, y=terrainH(x,z); const b=box(BW-.2,.06,.28,tie,x,y+.06,z,worldRoot,false); b.rotation.y=rot; for(const sd of [-.55,.55]){ const r=box(.1,.12,.84,rail,x+Math.cos(rot)*sd,y+.14,z-Math.sin(rot)*sd,worldRoot,false); r.rotation.y=rot; } }
       if(e.train){ const t=e.train, x=x1+(x2-x1)*t, z=z1+(z2-z1)*t; locomotive(worldRoot,x,terrainH(x,z)+.1,z,rot,.8,3); } }
-    else if(e.type==='ship') steamship(worldRoot,e.x,(MAP.water?MAP.water.level:0)+.05,e.z,e.rot||0,e.s||1);
+    else if(e.type==='ship') shipFn(worldRoot,e.x,(MAP.water?MAP.water.level:0)+.05,e.z,e.rot||0,e.s||1);
     else if(e.type==='palm') palm(worldRoot,e.x,terrainH(e.x,e.z),e.z,e.s||1);
     else if(e.type==='mushroom') mushroom(worldRoot,e.x,terrainH(e.x,e.z),e.z,e.s||3,hexNum(e.c||'#d9443a'));
     else if(e.type==='clock') pocketClock(worldRoot,e.x,terrainH(e.x,e.z),e.z,e.s||2.5,e.rot||0);
@@ -1035,6 +1035,17 @@ function buildWonder(){
 
 /* ================= 세계 지도 (대륙·항로·철도·증기선·기차·코끼리) ================= */
 function landK(x,z){ let k=0; for(const [lx,lz,rx,rz] of (MAP.lands||[])){ const e=Math.hypot((x-lx)/rx,(z-lz)/rz)+noise2(x*1.7,z*1.7)*.035; k=Math.max(k,1-smooth(.82,1.12,e)); } return k; }
+function shipFn(...a){ return (MAP.shipStyle==='galley')?galley(...a):steamship(...a); }
+function galley(par,x,y,z,rot=0,s=1){ const g=new THREE.Group(); g.position.set(x,y,z); g.rotation.y=rot; g.scale.setScalar(s); par.add(g);
+  const wood=mat2(0x7a4a2a), dark=mat2(0x4a2e1c); box(6.4,.9,1.6,wood,0,.25,0,g); box(6.5,.18,1.7,dark,0,.75,0,g); box(6.4,.2,1.62,mat2(0x1d3f6a),0,-.1,0,g);
+  const bow=new THREE.Mesh(new THREE.ConeGeometry(.82,1.6,4),wood); bow.rotation.z=-Math.PI/2; bow.rotation.x=Math.PI/4; bow.position.set(3.9,.35,0); g.add(bow);
+  const st=cyl(.12,.2,1.8,wood,-3.4,1.2,0,g,6); st.rotation.z=.5; const pr=cyl(.08,.14,1.4,wood,4.3,1.0,0,g,6); pr.rotation.z=-.6;
+  for(const sd of [-1,1]) for(let i=0;i<7;i++){ const o=cyl(.04,.04,2.2,mat2(0xc8a070),-2.4+i*.8,.15,sd*1.75,g,4); o.rotation.x=sd*(Math.PI/2+.38); }
+  for(const sd of [-1,1]) for(let i=0;i<5;i++) ball(.22,mat2([0xc0392b,0xe2b30b,0x2f5d8a][i%3]),-1.8+i*.9,.85,sd*.84,g);
+  cyl(.07,.08,4.2,dark,0,2.7,0,g,6); box(.08,.08,3.0,dark,0,4.4,0,g);
+  const sail=new THREE.Mesh(new THREE.PlaneGeometry(2.9,2.4),new THREE.MeshStandardMaterial({color:0xf2e6c8,side:THREE.DoubleSide})); sail.rotation.y=Math.PI/2; sail.position.set(.06,3.2,0); g.add(sail);
+  const strp=new THREE.Mesh(new THREE.PlaneGeometry(2.92,.45),new THREE.MeshStandardMaterial({color:0xa83a2a,side:THREE.DoubleSide})); strp.rotation.y=Math.PI/2; strp.position.set(.08,3.2,0); g.add(strp);
+  return g; }
 function steamship(par,x,y,z,rot=0,s=1){ const g=new THREE.Group(); g.position.set(x,y,z); g.rotation.y=rot; g.scale.setScalar(s); par.add(g);
   const hull=mat2(0x2b2b33); box(7,1.1,1.8,hull,0,.3,0,g); box(7,.25,1.85,mat2(0x9b2c22),0,-.15,0,g); const bow=new THREE.Mesh(new THREE.ConeGeometry(.95,1.6,4),hull); bow.rotation.z=-Math.PI/2; bow.rotation.x=Math.PI/4; bow.position.set(4.3,.3,0); bow.scale.set(1,1,.95); g.add(bow);
   box(3.4,.8,1.3,mat2(0xf2ede0),-.3,1.25,0,g); box(1.6,.6,1.1,mat2(0xf2ede0),-.6,1.95,0,g);
@@ -1079,7 +1090,7 @@ function scatterTown(){
   const D=MAP.dress||{}, tr=mat2(hexNum(D.treeLeaf||'#3f6a3a')), tk=mat2(hexNum(D.treeTrunk||'#5a4232'));
   // 마을 집
   let placed=0, tries=0; const houses=[];
-  while(placed<(D.houses||14) && tries<600){ tries++;
+  while(placed<(D.houses??14) && tries<600){ tries++;
     const s=bridgeSegs[Math.floor(rr(0,bridgeSegs.length))], t=rr(.15,.85), side=rr(0,1)<.5?-1:1, off=rr(6,10);
     const x=s.ax+(s.bx-s.ax)*t-s.uz*side*off, z=s.az+(s.bz-s.az)*t+s.ux*side*off;
     if(nearRoadOrBuilding(x,z,3.4) || houses.some(h=>Math.hypot(h[0]-x,h[1]-z)<8)) continue;

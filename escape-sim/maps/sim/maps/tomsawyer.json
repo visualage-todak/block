@@ -1,0 +1,344 @@
+{
+ "islandStyle": "town",
+ "roofStyle": "gable",
+ "gableColor": "#b5523b",
+ "wallColor": "#fbf3e4",
+ "trimColor": "#6b3a5a",
+ "stepColor": "#d8c9b0",
+ "pathColor": "#c8b088",
+ "lampStyle": "street",
+ "lampColor": "#ffd27a",
+ "archColor": "#8e2b4a",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 11,
+ "ringR": 66,
+ "theme": {
+  "bg": "#a8d4f0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#f2f0ff",
+   "#5a7a3a",
+   1.2
+  ],
+  "sun": 1.05,
+  "sunColor": "#fff1d6",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#86c45e",
+   "#6aa84a",
+   "#8a8070",
+   "#9a958c"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#1a1640",
+   "#f0a07a",
+   "#a8d4f0"
+  ]
+ },
+ "dress": {
+  "houses": 10,
+  "houseWalls": [
+   "#fbf3e4",
+   "#f2dfe8",
+   "#e4eef8"
+  ],
+  "houseRoof": "gable",
+  "trees": 150,
+  "treeShape": "round",
+  "treeLeaf": "#4f9a3f",
+  "treeTrunk": "#6b4a34",
+  "poles": false,
+  "mushrooms": 0
+ },
+ "mountains": [
+  [
+   0,
+   -50,
+   10,
+   40
+  ],
+  [
+   0,
+   -150,
+   46,
+   70
+  ],
+  [
+   -130,
+   0,
+   30,
+   50
+  ]
+ ],
+ "extras": [
+  {
+   "type": "stream",
+   "points": [
+    [
+     64,
+     80
+    ],
+    [
+     58,
+     40
+    ],
+    [
+     64,
+     0
+    ],
+    [
+     60,
+     -40
+    ],
+    [
+     66,
+     -70
+    ]
+   ],
+   "w": 10
+  },
+  {
+   "type": "boat",
+   "x": 56,
+   "z": -4,
+   "rot": 1.4
+  },
+  {
+   "type": "sign",
+   "x": 14,
+   "z": 70,
+   "text": "세인트피터즈버그",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 14,
+   "z": -24,
+   "text": "맥두걸 동굴",
+   "h": 4
+  }
+ ],
+ "story": "미시시피 강가 마을의 장난꾸러기 톰 소여. 마을 큰길을 따라 올라가면 동굴이 고리처럼 이어진 열쇠 구멍 모양의 길이 나와요.",
+ "goal": "폴리 이모네 집에서 마을 길을 따라가며 동전 4개를 모은 뒤, 고리 모양 동굴을 돌아 한가운데 보물 자리에 먼저 닿는 팀이 이겨요.",
+ "tiers": [
+  "마을의 하루",
+  "묘지와 섬",
+  "맥두걸 동굴"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "길",
+  "layout": "열쇠 구멍 (마을 큰길 줄기 끝에 동굴 고리가 있고, 보물은 고리 한가운데)"
+ },
+ "roomNames": {
+  "lobby": "폴리 이모네 집 (출발)",
+  "vault": "동굴 속 보물 자리 (최종)"
+ },
+ "startHour": 10,
+ "id": "tomsawyer",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 62,
+   "y": 1.4,
+   "r": 8,
+   "top": "#c8b088",
+   "rock": "#6a6050",
+   "decor": "hut",
+   "roof": "gable",
+   "start": true
+  },
+  {
+   "id": "fence",
+   "f": 0,
+   "x": 0,
+   "z": 40,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#e8e0d0",
+   "rock": "#6a6050",
+   "decor": "flowers",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "school",
+   "f": 0,
+   "x": 0,
+   "z": 18,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#e8e0d0",
+   "rock": "#6a6050",
+   "decor": "school",
+   "roof": "gable"
+  },
+  {
+   "id": "graveyard",
+   "f": 1,
+   "x": 0,
+   "z": -4,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#5a5a64",
+   "rock": "#6a6050",
+   "decor": "nightroom",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "court",
+   "f": 1,
+   "x": -28,
+   "z": -4,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#d8c8a0",
+   "rock": "#6a6050",
+   "decor": "club",
+   "roof": "gable"
+  },
+  {
+   "id": "island",
+   "f": 1,
+   "x": 28,
+   "z": -4,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#8ab0b8",
+   "rock": "#6a6050",
+   "decor": "riverbank",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "cave1",
+   "f": 2,
+   "x": 0,
+   "z": -28,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#6a6050",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "flat"
+  },
+  {
+   "id": "bats",
+   "f": 2,
+   "x": -24,
+   "z": -50,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#4a4a54",
+   "rock": "#6a6050",
+   "decor": "nightroom",
+   "roof": "flat"
+  },
+  {
+   "id": "spring",
+   "f": 2,
+   "x": 24,
+   "z": -50,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#5a7a8a",
+   "rock": "#6a6050",
+   "decor": "riverbank",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "cross",
+   "f": 2,
+   "x": 0,
+   "z": -72,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#7a6a58",
+   "rock": "#6a6050",
+   "decor": "stacks",
+   "roof": "flat"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -50,
+   "y": 3.4,
+   "r": 7.5,
+   "top": "#c8a868",
+   "rock": "#6a6050",
+   "decor": "vault",
+   "roof": "none",
+   "final": true,
+   "yard": true,
+   "wallH": 0.4
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "fence"
+  ],
+  [
+   "fence",
+   "school"
+  ],
+  [
+   "school",
+   "graveyard"
+  ],
+  [
+   "graveyard",
+   "court"
+  ],
+  [
+   "graveyard",
+   "island"
+  ],
+  [
+   "graveyard",
+   "cave1"
+  ],
+  [
+   "cave1",
+   "bats"
+  ],
+  [
+   "bats",
+   "cross"
+  ],
+  [
+   "cross",
+   "spring"
+  ],
+  [
+   "spring",
+   "cave1"
+  ],
+  [
+   "cross",
+   "vault"
+  ]
+ ]
+}

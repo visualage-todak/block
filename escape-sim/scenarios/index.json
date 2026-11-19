@@ -24,35 +24,23 @@
    "href": "maps/sim/index.html#rabbit-turtle"
   },
   {
-   "title": "시즌1.5 · 이상한 나라의 앨리스 — 토끼굴 나선 내리막",
-   "href": "maps/sim/index.html#alice"
-  },
-  {
-   "title": "시즌1.6 · 80일간의 세계일주 — 지구 한 바퀴",
-   "href": "maps/sim/index.html#eighty-days"
-  },
-  {
-   "title": "시즌1.7 · 셜록 홈즈 — 바둑판 런던과 폭포",
-   "href": "maps/sim/index.html#sherlock"
-  },
-  {
-   "title": "시즌1.8 · 바리데기 — V자 저승 골짜기",
+   "title": "시즌1.5 · 바리데기 — V자 저승 골짜기",
    "href": "maps/sim/index.html#bari"
   },
   {
-   "title": "시즌1.9 · 심청전 — 갈지자 길과 인당수",
+   "title": "시즌1.6 · 심청전 — 갈지자 길과 인당수",
    "href": "maps/sim/index.html#simcheong"
   },
   {
-   "title": "시즌1.10 · 춘향전 — 8자 길 남원",
+   "title": "시즌1.7 · 춘향전 — 8자 길 남원",
    "href": "maps/sim/index.html#chunhyang"
   },
   {
-   "title": "시즌1.11 · 흥부전 — 박 넝쿨 등뼈 길",
+   "title": "시즌1.8 · 흥부전 — 박 넝쿨 등뼈 길",
    "href": "maps/sim/index.html#heungbu"
   },
   {
-   "title": "시즌1.12 · 구운몽 — 꿈길 나선",
+   "title": "시즌1.9 · 구운몽 — 꿈길 나선",
    "href": "maps/sim/index.html#guunmong"
   },
   {
@@ -104,20 +92,40 @@
    "href": "maps/sim/index.html#odyssey"
   },
   {
-   "title": "시즌3.2 · 걸리버 여행기 — 네 나라 지그재그 계단",
+   "title": "시즌3.2 · 로빈슨 크루소 — 삼지창 섬길",
+   "href": "maps/sim/index.html#robinson"
+  },
+  {
+   "title": "시즌3.3 · 걸리버 여행기 — 네 나라 지그재그 계단",
    "href": "maps/sim/index.html#gulliver"
   },
   {
-   "title": "시즌3.3 · 보물섬 — X자 보물 지도 길",
+   "title": "시즌3.4 · 이상한 나라의 앨리스 — 토끼굴 나선 내리막",
+   "href": "maps/sim/index.html#alice"
+  },
+  {
+   "title": "시즌3.5 · 80일간의 세계일주 — 지구 한 바퀴",
+   "href": "maps/sim/index.html#eighty-days"
+  },
+  {
+   "title": "시즌3.6 · 톰 소여의 모험 — 열쇠 구멍 동굴길",
+   "href": "maps/sim/index.html#tomsawyer"
+  },
+  {
+   "title": "시즌3.7 · 보물섬 — X자 보물 지도 길",
    "href": "maps/sim/index.html#treasure"
   },
   {
-   "title": "시즌3.4 · 오즈의 마법사 — S자 노란 벽돌 길",
-   "href": "maps/sim/index.html#oz"
+   "title": "시즌3.8 · 피노키오의 모험 — T자 유혹의 갈림길",
+   "href": "maps/sim/index.html#pinocchio"
   },
   {
-   "title": "시즌3.5 · 피노키오의 모험 — T자 유혹의 갈림길",
-   "href": "maps/sim/index.html#pinocchio"
+   "title": "시즌3.9 · 셜록 홈즈 — 바둑판 런던과 폭포",
+   "href": "maps/sim/index.html#sherlock"
+  },
+  {
+   "title": "시즌3.10 · 오즈의 마법사 — S자 노란 벽돌 길",
+   "href": "maps/sim/index.html#oz"
   },
   {
    "title": "SP.1 · 가남교육도서관 — 비밀서고의 금고",

@@ -4,7 +4,7 @@ def isl(rooms, big=()):
     return [[r[2],r[3],13 if r[0] in big else 10,9] for r in rooms]
 
 # ===================== 오디세이아 : 지중해 섬 미로 (막다른 섬 포함) =====================
-cfg=donor('eighty-days'); cfg.update({"autoShips":True,"water":{"level":0,"color":"#1d6fa8","opacity":0.85,"bed":"#1f3a5a","sand":"#e2d6b0","weeds":0}})
+cfg=donor("eighty-days"); cfg.update({"shipStyle":"galley","autoShips":True,"water":{"level":0,"color":"#1d6fa8","opacity":0.85,"bed":"#1f3a5a","sand":"#e2d6b0","weeds":0}})
 rooms=[
 ("lobby",0,0,56,"트로이 해변","beach","none","#e2d3a6",[],{"y":1.6}),
 ("lotus",0,-30,34,"로토스 먹는 사람들의 섬","flowers","none","#c8d890",[
@@ -101,7 +101,7 @@ mk("gulliver","시즌3.2 · 걸리버 여행기 — 네 나라 지그재그 계�
  "teams":team("소인팀","거인팀","하늘섬팀","후이늠팀")})
 
 # ===================== 보물섬 : X자 보물 지도 길 =====================
-cfg=donor('eighty-days'); cfg.update({"autoShips":True,"water":{"level":0,"color":"#1f7fa8","opacity":0.85,"bed":"#1f3a5a","sand":"#e8d8a8","weeds":0}})
+cfg=donor('eighty-days'); cfg.update({"shipStyle":"galley","autoShips":False,"dress":dict(cfg["dress"],houses=0,poles=False),"water":{"level":0,"color":"#1f7fa8","opacity":0.85,"bed":"#1f3a5a","sand":"#e8d8a8","weeds":0}})
 rooms=[
 ("lobby",0,-58,56,"벤보 제독 여관","sarangchae_w","gable","#b8a888",[],{"y":1.6}),
 ("bristol",0,-36,36,"브리스틀 부두","ferry","none","#a8a090",[

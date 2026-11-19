@@ -65,6 +65,7 @@
   "treeTrunk": "#5a3f2a",
   "poles": true
  },
+ "shipStyle": "galley",
  "water": {
   "level": 0,
   "color": "#1d6fa8",

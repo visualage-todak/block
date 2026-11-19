@@ -1,0 +1,372 @@
+{
+ "islandStyle": "town",
+ "roofStyle": "flat",
+ "gableColor": "#7a3a2a",
+ "flatRoofColor": "#9a958c",
+ "wallColor": "#e8dcc8",
+ "trimColor": "#4a3a2a",
+ "stepColor": "#b8ad9a",
+ "pathColor": "#9a8a6a",
+ "autoShips": false,
+ "lampStyle": "street",
+ "lampColor": "#ffd27a",
+ "archColor": "#4a3a2a",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 11,
+ "ringR": 400,
+ "theme": {
+  "bg": "#9cc3e0",
+  "fog": [
+   120,
+   320
+  ],
+  "hemi": [
+   "#e8efff",
+   "#4a5a3a",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff1d6",
+  "stars": 2400,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#8aa860",
+   "#6f8f4e",
+   "#8a8070",
+   "#e8e8e8"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#e09a6a",
+   "#9cc3e0"
+  ],
+  "nightHemi": 0.6
+ },
+ "dress": {
+  "houses": 0,
+  "houseWalls": [
+   "#e8dcc8",
+   "#d9c9a3",
+   "#f2ede0"
+  ],
+  "houseRoof": "gable",
+  "trees": 120,
+  "treeShape": "round",
+  "treeLeaf": "#4f8a3f",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "shipStyle": "galley",
+ "water": {
+  "level": 0,
+  "color": "#1f8fb0",
+  "opacity": 0.8,
+  "bed": "#1f4a5a",
+  "sand": "#ecdcae",
+  "weeds": 0
+ },
+ "lands": [
+  [
+   0,
+   8,
+   64,
+   46
+  ],
+  [
+   0,
+   62,
+   10,
+   8
+  ],
+  [
+   0,
+   -60,
+   10,
+   8
+  ]
+ ],
+ "mountains": [
+  [
+   -50,
+   -10,
+   10,
+   22
+  ],
+  [
+   50,
+   -14,
+   8,
+   20
+  ]
+ ],
+ "extras": [
+  {
+   "type": "palm",
+   "x": -30,
+   "z": 24
+  },
+  {
+   "type": "palm",
+   "x": 12,
+   "z": 22
+  },
+  {
+   "type": "palm",
+   "x": -14,
+   "z": -40
+  },
+  {
+   "type": "palm",
+   "x": 24,
+   "z": -40
+  },
+  {
+   "type": "palm",
+   "x": 52,
+   "z": 24
+  },
+  {
+   "type": "sign",
+   "x": 14,
+   "z": 70,
+   "text": "난파선",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 14,
+   "z": -70,
+   "text": "구조선",
+   "h": 4
+  },
+  {
+   "type": "ship",
+   "x": -30,
+   "z": -72,
+   "rot": 0.4
+  }
+ ],
+ "story": "폭풍에 배가 부서져 혼자 무인도에 닿은 로빈슨 크루소. 해변에서 세 갈래로 나란히 뻗은 길이 집 짓기·기록·친구 찾기의 이야기로 이어져요.",
+ "goal": "난파선에서 상륙해 세 갈래 길 가운데 하나를 골라 가며 눈금 막대 3개를 모은 뒤, 구조선 갑판에 먼저 오르는 팀이 이겨요.",
+ "tiers": [
+  "상륙",
+  "섬에서 살아가기",
+  "사람의 흔적"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "오솔길",
+  "layout": "삼지창 길 (해변에서 세 갈래가 나란히 뻗었다가 구조선에서 다시 만나요)"
+ },
+ "roomNames": {
+  "lobby": "난파선 갑판 (출발)",
+  "vault": "구조선 갑판 (최종)"
+ },
+ "startHour": 9,
+ "id": "robinson",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 62,
+   "y": 1.4,
+   "r": 8,
+   "top": "#8a6a4a",
+   "rock": "#6a6050",
+   "decor": "warehouse",
+   "roof": "none",
+   "start": true,
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "beach",
+   "f": 0,
+   "x": -22,
+   "z": 38,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#e8d8a8",
+   "rock": "#6a6050",
+   "decor": "beach",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "raft",
+   "f": 0,
+   "x": 22,
+   "z": 38,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#a88a5a",
+   "rock": "#6a6050",
+   "decor": "warehouse",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "cave",
+   "f": 1,
+   "x": -38,
+   "z": 8,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#9a8a70",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "calendar",
+   "f": 1,
+   "x": 0,
+   "z": 4,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#c8b088",
+   "rock": "#6a6050",
+   "decor": "stacks",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "goats",
+   "f": 1,
+   "x": 38,
+   "z": 8,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#a8b870",
+   "rock": "#6a6050",
+   "decor": "animals",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "fort",
+   "f": 2,
+   "x": -38,
+   "z": -24,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#7a6a50",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "flat"
+  },
+  {
+   "id": "footprint",
+   "f": 2,
+   "x": 0,
+   "z": -28,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#e8d8a8",
+   "rock": "#6a6050",
+   "decor": "beach",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "friday",
+   "f": 2,
+   "x": 38,
+   "z": -24,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#8aa860",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -60,
+   "y": 3.4,
+   "r": 9,
+   "top": "#a89070",
+   "rock": "#6a6050",
+   "decor": "ferry",
+   "roof": "none",
+   "final": true,
+   "yard": true,
+   "wallH": 0.4
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "beach"
+  ],
+  [
+   "lobby",
+   "raft"
+  ],
+  [
+   "beach",
+   "raft"
+  ],
+  [
+   "beach",
+   "cave"
+  ],
+  [
+   "beach",
+   "calendar"
+  ],
+  [
+   "raft",
+   "calendar"
+  ],
+  [
+   "raft",
+   "goats"
+  ],
+  [
+   "cave",
+   "fort"
+  ],
+  [
+   "calendar",
+   "footprint"
+  ],
+  [
+   "goats",
+   "friday"
+  ],
+  [
+   "fort",
+   "vault"
+  ],
+  [
+   "footprint",
+   "vault"
+  ],
+  [
+   "friday",
+   "vault"
+  ]
+ ]
+}
