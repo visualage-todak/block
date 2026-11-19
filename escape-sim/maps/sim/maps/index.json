@@ -94,6 +94,12 @@
    "title": "시즌2 · 진달래꽃 — 약산 나선길",
    "map": "maps/azalea.json",
    "scenario": "scenarios/azalea.json"
+  },
+  {
+   "id": "lucky",
+   "title": "시즌2 · 운수 좋은 날 — 인력거 U자 길",
+   "map": "maps/lucky.json",
+   "scenario": "scenarios/lucky.json"
   }
  ]
 }

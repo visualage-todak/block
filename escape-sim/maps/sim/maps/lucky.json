@@ -1,0 +1,353 @@
+{
+ "id": "lucky",
+ "islandStyle": "town",
+ "roofStyle": "gable",
+ "gableColor": "#4a4038",
+ "flatRoofColor": "#6a6660",
+ "roofColor": "#3b4048",
+ "wallColor": "#d8cfbe",
+ "trimColor": "#3a3028",
+ "stepColor": "#8a8478",
+ "pathColor": "#6a645a",
+ "lampStyle": "street",
+ "lampColor": "#ffd9a0",
+ "archColor": "#3a3028",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 12,
+ "ringR": 80,
+ "mountains": [
+  [
+   -100,
+   -60,
+   36,
+   46
+  ],
+  [
+   100,
+   -70,
+   40,
+   50
+  ],
+  [
+   0,
+   -140,
+   50,
+   70
+  ],
+  [
+   -110,
+   60,
+   24,
+   30
+  ],
+  [
+   110,
+   60,
+   22,
+   30
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": 36,
+   "z": 56,
+   "text": "동소문 안",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 12,
+   "z": -66,
+   "text": "남대문 정거장",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -36,
+   "z": 34,
+   "text": "김첨지네 집",
+   "h": 4
+  },
+  {
+   "type": "stream",
+   "points": [
+    [
+     0,
+     50
+    ],
+    [
+     0,
+     20
+    ],
+    [
+     2,
+     -10
+    ],
+    [
+     0,
+     -36
+    ]
+   ]
+  },
+  {
+   "type": "track",
+   "points": [
+    [
+     34,
+     -18
+    ],
+    [
+     60,
+     -18
+    ]
+   ],
+   "train": 0.5
+  },
+  {
+   "type": "mist",
+   "x": 0,
+   "z": 0
+  }
+ ],
+ "theme": {
+  "bg": "#9aa4ae",
+  "fog": [
+   70,
+   220
+  ],
+  "hemi": [
+   "#dfe4ea",
+   "#4a4e52",
+   1.15
+  ],
+  "sun": 0.7,
+  "sunColor": "#eef0f4",
+  "stars": 1200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#a8aeaa",
+   "#8a928c",
+   "#7a7468",
+   "#d8dcde"
+  ],
+  "charGlow": 0.35,
+  "sky": [
+   "#1a2030",
+   "#8a8a90",
+   "#9aa4ae"
+  ]
+ },
+ "dress": {
+  "houses": 30,
+  "houseWalls": [
+   "#d8cfbe",
+   "#c8bea8",
+   "#e2d8c4"
+  ],
+  "houseRoof": "mix",
+  "trees": 60,
+  "treeShape": "cone",
+  "treeLeaf": "#4a5a4e",
+  "treeTrunk": "#4a3a2a",
+  "poles": true
+ },
+ "story": "진눈깨비가 내리는 겨울날, 인력거꾼 김첨지에게는 오랜만에 손님이 줄을 이어요. 아침에 아내는 설렁탕이 먹고 싶다며 오늘은 나가지 말라고 붙잡았지요. 동소문 안에서 남대문 정거장까지 갔다가 반대편 길로 돌아오는 U자 길에서 동전 4개를 모아, 설렁탕 한 그릇을 들고 집으로 돌아가세요.",
+ "goal": "동소문 안에서 출발해 전찻길·동광학교를 지나 남대문 정거장까지 갔다가 반대편 길로 돌아오며 동전 4개를 모은 뒤, 김첨지네 집에 설렁탕 한 그릇을 가장 먼저 가져가는 팀이 이겨요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 24,
+   "z": 46,
+   "y": 1.4,
+   "r": 8,
+   "top": "#8a7a64",
+   "rock": "#5a5650",
+   "decor": "hut",
+   "roof": "choga",
+   "start": true
+  },
+  {
+   "id": "madam",
+   "f": 0,
+   "x": 24,
+   "z": 24,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#9a8a70",
+   "rock": "#5a5650",
+   "decor": "sarangchae",
+   "roof": "giwa"
+  },
+  {
+   "id": "hill",
+   "f": 0,
+   "x": 24,
+   "z": 3,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#7a7064",
+   "rock": "#5a5650",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "tram",
+   "f": 1,
+   "x": 24,
+   "z": -18,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#6a6a6a",
+   "rock": "#5a5650",
+   "decor": "ferry",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "school",
+   "f": 1,
+   "x": 24,
+   "z": -39,
+   "y": 1.4,
+   "r": 7,
+   "top": "#a89a80",
+   "rock": "#5a5650",
+   "decor": "school",
+   "roof": "gable",
+   "roofColor": "#3a4a5a"
+  },
+  {
+   "id": "station",
+   "f": 2,
+   "x": 0,
+   "z": -54,
+   "y": 1.4,
+   "r": 8,
+   "top": "#9a9080",
+   "rock": "#5a5650",
+   "decor": "yokohama",
+   "roof": "dome",
+   "wall": "#c9a888",
+   "roofColor": "#4a6a5a"
+  },
+  {
+   "id": "rickshaw",
+   "f": 2,
+   "x": -24,
+   "z": -39,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#6a6460",
+   "rock": "#5a5650",
+   "decor": "warehouse",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "tavern",
+   "f": 3,
+   "x": -24,
+   "z": -18,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#8a6a50",
+   "rock": "#5a5650",
+   "decor": "cafe",
+   "roof": "choga"
+  },
+  {
+   "id": "soup",
+   "f": 3,
+   "x": -24,
+   "z": 3,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#c9b896",
+   "rock": "#5a5650",
+   "decor": "market",
+   "roof": "gable",
+   "roofColor": "#5a4a3a"
+  },
+  {
+   "id": "vault",
+   "f": 3,
+   "x": -24,
+   "z": 26,
+   "y": 1.4,
+   "r": 7.5,
+   "top": "#6a6054",
+   "rock": "#5a5650",
+   "decor": "nightroom",
+   "roof": "choga",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "madam"
+  ],
+  [
+   "madam",
+   "hill"
+  ],
+  [
+   "hill",
+   "tram"
+  ],
+  [
+   "tram",
+   "school"
+  ],
+  [
+   "school",
+   "station"
+  ],
+  [
+   "station",
+   "rickshaw"
+  ],
+  [
+   "rickshaw",
+   "tavern"
+  ],
+  [
+   "tavern",
+   "soup"
+  ],
+  [
+   "soup",
+   "vault"
+  ]
+ ],
+ "tiers": [
+  "동소문 안 동네",
+  "전찻길과 학교",
+  "남대문 정거장",
+  "돌아오는 길"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "인력거 길",
+  "layout": "갔다가 돌아오는 U자 길 (오른쪽으로 가서 왼쪽으로 돌아옴)"
+ },
+ "roomNames": {
+  "lobby": "동소문 안 인력거 길목 (출발)",
+  "vault": "김첨지네 집 (최종)"
+ },
+ "startHour": 9
+}

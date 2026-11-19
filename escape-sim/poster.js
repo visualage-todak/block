@@ -16,7 +16,8 @@
     'dongbaek':{season:2,ep:3,title:'동백꽃',tag:'느 집엔 이거 없지?\n감자 세 알에서 시작된 산골 마을 닭싸움',eng:'CAMELLIA · THE VILLAGE LOOP',mission:'닭 깃털 4개를 모아 화해의 동백꽃 다발을 완성하라',credit:'원작 김유정 「동백꽃」(1936) · 출연 중학생 20명 · 무대 강원도 산골 마을 고리길 · 기본 (3단계 10곳)',accent:'#e8c547',font:'serif'},
     'shirt':{season:2,ep:4,title:'만년 샤쓰',tag:'셔츠가 없어도 웃으며 대답하는 아이,\n창남이의 겨울 등굣길',eng:'THE EVERLASTING SHIRT',mission:'셔츠 단추 2개를 찾아 만년 샤쓰 칭찬 배지를 완성하라',credit:'원작 방정환 「만년 샤쓰」 · 출연 초등학생 20명 · 무대 창남이네 골목에서 학교 운동장까지 · 입문 (2단계 8곳)',accent:'#9fc7e8',font:'serif',rate:'초등학생 관람가'},
     'wings':{season:2,ep:5,title:'날개',tag:'날자. 날자. 한 번만 더 날자꾸나.\n33번지 윗방에서 미쓰코시 옥상까지',eng:'WINGS · THE GYEONGSEONG MAZE',mission:'은화 6개를 모아 다시 날개를 돋게 하라',credit:'원작 이상 「날개」(1936) · 출연 고등학생·독서 동아리 20명 · 무대 경성 골목 미로 · 심화 (5단계 15곳)',accent:'#c9d4e0',font:'serif',rate:'고등학생 관람가'},
-    'azalea':{season:2,ep:6,title:'진달래꽃',tag:'영변에 약산 진달래꽃,\n아름 따다 가실 길에 뿌리우리다',eng:'AZALEAS · THE SPIRAL PATH OF YAKSAN',mission:'진달래 꽃잎 4장을 모아 정상에 꽃길을 깔아라',credit:'원작 김소월 「진달래꽃」 「엄마야 누나야」 「산유화」 「가는 길」 · 출연 중학생 20명 · 무대 영변 약산 나선길 · 기본 (3단계 10곳)',accent:'#f08aaa',font:'serif'}
+    'azalea':{season:2,ep:6,title:'진달래꽃',tag:'영변에 약산 진달래꽃,\n아름 따다 가실 길에 뿌리우리다',eng:'AZALEAS · THE SPIRAL PATH OF YAKSAN',mission:'진달래 꽃잎 4장을 모아 정상에 꽃길을 깔아라',credit:'원작 김소월 「진달래꽃」 「엄마야 누나야」 「산유화」 「가는 길」 · 출연 중학생 20명 · 무대 영변 약산 나선길 · 기본 (3단계 10곳)',accent:'#f08aaa',font:'serif'},
+    'lucky':{season:2,ep:7,title:'운수 좋은 날',tag:'손님이 끊이지 않는 이상한 날,\n설렁탕 한 그릇을 들고 집으로',eng:'A LUCKY DAY · THE RICKSHAW ROAD',mission:'동전 4개를 모아 설렁탕 한 그릇을 집에 가져가라',credit:'원작 현진건 「운수 좋은 날」(1924) · 출연 중학생 20명 · 무대 동소문 안에서 남대문 정거장까지 · 도전 (4단계 10곳)',accent:'#b8c4cc',font:'serif'}
   };
   const css=`
 #tdPoster{position:fixed;inset:0;z-index:30;display:none;background:#0b0d12;color:#f4efe4;font-family:'Noto Sans KR',system-ui,sans-serif;overflow:hidden}
