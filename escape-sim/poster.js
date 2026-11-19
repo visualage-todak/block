@@ -10,7 +10,8 @@
     'alice':{ep:7,title:'이상한 나라의 앨리스',tag:'흰 토끼를 따라 떨어진 순간,\n모든 규칙이 뒤집힌다',eng:"ALICE'S ADVENTURES IN WONDERLAND",mission:'하트 카드 4장을 모아 재판을 끝내라',credit:'원작 루이스 캐럴 · 출연 중학생 20명 · 무대 토끼굴 아래 이상한 나라',accent:'#ff6b81',font:'sans'},
     'eighty-days':{ep:8,title:'80일간의 세계일주',tag:'2만 파운드를 건 내기,\n80일 안에 지구를 한 바퀴 돌아라',eng:'AROUND THE WORLD IN EIGHTY DAYS',mission:'여권 도장 4개를 모아 귀환 시각을 맞춰라',credit:'원작 쥘 베른 · 출연 중학생 20명 · 무대 런던에서 런던까지',accent:'#f0c45a',font:'sans'},
     'sherlock':{ep:9,title:'셜록 홈즈',tag:'안개 낀 런던의 일곱 사건,\n마지막 추리는 폭포 끝에서',eng:'SHERLOCK HOLMES · THE BAKER STREET CASEBOOK',mission:'증거 4개를 모아 마지막 추리를 끝내라',credit:'원작 아서 코넌 도일 · 출연 중학생 20명 · 무대 런던에서 라이헨바흐까지',accent:'#e0c27a',font:'serif'},
-    'bari':{ep:10,title:'바리데기',tag:'버려진 일곱째 공주,\n저승 끝에서 생명을 길어 오다',eng:'BARIDEGI · THE WATER OF LIFE',mission:'생명꽃 4송이를 모아 약수 우물에서 되살려라',credit:'원작 서사무가 「바리데기」 · 출연 중학생 20명 · 무대 이승에서 서천서역국까지',accent:'#f2a6c0',font:'serif'}
+    'bari':{ep:10,title:'바리데기',tag:'버려진 일곱째 공주,\n저승 끝에서 생명을 길어 오다',eng:'BARIDEGI · THE WATER OF LIFE',mission:'생명꽃 4송이를 모아 약수 우물에서 되살려라',credit:'원작 서사무가 「바리데기」 · 출연 중학생 20명 · 무대 이승에서 서천서역국까지',accent:'#f2a6c0',font:'serif'},
+    'dadada':{season:2,ep:1,title:'다다다 다른 별 학교',tag:'모두 다른 별에서 온 우리 반,\n흩어진 별 스티커를 찾아라',eng:'DADADA · THE SCHOOL OF DIFFERENT STARS',mission:'별 스티커 4장을 모아 우리 반 별자리 지도를 완성하라',credit:'원작 윤진현 『다다다 다른 별 학교』(천개의바람) · 출연 초등학생 20명 · 무대 다른 별 학교 교실에서 나의 별까지',accent:'#ff8ac2',font:'serif',rate:'초등학생 관람가'}
   };
   const css=`
 #tdPoster{position:fixed;inset:0;z-index:30;display:none;background:#0b0d12;color:#f4efe4;font-family:'Noto Sans KR',system-ui,sans-serif;overflow:hidden}
@@ -53,7 +54,7 @@
       <div class="top"><div class="brand"><b>토닥토닥</b><span class="sub"></span></div><select aria-label="다른 맵 고르기"></select></div>
       <div class="tag"></div><div class="sp"></div>
       <div class="kick">TODAK TODAK METAVERSE ESCAPE</div><h1></h1><div class="eng"></div><div class="mis"></div><div class="teams"></div>
-      <div class="cr"><div class="c1"></div><div>4팀 동시 탐험 · 제한 시간 60분 · 힌트 팀당 3번 · <span class="rate">중학생 관람가</span></div><div class="mk">포스터 기획·제작 토닥토닥그림책도서관</div></div>
+      <div class="cr"><div class="c1"></div><div>4팀 동시 탐험 · 제한 시간 <span class="min">60</span>분 · 힌트 팀당 3번 · <span class="rate">중학생 관람가</span></div><div class="mk">포스터 기획·제작 토닥토닥그림책도서관</div></div>
       <button type="button" class="go">▶ 게임 시작</button>
       <div class="row"><button type="button" class="rules">규칙 먼저 보기</button><button type="button" class="look">맵 둘러보기</button></div></div>`;
     document.body.appendChild(el);
@@ -70,7 +71,7 @@
     el.classList.toggle('nobg',!d||!!o.custom);
     el.querySelector('.bg').style.backgroundImage=(d&&!o.custom)?`url("${o.base}posters/${o.id}.jpg")`:'none';
     el.querySelector('.brand b').style.color=accent;
-    el.querySelector('.sub').textContent='메타버스 방탈출게임'+(d&&!o.custom?` · 시즌 1 · 제${d.ep}편`:' · 우리가 만든 편');
+    el.querySelector('.sub').textContent='메타버스 방탈출게임'+(d&&!o.custom?` · 시즌 ${d.season||1} · 제${d.ep}편`:' · 우리가 만든 편');
     el.querySelector('.tag').textContent=(d&&!o.custom)?d.tag:(sc.subtitle||'');
     el.querySelector('.kick').style.color=accent; el.querySelector('.eng').style.color=accent;
     const h=el.querySelector('h1'); h.textContent=title; h.className=((d&&d.font)||'sans')+(title.length>7?' long':'');
@@ -78,6 +79,8 @@
     el.querySelector('.mis').textContent=(d&&!o.custom)?d.mission:(sc.goalText||'');
     el.querySelector('.teams').innerHTML=(sc.teams||[]).map(t=>`<span><i style="background:${esc(t.color)}"></i>${esc(t.name)}</span>`).join('');
     el.querySelector('.c1').textContent=(d&&!o.custom)?d.credit:'출연 중학생 20명';
+    el.querySelector('.min').textContent=Math.round((sc.limit||3600)/60);
+    el.querySelector('.rate').textContent=(d&&!o.custom&&d.rate)||'중학생 관람가';
     el.querySelector('.go').style.background=accent;
     const s=el.querySelector('select'); s.innerHTML=`<option value="">다른 맵 ▾</option>`+(o.maps||[]).filter(m=>m.id!==o.id).map(m=>`<option value="${esc(m.id)}">${esc(m.title)}</option>`).join(''); s.value='';
     el.style.display='block';

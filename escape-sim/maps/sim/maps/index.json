@@ -58,6 +58,12 @@
    "title": "바리데기 — 이승·저승·서천서역국",
    "map": "maps/bari.json",
    "scenario": "scenarios/bari.json"
+  },
+  {
+   "id": "dadada",
+   "title": "시즌2 · 다다다 다른 별 학교 — 열세 별에서 온 우리 반",
+   "map": "maps/dadada.json",
+   "scenario": "scenarios/dadada.json"
   }
  ]
 }

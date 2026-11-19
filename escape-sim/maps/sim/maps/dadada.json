@@ -1,0 +1,225 @@
+{
+  "id": "dadada",
+  "islandStyle": "float",
+  "bridgeStyle": "star",
+  "theme": {
+    "bg": "#1b1f4b",
+    "fog": [
+      120,
+      260
+    ],
+    "hemi": [
+      "#ffe9f5",
+      "#4a3f8a",
+      1.45
+    ],
+    "sun": 1.8,
+    "stars": 1800,
+    "farPlanets": [
+      [
+        110,
+        40,
+        -170,
+        20,
+        "#ff9ec7"
+      ],
+      [
+        -130,
+        25,
+        -70,
+        12,
+        "#ffd166"
+      ],
+      [
+        80,
+        -30,
+        50,
+        10,
+        "#7bd6b0"
+      ],
+      [
+        -90,
+        60,
+        -230,
+        26,
+        "#9d8cff"
+      ],
+      [
+        150,
+        70,
+        -120,
+        9,
+        "#7ec8ff"
+      ]
+    ],
+    "charGlow": 0.5,
+    "fixedSky": true,
+    "nightHemi": 0.85
+  },
+  "story": "신학기 첫날, 출석부의 별 스티커가 친구들의 고향 별로 흩어졌어요. 우리 반 친구들은 모두 다른 별에서 왔거든요. 교실에서 출발해 작아도 별, 아맛나 별, 두근두근 별, 장난쳐 별… 친구들의 별을 차례로 여행하며 별 스티커 4장을 모은 팀만 맨 위 '나의 별'에 도전할 수 있어요.",
+  "goal": "교실에서 출발해 별다리를 건너며 별 스티커 4장을 모은 뒤, 맨 위 '나의 별'에서 우리 반 별자리 지도를 가장 먼저 완성하는 팀이 승리합니다.",
+  "planets": [
+    {
+      "id": "lobby",
+      "f": 0,
+      "x": 0,
+      "z": 0,
+      "y": 0,
+      "r": 10,
+      "top": "#ffe0a3",
+      "rock": "#8a6d4a",
+      "decor": "ledger",
+      "start": true
+    },
+    {
+      "id": "edu",
+      "f": 0,
+      "x": -19,
+      "z": -17,
+      "y": 0,
+      "r": 7,
+      "top": "#b9e4a8",
+      "rock": "#4f6e45",
+      "decor": "lamp"
+    },
+    {
+      "id": "cafe",
+      "f": 0,
+      "x": 19,
+      "z": -17,
+      "y": 0,
+      "r": 7,
+      "top": "#ffc1a8",
+      "rock": "#7a4b3a",
+      "decor": "wheat"
+    },
+    {
+      "id": "kids",
+      "f": 1,
+      "x": -25,
+      "z": -41,
+      "y": 5,
+      "r": 7,
+      "top": "#d7b8f0",
+      "rock": "#5a4475",
+      "decor": "globe"
+    },
+    {
+      "id": "clubA",
+      "f": 1,
+      "x": 0,
+      "z": -45,
+      "y": 5,
+      "r": 7,
+      "top": "#ffb3cf",
+      "rock": "#7a3f58",
+      "decor": "roses"
+    },
+    {
+      "id": "clubB",
+      "f": 1,
+      "x": 25,
+      "z": -41,
+      "y": 5,
+      "r": 7,
+      "top": "#ffe27a",
+      "rock": "#7a6420",
+      "decor": "mirrors"
+    },
+    {
+      "id": "stacks",
+      "f": 2,
+      "x": -16,
+      "z": -67,
+      "y": 10,
+      "r": 8,
+      "top": "#a9d3ff",
+      "rock": "#3f5a7a",
+      "decor": "throne"
+    },
+    {
+      "id": "digital",
+      "f": 2,
+      "x": 16,
+      "z": -67,
+      "y": 10,
+      "r": 8,
+      "top": "#a8eef5",
+      "rock": "#3a6d72",
+      "decor": "desert"
+    },
+    {
+      "id": "vault",
+      "f": 2,
+      "x": 0,
+      "z": -88,
+      "y": 14,
+      "r": 8.5,
+      "top": "#fff3c4",
+      "rock": "#6b5a3a",
+      "decor": "b612",
+      "final": true
+    }
+  ],
+  "bridges": [
+    [
+      "lobby",
+      "edu"
+    ],
+    [
+      "lobby",
+      "cafe"
+    ],
+    [
+      "edu",
+      "kids"
+    ],
+    [
+      "edu",
+      "clubA"
+    ],
+    [
+      "cafe",
+      "clubA"
+    ],
+    [
+      "cafe",
+      "clubB"
+    ],
+    [
+      "kids",
+      "stacks"
+    ],
+    [
+      "clubA",
+      "stacks"
+    ],
+    [
+      "clubA",
+      "digital"
+    ],
+    [
+      "clubB",
+      "digital"
+    ],
+    [
+      "stacks",
+      "vault"
+    ],
+    [
+      "digital",
+      "vault"
+    ]
+  ],
+  "tiers": [
+    "아래 별무리",
+    "가운데 별무리",
+    "위 별무리"
+  ],
+  "words": {
+    "place": "별",
+    "link": "별다리",
+    "layout": "별 배치"
+  },
+  "startHour": 8
+}
