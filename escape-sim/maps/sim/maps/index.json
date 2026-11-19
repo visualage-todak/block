@@ -7,20 +7,20 @@
    "scenario": "scenarios/little-prince.json"
   },
   {
-   "id": "star-night",
-   "title": "시즌1.2 · 별 헤는 밤 — 북두칠성 별길",
-   "map": "maps/star-night.json",
-   "scenario": "scenarios/star-night.json"
+   "id": "shirt",
+   "title": "시즌1.2 · 만년 샤쓰 — 창남이의 등굣길",
+   "map": "maps/shirt.json",
+   "scenario": "scenarios/shirt.json"
   },
   {
    "id": "hong-gildong",
-   "title": "시즌1.3 · 홍길동전 — 조선 팔도와 율도국",
+   "title": "시즌1.3 · 홍길동전 — Y자 팔도 길과 율도국",
    "map": "maps/hong-gildong.json",
    "scenario": "scenarios/hong-gildong.json"
   },
   {
    "id": "rabbit-turtle",
-   "title": "시즌1.4 · 별주부전 — 바닷속 용궁과 산골짜기",
+   "title": "시즌1.4 · 별주부전 — 바닷속에서 산으로 사다리 길",
    "map": "maps/rabbit-turtle.json",
    "scenario": "scenarios/rabbit-turtle.json"
   },
@@ -32,19 +32,19 @@
   },
   {
    "id": "eighty-days",
-   "title": "시즌1.6 · 80일간의 세계일주 — 항로와 철길",
+   "title": "시즌1.6 · 80일간의 세계일주 — 지구 한 바퀴",
    "map": "maps/eighty-days.json",
    "scenario": "scenarios/eighty-days.json"
   },
   {
    "id": "sherlock",
-   "title": "시즌1.7 · 셜록 홈즈 — 안개 낀 런던과 폭포",
+   "title": "시즌1.7 · 셜록 홈즈 — 바둑판 런던과 폭포",
    "map": "maps/sherlock.json",
    "scenario": "scenarios/sherlock.json"
   },
   {
    "id": "bari",
-   "title": "시즌1.8 · 바리데기 — 이승·저승·서천서역국",
+   "title": "시즌1.8 · 바리데기 — V자 저승 골짜기",
    "map": "maps/bari.json",
    "scenario": "scenarios/bari.json"
   },
@@ -61,10 +61,10 @@
    "scenario": "scenarios/dongbaek.json"
   },
   {
-   "id": "shirt",
-   "title": "시즌2.3 · 만년 샤쓰 — 창남이의 등굣길",
-   "map": "maps/shirt.json",
-   "scenario": "scenarios/shirt.json"
+   "id": "star-night",
+   "title": "시즌2.3 · 별 헤는 밤 — 북두칠성 별길",
+   "map": "maps/star-night.json",
+   "scenario": "scenarios/star-night.json"
   },
   {
    "id": "wings",
