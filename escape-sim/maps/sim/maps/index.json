@@ -88,6 +88,12 @@
    "title": "시즌2 · 날개 — 경성 골목 미로",
    "map": "maps/wings.json",
    "scenario": "scenarios/wings.json"
+  },
+  {
+   "id": "azalea",
+   "title": "시즌2 · 진달래꽃 — 약산 나선길",
+   "map": "maps/azalea.json",
+   "scenario": "scenarios/azalea.json"
   }
  ]
 }
