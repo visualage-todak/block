@@ -82,6 +82,12 @@
    "title": "시즌2 · 만년 샤쓰 — 창남이의 등굣길",
    "map": "maps/shirt.json",
    "scenario": "scenarios/shirt.json"
+  },
+  {
+   "id": "wings",
+   "title": "시즌2 · 날개 — 경성 골목 미로",
+   "map": "maps/wings.json",
+   "scenario": "scenarios/wings.json"
   }
  ]
 }

@@ -1,0 +1,431 @@
+{
+ "id": "wings",
+ "islandStyle": "town",
+ "roofStyle": "gable",
+ "gableColor": "#4a4038",
+ "flatRoofColor": "#6a6660",
+ "roofColor": "#3b4048",
+ "wallColor": "#d8cfbe",
+ "trimColor": "#3a3028",
+ "stepColor": "#8a8478",
+ "pathColor": "#6a645a",
+ "lampStyle": "street",
+ "lampColor": "#ffcf8a",
+ "archColor": "#3a3028",
+ "windowGlow": "#ffcf8a",
+ "windowGlowI": 1.1,
+ "roomLight": "#ffd9a8",
+ "roomLightI": 16,
+ "ringR": 80,
+ "mountains": [
+  [
+   -70,
+   -40,
+   24,
+   26
+  ],
+  [
+   -110,
+   40,
+   30,
+   40
+  ],
+  [
+   110,
+   -60,
+   36,
+   50
+  ],
+  [
+   0,
+   -130,
+   50,
+   70
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": 12,
+   "z": 58,
+   "text": "33번지 (18가구)",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 56,
+   "z": 8,
+   "text": "경성역",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -38,
+   "z": -12,
+   "text": "산",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 36,
+   "z": -58,
+   "text": "미쓰코시 옥상",
+   "h": 5
+  },
+  {
+   "type": "track",
+   "points": [
+    [
+     10,
+     -6
+    ],
+    [
+     40,
+     -6
+    ]
+   ],
+   "train": 0.5
+  },
+  {
+   "type": "mist",
+   "x": 0,
+   "z": 0
+  }
+ ],
+ "theme": {
+  "bg": "#3a4250",
+  "fog": [
+   80,
+   240
+  ],
+  "hemi": [
+   "#d0d8e8",
+   "#4a4a52",
+   1.45
+  ],
+  "sun": 0.95,
+  "sunColor": "#ffe8c8",
+  "stars": 1600,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#5a6058",
+   "#4a5048",
+   "#6a6458",
+   "#8a8a88"
+  ],
+  "charGlow": 0.4,
+  "sky": [
+   "#0a1020",
+   "#c08a6a",
+   "#8a9aac"
+  ],
+  "nightHemi": 1.05
+ },
+ "dress": {
+  "houses": 34,
+  "houseWalls": [
+   "#d8cfbe",
+   "#c8bea8",
+   "#b8b0a0"
+  ],
+  "houseRoof": "gable",
+  "trees": 70,
+  "treeShape": "round",
+  "treeLeaf": "#3a5a3a",
+  "treeTrunk": "#4a3a2a",
+  "poles": true
+ },
+ "story": "1930년대 경성 33번지. 볕이 들지 않는 윗방에 사는 '나'는 아내가 준 은화를 벙어리에 모으며 지내다가, 어느 날 밤 거리로 나서요. 비 오는 골목, 경성역, 산을 헤매다 미쓰코시 옥상에 이르는 구불구불한 미로 같은 길에서 은화 6개를 모으면, 겨드랑이에 다시 날개가 돋아요.",
+ "goal": "33번지 윗방에서 출발해 막다른 골목을 피해 가며 33번지 → 밤골목 → 경성역 → 산 → 미쓰코시에서 은화 6개를 모은 뒤, 미쓰코시 옥상에서 날개를 가장 먼저 다시 돋게 하는 팀이 이겨요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 44,
+   "y": 1.4,
+   "r": 8,
+   "top": "#8a7a64",
+   "rock": "#5a5650",
+   "decor": "nightroom",
+   "roof": "gable",
+   "start": true,
+   "wall": "#cfc6b4"
+  },
+  {
+   "id": "wife",
+   "f": 0,
+   "x": -22,
+   "z": 44,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#c9a8a0",
+   "rock": "#5a5650",
+   "decor": "tatami",
+   "roof": "gable",
+   "wall": "#e8d8d0",
+   "roofColor": "#7a4a4a"
+  },
+  {
+   "id": "hall",
+   "f": 0,
+   "x": 22,
+   "z": 44,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#9a8a70",
+   "rock": "#5a5650",
+   "decor": "floorboards",
+   "roof": "gable",
+   "wall": "#cfc6b4"
+  },
+  {
+   "id": "gate33",
+   "f": 0,
+   "x": 22,
+   "z": 22,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#8a8070",
+   "rock": "#5a5650",
+   "decor": "warehouse",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.6,
+   "wall": "#6a6050"
+  },
+  {
+   "id": "rainalley",
+   "f": 1,
+   "x": 0,
+   "z": 22,
+   "y": 2.0,
+   "r": 6.5,
+   "top": "#6a7078",
+   "rock": "#5a5650",
+   "decor": "snowlamp",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#4a5058"
+  },
+  {
+   "id": "pharmacy",
+   "f": 1,
+   "x": -22,
+   "z": 22,
+   "y": 2.0,
+   "r": 6.5,
+   "top": "#d8d8d0",
+   "rock": "#5a5650",
+   "decor": "yakbang",
+   "roof": "flat",
+   "wall": "#e8e8e0"
+  },
+  {
+   "id": "tram",
+   "f": 1,
+   "x": 0,
+   "z": 0,
+   "y": 2.0,
+   "r": 6.5,
+   "top": "#7a7a7a",
+   "rock": "#5a5650",
+   "decor": "ferry",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "station",
+   "f": 2,
+   "x": 22,
+   "z": 0,
+   "y": 2.5999999999999996,
+   "r": 7.5,
+   "top": "#b8a888",
+   "rock": "#5a5650",
+   "decor": "yokohama",
+   "roof": "dome",
+   "wall": "#c9a888",
+   "roofColor": "#4a6a5a"
+  },
+  {
+   "id": "clock",
+   "f": 2,
+   "x": 44,
+   "z": 0,
+   "y": 2.5999999999999996,
+   "r": 6,
+   "top": "#a8a090",
+   "rock": "#5a5650",
+   "decor": "lamp",
+   "roof": "flat",
+   "wall": "#b8a888"
+  },
+  {
+   "id": "tearoom",
+   "f": 2,
+   "x": 22,
+   "z": -22,
+   "y": 2.5999999999999996,
+   "r": 6.5,
+   "top": "#a07a5a",
+   "rock": "#5a5650",
+   "decor": "cafe",
+   "roof": "flat",
+   "wall": "#d8c8b0"
+  },
+  {
+   "id": "mtpath",
+   "f": 3,
+   "x": 0,
+   "z": -22,
+   "y": 3.1999999999999997,
+   "r": 6.5,
+   "top": "#6f8a5a",
+   "rock": "#5a5650",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "bench",
+   "f": 3,
+   "x": -22,
+   "z": -22,
+   "y": 3.1999999999999997,
+   "r": 6.5,
+   "top": "#7a9a6a",
+   "rock": "#5a5650",
+   "decor": "readingplaza",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "stairs",
+   "f": 4,
+   "x": -22,
+   "z": -44,
+   "y": 3.8,
+   "r": 6.5,
+   "top": "#c8c0b0",
+   "rock": "#5a5650",
+   "decor": "stacks",
+   "roof": "flat",
+   "wall": "#e8e0d0"
+  },
+  {
+   "id": "cosmetics",
+   "f": 4,
+   "x": 0,
+   "z": -44,
+   "y": 3.8,
+   "r": 6.5,
+   "top": "#e0d0d8",
+   "rock": "#5a5650",
+   "decor": "mirrors",
+   "roof": "flat",
+   "wall": "#f0e8ec"
+  },
+  {
+   "id": "vault",
+   "f": 4,
+   "x": 22,
+   "z": -46.2,
+   "y": 3.8,
+   "r": 8.5,
+   "top": "#bfc4c8",
+   "rock": "#5a5650",
+   "decor": "campus",
+   "roof": "none",
+   "final": true,
+   "yard": true,
+   "wallH": 0.9,
+   "wall": "#9aa0a6"
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "wife"
+  ],
+  [
+   "lobby",
+   "hall"
+  ],
+  [
+   "hall",
+   "gate33"
+  ],
+  [
+   "gate33",
+   "rainalley"
+  ],
+  [
+   "rainalley",
+   "pharmacy"
+  ],
+  [
+   "rainalley",
+   "tram"
+  ],
+  [
+   "tram",
+   "station"
+  ],
+  [
+   "station",
+   "clock"
+  ],
+  [
+   "station",
+   "tearoom"
+  ],
+  [
+   "tearoom",
+   "mtpath"
+  ],
+  [
+   "mtpath",
+   "bench"
+  ],
+  [
+   "bench",
+   "stairs"
+  ],
+  [
+   "stairs",
+   "cosmetics"
+  ],
+  [
+   "cosmetics",
+   "vault"
+  ]
+ ],
+ "tiers": [
+  "33번지",
+  "경성 밤골목",
+  "경성역",
+  "산",
+  "미쓰코시"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "골목",
+  "layout": "막다른 길이 있는 경성 골목 미로 (앞이 33번지, 맨 뒤가 미쓰코시 옥상)"
+ },
+ "roomNames": {
+  "lobby": "33번지 나의 윗방 (출발)",
+  "vault": "미쓰코시 옥상 (최종)"
+ },
+ "startHour": 20
+}
