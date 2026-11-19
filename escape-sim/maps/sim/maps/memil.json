@@ -1,0 +1,334 @@
+{
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "choga",
+ "roofGhost": 0.22,
+ "roofColor": "#3b4048",
+ "wallColor": "#efe6d2",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#b8b0a0",
+ "lampStyle": "lantern",
+ "lampColor": "#ffcf7a",
+ "archColor": "#7a4a34",
+ "windowGlow": "#ffd99a",
+ "windowGlowI": 0.8,
+ "roomLight": "#ffe2b0",
+ "roomLightI": 10,
+ "ringR": 70,
+ "mountains": [
+  [
+   -60,
+   -10,
+   26,
+   34
+  ],
+  [
+   62,
+   -30,
+   28,
+   36
+  ],
+  [
+   -70,
+   -80,
+   30,
+   40
+  ],
+  [
+   70,
+   40,
+   24,
+   32
+  ],
+  [
+   0,
+   -150,
+   55,
+   70
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": 14,
+   "z": 70,
+   "text": "봉평장",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 14,
+   "z": -92,
+   "text": "대화장 (80리)",
+   "h": 5
+  },
+  {
+   "type": "stream",
+   "points": [
+    [
+     -40,
+     -34
+    ],
+    [
+     0,
+     -30
+    ],
+    [
+     40,
+     -34
+    ]
+   ]
+  },
+  {
+   "type": "mist",
+   "x": 0,
+   "z": -20
+  }
+ ],
+ "theme": {
+  "bg": "#1a2236",
+  "fog": [
+   90,
+   260
+  ],
+  "hemi": [
+   "#c8d4ff",
+   "#3a4050",
+   1.25
+  ],
+  "sun": 0.6,
+  "sunColor": "#e8eeff",
+  "stars": 2600,
+  "moon": [
+   60,
+   90,
+   -160,
+   14,
+   "#fffbe8"
+  ],
+  "terrain": [
+   "#5a6a50",
+   "#4a5a44",
+   "#6a6458",
+   "#9a9a98"
+  ],
+  "charGlow": 0.45,
+  "sky": [
+   "#0a1020",
+   "#3a4060",
+   "#1a2236"
+  ],
+  "nightHemi": 1.1
+ },
+ "dress": {
+  "houses": 10,
+  "houseWalls": [
+   "#efe6d2",
+   "#e2d6bc"
+  ],
+  "houseRoof": "mix",
+  "trees": 200,
+  "treeShape": "round",
+  "treeLeaf": "#e8eef0",
+  "treeTrunk": "#4a3f3a",
+  "poles": false
+ },
+ "story": "봉평장이 파하고, 장돌뱅이 허 생원과 조 선달, 젊은 동이는 나귀를 몰고 대화장까지 팔십 리 밤길을 걸어요. 달빛 아래 메밀꽃이 소금을 뿌린 듯 흐붓한 길을 따라 장돌뱅이 엽전 4닢을 모으면 대화장에 닿을 수 있어요.",
+ "goal": "봉평장에서 출발해 한 줄로 이어진 팔십 리 밤길을 걸으며 장터 어귀·달밤 메밀밭·고갯마루·대화 들길의 구간마다 엽전을 한 닢씩 모은 뒤, 대화장에 가장 먼저 닿는 팀이 이겨요.",
+ "tiers": [
+  "봉평장 어귀",
+  "달밤 메밀밭",
+  "고개와 개울",
+  "대화 가는 들길"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "밤길",
+  "layout": "봉평에서 대화까지 한 줄로 이어진 팔십 리 밤길 (앞이 봉평, 맨 뒤가 대화)"
+ },
+ "roomNames": {
+  "lobby": "봉평장 파장 무렵 (출발)",
+  "vault": "대화장 (최종)"
+ },
+ "startHour": 21,
+ "id": "memil",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 62,
+   "y": 1.4,
+   "r": 8,
+   "top": "#b8a070",
+   "rock": "#6a6050",
+   "decor": "market",
+   "roof": "none",
+   "start": true,
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "jumak",
+   "f": 0,
+   "x": -10,
+   "z": 46,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#a08a6a",
+   "rock": "#6a6050",
+   "decor": "cafe",
+   "roof": "choga"
+  },
+  {
+   "id": "donkey",
+   "f": 0,
+   "x": 10,
+   "z": 32,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#9a8a60",
+   "rock": "#6a6050",
+   "decor": "animals",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "field",
+   "f": 1,
+   "x": -8,
+   "z": 16,
+   "y": 2.2,
+   "r": 6.5,
+   "top": "#e8e8e0",
+   "rock": "#6a6050",
+   "decor": "flowers",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.2
+  },
+  {
+   "id": "mill",
+   "f": 1,
+   "x": 10,
+   "z": 0,
+   "y": 2.2,
+   "r": 6.5,
+   "top": "#8a8070",
+   "rock": "#6a6050",
+   "decor": "warehouse",
+   "roof": "choga"
+  },
+  {
+   "id": "pass",
+   "f": 2,
+   "x": -6,
+   "z": -16,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#7a8060",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.2
+  },
+  {
+   "id": "brook",
+   "f": 2,
+   "x": 10,
+   "z": -32,
+   "y": 3.4,
+   "r": 6.5,
+   "top": "#7aa0b0",
+   "rock": "#6a6050",
+   "decor": "riverbank",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.2
+  },
+  {
+   "id": "plain",
+   "f": 3,
+   "x": -8,
+   "z": -48,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#c8c8b8",
+   "rock": "#6a6050",
+   "decor": "wheat",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.2
+  },
+  {
+   "id": "gate",
+   "f": 3,
+   "x": 8,
+   "z": -64,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#a89a80",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "vault",
+   "f": 3,
+   "x": 0,
+   "z": -82,
+   "y": 2.4,
+   "r": 8,
+   "top": "#b8a070",
+   "rock": "#6a6050",
+   "decor": "market",
+   "roof": "none",
+   "final": true,
+   "yard": true,
+   "wallH": 0.4
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "jumak"
+  ],
+  [
+   "jumak",
+   "donkey"
+  ],
+  [
+   "donkey",
+   "field"
+  ],
+  [
+   "field",
+   "mill"
+  ],
+  [
+   "mill",
+   "pass"
+  ],
+  [
+   "pass",
+   "brook"
+  ],
+  [
+   "brook",
+   "plain"
+  ],
+  [
+   "plain",
+   "gate"
+  ],
+  [
+   "gate",
+   "vault"
+  ]
+ ]
+}

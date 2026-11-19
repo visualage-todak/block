@@ -1,0 +1,460 @@
+{
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "choga",
+ "roofGhost": 0.22,
+ "roofColor": "#3b4048",
+ "wallColor": "#efe6d2",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#a8936a",
+ "lampStyle": "lantern",
+ "lampColor": "#ffcf7a",
+ "archColor": "#7a4a34",
+ "windowGlow": "#ffd99a",
+ "windowGlowI": 0.8,
+ "roomLight": "#ffe2b0",
+ "roomLightI": 10,
+ "ringR": 70,
+ "mountains": [
+  [
+   -62,
+   -30,
+   30,
+   40
+  ],
+  [
+   62,
+   -30,
+   30,
+   40
+  ],
+  [
+   -46,
+   -80,
+   36,
+   40
+  ],
+  [
+   46,
+   -80,
+   36,
+   40
+  ],
+  [
+   -90,
+   30,
+   26,
+   36
+  ],
+  [
+   90,
+   30,
+   26,
+   36
+  ],
+  [
+   0,
+   -150,
+   55,
+   70
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": 14,
+   "z": 80,
+   "text": "두만강 나루",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": -60,
+   "z": 56,
+   "text": "간도 들판",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": 14,
+   "z": -82,
+   "text": "김군에게 쓰는 편지",
+   "h": 4
+  },
+  {
+   "type": "stream",
+   "points": [
+    [
+     -60,
+     84
+    ],
+    [
+     0,
+     80
+    ],
+    [
+     60,
+     84
+    ]
+   ]
+  }
+ ],
+ "theme": {
+  "bg": "#c4ccd4",
+  "fog": [
+   90,
+   260
+  ],
+  "hemi": [
+   "#eef2f6",
+   "#4a4e50",
+   1.15
+  ],
+  "sun": 0.8,
+  "sunColor": "#f4f6fa",
+  "stars": 2000,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#c8ccc8",
+   "#a8b0a8",
+   "#7a7468",
+   "#f4f6f8"
+  ],
+  "charGlow": 0.35,
+  "sky": [
+   "#121a2a",
+   "#a0a0b0",
+   "#c4ccd4"
+  ]
+ },
+ "dress": {
+  "houses": 10,
+  "houseWalls": [
+   "#e6e0d2",
+   "#d6ccb8"
+  ],
+  "houseRoof": "mix",
+  "trees": 120,
+  "treeShape": "cone",
+  "treeLeaf": "#3a4a40",
+  "treeTrunk": "#4a3a2a",
+  "poles": false
+ },
+ "story": "「탈출기」의 '나'는 더 나은 삶을 꿈꾸며 어머니, 아내와 함께 간도로 건너왔어요. 넓은 들판에서 시작한 길은 갈수록 좁아지고 막막해져요. 깔때기처럼 좁아지는 골짜기를 지나며 편지 조각 6장을 모으면, 마지막에 친구 김군에게 쓰는 편지를 완성할 수 있어요.",
+ "goal": "두만강 나루에서 출발해 넓은 간도 들판에서 점점 좁아지는 골짜기로 들어가며 편지 조각 6장을 모은 뒤, 마지막 방에서 김군에게 쓰는 편지를 가장 먼저 완성하는 팀이 이겨요.",
+ "tiers": [
+  "간도 들판",
+  "가난한 겨울",
+  "눈 덮인 골짜기",
+  "막다른 밤",
+  "마지막 고개"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "눈길",
+  "layout": "넓은 들판에서 점점 좁아지는 깔때기 골짜기 (앞이 두만강, 맨 뒤가 편지 쓰는 방)"
+ },
+ "roomNames": {
+  "lobby": "두만강 나루 (출발)",
+  "vault": "김군에게 편지 쓰는 방 (최종)"
+ },
+ "startHour": 15,
+ "id": "talchul",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 70,
+   "y": 1.4,
+   "r": 8,
+   "top": "#9a9a90",
+   "rock": "#6a6050",
+   "decor": "ferry",
+   "roof": "none",
+   "start": true,
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "wasteland",
+   "f": 0,
+   "x": -42,
+   "z": 46,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#a89a7a",
+   "rock": "#6a6050",
+   "decor": "wheat",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "landlord",
+   "f": 0,
+   "x": -14,
+   "z": 46,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#b8a888",
+   "rock": "#6a6050",
+   "decor": "sarangchae",
+   "roof": "giwa"
+  },
+  {
+   "id": "tofu",
+   "f": 0,
+   "x": 14,
+   "z": 46,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#c9b896",
+   "rock": "#6a6050",
+   "decor": "yakbang",
+   "roof": "choga"
+  },
+  {
+   "id": "woodpath",
+   "f": 0,
+   "x": 42,
+   "z": 46,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#7a8060",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "kitchen",
+   "f": 1,
+   "x": -28,
+   "z": 22,
+   "y": 1.8,
+   "r": 6.5,
+   "top": "#8a7a64",
+   "rock": "#6a6050",
+   "decor": "nightroom",
+   "roof": "choga"
+  },
+  {
+   "id": "mother",
+   "f": 1,
+   "x": 0,
+   "z": 22,
+   "y": 1.8,
+   "r": 6.5,
+   "top": "#9a8a70",
+   "rock": "#6a6050",
+   "decor": "tatami",
+   "roof": "choga"
+  },
+  {
+   "id": "market",
+   "f": 1,
+   "x": 28,
+   "z": 22,
+   "y": 1.8,
+   "r": 6.5,
+   "top": "#a8a090",
+   "rock": "#6a6050",
+   "decor": "market",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "snowhill",
+   "f": 2,
+   "x": -24,
+   "z": -2,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#e0e4e8",
+   "rock": "#6a6050",
+   "decor": "snowlamp",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "hut",
+   "f": 2,
+   "x": 0,
+   "z": -2,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#8a7a64",
+   "rock": "#6a6050",
+   "decor": "hut",
+   "roof": "choga"
+  },
+  {
+   "id": "river",
+   "f": 2,
+   "x": 24,
+   "z": -2,
+   "y": 2.4,
+   "r": 6.5,
+   "top": "#b8c8d0",
+   "rock": "#6a6050",
+   "decor": "riverbank",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "night",
+   "f": 3,
+   "x": -14,
+   "z": -26,
+   "y": 3.0,
+   "r": 6.5,
+   "top": "#5a6070",
+   "rock": "#6a6050",
+   "decor": "candles",
+   "roof": "choga"
+  },
+  {
+   "id": "ridge",
+   "f": 3,
+   "x": 14,
+   "z": -26,
+   "y": 3.0,
+   "r": 6.5,
+   "top": "#9aa0a0",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "pass",
+   "f": 4,
+   "x": 0,
+   "z": -48,
+   "y": 3.6,
+   "r": 6.5,
+   "top": "#a0a4a8",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "vault",
+   "f": 4,
+   "x": 0,
+   "z": -70,
+   "y": 4.2,
+   "r": 8,
+   "top": "#c9c0a8",
+   "rock": "#6a6050",
+   "decor": "manuscript",
+   "roof": "choga",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "wasteland"
+  ],
+  [
+   "lobby",
+   "landlord"
+  ],
+  [
+   "lobby",
+   "tofu"
+  ],
+  [
+   "lobby",
+   "woodpath"
+  ],
+  [
+   "wasteland",
+   "kitchen"
+  ],
+  [
+   "landlord",
+   "kitchen"
+  ],
+  [
+   "landlord",
+   "mother"
+  ],
+  [
+   "tofu",
+   "mother"
+  ],
+  [
+   "tofu",
+   "market"
+  ],
+  [
+   "woodpath",
+   "market"
+  ],
+  [
+   "kitchen",
+   "snowhill"
+  ],
+  [
+   "mother",
+   "hut"
+  ],
+  [
+   "market",
+   "river"
+  ],
+  [
+   "kitchen",
+   "hut"
+  ],
+  [
+   "market",
+   "hut"
+  ],
+  [
+   "snowhill",
+   "night"
+  ],
+  [
+   "hut",
+   "night"
+  ],
+  [
+   "hut",
+   "ridge"
+  ],
+  [
+   "river",
+   "ridge"
+  ],
+  [
+   "night",
+   "pass"
+  ],
+  [
+   "ridge",
+   "pass"
+  ],
+  [
+   "pass",
+   "vault"
+  ]
+ ]
+}

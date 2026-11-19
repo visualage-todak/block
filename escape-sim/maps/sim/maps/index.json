@@ -100,6 +100,36 @@
    "title": "시즌2 · 운수 좋은 날 — 인력거 U자 길",
    "map": "maps/lucky.json",
    "scenario": "scenarios/lucky.json"
+  },
+  {
+   "id": "hyangsu",
+   "title": "시즌2 · 향수 — 실개천 섬 잇기",
+   "map": "maps/hyangsu.json",
+   "scenario": "scenarios/hyangsu.json"
+  },
+  {
+   "id": "memil",
+   "title": "시즌2 · 메밀꽃 필 무렵 — 팔십 리 밤길",
+   "map": "maps/memil.json",
+   "scenario": "scenarios/memil.json"
+  },
+  {
+   "id": "sangnoksu",
+   "title": "시즌2 · 상록수 — 마주 보는 두 마을",
+   "map": "maps/sangnoksu.json",
+   "scenario": "scenarios/sangnoksu.json"
+  },
+  {
+   "id": "taepyeong",
+   "title": "시즌2 · 태평천하 — 담장 안으로 한 겹씩",
+   "map": "maps/taepyeong.json",
+   "scenario": "scenarios/taepyeong.json"
+  },
+  {
+   "id": "talchul",
+   "title": "시즌2 · 탈출기 — 좁아지는 골짜기",
+   "map": "maps/talchul.json",
+   "scenario": "scenarios/talchul.json"
   }
  ]
 }

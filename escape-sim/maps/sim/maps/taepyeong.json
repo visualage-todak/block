@@ -1,0 +1,406 @@
+{
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "giwa",
+ "roofGhost": 0.22,
+ "roofColor": "#3b4048",
+ "wallColor": "#efe6d2",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#a8936a",
+ "lampStyle": "lantern",
+ "lampColor": "#ffcf7a",
+ "archColor": "#7a4a34",
+ "windowGlow": "#ffd99a",
+ "windowGlowI": 0.8,
+ "roomLight": "#ffe2b0",
+ "roomLightI": 10,
+ "ringR": 70,
+ "mountains": [
+  [
+   -110,
+   -80,
+   40,
+   50
+  ],
+  [
+   110,
+   -80,
+   44,
+   55
+  ],
+  [
+   0,
+   -150,
+   55,
+   70
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": 14,
+   "z": 86,
+   "text": "경성 종로 거리",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": -12,
+   "z": 10,
+   "text": "윤 직원 영감 댁",
+   "h": 4
+  },
+  {
+   "type": "wall",
+   "points": [
+    [
+     34,
+     -2
+    ],
+    [
+     30,
+     20
+    ],
+    [
+     18,
+     30
+    ],
+    [
+     -18,
+     30
+    ],
+    [
+     -30,
+     20
+    ],
+    [
+     -34,
+     -2
+    ],
+    [
+     -30,
+     -20
+    ],
+    [
+     -18,
+     -30
+    ],
+    [
+     18,
+     -30
+    ],
+    [
+     30,
+     -20
+    ],
+    [
+     34,
+     -2
+    ]
+   ],
+   "h": 2.2
+  }
+ ],
+ "theme": {
+  "bg": "#c8d0d8",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#f4f4f8",
+   "#5a5a52",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff2dc",
+  "stars": 2000,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#9aa870",
+   "#7a8a58",
+   "#8a7f62",
+   "#9a9486"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#e8a878",
+   "#c8d0d8"
+  ]
+ },
+ "dress": {
+  "houses": 22,
+  "houseWalls": [
+   "#efe6d2",
+   "#e2d6bc"
+  ],
+  "houseRoof": "mix",
+  "trees": 90,
+  "treeShape": "round",
+  "treeLeaf": "#4a6a3a",
+  "treeTrunk": "#5a3f2a",
+  "poles": true
+ },
+ "story": "1930년대 경성의 만석꾼 윤 직원 영감은 세상을 '태평천하'라고 여기며 살아요. 바깥 종로 거리에서 대문간·행랑채, 사랑채, 안채로 한 겹씩 담장 안으로 들어가며 열쇠 4개를 모으면, 집 한가운데 금고방을 열 수 있어요.",
+ "goal": "종로 거리에서 출발해 바깥 거리 → 대문 안 → 사랑채 → 안채 순서로 한 겹씩 안으로 들어가며 열쇠를 하나씩 모은 뒤, 집 한가운데 금고방을 가장 먼저 여는 팀이 이겨요.",
+ "tiers": [
+  "종로 거리",
+  "대문 안",
+  "사랑채",
+  "안채"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "골목과 중문",
+  "layout": "바깥 거리에서 집 한가운데로 한 겹씩 들어가는 동심원 (가운데가 금고방)"
+ },
+ "roomNames": {
+  "lobby": "경성 종로 거리 (출발)",
+  "vault": "한가운데 금고방 (최종)"
+ },
+ "startHour": 14,
+ "id": "taepyeong",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0.0,
+   "z": 76.0,
+   "y": 1.4,
+   "r": 8,
+   "top": "#9a948a",
+   "rock": "#6a6050",
+   "decor": "market",
+   "roof": "none",
+   "start": true,
+   "yard": true,
+   "wallH": 0.4
+  },
+  {
+   "id": "rickshaw",
+   "f": 0,
+   "x": 0.0,
+   "z": 56.0,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#8a8478",
+   "rock": "#6a6050",
+   "decor": "ferry",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "bumin",
+   "f": 0,
+   "x": -48.5,
+   "z": -28.0,
+   "y": 1.4,
+   "r": 7,
+   "top": "#a08a70",
+   "rock": "#6a6050",
+   "decor": "readingplaza",
+   "roof": "gable",
+   "roofColor": "#4a4a52"
+  },
+  {
+   "id": "jongno",
+   "f": 0,
+   "x": 48.5,
+   "z": -28.0,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#b0a080",
+   "rock": "#6a6050",
+   "decor": "market",
+   "roof": "gable",
+   "roofColor": "#5a4a3a"
+  },
+  {
+   "id": "gate",
+   "f": 1,
+   "x": 36.4,
+   "z": 21.0,
+   "y": 1.7999999999999998,
+   "r": 6.5,
+   "top": "#9d998f",
+   "rock": "#6a6050",
+   "decor": "warehouse",
+   "roof": "giwa"
+  },
+  {
+   "id": "servant",
+   "f": 1,
+   "x": -36.4,
+   "z": 21.0,
+   "y": 1.7999999999999998,
+   "r": 6.5,
+   "top": "#a89a7a",
+   "rock": "#6a6050",
+   "decor": "hut",
+   "roof": "choga"
+  },
+  {
+   "id": "middle",
+   "f": 1,
+   "x": -0.0,
+   "z": -42.0,
+   "y": 1.7999999999999998,
+   "r": 6.5,
+   "top": "#9d998f",
+   "rock": "#6a6050",
+   "decor": "lobby",
+   "roof": "giwa"
+  },
+  {
+   "id": "sarang",
+   "f": 2,
+   "x": 0.0,
+   "z": 28.0,
+   "y": 2.2,
+   "r": 7,
+   "top": "#b8a888",
+   "rock": "#6a6050",
+   "decor": "sarangchae",
+   "roof": "giwa",
+   "dancheong": true
+  },
+  {
+   "id": "sarangyard",
+   "f": 2,
+   "x": -0.0,
+   "z": -28.0,
+   "y": 2.2,
+   "r": 6.5,
+   "top": "#a8a090",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.6
+  },
+  {
+   "id": "anchae",
+   "f": 3,
+   "x": 18.0,
+   "z": 0.0,
+   "y": 2.6,
+   "r": 6.5,
+   "top": "#b8a888",
+   "rock": "#6a6050",
+   "decor": "floorboards",
+   "roof": "giwa"
+  },
+  {
+   "id": "storage",
+   "f": 3,
+   "x": -18.0,
+   "z": 0.0,
+   "y": 2.6,
+   "r": 6.5,
+   "top": "#9a8a70",
+   "rock": "#6a6050",
+   "decor": "yakbang",
+   "roof": "giwa"
+  },
+  {
+   "id": "vault",
+   "f": 3,
+   "x": 0,
+   "z": 0,
+   "y": 2.6,
+   "r": 8,
+   "top": "#7a7468",
+   "rock": "#6a6050",
+   "decor": "vault",
+   "roof": "giwa",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "rickshaw"
+  ],
+  [
+   "rickshaw",
+   "bumin"
+  ],
+  [
+   "bumin",
+   "jongno"
+  ],
+  [
+   "jongno",
+   "rickshaw"
+  ],
+  [
+   "rickshaw",
+   "gate"
+  ],
+  [
+   "rickshaw",
+   "servant"
+  ],
+  [
+   "bumin",
+   "servant"
+  ],
+  [
+   "bumin",
+   "middle"
+  ],
+  [
+   "jongno",
+   "middle"
+  ],
+  [
+   "jongno",
+   "gate"
+  ],
+  [
+   "gate",
+   "sarang"
+  ],
+  [
+   "servant",
+   "sarang"
+  ],
+  [
+   "middle",
+   "sarangyard"
+  ],
+  [
+   "sarang",
+   "anchae"
+  ],
+  [
+   "sarang",
+   "storage"
+  ],
+  [
+   "sarangyard",
+   "anchae"
+  ],
+  [
+   "sarangyard",
+   "storage"
+  ],
+  [
+   "anchae",
+   "vault"
+  ],
+  [
+   "storage",
+   "vault"
+  ]
+ ]
+}

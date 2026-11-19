@@ -1,0 +1,334 @@
+{
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "choga",
+ "roofGhost": 0.22,
+ "roofColor": "#3b4048",
+ "wallColor": "#efe6d2",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#a8936a",
+ "lampStyle": "lantern",
+ "lampColor": "#ffcf7a",
+ "archColor": "#7a4a34",
+ "windowGlow": "#ffd99a",
+ "windowGlowI": 0.8,
+ "roomLight": "#ffe2b0",
+ "roomLightI": 10,
+ "ringR": 70,
+ "lands": [
+  [
+   0,
+   64,
+   90,
+   22
+  ],
+  [
+   0,
+   -64,
+   90,
+   22
+  ],
+  [
+   -26,
+   18,
+   10,
+   9
+  ],
+  [
+   0,
+   14,
+   10,
+   9
+  ],
+  [
+   26,
+   18,
+   10,
+   9
+  ],
+  [
+   -26,
+   -12,
+   10,
+   9
+  ],
+  [
+   0,
+   -16,
+   10,
+   9
+  ],
+  [
+   26,
+   -12,
+   10,
+   9
+  ]
+ ],
+ "water": {
+  "level": 0,
+  "color": "#5a9ab0",
+  "opacity": 0.85,
+  "bed": "#3a5a5a",
+  "sand": "#d9c9a0",
+  "weeds": 3
+ },
+ "mountains": [
+  [
+   -110,
+   -90,
+   40,
+   50
+  ],
+  [
+   110,
+   -90,
+   44,
+   55
+  ],
+  [
+   0,
+   -150,
+   55,
+   70
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": 14,
+   "z": 54,
+   "text": "넓은 벌 동쪽 끝",
+   "h": 4
+  },
+  {
+   "type": "boat",
+   "x": -44,
+   "z": 2,
+   "rot": 0.6
+  },
+  {
+   "type": "boat",
+   "x": 44,
+   "z": 4,
+   "rot": -0.4
+  }
+ ],
+ "theme": {
+  "bg": "#d8c8b0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#fff4e4",
+   "#5a5a3a",
+   1.2
+  ],
+  "sun": 1.0,
+  "sunColor": "#ffe6b0",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#a8b070",
+   "#8a9a58",
+   "#8a7f62",
+   "#a89a90"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#f0a868",
+   "#d8c8b0"
+  ]
+ },
+ "dress": {
+  "houses": 10,
+  "houseWalls": [
+   "#efe6d2",
+   "#e2d6bc"
+  ],
+  "houseRoof": "mix",
+  "trees": 110,
+  "treeShape": "round",
+  "treeLeaf": "#8a9a48",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "story": "넓은 벌 동쪽 끝으로 실개천이 회돌아 나가는 고향. 실개천 사이 작은 섬들을 징검다리와 나룻배로 건너며 고향의 장면이 담긴 그림엽서 2장을 모으면, 꿈엔들 잊지 못할 고향집 마당에 닿을 수 있어요.",
+ "goal": "마을 어귀에서 출발해 가까운 섬(1장)과 먼 섬(1장)에서 그림엽서를 모은 뒤, 건너편 고향집 마당에서 고향 그림책을 가장 먼저 완성하는 팀이 이겨요.",
+ "tiers": [
+  "가까운 섬",
+  "먼 섬"
+ ],
+ "words": {
+  "place": "섬",
+  "link": "징검다리와 나룻길",
+  "layout": "실개천 사이 섬을 건너는 길 (앞이 마을 어귀, 건너편이 고향집)"
+ },
+ "roomNames": {
+  "lobby": "넓은 벌 마을 어귀 (출발)",
+  "vault": "고향집 마당 (최종)"
+ },
+ "startHour": 16,
+ "id": "hyangsu",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 44,
+   "y": 1.4,
+   "r": 8,
+   "top": "#b8a070",
+   "rock": "#6a6050",
+   "decor": "hut",
+   "roof": "choga",
+   "start": true
+  },
+  {
+   "id": "stream",
+   "f": 0,
+   "x": -26,
+   "z": 18,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#8ab0a0",
+   "rock": "#6a6050",
+   "decor": "riverbank",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "ox",
+   "f": 0,
+   "x": 0,
+   "z": 14,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#b0a070",
+   "rock": "#6a6050",
+   "decor": "animals",
+   "roof": "choga"
+  },
+  {
+   "id": "brazier",
+   "f": 0,
+   "x": 26,
+   "z": 18,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#a08a6a",
+   "rock": "#6a6050",
+   "decor": "nightroom",
+   "roof": "choga"
+  },
+  {
+   "id": "arrow",
+   "f": 1,
+   "x": -26,
+   "z": -12,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#8aa860",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "gleaning",
+   "f": 1,
+   "x": 0,
+   "z": -16,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#d0b860",
+   "rock": "#6a6050",
+   "decor": "wheat",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "roof",
+   "f": 1,
+   "x": 26,
+   "z": -12,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#8a8070",
+   "rock": "#6a6050",
+   "decor": "tatami",
+   "roof": "choga"
+  },
+  {
+   "id": "vault",
+   "f": 1,
+   "x": 0,
+   "z": -44,
+   "y": 1.4,
+   "r": 8.5,
+   "top": "#c9b48e",
+   "rock": "#6a6050",
+   "decor": "sarangchae",
+   "roof": "choga",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "stream"
+  ],
+  [
+   "lobby",
+   "ox"
+  ],
+  [
+   "lobby",
+   "brazier"
+  ],
+  [
+   "stream",
+   "arrow"
+  ],
+  [
+   "ox",
+   "gleaning"
+  ],
+  [
+   "brazier",
+   "roof"
+  ],
+  [
+   "ox",
+   "arrow"
+  ],
+  [
+   "ox",
+   "roof"
+  ],
+  [
+   "arrow",
+   "vault"
+  ],
+  [
+   "gleaning",
+   "vault"
+  ],
+  [
+   "roof",
+   "vault"
+  ]
+ ]
+}

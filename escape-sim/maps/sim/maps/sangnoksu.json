@@ -1,0 +1,336 @@
+{
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "choga",
+ "roofGhost": 0.22,
+ "roofColor": "#3b4048",
+ "wallColor": "#efe6d2",
+ "trimColor": "#6b4a34",
+ "stepColor": "#9d998f",
+ "pathColor": "#a8936a",
+ "lampStyle": "lantern",
+ "lampColor": "#ffcf7a",
+ "archColor": "#7a4a34",
+ "windowGlow": "#ffd99a",
+ "windowGlowI": 0.8,
+ "roomLight": "#ffe2b0",
+ "roomLightI": 10,
+ "ringR": 70,
+ "mountains": [
+  [
+   0,
+   -10,
+   10,
+   14
+  ],
+  [
+   -110,
+   -60,
+   40,
+   50
+  ],
+  [
+   110,
+   -60,
+   40,
+   50
+  ],
+  [
+   0,
+   -130,
+   55,
+   70
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": -42,
+   "z": 44,
+   "text": "청석골 (채영신)",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 42,
+   "z": 44,
+   "text": "한곡리 (박동혁)",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 12,
+   "z": -54,
+   "text": "상록수 언덕",
+   "h": 5
+  },
+  {
+   "type": "stream",
+   "points": [
+    [
+     0,
+     30
+    ],
+    [
+     0,
+     10
+    ],
+    [
+     0,
+     -6
+    ]
+   ]
+  }
+ ],
+ "theme": {
+  "bg": "#bcd8ea",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#f2f8ff",
+   "#5a6a3a",
+   1.2
+  ],
+  "sun": 1.05,
+  "sunColor": "#fff4dc",
+  "stars": 2000,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#8fb05a",
+   "#6f9246",
+   "#8a7f62",
+   "#9a9486"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#f0b070",
+   "#bcd8ea"
+  ]
+ },
+ "dress": {
+  "houses": 16,
+  "houseWalls": [
+   "#efe6d2",
+   "#e2d6bc"
+  ],
+  "houseRoof": "mix",
+  "trees": 170,
+  "treeShape": "cone",
+  "treeLeaf": "#2f6a3a",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "story": "농촌 계몽에 나선 두 젊은이, 청석골의 채영신과 한곡리의 박동혁. 서로 닮은 두 마을을 오가며 배움의 씨앗 4개를 모으면, 두 마을을 잇는 언덕의 늘 푸른 나무 아래에서 다짐을 완성할 수 있어요.",
+ "goal": "보고회 강당에서 출발해 왼쪽 청석골과 오른쪽 한곡리를 오가며 배움의 씨앗 4개를 모은 뒤, 두 마을이 만나는 상록수 언덕에서 상록수의 다짐을 가장 먼저 완성하는 팀이 이겨요.",
+ "tiers": [
+  "마을 어귀",
+  "강습소와 들판",
+  "학원과 회관"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "마을길",
+  "layout": "서로 마주 보는 두 마을 (왼쪽 청석골, 오른쪽 한곡리, 맨 뒤 상록수 언덕)"
+ },
+ "roomNames": {
+  "lobby": "계몽운동 보고회 강당 (출발)",
+  "vault": "상록수 언덕 (최종)"
+ },
+ "startHour": 9,
+ "id": "sangnoksu",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 52,
+   "y": 1.4,
+   "r": 8.5,
+   "top": "#c9b896",
+   "rock": "#6a6050",
+   "decor": "readingplaza",
+   "roof": "gable",
+   "start": true
+  },
+  {
+   "id": "cs_gate",
+   "f": 0,
+   "x": -30,
+   "z": 34,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#b8a070",
+   "rock": "#6a6050",
+   "decor": "hut",
+   "roof": "choga"
+  },
+  {
+   "id": "hg_gate",
+   "f": 0,
+   "x": 30,
+   "z": 34,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#b8a070",
+   "rock": "#6a6050",
+   "decor": "hut",
+   "roof": "choga"
+  },
+  {
+   "id": "cs_church",
+   "f": 1,
+   "x": -46,
+   "z": 12,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#c9b896",
+   "rock": "#6a6050",
+   "decor": "school",
+   "roof": "gable",
+   "roofColor": "#5a4a3a"
+  },
+  {
+   "id": "cs_field",
+   "f": 1,
+   "x": -22,
+   "z": 6,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#a0b060",
+   "rock": "#6a6050",
+   "decor": "wheat",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "hg_hall",
+   "f": 1,
+   "x": 46,
+   "z": 12,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#c9b896",
+   "rock": "#6a6050",
+   "decor": "manuscript",
+   "roof": "choga"
+  },
+  {
+   "id": "hg_field",
+   "f": 1,
+   "x": 22,
+   "z": 6,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#a0b060",
+   "rock": "#6a6050",
+   "decor": "wheat",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "cs_school",
+   "f": 2,
+   "x": -34,
+   "z": -20,
+   "y": 2.0,
+   "r": 7,
+   "top": "#d8c8a0",
+   "rock": "#6a6050",
+   "decor": "campus",
+   "roof": "gable",
+   "roofColor": "#3a5a4a"
+  },
+  {
+   "id": "hg_house",
+   "f": 2,
+   "x": 34,
+   "z": -20,
+   "y": 2.0,
+   "r": 7,
+   "top": "#d8c8a0",
+   "rock": "#6a6050",
+   "decor": "sarangchae",
+   "roof": "giwa"
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -40,
+   "y": 3.0,
+   "r": 8.5,
+   "top": "#7aa060",
+   "rock": "#6a6050",
+   "decor": "flowers",
+   "roof": "none",
+   "final": true,
+   "yard": true,
+   "wallH": 0.3
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "cs_gate"
+  ],
+  [
+   "lobby",
+   "hg_gate"
+  ],
+  [
+   "cs_gate",
+   "cs_church"
+  ],
+  [
+   "cs_gate",
+   "cs_field"
+  ],
+  [
+   "hg_gate",
+   "hg_hall"
+  ],
+  [
+   "hg_gate",
+   "hg_field"
+  ],
+  [
+   "cs_church",
+   "cs_school"
+  ],
+  [
+   "cs_field",
+   "cs_school"
+  ],
+  [
+   "hg_hall",
+   "hg_house"
+  ],
+  [
+   "hg_field",
+   "hg_house"
+  ],
+  [
+   "cs_school",
+   "vault"
+  ],
+  [
+   "hg_house",
+   "vault"
+  ],
+  [
+   "cs_field",
+   "hg_field"
+  ]
+ ]
+}
