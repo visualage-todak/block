@@ -64,6 +64,12 @@
    "title": "시즌2 · 다다다 다른 별 학교 — 열세 별에서 온 우리 반",
    "map": "maps/dadada.json",
    "scenario": "scenarios/dadada.json"
+  },
+  {
+   "id": "baekseok",
+   "title": "시즌2 · 백석의 길 — 경성에서 만주까지",
+   "map": "maps/baekseok.json",
+   "scenario": "scenarios/baekseok.json"
   }
  ]
 }

@@ -11,7 +11,8 @@
     'eighty-days':{ep:8,title:'80일간의 세계일주',tag:'2만 파운드를 건 내기,\n80일 안에 지구를 한 바퀴 돌아라',eng:'AROUND THE WORLD IN EIGHTY DAYS',mission:'여권 도장 4개를 모아 귀환 시각을 맞춰라',credit:'원작 쥘 베른 · 출연 중학생 20명 · 무대 런던에서 런던까지',accent:'#f0c45a',font:'sans'},
     'sherlock':{ep:9,title:'셜록 홈즈',tag:'안개 낀 런던의 일곱 사건,\n마지막 추리는 폭포 끝에서',eng:'SHERLOCK HOLMES · THE BAKER STREET CASEBOOK',mission:'증거 4개를 모아 마지막 추리를 끝내라',credit:'원작 아서 코넌 도일 · 출연 중학생 20명 · 무대 런던에서 라이헨바흐까지',accent:'#e0c27a',font:'serif'},
     'bari':{ep:10,title:'바리데기',tag:'버려진 일곱째 공주,\n저승 끝에서 생명을 길어 오다',eng:'BARIDEGI · THE WATER OF LIFE',mission:'생명꽃 4송이를 모아 약수 우물에서 되살려라',credit:'원작 서사무가 「바리데기」 · 출연 중학생 20명 · 무대 이승에서 서천서역국까지',accent:'#f2a6c0',font:'serif'},
-    'dadada':{season:2,ep:1,title:'다다다 다른 별 학교',tag:'모두 다른 별에서 온 우리 반,\n흩어진 별 스티커를 찾아라',eng:'DADADA · THE SCHOOL OF DIFFERENT STARS',mission:'별 스티커 4장을 모아 우리 반 별자리 지도를 완성하라',credit:'원작 윤진현 『다다다 다른 별 학교』(천개의바람) · 출연 초등학생 20명 · 무대 다른 별 학교 교실에서 나의 별까지',accent:'#ff8ac2',font:'serif',rate:'초등학생 관람가'}
+    'dadada':{season:2,ep:1,title:'다다다 다른 별 학교',tag:'모두 다른 별에서 온 우리 반,\n흩어진 별 스티커를 찾아라',eng:'DADADA · THE SCHOOL OF DIFFERENT STARS',mission:'별 스티커 4장을 모아 우리 반 별자리 지도를 완성하라',credit:'원작 윤진현 『다다다 다른 별 학교』(천개의바람) · 출연 초등학생 20명 · 무대 다른 별 학교 교실에서 나의 별까지',accent:'#ff8ac2',font:'serif',rate:'초등학생 관람가'},
+    'baekseok':{season:2,ep:2,title:'백석의 길',tag:'경성에서 통영으로, 정주에서 만주로,\n시인이 걸어간 길을 따라가라',eng:'BAEK SEOK · FROM GYEONGSEONG TO MANCHURIA',mission:'시 카드 5장을 모아 백석 시 지도를 완성하라',credit:'백석의 시 세계 · 출연 중학생 20명 · 무대 경성에서 만주까지 · 난이도 중 (4단계 12곳)',accent:'#d9c7a0',font:'serif'}
   };
   const css=`
 #tdPoster{position:fixed;inset:0;z-index:30;display:none;background:#0b0d12;color:#f4efe4;font-family:'Noto Sans KR',system-ui,sans-serif;overflow:hidden}

@@ -293,7 +293,7 @@ function makeBridge(a,b){
     const archM = style==='star'? glow(0xffd75a,1.2) : mat2(hexNum(MAP.archColor||'#7a4a34'));
     const arch=new THREE.Mesh(new THREE.TorusGeometry(1.9,style==='star'?.12:.16,8,32,Math.PI),archM);
     arch.position.set(sx+ux*1.2, A.y, sz+uz*1.2); arch.rotation.y=Math.atan2(ux,uz); worldRoot.add(arch);
-    const need = B.final ? 4 : NEED[0]+(B.f>=2?NEED[1]:0);
+    const need = B.final ? TOTAL() : reqAt(B.f);
     const txt = B.final ? `${B.short} · ${SCN.clue} ${need}개` : `${tierName(B.f)} · ${SCN.clue} ${need}개`;
     const lb=label(txt,3.8,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(arch.position.x,A.y+2.6,arch.position.z); worldRoot.add(lb);
   }
@@ -698,7 +698,7 @@ function decor(p,g){
 let roofs=[], townRoads=[];
 const isTown=()=>MAP && MAP.islandStyle==='town';
 const isStack=()=>MAP && MAP.islandStyle==='stack';
-const tierName=f=>((MAP&&MAP.tiers)||['1층','2층','3층'])[f];
+const tierName=f=>((MAP&&MAP.tiers)||[])[f]||`${f+1}단계`;
 const W_=k=>((MAP&&MAP.words)||{})[k]||({place:'방',link:'복도',layout:'배치'})[k];
 function bHalf(p){ return p.r*.9; }
 function doorPoint(p,ux,uz,out=.35){ const h=bHalf(p), t=h/Math.max(Math.abs(ux),Math.abs(uz)); return {x:p.x+ux*(t+out), z:p.z+uz*(t+out), side: Math.abs(ux)>Math.abs(uz)?(ux>0?'E':'W'):(uz>0?'S':'N'), along: Math.abs(ux)>Math.abs(uz)? p.z+uz*t : p.x+ux*t}; }
@@ -821,7 +821,7 @@ function drawRoad(seg){
     else { cyl(.06,.08,3.4,postM,x,y,z); box(.7,.08,.12,postM,x-uz*side*-.3,y+3.4,z+ux*side*-.3,worldRoot,false); ball(.16,lampM,x-uz*side*-.55,y+3.3,z+ux*side*-.55); } }
   // 위로 가는 길 입구 표지
   if(B.f>A.f || (B.final && !A.final)){
-    const need = B.final ? 4 : NEED[0]+(B.f>=2?NEED[1]:0);
+    const need = B.final ? TOTAL() : reqAt(B.f);
     const txt = B.final ? `${B.short} · ${SCN.clue} ${need}개` : `${tierName(B.f)} · ${SCN.clue} ${need}개`;
     const gx=sx+ux*2.2, gz=sz+uz*2.2, wood=mat2(hexNum(MAP.archColor||'#6b4a34'));
     for(const s of [-1,1]) cyl(.12,.14,3.2,wood,gx-uz*s*(BW/2+.5),A.y,gz+ux*s*(BW/2+.5));
@@ -837,8 +837,8 @@ function drawPier(seg){
   for(const sd of [-1,1]){ const len3=Math.hypot(seg.len,B.y-A.y), r=new THREE.Mesh(new THREE.BoxGeometry(.08,.08,len3),post); r.position.set((sx+ex)/2-uz*sd*(BW/2+.35),(A.y+B.y)/2+.85,(sz+ez)/2+ux*sd*(BW/2+.35)); r.rotation.order='YXZ'; r.rotation.y=rot; r.rotation.x=-Math.atan2(B.y-A.y,seg.len); worldRoot.add(r); }
   const lampM=glow(hexNum(MAP.lampColor||'#ffcf7a'),1.8); for(let i=1;i<4;i++){ const t=i/4, sd=i%2?1:-1, x=sx+(ex-sx)*t-uz*sd*(BW/2+.35), z=sz+(ez-sz)*t+ux*sd*(BW/2+.35), y=A.y+(B.y-A.y)*t; box(.3,.4,.3,lampM,x,y+1.25,z,worldRoot,false); }
   if(MAP.autoShips){ const sd=(bridgeSegs.indexOf(seg)%2)?1:-1; steamship(worldRoot,(sx+ex)/2-uz*sd*5,lv+.05,(sz+ez)/2+ux*sd*5,-Math.atan2(uz,ux),.9); }
-  if(B.f>A.f && !B.final){ const lb=label(`${tierName(B.f)} · ${SCN.clue} ${NEED[0]+(B.f>=2?NEED[1]:0)}개`,3.8,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(sx+ux*2.2,A.y+3.6,sz+uz*2.2); worldRoot.add(lb); }
-  if(B.final && !A.final){ const lb=label(`${B.short} · ${SCN.clue} 4개`,3.8,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(sx+ux*2.2,A.y+3.6,sz+uz*2.2); worldRoot.add(lb); }
+  if(B.f>A.f && !B.final){ const lb=label(`${tierName(B.f)} · ${SCN.clue} ${reqAt(B.f)}개`,3.8,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(sx+ux*2.2,A.y+3.6,sz+uz*2.2); worldRoot.add(lb); }
+  if(B.final && !A.final){ const lb=label(`${B.short} · ${SCN.clue} ${TOTAL()}개`,3.8,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(sx+ux*2.2,A.y+3.6,sz+uz*2.2); worldRoot.add(lb); }
 }
 function drawStackLink(seg){
   const A=PL[seg.from], B=PL[seg.to], {ax:sx,az:sz,bx:ex,bz:ez,ux,uz}=seg, rise=B.y-A.y;
@@ -847,7 +847,7 @@ function drawStackLink(seg){
   const n=Math.max(6,Math.round(Math.abs(rise)/.3)), sm=mat2(hexNum(MAP.stairColor||'#9aa1a8'));
   for(let i=0;i<n;i++){ const t=(i+.5)/n; const st=box(BW,.16,seg.len/n+.05,sm,sx+(ex-sx)*t,A.y+rise*t-.08,sz+(ez-sz)*t,worldRoot); st.rotation.y=Math.atan2(ux,uz); }
   for(const sd of [-1,1]){ const len3=Math.hypot(seg.len,rise); const r=new THREE.Mesh(new THREE.BoxGeometry(.06,.06,len3),mat2(0x3b4249)); r.position.set((sx+ex)/2-uz*sd*BW/2,(A.y+B.y)/2+.9,(sz+ez)/2+ux*sd*BW/2); r.rotation.order='YXZ'; r.rotation.y=Math.atan2(ux,uz); r.rotation.x=-Math.atan2(rise,seg.len); worldRoot.add(r); }
-  if(B.f>A.f || (B.final && !A.final)){ const need=B.final?4:NEED[0]+(B.f>=2?NEED[1]:0); const txt=B.final?`${B.short} · ${SCN.clue} ${need}개`:`${tierName(B.f)} · ${SCN.clue} ${need}개`;
+  if(B.f>A.f || (B.final && !A.final)){ const need=B.final?TOTAL():reqAt(B.f); const txt=B.final?`${B.short} · ${SCN.clue} ${need}개`:`${tierName(B.f)} · ${SCN.clue} ${need}개`;
     const lb=label(txt,3.4,'#1b1430','rgba(255,215,90,.92)'); lb.position.set(sx+(ex-sx)*.3,A.y+rise*.3+2.4,sz+(ez-sz)*.3); worldRoot.add(lb); }
 }
 function buildStackShell(){
@@ -1107,7 +1107,8 @@ function scatterTown(){
 
 /* ================= 시나리오 연결 ================= */
 let SCN=null, ROOMS=[], roomById={};
-let PUZ={}, IDEAS={obs:[''],logic:[''],both:['']}, TEAMS=[], NEED={0:1,1:2,2:1}, LIMIT=3600;
+let PUZ={}, IDEAS={obs:[''],logic:[''],both:['']}, TEAMS=[], NEED={0:1,1:2,2:1}, NEEDS=[1,2,1], LIMIT=3600;
+const TIERS_N=()=>NEEDS.length, TOTAL=()=>NEEDS.reduce((a,b)=>a+b,0), reqAt=f=>NEEDS.slice(0,f).reduce((a,b)=>a+b,0), TIER_IDX=()=>NEEDS.map((_,i)=>i);
 const DONE=()=>(SCN&&SCN.doneWord)||'탈출', DONE_ICON=()=>(SCN&&SCN.doneIcon)||'🏆';
 let labels=[], stations=[];
 function applyScenario(sc){
@@ -1117,7 +1118,7 @@ function applyScenario(sc){
   roomById=Object.fromEntries(ROOMS.map(r=>[r.id,r]));
   PUZ=sc.puzzles; IDEAS=sc.ideas;
   TEAMS=sc.teams.map(t=>({name:t.name,css:t.color,color:hexNum(t.color)}));
-  NEED={0:+sc.need['0'],1:+sc.need['1'],2:+sc.need['2']}; LIMIT=sc.limit||3600;
+  NEEDS=Object.keys(sc.need).map(Number).sort((a,b)=>a-b).map(k=>+sc.need[k]); NEED=Object.fromEntries(NEEDS.map((v,i)=>[i,v])); LIMIT=sc.limit||3600;
 }
 function buildStations(){
   for(const r of ROOMS){
@@ -1261,7 +1262,7 @@ const logs=[], events=[]; let endReason='', histSaved=false;
 function log(text,css){ logs.unshift({t:fmt(clock),text,css}); if(logs.length>40) logs.pop(); renderLog(); }
 function ev(type,team,text,detail=''){ events.push({sec:clock,t:fmt(clock),type,team:team?team.name:'',text,detail}); log(text,team?team.css:undefined); }
 
-function targetFloor(t){ return [0,1,2].find(f=>t.need[f]>0); }
+function targetFloor(t){ return TIER_IDX().find(f=>t.need[f]>0); }
 function stationSlot(st,i,n){ const ang=(i/n)*Math.PI*2+.4; return {x:st.x+Math.cos(ang)*1.05, z:st.z+Math.sin(ang)*1.05, f:st.room.y}; }
 
 function decide(t){
@@ -1280,7 +1281,7 @@ function decide(t){
     t.members.forEach((m,i)=>{ goTo(m, st.room.id, stationSlot(st,i,5)); m.act=`${st.room.name}로 이동`; });
     ev('go',t,`${t.name} → ${st.room.final?'':tierName(st.room.f)+' '}${st.room.name} '${st.puzzle}' 도전`, PUZ[st.puzzle].desc);
   } else {
-    const wf = tf===undefined?2:tf;
+    const wf = tf===undefined?'final':tf;
     if(t.waitF!==wf){
       t.waitF=wf; t.state='waiting'; if(t.waitStart===null) t.waitStart=clock;
       t.waitWhy = tf===undefined?`${roomById.vault.short} ${SCN.finalThing} 2개를 다른 팀이 모두 사용 중`:tierName(wf)+'의 남은 퍼즐을 다른 팀이 모두 사용 중';
@@ -1349,7 +1350,7 @@ function updateTeam(t,dt){
         checkEnd();
       } else {
         t.clues++; t.need[st.room.f]--; t.solved.add(st.room.id); t.state='ready'; t.station=null;
-        ev('solve',t,`${t.name} ${SCN.clue} ${t.clues}/4 — ${josa(finder.name,'이가','가')} '${st.puzzle}' 해결`, `정답: ${PUZ[st.puzzle].answer} · 풀이 ${fmt(clock-t.solveStart)} · 이 퍼즐 힌트 ${t.hintsHere}개`);
+        ev('solve',t,`${t.name} ${SCN.clue} ${t.clues}/${TOTAL()} — ${josa(finder.name,'이가','가')} '${st.puzzle}' 해결`, `정답: ${PUZ[st.puzzle].answer} · 풀이 ${fmt(clock-t.solveStart)} · 이 퍼즐 힌트 ${t.hintsHere}개`);
       }
       return;
     }
@@ -1372,7 +1373,7 @@ function checkEnd(){
   const allOut=teams.every(t=>t.state==='escaped');
   if(allOut || clock>=LIMIT){
     ended=true; running=false; playBtn.textContent='▶'; playBtn.classList.add('go');
-    teams.forEach(t=>{ if(t.state!=='escaped' && t.state==='solving') ev('fail',t,`${t.name} 미완료: '${t.station.puzzle}' 진행률 ${Math.round(t.progress*100)}%에서 시간 종료`,`${SCN.clue} ${t.clues}/4 · 힌트 ${t.hints}/3 사용 · 대기 ${fmt(t.waitTotal)}`); });
+    teams.forEach(t=>{ if(t.state!=='escaped' && t.state==='solving') ev('fail',t,`${t.name} 미완료: '${t.station.puzzle}' 진행률 ${Math.round(t.progress*100)}%에서 시간 종료`,`${SCN.clue} ${t.clues}/${TOTAL()} · 힌트 ${t.hints}/3 사용 · 대기 ${fmt(t.waitTotal)}`); });
     teams.forEach(t=>{ if(t.state!=='escaped'){ t.state='failed'; if(t.station){ t.station.busy=null; t.station.bg.visible=t.station.fill.visible=false; t.station.top.emissive.set(0);} t.members.forEach(m=>m.act='시간 초과'); } });
     endReason = allOut ? `4팀 모두 ${DONE()}, ${fmt(clock)}에 게임 종료` : `제한시간 60분이 끝나 게임 종료 (미완료: ${teams.filter(t=>t.state==='failed').map(t=>t.name).join(', ')})`;
     ev('end',null,(allOut?'🎉 ':'⏰ ')+endReason);
@@ -1406,10 +1407,10 @@ function rulesHTML(){
   <h3>팀 구성</h3><p>남녀를 섞어 5명씩 4팀(${TEAMS.map(t=>`<b style="color:${t.css}">${t.name}</b>`).join('·')})으로 나눠요. 학생마다 <b>관찰력·논리력·협동심</b>이 1~5점으로 무작위로 정해지고, 성별과는 상관없어요.</p>
   <h3>진행 순서</h3><ol>
    <li>20명 모두 ${roomById.lobby.name}에서 출발해요.</li>
-   <li>${josa(c,'은','는')} <b>${tierName(0)} ${NEED[0]}개 → ${tierName(1)} ${NEED[1]}개 → ${tierName(2)} ${NEED[2]}개</b> 순서로 모아요. 앞 단계를 다 모아야 다음 단계로 갈 수 있어요.</li>
+   <li>${josa(c,'은','는')} <b>${TIER_IDX().map(f=>`${tierName(f)} ${NEEDS[f]}개`).join(' → ')}</b> 순서로 모아요. 앞 단계를 다 모아야 다음 단계로 갈 수 있어요.</li>
    <li>${W_('place')}마다 퍼즐 대가 2개 있고, 퍼즐 대 하나는 한 팀만 쓸 수 있어요. 한 팀은 한 ${W_('place')}에서 퍼즐 하나만 풀어요. ${W_('place')}들은 ${W_('link')}로 이어져 있어요.</li>
    <li>팀원 4명 이상이 ${W_('place')}에 도착해야 풀기 시작해요. 일부는 퍼즐 앞에서 풀고, 일부는 주변을 뒤져요.</li>
-   <li>${c} 4개를 모으면 ${fin.short}의 <b>${ft} A·B</b> 중 빈 곳에 도전해요. 성공하면 ${DONE()}!</li></ol>
+   <li>${c} ${TOTAL()}개를 모으면 ${fin.short}의 <b>${ft} A·B</b> 중 빈 곳에 도전해요. 성공하면 ${DONE()}!</li></ol>
   <h3>${W_('layout')}</h3><table><tr><td><b>${tierName(0)}</b></td><td>${fl(0)}</td></tr><tr><td><b>${tierName(1)}</b></td><td>${fl(1)}</td></tr><tr><td><b>${tierName(2)}</b></td><td>${fl(2)}</td></tr></table>
   <h3>${W_('place')}마다 있는 퍼즐</h3><table>${pz}</table>
   <h3>퍼즐 푸는 속도</h3><ul><li><b>관찰형</b> 퍼즐은 관찰력이, <b>논리형</b>은 논리력이 높을수록 빨라요. 최종 ${ft}는 둘 다 써요.</li><li>협동심이 높은 팀은 조금 더 빨라요.</li><li>퍼즐마다 난이도가 무작위로 달라요.</li></ul>
@@ -1467,7 +1468,7 @@ function aimCamera(){
 
 function renderTeams(){
   document.getElementById('teams').innerHTML=teams.map(t=>{
-    const pips='●'.repeat(t.clues)+'○'.repeat(5-t.clues);
+    const pips='●'.repeat(t.clues)+'○'.repeat(Math.max(0,TOTAL()+1-t.clues));
     let s;
     if(t.state==='solving') s=`${t.station.room.short} ${Math.min(99,Math.floor(t.progress*100))}%`;
     else if(t.state==='moving') s=`→ ${t.station.room.short}`;
@@ -1496,7 +1497,7 @@ function showResult(){
   const ranked=teams.slice().sort((a,b)=>(a.finish??1e9)-(b.finish??1e9)||b.clues-a.clues);
   document.getElementById('resBody').innerHTML='<table>'+ranked.map((t,i)=>{
     const mvp=t.members.slice().sort((a,b)=>b.contrib-a.contrib)[0];
-    return `<tr><td>${t.finish!==null?(i+1)+'위':'-'}</td><td style="color:${t.css}"><b>${t.name}</b></td><td>${t.finish!==null?fmt(t.finish):'실패 ('+t.clues+'/5)'}</td><td class="muted">힌트 ${t.hints} · MVP ${mvp.name}</td></tr>`;
+    return `<tr><td>${t.finish!==null?(i+1)+'위':'-'}</td><td style="color:${t.css}"><b>${t.name}</b></td><td>${t.finish!==null?fmt(t.finish):'실패 ('+t.clues+'/'+(TOTAL()+1)+')'}</td><td class="muted">힌트 ${t.hints} · MVP ${mvp.name}</td></tr>`;
   }).join('')+'</table>';
   document.getElementById('result').style.display='flex';
   if(!histSaved){ histSaved=true; saveHistory(); }
@@ -1633,7 +1634,7 @@ function loadMap(id,quiet){
     el.innerHTML=MAPS.map(m=>`<option value="${m.id}">${m.title}</option>`).join(''); el.value=e.id; el.onchange=()=>{ const m=MAPS.find(x=>x.id===el.value); if(m&&m.href){ location.href=m.href; el.value=e.id; } else loadMap(el.value); }; }
   document.title=e.title+' — 맵 시뮬레이션';
   if(location.hash.slice(1)!==e.id){ try{ history.replaceState(null,'','#'+e.id); }catch(_){ } }
-  const vs=document.getElementById('viewSel'); vs.innerHTML=`<option value="all">보기: 전체</option>`+[0,1,2].map(f=>`<option value="${f}">보기: ${tierName(f)}</option>`).join('')+`<option value="vault">보기: ${roomById.vault.short}</option>`+(isTown()?'<option value="roof">보기: 외관(지붕)</option>':'');
+  const vs=document.getElementById('viewSel'); vs.innerHTML=`<option value="all">보기: 전체</option>`+TIER_IDX().map(f=>`<option value="${f}">보기: ${tierName(f)}</option>`).join('')+`<option value="vault">보기: ${roomById.vault.short}</option>`+(isTown()?'<option value="roof">보기: 외관(지붕)</option>':'');
   focus='all'; vs.value='all'; roofs.forEach(r=>r.visible=!!MAP.roofGhost); if(MAP.roofGhost) setRoofMode(false); aimCamera();
   if(document.getElementById('rules').style.display==='flex') showRules();
   if(!quiet && window.TodakPoster) TodakPoster.show({id:e.id,custom:!!e.custom,scenario:SCN,base:'../../',maps:MAPS.map(m=>({id:m.id,title:m.title})),
@@ -1659,7 +1660,9 @@ function saveEntry(e){
 function downloadFile(name,text,type='application/json'){ const b=new Blob([text],{type}); const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },500); }
 const DECORS={lobby:'로비',edu:'교실',cafe:'카페',kids:'어린이방',club:'동아리방',stacks:'서가',digital:'컴퓨터실',vault:'금고방',desert:'사막',throne:'왕좌',mirrors:'거울',lamp:'가로등',ledger:'장부',globe:'지구본',roses:'장미',wheat:'밀밭',b612:'B612',readingplaza:'독서 광장',candles:'촛불',nightroom:'밤의 방',manuscript:'원고',tape:'테이프',sewing:'재봉',flowers:'꽃',snowlamp:'눈과 등',memorial:'추모',well:'우물',school:'학교',campus:'교정',tatami:'다다미방',hill:'언덕',floorboards:'마룻바닥',starroom:'별의 방',sarangchae:'사랑채',byeoldang:'별당',market:'장터',hideout:'산채',temple:'절',warehouse:'창고',palace:'궁궐',ferry:'나루터',yuldo:'왕궁',sujeong:'수정궁',yakbang:'약방',coral:'산호 정원',jarahome:'자라 집',beach:'모래톱',animals:'짐승 모임터',rabbitvalley:'산골짜기',burrow:'토끼 굴',neobeok:'너럭바위',riverbank:'강둑',doorhall:'문 많은 복도',tears:'눈물 웅덩이',rabbithouse:'토끼 집',caterpillar:'애벌레 버섯',cheshire:'고양이 숲',teaparty:'티파티',croquet:'크로케',trial:'재판정',reformclub:'신사 클럽',suez:'항구',bombay:'사원',jungle:'정글',calcutta:'법정',hongkong:'항구 매표소',yokohama:'곡예단',sanfran:'기차역',clubreturn:'클럽 귀환',baker221b:'탐정 하숙방',rache:'빈집',pawnshop:'전당포',speckled:'저택 침실',goose:'거위 좌판',dancingmen:'암호 벽',moor:'황야',briony:'거실',reichenbach:'폭포 절벽',okham:'강가 옥함',hut:'오두막',netherriver:'저승의 강',thorns:'가시밭',soulroad:'넋의 길',mujang:'무장승의 집',lifeflowers:'생명의 꽃밭',yaksu:'약수 우물'};
 const ROOFS={none:'없음(마당)',flat:'평지붕',gable:'박공지붕',hanok:'한옥',giwa:'기와(팔작)',choga:'초가',dome:'돔'};
-const ROOM_IDS=['lobby','edu','cafe','kids','clubA','clubB','stacks','digital','vault'];
+const ROOM_IDS_FIXED=['lobby','edu','cafe','kids','clubA','clubB','stacks','digital','vault'];
+const roomIds=()=>PLANETS.length?PLANETS.map(p=>p.id):ROOM_IDS_FIXED;
+const roleOf=id=>{ const p=PL[id]; return p?(p.start?'출발':p.final?'최종':`${p.f+1}단계`):(ROOM_ROLE[id]||''); };
 const ROOM_ROLE={lobby:'출발',edu:'1단계',cafe:'1단계',kids:'2단계',clubA:'2단계',clubB:'2단계',stacks:'3단계',digital:'3단계',vault:'최종'};
 let edEntry=null, edTab='story';
 function curEntry(){ return MAPS.find(m=>m.map===MAP); }
@@ -1679,11 +1682,11 @@ function renderEditor(){
       +fld('이야기 (규칙 창 첫머리)','e_story',mp.story||sc.story,'area','rows="6"')+fld('목표','e_goal',mp.goal||sc.goalText,'area')
       +`<div class="eg">`+fld('모을 단서 이름','e_clue',sc.clue)+fld('최종 과제 이름','e_fin',sc.finalThing)+fld('끝났을 때 말','e_done',sc.doneWord)+fld('끝 아이콘','e_icon',sc.doneIcon)+`</div>`
       +`<h4>팀</h4><div class="eg">`+sc.teams.map((t,i)=>fld(`팀 ${i+1} 이름`,'e_tn'+i,t.name)+fld('색','e_tc'+i,t.color,'color')).join('')+`</div>`
-      +`<h4>단계 이름</h4><div class="eg">`+[0,1,2].map(f=>fld(`${f+1}단계`,'e_tier'+f,(mp.tiers||[])[f]||'')).join('')+`</div>`;
+      +`<h4>단계 이름</h4><div class="eg">`+TIER_IDX().map(f=>fld(`${f+1}단계`,'e_tier'+f,(mp.tiers||[])[f]||'')).join('')+`</div>`;
   } else if(edTab==='rooms'){
     h+=`<p class="muted">장소마다 이름과 퍼즐 2개(이름·종류·설명·정답·힌트 3개)를 고칠 수 있어요. 퍼즐 이름은 겹치지 않게 써 주세요.</p>`;
-    for(const id of ROOM_IDS){ const r=sc.rooms[id]||{}; const nm=(mp.roomNames&&mp.roomNames[id])||r.name||id;
-      h+=`<details class="er" ${id==='edu'?'open':''}><summary><b>${ROOM_ROLE[id]}</b> · ${esc(nm)}</summary>`+fld('장소 이름','e_rn_'+id,nm);
+    for(const id of roomIds()){ const r=sc.rooms[id]||{}; const nm=(mp.roomNames&&mp.roomNames[id])||r.name||id;
+      h+=`<details class="er" ${id===roomIds()[1]?'open':''}><summary><b>${roleOf(id)}</b> · ${esc(nm)}</summary>`+fld('장소 이름','e_rn_'+id,nm);
       (r.puzzles||[]).forEach((pz,k)=>{ const P=sc.puzzles[pz[0]]||{desc:'',answer:'',hints:['','','']};
         h+=`<div class="ep"><div class="eg">`+fld(`퍼즐 ${k+1} 이름`,`e_pn_${id}_${k}`,pz[0])+sel('종류',`e_pt_${id}_${k}`,pz[1],{obs:'관찰',logic:'논리',both:'둘 다'})+`</div>`
           +fld('설명',`e_pd_${id}_${k}`,P.desc,'area')+fld('정답',`e_pa_${id}_${k}`,P.answer)+`<div class="eg">`+[0,1,2].map(j=>fld(`힌트 ${j+1}`,`e_ph_${id}_${k}_${j}`,(P.hints||[])[j]||'')).join('')+`</div></div>`; });
@@ -1692,7 +1695,7 @@ function renderEditor(){
     h+=`<div class="eg">`+fld('시작 시각 (0~23시)','e_hour',mp.startHour??9,'number','min="0" max="23"')+(mp.islandStyle==='town'?sel('기본 지붕','e_roof',mp.roofStyle||'flat',ROOFS):'')+`</div>`
       +`<p class="muted">x는 왼쪽(−)·오른쪽(+), z는 위쪽(−)·아래쪽(+), 높이는 땅 높이예요. 숫자를 바꾸고 <b>적용</b>을 누르면 맵이 다시 그려져요.</p>`;
     for(const p of mp.planets){ const nm=(mp.roomNames&&mp.roomNames[p.id])||(sc.rooms[p.id]||{}).name||p.id;
-      h+=`<details class="er"><summary><b>${ROOM_ROLE[p.id]||''}</b> · ${esc(nm)}</summary><div class="eg">`
+      h+=`<details class="er"><summary><b>${roleOf(p.id)}</b> · ${esc(nm)}</summary><div class="eg">`
         +fld('x','e_mx_'+p.id,p.x,'number','step="1"')+fld('z','e_mz_'+p.id,p.z,'number','step="1"')+fld('높이','e_my_'+p.id,p.y,'number','step="0.5"')+fld('크기(반지름)','e_mr_'+p.id,p.r,'number','step="0.5" min="4" max="14"')
         +sel('장식','e_md_'+p.id,p.decor,DECORS)+(mp.islandStyle==='town'?sel('지붕','e_mf_'+p.id,p.roof||'',{'':'기본',...ROOFS}):'')+fld('바닥색','e_mc_'+p.id,p.top,'color')
         +(mp.islandStyle==='town'?`<label class="ef"><span>담장만 (마당)</span><input type="checkbox" id="e_myd_${p.id}" ${p.yard?'checked':''}></label>`:'')+`</div></details>`; }
@@ -1714,10 +1717,10 @@ function collectEditor(){
     const st=gv('e_story'), gl=gv('e_goal'); sc.story=st; sc.goalText=gl; if(mp.story!==undefined) mp.story=st; if(mp.goal!==undefined) mp.goal=gl;
     sc.clue=gv('e_clue')||sc.clue; sc.finalThing=gv('e_fin')||sc.finalThing; sc.doneWord=gv('e_done')||sc.doneWord; sc.doneIcon=gv('e_icon')||sc.doneIcon;
     sc.teams.forEach((t,i)=>{ t.name=gv('e_tn'+i)||t.name; t.color=gv('e_tc'+i)||t.color; });
-    const tiers=[0,1,2].map(f=>gv('e_tier'+f)); if(tiers.some(Boolean)) mp.tiers=tiers.map((t,f)=>t||(mp.tiers||[])[f]||`${f+1}단계`);
+    const tiers=TIER_IDX().map(f=>gv('e_tier'+f)); if(tiers.some(Boolean)) mp.tiers=tiers.map((t,f)=>t||(mp.tiers||[])[f]||`${f+1}단계`);
   } else if(edTab==='rooms'){
     const newP={};
-    for(const id of ROOM_IDS){ const r=sc.rooms[id]; if(!r) continue; const nm=gv('e_rn_'+id); if(nm){ r.name=nm; if(mp.roomNames&&mp.roomNames[id]!==undefined) mp.roomNames[id]=nm; if(id==='vault') r.short=nm.replace(/\s*\(.*\)/,''); }
+    for(const id of roomIds()){ const r=sc.rooms[id]; if(!r) continue; const nm=gv('e_rn_'+id); if(nm){ r.name=nm; if(mp.roomNames&&mp.roomNames[id]!==undefined) mp.roomNames[id]=nm; if(id==='vault') r.short=nm.replace(/\s*\(.*\)/,''); }
       (r.puzzles||[]).forEach((pz,k)=>{ let n=(gv(`e_pn_${id}_${k}`)||pz[0]).trim(); while(newP[n]) n+=' ʹ'; pz[0]=n; pz[1]=gv(`e_pt_${id}_${k}`)||pz[1];
         newP[n]={desc:gv(`e_pd_${id}_${k}`)||'',answer:gv(`e_pa_${id}_${k}`)||'',hints:[0,1,2].map(j=>gv(`e_ph_${id}_${k}_${j}`)||'')}; }); }
     sc.puzzles=newP;
@@ -1748,14 +1751,14 @@ function toast(t){ let el=document.getElementById('toast'); if(!el){ el=document
 /* 지난 기록 */
 function saveHistory(){
   const e=curEntry(); if(!e) return; const ranked=teams.slice().sort((a,b)=>(a.finish??1e9)-(b.finish??1e9)||b.clues-a.clues);
-  const rec={at:new Date().toISOString(),mapId:e.id,title:e.title,seed:SEED,reason:endReason,clock,
+  const rec={at:new Date().toISOString(),mapId:e.id,title:e.title,seed:SEED,reason:endReason,clock,total:TOTAL()+1,
     ranking:ranked.map((t,i)=>({rank:t.finish!==null?i+1:null,team:t.name,color:t.css,time:t.finish!==null?fmt(t.finish):null,clues:t.clues,hints:t.hints,mvp:t.members.slice().sort((a,b)=>b.contrib-a.contrib)[0].name,members:t.members.map(m=>m.name)})),
     events:events.map(x=>({t:x.t,team:x.team,text:x.text,detail:x.detail}))};
   const h=LS.get('escHistory',[]); h.unshift(rec); while(h.length>40) h.pop(); LS.set('escHistory',h);
 }
-function recText(r){ return `${r.title} — 시뮬레이션 기록\n${new Date(r.at).toLocaleString('ko-KR')} · 시드 ${r.seed}\n${r.reason||''}\n\n[순위]\n`+r.ranking.map(t=>`${t.rank?t.rank+'위':'-'} ${t.team} ${t.time||'실패 ('+t.clues+'/5)'} · 힌트 ${t.hints} · MVP ${t.mvp} · ${t.members.join(', ')}`).join('\n')+`\n\n[시간대별 기록]\n`+r.events.map(x=>`[${x.t}] ${x.team?x.team+' | ':''}${x.text}${x.detail?' — '+x.detail:''}`).join('\n'); }
+function recText(r){ return `${r.title} — 시뮬레이션 기록\n${new Date(r.at).toLocaleString('ko-KR')} · 시드 ${r.seed}\n${r.reason||''}\n\n[순위]\n`+r.ranking.map(t=>`${t.rank?t.rank+'위':'-'} ${t.team} ${t.time||'실패 ('+t.clues+'/'+(r.total||5)+')'} · 힌트 ${t.hints} · MVP ${t.mvp} · ${t.members.join(', ')}`).join('\n')+`\n\n[시간대별 기록]\n`+r.events.map(x=>`[${x.t}] ${x.team?x.team+' | ':''}${x.text}${x.detail?' — '+x.detail:''}`).join('\n'); }
 function recCSV(r){ const q=s=>`"${String(s??'').replace(/"/g,'""')}"`; return '﻿시각,팀,내용,자세히\n'+r.events.map(x=>[x.t,x.team,x.text,x.detail].map(q).join(',')).join('\n'); }
-function recHTML(r){ return `<div class="muted">${new Date(r.at).toLocaleString('ko-KR')} · 시드 ${r.seed} · ${esc(r.reason||'')}</div><h3>순위</h3><table>`+r.ranking.map(t=>`<tr><td>${t.rank?t.rank+'위':'-'}</td><td style="color:${t.color}"><b>${esc(t.team)}</b></td><td>${t.time||'실패 ('+t.clues+'/5)'}</td><td class="muted">힌트 ${t.hints} · MVP ${esc(t.mvp)}</td></tr>`).join('')+`</table><h3>시간대별 기록</h3><table>`+r.events.map(x=>`<tr><td class="t">${x.t}</td><td>${esc(x.team||'-')}</td><td>${esc(x.text)}${x.detail?`<div class="muted">${esc(x.detail)}</div>`:''}</td></tr>`).join('')+`</table>`; }
+function recHTML(r){ return `<div class="muted">${new Date(r.at).toLocaleString('ko-KR')} · 시드 ${r.seed} · ${esc(r.reason||'')}</div><h3>순위</h3><table>`+r.ranking.map(t=>`<tr><td>${t.rank?t.rank+'위':'-'}</td><td style="color:${t.color}"><b>${esc(t.team)}</b></td><td>${t.time||'실패 ('+t.clues+'/'+(r.total||5)+')'}</td><td class="muted">힌트 ${t.hints} · MVP ${esc(t.mvp)}</td></tr>`).join('')+`</table><h3>시간대별 기록</h3><table>`+r.events.map(x=>`<tr><td class="t">${x.t}</td><td>${esc(x.team||'-')}</td><td>${esc(x.text)}${x.detail?`<div class="muted">${esc(x.detail)}</div>`:''}</td></tr>`).join('')+`</table>`; }
 function openHistory(){
   const h=LS.get('escHistory',[]), body=document.getElementById('histBody');
   body.innerHTML=h.length?h.map((r,i)=>{ const w=r.ranking.find(t=>t.rank===1); return `<div class="hi"><div><b>${esc(r.title)}</b><div class="muted">${new Date(r.at).toLocaleString('ko-KR')} · 시드 ${r.seed} · 1위 ${w?esc(w.team)+' '+w.time:'없음'}</div></div><div class="row"><button data-hv="${i}">보기</button><button data-hd="${i}" class="danger">지우기</button></div></div>`; }).join(''):'<p class="muted">아직 저장된 기록이 없어요. 게임이 끝나면 자동으로 저장돼요.</p>';

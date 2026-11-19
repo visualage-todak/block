@@ -1,0 +1,525 @@
+{
+ "id": "baekseok",
+ "islandStyle": "town",
+ "roofStyle": "gable",
+ "gableColor": "#7a3a2a",
+ "flatRoofColor": "#9a958c",
+ "wallColor": "#e8dcc8",
+ "trimColor": "#4a3a2a",
+ "stepColor": "#b8ad9a",
+ "pathColor": "#9a8a6a",
+ "roadStyle": "rail",
+ "autoTrains": true,
+ "autoShips": true,
+ "lampStyle": "lantern",
+ "lampColor": "#ffd27a",
+ "archColor": "#4a3a2a",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 11,
+ "ringR": 400,
+ "lands": [
+  [
+   0.0,
+   23.4,
+   23.4,
+   25.0
+  ],
+  [
+   23.4,
+   49.9,
+   4.7,
+   3.1
+  ],
+  [
+   -9.4,
+   48.4,
+   3.9,
+   2.3
+  ],
+  [
+   0.0,
+   -6.2,
+   26.5,
+   23.4
+  ],
+  [
+   -4.7,
+   -37.4,
+   32.8,
+   17.2
+  ],
+  [
+   -7.8,
+   -74.9,
+   39.0,
+   17.2
+  ]
+ ],
+ "mountains": [
+  [
+   -17.2,
+   28.1,
+   7,
+   8
+  ],
+  [
+   -4.7,
+   -45.2,
+   6,
+   8
+  ],
+  [
+   26.5,
+   -48.4,
+   10,
+   12
+  ],
+  [
+   31.2,
+   -7.8,
+   8,
+   9
+  ],
+  [
+   21.8,
+   -81.1,
+   9,
+   8
+  ]
+ ],
+ "water": {
+  "level": 0,
+  "color": "#2a6f8f",
+  "opacity": 0.9,
+  "bed": "#1f3a5a",
+  "sand": "#d9c9a0",
+  "weeds": 0
+ },
+ "extras": [
+  {
+   "type": "sign",
+   "x": -14.7,
+   "z": -0.7,
+   "text": "경성",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": 23.7,
+   "z": 45.6,
+   "text": "통영",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -15.6,
+   "z": 35.9,
+   "text": "고성",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": -0.6,
+   "z": -22.3,
+   "text": "평양",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -35.4,
+   "z": -25.6,
+   "text": "정주",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": 27.1,
+   "z": -19.1,
+   "text": "함흥",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -42.6,
+   "z": -56.2,
+   "text": "신의주 · 압록강",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": -32.3,
+   "z": -72.7,
+   "text": "안동",
+   "h": 5
+  },
+  {
+   "type": "sign",
+   "x": 17.0,
+   "z": -84.9,
+   "text": "만주 · 신경",
+   "h": 6
+  },
+  {
+   "type": "ship",
+   "x": 26.5,
+   "z": 34.3,
+   "rot": 0.6,
+   "s": 1.0
+  },
+  {
+   "type": "boat",
+   "x": 9.4,
+   "z": 51.5,
+   "rot": 0.4
+  },
+  {
+   "type": "boat",
+   "x": 29.6,
+   "z": 45.2,
+   "rot": -0.5
+  },
+  {
+   "type": "boat",
+   "x": -45.2,
+   "z": -56.2,
+   "rot": 1.1
+  },
+  {
+   "type": "jangseung",
+   "x": -20.3,
+   "z": -28.1
+  },
+  {
+   "type": "pavilion",
+   "x": -3.1,
+   "z": -10.9
+  },
+  {
+   "type": "track",
+   "points": [
+    [
+     -18.7,
+     7.8
+    ],
+    [
+     -23.4,
+     0.0
+    ]
+   ],
+   "train": 0.5
+  },
+  {
+   "type": "track",
+   "points": [
+    [
+     12.5,
+     -85.8
+    ],
+    [
+     23.4,
+     -92.0
+    ]
+   ],
+   "train": 0.55
+  }
+ ],
+ "theme": {
+  "bg": "#a9c4dc",
+  "fog": [
+   120,
+   320
+  ],
+  "hemi": [
+   "#eef2ff",
+   "#4a5a3a",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff1d6",
+  "stars": 2400,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#8aa060",
+   "#6f8f4e",
+   "#8a8070",
+   "#f2f2f2"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#0f1a33",
+   "#e09a6a",
+   "#a9c4dc"
+  ],
+  "nightHemi": 0.6
+ },
+ "dress": {
+  "houses": 18,
+  "houseWalls": [
+   "#e8dcc8",
+   "#d9c9a3",
+   "#f2ede0"
+  ],
+  "houseRoof": "mix",
+  "trees": 150,
+  "treeShape": "cone",
+  "treeLeaf": "#3f6e45",
+  "treeTrunk": "#5a3f2a",
+  "poles": true
+ },
+ "story": "1930년대, 시인 백석은 경성의 신문사에서 일하다 남쪽 바닷가 통영으로, 북쪽 고향 정주와 함흥으로, 다시 만주 벌판으로 떠돌았어요. 그가 머문 곳마다 흩어진 시 카드 5장을 모아 신의주의 작은 셋방에서 '백석 시 지도'를 완성하세요.",
+ "goal": "경성에서 출발해 철길과 뱃길로 남쪽 바닷길, 북쪽 고향과 학교, 만주를 차례로 지나며 시 카드 5장을 모은 뒤, 남신의주 유동 박시봉방에서 백석 시 지도를 가장 먼저 완성하는 팀이 이겨요.",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": -3.1,
+   "z": 6.2,
+   "y": 1.6,
+   "r": 9,
+   "top": "#a8916c",
+   "rock": "#8a7d6a",
+   "decor": "manuscript",
+   "roof": "flat",
+   "start": true,
+   "wall": "#d8cfc0"
+  },
+  {
+   "id": "seoulst",
+   "f": 0,
+   "x": -15.6,
+   "z": 12.5,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#c9b896",
+   "rock": "#8a7d6a",
+   "decor": "yokohama",
+   "roof": "dome",
+   "wall": "#e8d6b0",
+   "roofColor": "#5a7a6a"
+  },
+  {
+   "id": "press",
+   "f": 0,
+   "x": 9.4,
+   "z": 14.0,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#c9b48e",
+   "rock": "#8a7d6a",
+   "decor": "stacks",
+   "roof": "gable",
+   "wall": "#e8dcc8",
+   "roofColor": "#7a3a2a"
+  },
+  {
+   "id": "goseong",
+   "f": 1,
+   "x": -6.2,
+   "z": 31.2,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#b8a882",
+   "rock": "#8a7d6a",
+   "decor": "market",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.5,
+   "wall": "#8a7a5a"
+  },
+  {
+   "id": "tongyeong",
+   "f": 1,
+   "x": 15.6,
+   "z": 37.4,
+   "y": 1.6,
+   "r": 7,
+   "top": "#cdbb8e",
+   "rock": "#8a7d6a",
+   "decor": "ferry",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.4,
+   "wall": "#7a6a50"
+  },
+  {
+   "id": "chungnyeol",
+   "f": 1,
+   "x": 1.6,
+   "z": 45.2,
+   "y": 1.6,
+   "r": 6.5,
+   "top": "#9d998f",
+   "rock": "#8a7d6a",
+   "decor": "temple",
+   "roof": "giwa",
+   "wall": "#f2ede0",
+   "dancheong": true
+  },
+  {
+   "id": "pyongyang",
+   "f": 2,
+   "x": -10.9,
+   "z": -17.2,
+   "y": 1.6,
+   "r": 7,
+   "top": "#c9b896",
+   "rock": "#8a7d6a",
+   "decor": "hut",
+   "roof": "giwa",
+   "wall": "#f2ede0"
+  },
+  {
+   "id": "jeongju",
+   "f": 2,
+   "x": -26.5,
+   "z": -32.8,
+   "y": 1.6,
+   "r": 7,
+   "top": "#b8a070",
+   "rock": "#8a7d6a",
+   "decor": "sarangchae",
+   "roof": "choga",
+   "wall": "#e6dcc6"
+  },
+  {
+   "id": "hamheung",
+   "f": 2,
+   "x": 17.2,
+   "z": -25.0,
+   "y": 1.6,
+   "r": 7,
+   "top": "#c9b896",
+   "rock": "#8a7d6a",
+   "decor": "school",
+   "roof": "gable",
+   "wall": "#e8dcc8",
+   "roofColor": "#3a4a5a"
+  },
+  {
+   "id": "anton",
+   "f": 3,
+   "x": -23.4,
+   "z": -65.5,
+   "y": 1.6,
+   "r": 7,
+   "top": "#d8d4cc",
+   "rock": "#8a7d6a",
+   "decor": "warehouse",
+   "roof": "flat",
+   "wall": "#d0cbc0"
+  },
+  {
+   "id": "sinkyo",
+   "f": 3,
+   "x": 6.2,
+   "z": -79.6,
+   "y": 1.6,
+   "r": 7.5,
+   "top": "#d8d4cc",
+   "rock": "#8a7d6a",
+   "decor": "globe",
+   "roof": "flat",
+   "wall": "#cfc8b8"
+  },
+  {
+   "id": "vault",
+   "f": 3,
+   "x": -32.8,
+   "z": -48.4,
+   "y": 1.6,
+   "r": 8,
+   "top": "#e8e2d4",
+   "rock": "#8a7d6a",
+   "decor": "nightroom",
+   "roof": "choga",
+   "final": true,
+   "wall": "#f4f1ea"
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "seoulst"
+  ],
+  [
+   "lobby",
+   "press"
+  ],
+  [
+   "seoulst",
+   "goseong"
+  ],
+  [
+   "press",
+   "goseong"
+  ],
+  [
+   "press",
+   "tongyeong"
+  ],
+  [
+   "goseong",
+   "chungnyeol"
+  ],
+  [
+   "tongyeong",
+   "chungnyeol"
+  ],
+  [
+   "seoulst",
+   "pyongyang"
+  ],
+  [
+   "press",
+   "hamheung"
+  ],
+  [
+   "pyongyang",
+   "jeongju"
+  ],
+  [
+   "pyongyang",
+   "hamheung"
+  ],
+  [
+   "jeongju",
+   "vault"
+  ],
+  [
+   "vault",
+   "anton"
+  ],
+  [
+   "anton",
+   "sinkyo"
+  ],
+  [
+   "vault",
+   "sinkyo"
+  ]
+ ],
+ "tiers": [
+  "경성",
+  "남쪽 바닷길",
+  "북쪽 고향과 학교",
+  "만주"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "철길과 뱃길",
+  "layout": "백석의 길 (아래가 남쪽, 위가 북쪽)"
+ },
+ "roomNames": {
+  "lobby": "경성 조선일보사 (출발)",
+  "vault": "남신의주 유동 박시봉방 (최종)"
+ },
+ "startHour": 16
+}
