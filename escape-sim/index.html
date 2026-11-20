@@ -299,7 +299,7 @@ for(let f=0; f<3; f++){
 const roof = new THREE.Group(); building.add(roof); roof.visible=false;
 box(W+.6,.45,D+.6,M.slab,0,.225,0,roof);
 box(4,1.4,3,M.dark,8,1.15,-3,roof);
-const sign = label('가남교육도서관',6,'#ffffff','#1f5f8b'); sign.material.depthTest=true; sign.position.set(10.5,2*FH+2.4,D/2+.3); building.add(sign); sign.visible=false;
+const sign = label('지구마을도서관',6,'#ffffff','#1f5f8b'); sign.material.depthTest=true; sign.position.set(10.5,2*FH+2.4,D/2+.3); building.add(sign); sign.visible=false;
 
 function disposeTree(o){ o.traverse(c=>{ if(c.geometry) c.geometry.dispose(); if(c.material&&c.material.map) c.material.map.dispose(); }); }
 let roomLights=[]; const ROOMLAMP_M=new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xfff1d6,emissiveIntensity:0});

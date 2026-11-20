@@ -1571,7 +1571,7 @@ function frame(now){
     const left=LIMIT-clock, ck=document.getElementById('clock'); ck.textContent=fmt(left); ck.classList.toggle('warn',left<600);
     renderTeams(); if(selected) showWho(selected);
   }
-  renderer.render(scene,camera);
+  if(!window.__noDraw) renderer.render(scene,camera);
   requestAnimationFrame(frame);
 }
 
@@ -1598,7 +1598,7 @@ function setupDayCycle(){
 function hourAt(sec){ return ((DC?.start??9) + sec/LIMIT*24)%24; }
 function updateDayCycle(){
   if(!DC) return;
-  const h=hourAt(clock), a=(h-6)/12*Math.PI, e=Math.sin(a);           // 해 높이 (-1~1)
+  const h=(window.__fixHour!=null?window.__fixHour:hourAt(clock)), a=(h-6)/12*Math.PI, e=Math.sin(a);           // 해 높이 (-1~1)
   const R=260, cx=0, cz=-44;
   const sp=new THREE.Vector3(cx+Math.cos(a)*R, Math.sin(a)*R*.8, cz-90+Math.sin(a)*20);
   const mp=new THREE.Vector3(cx-Math.cos(a)*R, -Math.sin(a)*R*.8, cz-90);
@@ -1823,6 +1823,7 @@ resize(); aimCamera(); camera.position.copy(camGoal.p); controls.target.copy(cam
 requestAnimationFrame(frame);
 init();
 window.__segs=()=>bridgeSegs.map(s=>s.from+'-'+s.to+':'+(s.pier?'P':'R')).join(' ');
+window.__teams=()=>teams; window.__cam3=camera;
 window.__hideSprites=()=>{ scene.traverse(o=>{ if(o.isSprite) o.visible=false; }); agents.forEach(a=>{ if(a.team&&a.team.tag) a.team.tag.visible=false; }); };
 window.__sim={tick:(n)=>{ for(let i=0;i<n;i++) tickSim(.5); }, get:()=>({agents,teams,events,clock,ended,stations}), start:()=>{ running=true; }, setSpeed:(x)=>speed=x, newGame, loadMap, cam:(px,py,pz,tx,ty,tz)=>{ camGoal=null; camera.position.set(px,py,pz); controls.target.set(tx,ty,tz); controls.update(); }};
 </script>

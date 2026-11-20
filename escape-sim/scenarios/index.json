@@ -3,7 +3,7 @@
   {
    "id": "library",
    "file": "library.json",
-   "title": "SP.1 · 가남교육도서관 — 비밀서고의 금고"
+   "title": "SP.1 · 지구마을도서관 — 비밀서고의 금고"
   }
  ],
  "links": [
@@ -128,7 +128,7 @@
    "href": "maps/sim/index.html#oz"
   },
   {
-   "title": "SP.1 · 가남교육도서관 — 비밀서고의 금고",
+   "title": "SP.1 · 지구마을도서관 — 비밀서고의 금고",
    "bank": "library"
   },
   {
