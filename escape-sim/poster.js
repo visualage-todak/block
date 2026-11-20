@@ -1,7 +1,7 @@
 /* 토닥토닥 메타버스 방탈출게임 — 맵을 열면 시작 버튼을 누를 때까지 보이는 영화 포스터 */
 (function(){
   const P={
-    'library':{sp:1,ep:1,title:'지구마을도서관',tag:'도서관 문이 닫힌 오후,\n책장 사이에 숨은 단서를 찾아라',eng:'GLOBAL VILLAGE LIBRARY · THE LOCKED VAULT',mission:'단서 4개를 모아 비밀서고 금고를 열어라',credit:'무대 지구마을도서관 1~3층 · 출연 중학생 20명',accent:'#f0b84a',font:'sans'},
+    'library':{sp:1,ep:1,title:'지구마을도서관',tag:'도서관 문이 닫힌 오후,\n책장 사이에 숨은 단서를 찾아라',eng:'EARTHVILLAGE LIBRARY · THE LOCKED VAULT',mission:'단서 4개를 모아 비밀서고 금고를 열어라',credit:'무대 지구마을도서관 1~3층 · 출연 중학생 20명',accent:'#f0b84a',font:'sans'},
     'little-prince':{ep:1,title:'어린왕자',tag:'별과 별 사이를 건너,\n장미가 기다리는 별로 돌아가라',eng:'THE LITTLE PRINCE · BACK TO B612',mission:'별 조각 4개를 모아 B612의 귀환 장치를 켜라',credit:'원작 앙투안 드 생텍쥐페리 · 출연 중학생 20명 · 무대 사막에서 소행성 B612까지',accent:'#f2c14e',font:'serif'},
     'human-acts':{sp:2,ep:2,title:'소년이 온다',tag:'두 갈래로 엇갈리는 목소리,\n흩어진 기억을 한 권으로 잇다',eng:'HUMAN ACTS · THE BOOK OF MEMORY',mission:'기억 조각 4개를 모아 기억의 책을 완성하라',credit:'원작 한강 『소년이 온다』 · 출연 중학생 20명 · 무대 두 갈래 골목길',accent:'#f2a65a',font:'serif'},
     'star-night':{season:2,ep:3,title:'별 헤는 밤',tag:'북두칠성 일곱 별을 따라,\n북극성에서 시인의 별을 잇다',eng:'COUNTING THE STARS AT NIGHT',mission:'별 4개를 모아 별자리를 완성하라',credit:'원작 윤동주 「별 헤는 밤」 · 출연 중학생 20명 · 무대 북두칠성 별길',accent:'#9fc4ff',font:'serif'},
