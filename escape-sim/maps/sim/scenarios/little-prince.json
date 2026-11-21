@@ -1,4 +1,5 @@
 {
+ "schema": 2,
  "id": "little-prince",
  "title": "어린왕자 — 별을 건너 B612로",
  "subtitle": "중학생 20명 · 4팀 · 제한시간 60분",
@@ -324,5 +325,35 @@
    "화산 청소 순서를 기억해냄"
   ]
  },
- "finalVerb": "작동시키면"
+ "finalVerb": "작동시키면",
+ "opts": {
+  "difficulty": "normal",
+  "wrongRate": 0,
+  "searchDelay": 0,
+  "tierMove": 0,
+  "durScale": 1,
+  "timeTrade": false,
+  "tradeBonus": 0.35,
+  "tradeCost": 90,
+  "journal": true,
+  "heatmap": true,
+  "metrics": true,
+  "daily": true,
+  "stuckWait": 0.25,
+  "endings": {
+   "success": "B612에 닿았어요. 장미가 기다리고 있었어요.",
+   "timeout": "사막에 해가 졌어요. 별들은 내일 밤에도 그 자리에서 빛날 거예요.",
+   "stuck": "별과 별 사이를 떠돌았어요. 소중한 건 눈으로는 잘 보이지 않는대요."
+  },
+  "starCards": {
+   "edu": "왕의 별: 해낼 수 있는 일을 부탁해야 들어준대요.",
+   "cafe": "허영쟁이의 별: 박수보다 진심 어린 말 한마디가 더 오래 남아요.",
+   "kids": "점등원의 별: 맡은 일을 지키는 사람은 별을 깨워요.",
+   "clubA": "사업가의 별: 별은 세는 게 아니라 바라보는 거예요.",
+   "clubB": "지리학자의 별: 지도는 누군가 직접 걸어 본 길로 만들어져요.",
+   "stacks": "장미 정원: 수천 송이 중에서도 내 장미는 하나뿐이에요.",
+   "digital": "여우의 밀밭: 길들인다는 건 서로에게 특별해지는 거예요.",
+   "vault": "B612: 돌아갈 곳이 있다는 건 정말 다행이에요."
+  }
+ }
 }

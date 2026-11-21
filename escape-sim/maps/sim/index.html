@@ -1351,6 +1351,7 @@ function applyScenario(sc){
   PUZ=sc.puzzles; IDEAS=sc.ideas;
   TEAMS=sc.teams.map(t=>({name:t.name,css:t.color,color:hexNum(t.color)}));
   NEEDS=Object.keys(sc.need).map(Number).sort((a,b)=>a-b).map(k=>+sc.need[k]); NEED=Object.fromEntries(NEEDS.map((v,i)=>[i,v])); LIMIT=sc.limit||3600;
+  loadFun();
 }
 function buildStations(){
   for(const r of ROOMS){
@@ -1466,7 +1467,7 @@ function newGame(seed){
   agents=[]; teams=[];
   const bs=shuffle(BOYS.slice()), gs=shuffle(GIRLS.slice());
   TEAMS.forEach((T,ti)=>{
-    const team={...T, idx:ti, members:[], clues:0, need:{...NEED}, solved:new Set(), state:'ready', station:null, progress:0, elapsed:0, dur:0, hints:0, finish:null, retry:0, waitF:null, minuteMark:0, waitStart:null, waitTotal:0, hintsHere:0, record:[], tagText:''};
+    const team={...T, idx:ti, members:[], clues:0, need:{...NEED}, solved:new Set(), state:'ready', station:null, progress:0, elapsed:0, dur:0, hints:0, finish:null, retry:0, waitF:null, minuteMark:0, waitStart:null, waitTotal:0, hintsHere:0, record:[], tagText:'', wrong:0, wrongHere:0, penalty:0, cards:[], delayUntil:null};
     const nb = ti<2?3:2;
     const names=[...bs.splice(0,nb).map(n=>[n,'M']), ...gs.splice(0,5-nb).map(n=>[n,'F'])];
     names.forEach(([name,gender])=>{
@@ -1478,6 +1479,7 @@ function newGame(seed){
     teams.push(team);
   });
   clock=0; running=false; ended=false; endReason=''; histSaved=false; logs.length=0; events.length=0;
+  metReset(); jrReset(); if(heatOn) setHeat(true);
   document.getElementById('seed').textContent=SEED;
   playBtn.textContent='▶'; playBtn.classList.add('go');
   document.getElementById('result').style.display='none';
@@ -1509,11 +1511,12 @@ function decide(t){
     const sc=cands.map((c,i)=>({c,i,v:Math.hypot(c.x-ref.x,c.z-ref.z)+rnd(-3,3)}));
     sc.sort((a,b)=>a.v-b.v||a.i-b.i);
     const st=sc[0].c;
-    if(t.waitStart!==null){ const w=clock-t.waitStart; t.waitTotal+=w; ev('waitEnd',t,`${t.name} 대기 끝 (${fmt(w)} 기다림) → 자리가 났어요`); t.waitStart=null; }
+    if(t.waitStart!==null){ const w=clock-t.waitStart; t.waitTotal+=w; ev('waitEnd',t,`${t.name} 대기 끝 (${fmt(w)} 기다림) → 자리가 났어요`); jr(t,{k:'wait',room:(roomById[t.waitRoom]||roomById.lobby).name,w}); t.waitStart=null; }
     st.busy=t; t.station=st; t.state='moving'; t.waitF=null; t.hintsHere=0; t.moveStart=clock;
     st.top.color.set(t.color); st.top.emissive.set(t.color); st.top.emissiveIntensity=.5;
     t.members.forEach((m,i)=>{ goTo(m, st.room.id, stationSlot(st,i,5)); m.act=`${st.room.name}로 이동`; });
     ev('go',t,`${t.name} → ${st.room.final?'':tierName(st.room.f)+' '}${st.room.name} '${st.puzzle}' 도전`, PUZ[st.puzzle].desc);
+    t.tierChange = MET ? (MET.lastF[t.idx]!==null && MET.lastF[t.idx]!==st.room.f) : false; metTier(t,st); jr(t,{k:'go',s:clock,room:st.room.name,puzzle:st.puzzle}); t.delayUntil=null; t.wrongHere=0;
   } else {
     const wf = tf===undefined?'final':tf;
     if(t.waitF!==wf){
@@ -1544,9 +1547,19 @@ function updateTeam(t,dt){
   if(t.state==='moving'){
     const st=t.station;
     const here=t.members.filter(m=>m.room===st.room.id).length;
+    if(here>=4 && (FUN.searchDelay>0||FUN.tierMove>0) && t.delayUntil===null){
+      const tier=(FUN.tierMove>0 && t.lastStF!==undefined && t.lastStF!==st.room.f);
+      const d=(FUN.searchDelay>0?FUN.searchDelay*rnd(.5,1.5):0)+(tier?FUN.tierMove*rnd(.75,1.5):0);
+      t.delayUntil=clock+d; t.lastStF=st.room.f;
+      t.members.forEach(m=>m.act=tier?'별다리를 건너와 숨 고르는 중':'주변 탐색 중');
+      ev('delay',t,`${t.name} ${st.room.name}에서 ${tier?'층간 이동·':''}탐색 ${Math.round(d)}초`, tier?`층간 이동 포함 (단계 바뀜)`:'퍼즐 대를 찾느라 시작이 늦어짐');
+      jr(t,{k:'delay',room:st.room.name,tier});
+      return;
+    }
+    if(here>=4 && t.delayUntil!==null && clock<t.delayUntil) return;
     if(here>=4){
       t.state='solving'; t.progress=0; t.elapsed=0; t.minuteMark=0;
-      t.dur=(st.room.final?7.5:6.8)*rnd(.8,1.6);
+      t.dur=(st.room.final?7.5:6.8)*rnd(.8,1.6); if(FUN.durScale!==1) t.dur*=FUN.durScale;
       st.bg.visible=st.fill.visible=true; st.fillMat.color.set(t.color);
       t.members.forEach(m=>m.act=`${SCN.clue} 찾는 중`);
       const pres=t.members.filter(m=>m.room===st.room.id).map(m=>m.name);
@@ -1566,24 +1579,36 @@ function updateTeam(t,dt){
     if(t.elapsed-t.minuteMark>=60){
       t.minuteMark+=60;
       if(R()<.22){ const m=pickBy(t,key); m.contrib++; const g=rnd(.08,.15); t.progress+=g; ev('idea',t,`${josa(m.name,'이가','가')} ${pick(IDEAS[key])} → 진행 +${Math.round(g*100)}%`, `${st.puzzle} 진행률 ${Math.round(Math.min(1,t.progress)*100)}%`); }
-      if(t.elapsed>t.dur*60*.7 && t.progress<.7 && t.hints<3){ t.hints++; t.lastHint=clock; const h=PUZ[st.puzzle].hints[Math.min(2,t.hintsHere++)]; t.progress+=.2;
-        ev('hint',t,`${t.name} 힌트 요청 (${t.hints}/3): "${h}"`, `${st.puzzle} — 풀이 ${fmt(t.elapsed)} 경과, 진행률 ${Math.round((t.progress-.2)*100)}%에서 요청`); }
+      if(t.elapsed>t.dur*60*.7 && t.progress<.7 && t.hints<3){ t.hints++; t.lastHint=clock; const h=PUZ[st.puzzle].hints[Math.min(2,t.hintsHere++)];
+        const gain=FUN.timeTrade?FUN.tradeBonus:.2; t.progress+=gain; if(FUN.timeTrade) t.penalty+=FUN.tradeCost;
+        ev('hint',t,`${t.name} 힌트 요청 (${t.hints}/3): "${h}"`, `${st.puzzle} — 풀이 ${fmt(t.elapsed)} 경과, 진행률 ${Math.round((t.progress-gain)*100)}%에서 요청`+(FUN.timeTrade?` · 시간 거래: 진행 +${Math.round(gain*100)}%, 기록 +${fmt(FUN.tradeCost)}`:''));
+        metCount('hint',t,st.puzzle); jr(t,{k:'hint',trade:FUN.timeTrade}); }
     }
     st.fill.scale.x=Math.max(.01,Math.min(1,t.progress)); st.fill.position.x=-(1-st.fill.scale.x)/2;
+    if(t.progress>=1 && FUN.wrongRate>0 && t.wrongHere<2 && R()<FUN.wrongRate){
+      t.wrong++; t.wrongHere++; const back=rnd(.55,.75); t.progress=back; metCount('wrong',t,st.puzzle); jr(t,{k:'wrong'});
+      ev('wrong',t,`${t.name} '${st.puzzle}' 오답! 진행률 ${Math.round(back*100)}%로 돌아가 다시 풀어요`, `오답 ${t.wrong}번째 (이 퍼즐 ${t.wrongHere}번째)`);
+      return;
+    }
     if(t.progress>=1){
       const finder=pickBy(t,key); finder.contrib+=2; finder.jump=clock;
       t.record.push({room:st.room.name,f:st.room.f+1,puzzle:st.puzzle,start:t.solveStart,end:clock,finder:finder.name,hints:t.hintsHere});
       st.busy=null; st.bg.visible=st.fill.visible=false; st.done.push(t);
       st.top.emissive.set(0); st.top.color.set(0x5d6d7e);
       if(st.room.final){
-        t.state='escaped'; t.finish=clock; t.clues++;
-        const rank=teams.filter(x=>x.finish!==null).length;
-        ev('escape',t,`${DONE_ICON()} ${t.name} ${DONE()}! ${rank}위 · 기록 ${fmt(clock)}`, `${josa(finder.name,'이가','가')} '${st.puzzle}' 해결 (정답: ${PUZ[st.puzzle].answer}) · 풀이 ${fmt(clock-t.solveStart)}`);
+        t.state='escaped'; t.finish=clock+(t.penalty||0); t.clues++;
+        if(t.penalty && t.finish>LIMIT){ t.finish=null; t.state='failed';
+          ev('fail',t,`${t.name} ${st.puzzle}은 풀었지만 시간 거래(+${fmt(t.penalty)})로 기록이 제한 시간을 넘었어요`,`실제 ${fmt(clock)} + 시간 거래 ${fmt(t.penalty)}`);
+          t.members.forEach(m=>{ goTo(m,'lobby',randInRoom(roomById.lobby)); m.act='시간 초과'; }); checkEnd(); return; }
+        const rank=t.penalty?teams.filter(x=>x.finish!==null&&x.finish<=t.finish).length:teams.filter(x=>x.finish!==null).length;
+        jr(t,{k:'escape',s:clock,finder:finder.name,puzzle:st.puzzle});
+        ev('escape',t,`${DONE_ICON()} ${t.name} ${DONE()}! ${rank}위 · 기록 ${fmt(t.finish)}${t.penalty?` (시간 거래 +${fmt(t.penalty)} 포함)`:''}`, `${josa(finder.name,'이가','가')} '${st.puzzle}' 해결 (정답: ${PUZ[st.puzzle].answer}) · 풀이 ${fmt(clock-t.solveStart)}`);
         const lobby=roomById.lobby;
         t.members.forEach(m=>{ goTo(m,'lobby',randInRoom(lobby)); m.act=DONE()+'!'; });
         checkEnd();
       } else {
         t.clues++; t.need[st.room.f]--; t.solved.add(st.room.id); t.state='ready'; t.station=null;
+        const card=cardOf(st.room.id); if(card) t.cards.push(st.room.id); jr(t,{k:'solve',finder:finder.name,n:t.clues,card});
         ev('solve',t,`${t.name} ${SCN.clue} ${t.clues}/${TOTAL()} — ${josa(finder.name,'이가','가')} '${st.puzzle}' 해결`, `정답: ${PUZ[st.puzzle].answer} · 풀이 ${fmt(clock-t.solveStart)} · 이 퍼즐 힌트 ${t.hintsHere}개`);
       }
       return;
@@ -1604,12 +1629,12 @@ function updateTeam(t,dt){
 
 function checkEnd(){
   if(ended) return;
-  const allOut=teams.every(t=>t.state==='escaped');
+  const allOut=teams.every(t=>t.state==='escaped'||(t.penalty&&t.state==='failed'));
   if(allOut || clock>=LIMIT){
     ended=true; running=false; playBtn.textContent='▶'; playBtn.classList.add('go');
     teams.forEach(t=>{ if(t.state!=='escaped' && t.state==='solving') ev('fail',t,`${t.name} 미완료: '${t.station.puzzle}' 진행률 ${Math.round(t.progress*100)}%에서 시간 종료`,`${SCN.clue} ${t.clues}/${TOTAL()} · 힌트 ${t.hints}/3 사용 · 대기 ${fmt(t.waitTotal)}`); });
     teams.forEach(t=>{ if(t.state!=='escaped'){ t.state='failed'; if(t.station){ t.station.busy=null; t.station.bg.visible=t.station.fill.visible=false; t.station.top.emissive.set(0);} t.members.forEach(m=>m.act='시간 초과'); } });
-    endReason = allOut ? `4팀 모두 ${DONE()}, ${fmt(clock)}에 게임 종료` : `제한시간 60분이 끝나 게임 종료 (미완료: ${teams.filter(t=>t.state==='failed').map(t=>t.name).join(', ')})`;
+    endReason = allOut ? (teams.every(t=>t.state==='escaped') ? `4팀 모두 ${DONE()}, ${fmt(clock)}에 게임 종료` : `모든 팀이 끝나 ${fmt(clock)}에 게임 종료 (시간 거래로 기록 초과: ${teams.filter(t=>t.state==='failed').map(t=>t.name).join(', ')})`) : `제한시간 60분이 끝나 게임 종료 (미완료: ${teams.filter(t=>t.state==='failed').map(t=>t.name).join(', ')})`;
     ev('end',null,(allOut?'🎉 ':'⏰ ')+endReason);
     showResult();
   }
@@ -1620,7 +1645,194 @@ function tickSim(dt){
   teams.forEach(t=>updateTeam(t,dt));
   agents.forEach(a=>stepAgent(a,dt));
   separate();
+  metTick(dt);
   if(clock>=LIMIT) checkEnd();
+}
+
+
+/* ================= 재미 설정·지표 (시나리오 schema 2의 opts가 있을 때만 켜짐, 지금은 어린왕자편) =================
+   원칙: 값이 기본(0·false·보통)이면 난수를 하나도 더 쓰지 않아 예전과 결과가 똑같음.
+   P0-2 오답·탐색 지연·층간 이동 / P0-3 지표 CSV / P0-4 schema·기본값 / P1-1 여행 일지 / P1-2 엔딩 / P1-3 히트맵
+   A2 시간 거래 / A7 난이도 / A8 오늘의 시드 / B5 별 카드 도감 */
+const FUN_DEF={difficulty:'normal', wrongRate:0, searchDelay:0, tierMove:0, durScale:1, timeTrade:false, tradeBonus:.35, tradeCost:90,
+  journal:false, endings:null, heatmap:false, metrics:false, starCards:null, daily:false, stuckWait:.25};
+const FUN_PRESETS={ easy:{label:'쉬움', durScale:.85, wrongRate:0, searchDelay:0, tierMove:0},
+  normal:{label:'보통 (기존과 같음)'},
+  hard:{label:'어려움', durScale:1.1, wrongRate:.2, searchDelay:20, tierMove:20} };
+let FUN={...FUN_DEF}, FUN_ON=false, SCN_SCHEMA=1;
+const funKey=()=>'escFun:'+((SCN&&SCN.id)||'');
+function loadFun(){
+  SCN_SCHEMA=(SCN&&SCN.schema)||1;
+  FUN={...FUN_DEF}; FUN_ON=!!(SCN&&SCN.opts);
+  if(!FUN_ON) return;
+  if(SCN_SCHEMA>2) console.warn('이 시나리오는 더 새로운 형식(schema '+SCN_SCHEMA+')이에요. 아는 설정만 씁니다.');
+  for(const k of Object.keys(FUN_DEF)) if(SCN.opts[k]!==undefined) FUN[k]=SCN.opts[k];   // 빠진 값은 기본값
+  const u=LS.get(funKey(),null);
+  if(u){ for(const k of ['difficulty','timeTrade','journal','heatmap','metrics']) if(u[k]!==undefined) FUN[k]=u[k];
+    if(u.starCards===false) FUN.starCards=null; if(u.endings===false) FUN.endings=null; }
+  if(FUN.difficulty!=='normal'){ const p=FUN_PRESETS[FUN.difficulty]; if(p) for(const k of ['durScale','wrongRate','searchDelay','tierMove']) if(p[k]!==undefined) FUN[k]=p[k]; }
+}
+const simChanged=()=>FUN.wrongRate>0||FUN.searchDelay>0||FUN.tierMove>0||FUN.durScale!==1||FUN.timeTrade;
+
+/* P0-1 순환 의존·막힘 검사: 단계마다 장소 수 ≥ 필요한 단서 수, 모든 장소가 출발점과 이어짐, 최종 장소에 퍼즐 대 */
+function validateScenario(){
+  const issues=[];
+  NEEDS.forEach((n,f)=>{ const rs=ROOMS.filter(r=>r.f===f&&!r.final&&(r.puzzles||[]).length); if(rs.length<n) issues.push(`${tierName(f)}: 필요한 단서 ${n}개인데 퍼즐 장소가 ${rs.length}곳뿐`); });
+  const fin=ROOMS.find(r=>r.final); if(!fin||!(fin.puzzles||[]).length) issues.push('최종 장소에 퍼즐 대가 없음');
+  if(!roomById.lobby) issues.push('출발 장소(lobby)가 없음');
+  const adj={}; (MAP.bridges||[]).forEach(([a,b])=>{ (adj[a]=adj[a]||[]).push(b); (adj[b]=adj[b]||[]).push(a); });
+  const seen=new Set(['lobby']), q=['lobby']; while(q.length){ const x=q.shift(); for(const y of adj[x]||[]) if(!seen.has(y)){ seen.add(y); q.push(y); } }
+  const cut=ROOMS.filter(r=>!seen.has(r.id)).map(r=>r.name); if(cut.length && (MAP.bridges||[]).length) issues.push('출발점과 이어지지 않은 장소: '+cut.join(', '));
+  // 의존 그래프: 단계 f → f+1 → … → 최종. 단계는 앞으로만 가고 퍼즐 대는 풀면 반드시 비워지므로 순환 대기가 생기지 않음
+  return issues;
+}
+
+/* 지표 모으기 (P0-3) — 난수를 쓰지 않음 */
+let MET=null;
+function metReset(){ MET = FUN_ON&&FUN.metrics ? {dwell:teams.map(()=>({})), wait:teams.map(()=>({})), hint:teams.map(()=>({})), wrong:teams.map(()=>({})), moves:teams.map(()=>0), lastF:teams.map(()=>null)} : null; }
+function metTick(dt){
+  if(!MET) return;
+  for(const a of agents){ const d=MET.dwell[a.team.idx]; d[a.room]=(d[a.room]||0)+dt/a.team.members.length; }
+  for(const t of teams) if(t.state==='waiting' && t.waitRoom){ const w=MET.wait[t.idx]; w[t.waitRoom]=(w[t.waitRoom]||0)+dt; }
+}
+function metTier(t,st){ if(!MET) return; const f=st.room.f; if(MET.lastF[t.idx]!==null && MET.lastF[t.idx]!==f) MET.moves[t.idx]++; MET.lastF[t.idx]=f; }
+function metCount(kind,t,puz){ if(!MET) return; const o=MET[kind][t.idx]; o[puz]=(o[puz]||0)+1; }
+function metSnapshot(){
+  if(!MET) return null;
+  return {rooms:ROOMS.map(r=>({id:r.id,name:r.name,f:r.final?'최종':(r.start?'출발':tierName(r.f))})), teams:teams.map(t=>({name:t.name,
+    dwell:MET.dwell[t.idx], wait:MET.wait[t.idx], hint:MET.hint[t.idx], wrong:MET.wrong[t.idx], moves:MET.moves[t.idx],
+    solved:Object.fromEntries((t.record||[]).map(x=>[x.room,x.puzzle])) }))};
+}
+const BOTTLENECK_SEC=120;
+function metricsCSV(r){
+  const m=r.metrics, q=s=>`"${String(s??'').replace(/"/g,'""')}"`;
+  const head=['팀','장소','단계','체류(초·팀원 평균)','대기(초)','병목(대기 '+BOTTLENECK_SEC+'초 이상이면 Fail)','푼 퍼즐','힌트 요구','오답','층간 이동(팀 합계)'];
+  const rows=[];
+  for(const t of m.teams){
+    for(const rm of m.rooms){
+      const dw=Math.round(t.dwell[rm.id]||0), wt=Math.round(t.wait[rm.id]||0); const pz=t.solved[rm.name]||'';
+      const puzzles=(SCN&&SCN.rooms[rm.id]&&SCN.rooms[rm.id].puzzles||[]).map(p=>p[0]);
+      const hi=puzzles.reduce((s,p)=>s+(t.hint[p]||0),0), wr=puzzles.reduce((s,p)=>s+(t.wrong[p]||0),0);
+      if(!dw && !wt && !pz) continue;
+      rows.push([t.name,rm.name,rm.f,dw,wt,wt>=BOTTLENECK_SEC?'Fail':'Pass',pz,hi,wr,'']);
+    }
+    const sum=(o)=>Math.round(Object.values(o).reduce((a,b)=>a+b,0));
+    rows.push([t.name,'(팀 합계)','',sum(t.dwell),sum(t.wait),sum(t.wait)>=BOTTLENECK_SEC?'Fail':'Pass',Object.keys(t.solved).length+'개',sum(t.hint),sum(t.wrong),t.moves]);
+  }
+  return '﻿'+head.map(q).join(',')+'\n'+rows.map(x=>x.map(q).join(',')).join('\n');
+}
+
+/* 엔딩 (P1-2): 성공 / 시간 초과 / 정체(대기가 제한 시간의 stuckWait 이상이거나 단서 1개 이하) */
+function endingOf(t){
+  if(t.finish!==null) return 'success';
+  return (t.waitTotal>=LIMIT*FUN.stuckWait || t.clues<=1) ? 'stuck' : 'timeout';
+}
+const END_LABEL={success:'성공', timeout:'시간 초과', stuck:'정체'};
+
+/* 히트맵 (P1-3) — 별마다 바닥 원판 색: 파랑(적게 머묾) → 노랑 → 빨강(오래 머묾) */
+let heatOn=false, heatDiscs=[];
+function buildHeat(){
+  heatDiscs.forEach(d=>d.parent&&d.parent.remove(d)); heatDiscs=[];
+  if(!(FUN_ON&&FUN.heatmap)) return;
+  for(const r of ROOMS){ const m=new THREE.MeshBasicMaterial({color:0x3366ff,transparent:true,opacity:.6,depthWrite:false,toneMapped:false,polygonOffset:true,polygonOffsetFactor:-8,polygonOffsetUnits:-8});
+    const d=new THREE.Mesh(new THREE.CircleGeometry(r.r*.92,40),m); d.rotation.x=-Math.PI/2; d.position.set(r.x,r.y+.09,r.z); d.renderOrder=4; d.visible=false; d.raycast=()=>{}; d.userData.room=r.id; worldRoot.add(d); heatDiscs.push(d); }
+}
+const _hc=new THREE.Color();
+function updateHeat(){
+  if(!heatOn||!MET) return;
+  const tot={}; MET.dwell.forEach(o=>{ for(const k in o) tot[k]=(tot[k]||0)+o[k]; });
+  const mx=Math.max(1,...Object.values(tot));
+  for(const d of heatDiscs){ const v=(tot[d.userData.room]||0)/mx; _hc.setHSL((1-v)*.62,.9,.5); d.material.color.copy(_hc); d.visible=true; }
+}
+function setHeat(on){ heatOn=on&&heatDiscs.length>0; heatDiscs.forEach(d=>d.visible=false); if(heatOn) updateHeat(); }
+
+/* 여행 일지 (P1-1) — 기록(events)으로 문장을 새로 만듦. CSV·텍스트 원본은 그대로 */
+function journalHTML(r){
+  if(!r.journal) return '<p class="muted">이 기록에는 여행 일지 정보가 없어요.</p>';
+  const J=r.journal, mm=s=>Math.max(1,Math.round(s/60))+'분', nm=x=>String(x||'').replace(/\s*\(최종\)/,''), jo=(w,a,b)=>esc(josa(nm(w),a,b));
+  return J.teams.map(t=>{
+    const lines=[`<b style="color:${t.color}">${esc(t.name)}</b> — ${esc(t.members.join(', '))}`];
+    lines.push(`${jo(J.start,'을','를')} 떠났어요.`);
+    for(const x of t.steps){
+      if(x.k==='go') lines.push(`${mm(x.s)}째, ${esc(nm(x.room))}에 닿아 「${esc(x.puzzle)}」에 매달렸어요.`);
+      else if(x.k==='wait') lines.push(`다른 팀이 자리를 쓰고 있어 ${esc(nm(x.room))}에서 ${mm(x.w)} 동안 기다렸어요.`);
+      else if(x.k==='hint') lines.push(`막혀서 힌트를 하나 꺼냈어요${x.trade?' (시간을 내주고 더 큰 힌트를 받았어요)':''}.`);
+      else if(x.k==='wrong') lines.push(`답을 맞혀 봤지만 틀렸어요. 다시 처음부터 살펴봤어요.`);
+      else if(x.k==='delay') lines.push(x.tier?`${esc(nm(x.room))}까지 별다리를 건너느라 시간이 걸렸어요.`:`${jo(x.room,'을','를')} 한참 둘러본 뒤에야 실마리가 보였어요.`);
+      else if(x.k==='solve') lines.push(`${esc(x.finder)}의 눈썰미로 ${jo(J.clue,'을','를')} 얻었어요 (${x.n}/${J.total}).${x.card?` <span class="muted">— 별 카드: “${esc(x.card)}”</span>`:''}`);
+      else if(x.k==='escape') lines.push(`${mm(x.s)}째, ${jo(x.finder,'이가','가')} 마지막 「${esc(x.puzzle)}」까지 풀었어요.`);
+    }
+    if(t.ending) lines.push(`<i>${esc(t.ending)}</i>`);
+    return `<div class="jr">${lines.map(l=>`<p>${l}</p>`).join('')}</div>`;
+  }).join('');
+}
+let JR=null;   // 팀별 일지 단계
+function jrReset(){ JR = FUN_ON&&FUN.journal ? teams.map(()=>[]) : null; }
+function jr(t,step){ if(JR) JR[t.idx].push(step); }
+function journalSnapshot(){
+  if(!JR) return null;
+  return {start:roomById.lobby.name, clue:SCN.clue, total:TOTAL()+1, teams:teams.map(t=>({name:t.name,color:t.css,members:t.members.map(m=>m.name),steps:JR[t.idx],
+    ending:FUN.endings?FUN.endings[endingOf(t)]:''}))};
+}
+
+/* 별 카드 도감 (B5) — 푼 별의 문장 카드를 모음. 결과에만 쓰고 시뮬레이션에는 영향 없음 */
+function cardOf(roomId){ return FUN_ON&&FUN.starCards ? FUN.starCards[roomId]||null : null; }
+
+/* 오늘의 시드 (A8) */
+function dailySeed(d=new Date()){ const k=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate(); return 10000+((k*2654435761)>>>0)%90000; }
+
+/* 재미 설정 창 */
+function openFun(){
+  let el=document.getElementById('funView');
+  if(!el){ el=document.createElement('div'); el.id='funView'; el.className='modal'; document.body.appendChild(el);
+    el.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:60'; }
+  const u=LS.get(funKey(),{});
+  const ck=(k,lab,dis)=>`<label style="display:block;margin:4px 0"><input type="checkbox" data-k="${k}" ${(u[k]!==undefined?u[k]:(SCN.opts[k]!==undefined&&SCN.opts[k]!==null&&SCN.opts[k]!==false))?'checked':''} ${dis?'disabled':''}> ${lab}</label>`;
+  const diff=u.difficulty||SCN.opts.difficulty||'normal';
+  el.innerHTML=`<div class="card" style="max-width:440px;width:92%"><h2>🎲 재미 설정 — ${esc(SCN.title.split('—')[0].trim())}</h2>
+   <p class="muted">이 기기에만 저장돼요. 바꾸면 같은 시드로 새 게임을 시작해요.</p>
+   <h3>난이도</h3><select id="funDiff">${Object.entries(FUN_PRESETS).map(([k,p])=>`<option value="${k}" ${k===diff?'selected':''}>${p.label}</option>`).join('')}</select>
+   <div class="muted" id="funDiffNote" style="margin-top:4px"></div>
+   <h3>규칙</h3>${ck('timeTrade','⏳ 시간 거래: 힌트가 더 크게 도와주는 대신 팀 기록에 1분 30초가 더해져요')}
+   <h3>보기 (결과에 영향 없음)</h3>${ck('journal','📖 여행 일지')}${ck('endings','🌅 엔딩 문구')}${ck('starCards','⭐ 별 카드 도감')}${ck('heatmap','🔥 체류 히트맵 (보기 메뉴)')}${ck('metrics','📈 지표 CSV')}
+   <div class="row" style="margin-top:12px"><button class="go" id="funApply">적용하고 새 게임</button><button id="funClose">닫기</button></div></div>`;
+  const note=()=>{ const p=FUN_PRESETS[el.querySelector('#funDiff').value]; el.querySelector('#funDiffNote').textContent = el.querySelector('#funDiff').value==='normal'?'예전과 똑같이 진행돼요.':`퍼즐 시간 ×${p.durScale} · 오답 ${Math.round(p.wrongRate*100)}% · 탐색 지연 약 ${p.searchDelay}초 · 층간 이동 약 ${p.tierMove}초`; };
+  el.querySelector('#funDiff').onchange=note; note();
+  el.querySelector('#funClose').onclick=()=>el.style.display='none';
+  el.querySelector('#funApply').onclick=()=>{ const o={difficulty:el.querySelector('#funDiff').value}; el.querySelectorAll('[data-k]').forEach(c=>o[c.dataset.k]=c.checked);
+    LS.set(funKey(),o); el.style.display='none'; loadFun(); syncFunUI(); newGame(SEED); toast('재미 설정을 적용했어요'); };
+  el.style.display='flex';
+}
+function syncFunUI(){
+  const ms=document.getElementById('menuSel'), vs=document.getElementById('viewSel');
+  const addOpt=(sel,val,txt,before)=>{ let o=sel.querySelector(`option[value="${val}"]`); if(!o){ o=document.createElement('option'); o.value=val; const b=before&&sel.querySelector(`option[value="${before}"]`); sel.insertBefore(o,b||null); } o.textContent=txt; };
+  const rm=(sel,val)=>{ const o=sel.querySelector(`option[value="${val}"]`); if(o) o.remove(); };
+  if(FUN_ON){ addOpt(ms,'fun','🎲 재미 설정','edit'); if(FUN.daily) addOpt(ms,'daily',`📅 오늘의 시드 (${dailySeed()})`,'edit'); else rm(ms,'daily'); }
+  else { rm(ms,'fun'); rm(ms,'daily'); }
+  if(FUN_ON&&FUN.heatmap) addOpt(vs,'heat','보기: 🔥 체류 히트맵','roof'); else rm(vs,'heat');
+  buildHeat(); setHeat(false);
+}
+
+
+function funResultHTML(ranked){
+  if(!FUN_ON) return ''; let h='';
+  if(FUN.endings) h+='<h3>엔딩</h3><table>'+ranked.map(t=>{ const e=endingOf(t); return `<tr><td style="color:${t.css}"><b>${esc(t.name)}</b></td><td class="muted">${END_LABEL[e]}</td><td>${esc(FUN.endings[e]||'')}</td></tr>`; }).join('')+'</table>';
+  if(FUN.starCards){ const n=Object.keys(FUN.starCards).length; h+='<h3>⭐ 별 카드 도감</h3>'+ranked.map(t=>`<div style="margin:2px 0"><b style="color:${t.css}">${esc(t.name)}</b> ${t.cards.length}/${n}장 <span class="muted">${t.cards.map(id=>esc(roomById[id].short)).join(' · ')||'아직 없음'}</span></div>`).join(''); }
+  if(simChanged()) h+=`<p class="muted" style="margin-top:6px">재미 설정: 난이도 ${FUN_PRESETS[FUN.difficulty].label}${FUN.timeTrade?' · 시간 거래':''}</p>`;
+  return h;
+}
+function funRecord(r){ if(!FUN_ON) return; const m=metSnapshot(); if(m) r.metrics=m; const j=journalSnapshot(); if(j) r.journal=j; r.fun={schema:SCN_SCHEMA,difficulty:FUN.difficulty,timeTrade:FUN.timeTrade}; }
+function funRulesHTML(){
+  if(!FUN_ON) return '';
+  const p=FUN_PRESETS[FUN.difficulty]||FUN_PRESETS.normal; const L=[];
+  L.push(`<li>난이도: <b>${p.label}</b>${FUN.difficulty==='normal'?'':` — 퍼즐 시간 ×${FUN.durScale}, 다 풀었을 때 오답일 확률 ${Math.round(FUN.wrongRate*100)}%(한 퍼즐에 최대 2번), 도착 후 탐색 약 ${FUN.searchDelay}초, 다른 단계로 넘어가면 약 ${FUN.tierMove}초 더`}</li>`);
+  if(FUN.timeTrade) L.push(`<li>⏳ 시간 거래: 힌트가 진행률을 ${Math.round(FUN.tradeBonus*100)}% 올려 주는 대신 팀 기록에 ${fmt(FUN.tradeCost)}가 더해져요. 순위는 더한 기록으로 매겨요.</li>`);
+  if(FUN.starCards) L.push(`<li>⭐ 별을 하나 풀 때마다 그 별의 문장 카드를 모아요 (결과에 영향 없음).</li>`);
+  if(FUN.endings) L.push(`<li>🌅 끝나면 팀마다 성공·시간 초과·정체 엔딩 문구가 나와요. 정체는 기다린 시간이 제한 시간의 ${Math.round(FUN.stuckWait*100)}% 이상이거나 ${SCN.clue}을 1개 이하로 모은 경우예요.</li>`);
+  if(FUN.journal) L.push(`<li>📖 기록 보기에서 팀별 여행 일지를 읽을 수 있어요.</li>`);
+  if(FUN.heatmap) L.push(`<li>🔥 보기 메뉴의 체류 히트맵: 오래 머문 별일수록 빨갛게 보여요.</li>`);
+  if(FUN.metrics) L.push(`<li>📈 기록 보기에서 지표 CSV(장소별 체류·대기·병목·힌트·오답·층간 이동)를 받을 수 있어요.</li>`);
+  return `<h3>🎲 재미 설정 (메뉴에서 바꿔요)</h3><ul>${L.join('')}</ul>`;
 }
 
 /* ================= UI ================= */
@@ -1651,6 +1863,7 @@ function rulesHTML(){
   <h3>아이디어와 힌트</h3><ul><li><b>아이디어:</b> 가끔 한 학생이 실마리를 찾아 진행률이 껑충 올라요.</li><li><b>힌트:</b> 팀당 최대 3번. 오래 막히면 요청하고, 진행률이 20% 올라요.</li></ul>
   <h3>기다리기</h3><p>가야 할 ${W_('place')}이나 ${ft}가 모두 차 있으면 지금 있는 ${W_('place')}에서 기다려요. 머리 위에 <b>⏳ 대기 시간</b>이 표시돼요.</p>
   <h3>끝나는 조건</h3><p>4팀이 모두 ${DONE()}하거나 ${mins}분이 지나면 끝나요. 끝나면 순위·기록·팀별 MVP가 나와요.</p>
+  ${funRulesHTML()}
   <h3>화면 보는 법</h3><ul><li>팀 머리 위: 🔍 풀이 중(진행률) · → 이동 · ⏳ 대기 · ${DONE_ICON()} ${DONE()}</li><li>퍼즐 대 위 막대가 진행률이에요.</li><li>학생을 탭하면 이름·능력치·지금 하는 일이 보여요.</li><li>1x/3x/8x로 속도를 바꿔요. 1x에서 60분 게임이 약 10분이에요.</li><li>📋 기록으로 지금까지 일어난 일을 모두 볼 수 있어요.</li><li>맨 위 제목 메뉴에서 다른 맵을 불러올 수 있어요.</li></ul>`;
 }
 
@@ -1682,10 +1895,10 @@ document.getElementById('closeRes').onclick=()=>document.getElementById('result'
 const hud=document.getElementById('hud');
 document.getElementById('toggle').onclick=e=>{ hud.classList.toggle('collapsed'); e.target.textContent=hud.classList.contains('collapsed')?'▾':'▴'; };
 document.getElementById('spSel').onchange=e=>document.querySelector(`[data-sp="${e.target.value}"]`).click();
-document.getElementById('viewSel').onchange=e=>{ const v=e.target.value; const rf=v==='roof'; roofs.forEach(r=>r.visible=rf||!!MAP.roofGhost); if(MAP.roofGhost) setRoofMode(rf); labels.forEach(l=>l.visible=!rf); focus=rf?'all':v; aimCamera(); };
+document.getElementById('viewSel').onchange=e=>{ const v0=e.target.value; setHeat(v0==='heat'); const v=v0==='heat'?'all':v0; const rf=v==='roof'; roofs.forEach(r=>r.visible=rf||!!MAP.roofGhost); if(MAP.roofGhost) setRoofMode(rf); labels.forEach(l=>l.visible=!rf); focus=rf?'all':v; aimCamera(); };
 document.getElementById('menuSel').onchange=e=>{ const v=e.target.value; e.target.value='';
   if(v==='rules'){ if(SCN) showRules(); } else if(v==='rec') showRecord(currentRecord()); else if(v==='new') document.getElementById('reset').click(); else if(v==='app') window.__installApp();
-  else if(v==='edit') openEditor('rooms'); else if(v==='editmap') openEditor('map'); else if(v==='mynew') openEditor('file'); else if(v==='hist') openHistory(); else if(v==='offline') cacheAll(); else if(v==='style'){ try{ localStorage.setItem('escStyle', TOON?'classic':'toon'); }catch(_){ } location.replace(location.pathname+location.search.replace(/[?&]classic/,'')+location.hash); setTimeout(()=>location.reload(),50); } };
+  else if(v==='edit') openEditor('rooms'); else if(v==='editmap') openEditor('map'); else if(v==='mynew') openEditor('file'); else if(v==='hist') openHistory(); else if(v==='offline') cacheAll(); else if(v==='fun') openFun(); else if(v==='daily'){ newGame(dailySeed()); toast('오늘의 시드 '+dailySeed()+'로 새 게임을 준비했어요'); } else if(v==='style'){ try{ localStorage.setItem('escStyle', TOON?'classic':'toon'); }catch(_){ } location.replace(location.pathname+location.search.replace(/[?&]classic/,'')+location.hash); setTimeout(()=>location.reload(),50); } };
 
 let focus='all';
 let camGoal=null;
@@ -1732,7 +1945,7 @@ function showResult(){
   document.getElementById('resBody').innerHTML='<table>'+ranked.map((t,i)=>{
     const mvp=t.members.slice().sort((a,b)=>b.contrib-a.contrib)[0];
     return `<tr><td>${t.finish!==null?(i+1)+'위':'-'}</td><td style="color:${t.css}"><b>${t.name}</b></td><td>${t.finish!==null?fmt(t.finish):'실패 ('+t.clues+'/'+(TOTAL()+1)+')'}</td><td class="muted">힌트 ${t.hints} · MVP ${mvp.name}</td></tr>`;
-  }).join('')+'</table>';
+  }).join('')+'</table>'+funResultHTML(ranked);
   document.getElementById('result').style.display='flex';
   if(!histSaved){ histSaved=true; saveHistory(); }
 }
@@ -1786,7 +1999,7 @@ function frame(now){
     else if(tm.state==='failed') txt+=' ✖ 실패';
     if(txt!==tm.tagText){ tm.tagText=txt; const old=tm.tag.material.map; const nl=label(txt,3.6,'#ffffff',tm.css); tm.tag.material.map=nl.material.map; tm.tag.scale.copy(nl.scale); old.dispose(); }
   });
-  updateBubbles(); updateZones(t);
+  updateBubbles(); updateZones(t); if(heatOn && (frame._h=(frame._h||0)+1)%20===0) updateHeat();
   updateDayCycle();
   if(camGoal){ const k=1-Math.exp(-rdt*5); controls.target.lerp(camGoal.t,k); camera.position.lerp(camGoal.p,k); if(camera.position.distanceTo(camGoal.p)<.5) camGoal=null; }
   controls.update();
@@ -1858,6 +2071,7 @@ function buildWorld(){
   if(LOWPOWER){ let n=0; worldRoot.traverse(o=>{ if(o.isPointLight){ n++; if(n>4) o.visible=false; } }); }
   buildStations(); initNav(); setupDayCycle(); updateDayCycle();
   applyInk(worldRoot, true);
+  syncFunUI(); if(FUN_ON){ const iss=validateScenario(); if(iss.length){ console.warn('시나리오 점검',iss); setTimeout(()=>toast('시나리오 점검: '+iss[0]),800); } }
 
 }
 function loadMap(id,quiet){
@@ -1990,6 +2204,7 @@ function saveHistory(){
   const rec={at:new Date().toISOString(),mapId:e.id,title:e.title,seed:SEED,reason:endReason,clock,total:TOTAL()+1,
     ranking:ranked.map((t,i)=>({rank:t.finish!==null?i+1:null,team:t.name,color:t.css,time:t.finish!==null?fmt(t.finish):null,clues:t.clues,hints:t.hints,mvp:t.members.slice().sort((a,b)=>b.contrib-a.contrib)[0].name,members:t.members.map(m=>m.name)})),
     events:events.map(x=>({t:x.t,team:x.team,text:x.text,detail:x.detail}))};
+  funRecord(rec);
   const h=LS.get('escHistory',[]); h.unshift(rec); while(h.length>40) h.pop(); LS.set('escHistory',h);
 }
 function recText(r){ return `${r.title} — 시뮬레이션 기록\n${new Date(r.at).toLocaleString('ko-KR')} · 시드 ${r.seed}\n${r.reason||''}\n\n[순위]\n`+r.ranking.map(t=>`${t.rank?t.rank+'위':'-'} ${t.team} ${t.time||'실패 ('+t.clues+'/'+(r.total||5)+')'} · 힌트 ${t.hints} · MVP ${t.mvp} · ${t.members.join(', ')}`).join('\n')+`\n\n[시간대별 기록]\n`+r.events.map(x=>`[${x.t}] ${x.team?x.team+' | ':''}${x.text}${x.detail?' — '+x.detail:''}`).join('\n'); }
@@ -2003,9 +2218,16 @@ function openHistory(){
   document.getElementById('history').style.display='flex';
 }
 let curRec=null;
-function showRecord(r){ curRec=r; document.getElementById('recTitle').textContent=r.title; document.getElementById('recBody').innerHTML=recHTML(r); document.getElementById('recView').style.display='flex'; }
+function showRecord(r){ curRec=r; document.getElementById('recTitle').textContent=r.title; document.getElementById('recBody').innerHTML=recHTML(r); document.getElementById('recView').style.display='flex';
+  const row=document.querySelector('#recView .row');
+  let jb=document.getElementById('recJournal'); if(!jb){ jb=document.createElement('button'); jb.id='recJournal'; row.insertBefore(jb,row.firstChild); }
+  let mb=document.getElementById('recMetrics'); if(!mb){ mb=document.createElement('button'); mb.id='recMetrics'; mb.textContent='📈 지표 CSV'; row.insertBefore(mb,document.getElementById('recShare')); }
+  jb.style.display=r.journal?'':'none'; mb.style.display=r.metrics?'':'none';
+  let jv=false; jb.textContent='📖 여행 일지';
+  jb.onclick=()=>{ jv=!jv; document.getElementById('recBody').innerHTML=jv?journalHTML(r):recHTML(r); jb.textContent=jv?'📋 시간대별 기록':'📖 여행 일지'; };
+  mb.onclick=()=>downloadFile(`${r.title}_${r.at.slice(0,16).replace(/[:T]/g,'-')}_지표.csv`.replace(/[\\/:*?"<>|\s]/g,'_'),metricsCSV(r),'text/csv;charset=utf-8'); }
 function currentRecord(){ const e=curEntry(); const ranked=teams.slice().sort((a,b)=>(a.finish??1e9)-(b.finish??1e9)||b.clues-a.clues);
-  return {at:new Date().toISOString(),title:e?e.title:SCN.title,seed:SEED,reason:endReason||('진행 중 · 경과 '+fmt(clock)),ranking:ranked.map((t,i)=>({rank:t.finish!==null?i+1:null,team:t.name,color:t.css,time:t.finish!==null?fmt(t.finish):null,clues:t.clues,hints:t.hints,mvp:t.members.slice().sort((a,b)=>b.contrib-a.contrib)[0].name,members:t.members.map(m=>m.name)})),events:events.map(x=>({t:x.t,team:x.team,text:x.text,detail:x.detail}))}; }
+  const r={at:new Date().toISOString(),title:e?e.title:SCN.title,seed:SEED,reason:endReason||('진행 중 · 경과 '+fmt(clock)),ranking:ranked.map((t,i)=>({rank:t.finish!==null?i+1:null,team:t.name,color:t.css,time:t.finish!==null?fmt(t.finish):null,clues:t.clues,hints:t.hints,mvp:t.members.slice().sort((a,b)=>b.contrib-a.contrib)[0].name,members:t.members.map(m=>m.name)})),events:events.map(x=>({t:x.t,team:x.team,text:x.text,detail:x.detail}))}; funRecord(r); return r; }
 function bindAppUI(){
   document.querySelectorAll('#edTabs button').forEach(b=>b.onclick=()=>{ collectEditor(); edTab=b.dataset.t; renderEditor(); });
   document.getElementById('edApply').onclick=()=>applyEditor(false);
@@ -2049,6 +2271,7 @@ requestAnimationFrame(frame);
 init();
 window.__segs=()=>bridgeSegs.map(s=>s.from+'-'+s.to+':'+(s.pier?'P':'R')).join(' ');
 window.__teams=()=>teams; window.__cam3=camera; window.__scene=scene; window.__renderer=renderer;
+window.__fun={validate:()=>validateScenario(), get:()=>FUN, on:()=>FUN_ON, metrics:()=>metSnapshot(), journal:()=>journalSnapshot(), csv:()=>metricsCSV({metrics:metSnapshot()}), record:()=>currentRecord(), journalHTML:()=>journalHTML(currentRecord()), result:()=>{ const r=teams.slice().sort((a,b)=>(a.finish??1e9)-(b.finish??1e9)||b.clues-a.clues); return funResultHTML(r); }, set:(o)=>{ LS.set(funKey(),o); loadFun(); syncFunUI(); }, daily:dailySeed};
 window.__toonIcons=()=>{ const kinds=[['obs',.6],['logic',.35],['both',.85],['search'],['hint'],['check'],['wait'],['angry'],['star'],['x'],['alert']];
   const out=document.createElement('canvas'); out.width=128*kinds.length; out.height=128; const x=out.getContext('2d');
   kinds.forEach((k,i)=>{ const s=makeBubble(); drawBubble(s,k[0],k.length>1?k[1]:null); x.drawImage(s.userData.c,i*128,0); });
