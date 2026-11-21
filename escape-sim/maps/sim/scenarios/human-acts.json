@@ -1,4 +1,5 @@
 {
+ "schema": 2,
  "id": "human-acts",
  "title": "소년이 온다 — 기억의 책을 잇다",
  "subtitle": "독서 방탈출 · 중학생 20명 · 4팀 · 제한시간 60분 · 도전 · 4단계 8곳 · 두 갈래 땋은 길형",
@@ -359,5 +360,43 @@
    "장 제목 순서를 기억해 냄",
    "빠진 조각을 찾아냄"
   ]
+ },
+ "opts": {
+  "difficulty": "normal",
+  "wrongRate": 0,
+  "searchDelay": 0,
+  "tierMove": 0,
+  "durScale": 1,
+  "timeTrade": false,
+  "tradeBonus": 0.35,
+  "tradeCost": 90,
+  "journal": true,
+  "heatmap": true,
+  "metrics": true,
+  "daily": true,
+  "stuckWait": 0.25,
+  "endings": {
+   "success": "기억의 책을 함께 엮었어요. 그날을 살았던 사람들의 이름을 오래 기억할게요.",
+   "timeout": "시간이 다 되었어요. 다 읽지 못한 이야기는 책을 펼쳐 다시 만나요.",
+   "stuck": "골목길에서 오래 머물렀어요. 서두르지 말고, 한 사람 한 사람의 목소리에 귀 기울여 봐요."
+  },
+  "starCards": {
+   "edu": "1장: 친구를 찾던 열다섯 살 소년의 마음을 떠올려요.",
+   "cafe": "2장: 말할 수 없었던 이들의 목소리를 대신 들어요.",
+   "kids": "3장: 기억을 지우라는 압박 속에서도 진실은 남아요.",
+   "clubA": "4장: 살아남은 사람이 짊어진 시간을 헤아려요.",
+   "clubB": "5장: 오래 지난 뒤에도 끝나지 않은 아픔이 있어요.",
+   "stacks": "6장: 자식을 그리는 어머니의 기다림을 생각해요.",
+   "digital": "에필로그: 작가가 이 이야기를 쓰게 된 까닭을 읽어요.",
+   "archive": "5·18 기록관: 기록은 기억을 지키는 힘이에요.",
+   "vault": "기억의 방: 함께 기억하는 일이 우리가 할 수 있는 일이에요."
+  },
+  "cardName": "기억의 문장",
+  "cardIcon": "🕯",
+  "endLabels": {
+   "success": "기억함",
+   "timeout": "시간 끝",
+   "stuck": "머묾"
+  }
  }
 }

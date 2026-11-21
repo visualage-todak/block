@@ -1655,7 +1655,7 @@ function tickSim(dt){
    P0-2 오답·탐색 지연·층간 이동 / P0-3 지표 CSV / P0-4 schema·기본값 / P1-1 여행 일지 / P1-2 엔딩 / P1-3 히트맵
    A2 시간 거래 / A7 난이도 / A8 오늘의 시드 / B5 별 카드 도감 */
 const FUN_DEF={difficulty:'normal', wrongRate:0, searchDelay:0, tierMove:0, durScale:1, timeTrade:false, tradeBonus:.35, tradeCost:90,
-  journal:false, endings:null, heatmap:false, metrics:false, starCards:null, cardName:'카드', cardIcon:'⭐', daily:false, stuckWait:.25};
+  journal:false, endings:null, heatmap:false, metrics:false, starCards:null, cardName:'카드', cardIcon:'⭐', endLabels:null, daily:false, stuckWait:.25};
 const FUN_PRESETS={ easy:{label:'쉬움', durScale:.85, wrongRate:0, searchDelay:0, tierMove:0},
   normal:{label:'보통 (기존과 같음)'},
   hard:{label:'어려움', durScale:1.1, wrongRate:.2, searchDelay:20, tierMove:20} };
@@ -1728,6 +1728,7 @@ function endingOf(t){
   return (t.waitTotal>=LIMIT*FUN.stuckWait || t.clues<=1) ? 'stuck' : 'timeout';
 }
 const END_LABEL={success:'성공', timeout:'시간 초과', stuck:'정체'};
+const endLabel=e=>(FUN.endLabels&&FUN.endLabels[e])||END_LABEL[e];
 
 /* 히트맵 (P1-3) — 별마다 바닥 원판 색: 파랑(적게 머묾) → 노랑 → 빨강(오래 머묾) */
 let heatOn=false, heatDiscs=[];
@@ -1816,7 +1817,7 @@ function syncFunUI(){
 
 function funResultHTML(ranked){
   if(!FUN_ON) return ''; let h='';
-  if(FUN.endings) h+='<h3>엔딩</h3><table>'+ranked.map(t=>{ const e=endingOf(t); return `<tr><td style="color:${t.css};white-space:nowrap"><b>${esc(t.name)}</b></td><td class="muted" style="white-space:nowrap">${END_LABEL[e]}</td><td>${esc(FUN.endings[e]||'')}</td></tr>`; }).join('')+'</table>';
+  if(FUN.endings) h+='<h3>엔딩</h3><table>'+ranked.map(t=>{ const e=endingOf(t); return `<tr><td style="color:${t.css};white-space:nowrap"><b>${esc(t.name)}</b></td><td class="muted" style="white-space:nowrap">${esc(endLabel(e))}</td><td>${esc(FUN.endings[e]||'')}</td></tr>`; }).join('')+'</table>';
   if(FUN.starCards){ const n=Object.keys(FUN.starCards).length; h+=`<h3>${esc(FUN.cardIcon)} ${esc(FUN.cardName)} 도감</h3>`+ranked.map(t=>`<div style="margin:2px 0"><b style="color:${t.css}">${esc(t.name)}</b> ${t.cards.length}/${n}장 <span class="muted">${t.cards.map(id=>esc(roomById[id].short)).join(' · ')||'아직 없음'}</span></div>`).join(''); }
   if(simChanged()) h+=`<p class="muted" style="margin-top:6px">재미 설정: 난이도 ${FUN_PRESETS[FUN.difficulty].label}${FUN.timeTrade?' · 시간 거래':''}</p>`;
   return h;
@@ -1828,7 +1829,7 @@ function funRulesHTML(){
   L.push(`<li>난이도: <b>${p.label}</b>${FUN.difficulty==='normal'?'':` — 퍼즐 시간 ×${FUN.durScale}, 다 풀었을 때 오답일 확률 ${Math.round(FUN.wrongRate*100)}%(한 퍼즐에 최대 2번), 도착 후 탐색 약 ${FUN.searchDelay}초, 다른 단계로 넘어가면 약 ${FUN.tierMove}초 더`}</li>`);
   if(FUN.timeTrade) L.push(`<li>⏳ 시간 거래: 힌트가 진행률을 ${Math.round(FUN.tradeBonus*100)}% 올려 주는 대신 팀 기록에 ${fmt(FUN.tradeCost)}가 더해져요. 순위는 더한 기록으로 매겨요.</li>`);
   if(FUN.starCards) L.push(`<li>${esc(FUN.cardIcon)} ${esc(josa(W_('place'),'을','를'))} 하나 풀 때마다 그 ${esc(W_('place'))}의 ${esc(josa(FUN.cardName,'을','를'))} 모아요 (결과에 영향 없음).</li>`);
-  if(FUN.endings) L.push(`<li>🌅 끝나면 팀마다 성공·시간 초과·정체 엔딩 문구가 나와요. 정체는 기다린 시간이 제한 시간의 ${Math.round(FUN.stuckWait*100)}% 이상이거나 ${SCN.clue}을 1개 이하로 모은 경우예요.</li>`);
+  if(FUN.endings) L.push(`<li>🌅 끝나면 팀마다 ${esc(endLabel('success'))}·${esc(endLabel('timeout'))}·${esc(endLabel('stuck'))} 엔딩 문구가 나와요. ${esc(endLabel('stuck'))}은 기다린 시간이 제한 시간의 ${Math.round(FUN.stuckWait*100)}% 이상이거나 ${SCN.clue}을 1개 이하로 모은 경우예요.</li>`);
   if(FUN.journal) L.push(`<li>📖 기록 보기에서 팀별 여행 일지를 읽을 수 있어요.</li>`);
   if(FUN.heatmap) L.push(`<li>🔥 보기 메뉴의 체류 히트맵: 오래 머문 ${esc(W_('place'))}일수록 빨갛게 보여요.</li>`);
   if(FUN.metrics) L.push(`<li>📈 기록 보기에서 지표 CSV(장소별 체류·대기·병목·힌트·오답·층간 이동)를 받을 수 있어요.</li>`);

@@ -1,4 +1,5 @@
 {
+  "schema": 2,
   "id": "dadada",
   "title": "다다다 다른 별 학교 — 열세 별에서 온 우리 반",
   "subtitle": "초등 3~4학년 20명 · 4팀 · 제한시간 40분 · 입문 · 2단계",
@@ -323,5 +324,37 @@
       "팀원 모두의 별 이름을 모음"
     ]
   },
-  "finalVerb": "완성하면"
+  "finalVerb": "완성하면",
+  "opts": {
+    "difficulty": "normal",
+    "wrongRate": 0,
+    "searchDelay": 0,
+    "tierMove": 0,
+    "durScale": 1,
+    "timeTrade": false,
+    "tradeBonus": 0.35,
+    "tradeCost": 90,
+    "journal": true,
+    "heatmap": true,
+    "metrics": true,
+    "daily": true,
+    "stuckWait": 0.25,
+    "endings": {
+      "success": "우리 반 별자리 지도가 완성됐어요. 모두 다른 별이라서 더 반짝여요.",
+      "timeout": "수업 종이 울렸어요. 다른 별 친구들과는 내일 다시 만나요.",
+      "stuck": "별다리 위에서 머뭇거렸어요. 나와 다른 친구에게 먼저 인사해 봐요."
+    },
+    "starCards": {
+      "edu": "작아도 별: 키가 작아도 할 수 있는 일이 아주 많아요.",
+      "cafe": "아맛나 별: 맛있는 걸 나누면 기쁨도 두 배예요.",
+      "kids": "생각대로 별: 엉뚱한 상상이 멋진 생각이 되기도 해요.",
+      "clubA": "두근두근 별: 걱정 많은 친구에게는 기다려 주는 말이 힘이 돼요.",
+      "clubB": "장난쳐 별: 함께 웃을 수 있어야 진짜 재미있는 장난이에요.",
+      "stacks": "반듯반듯 별: 차근차근 정리하는 친구 덕분에 길이 보여요.",
+      "digital": "물음표 별: 궁금한 걸 묻는 건 부끄러운 일이 아니에요.",
+      "vault": "나의 별: 나는 어느 별에서 왔을까요? 이름을 지어 봐요."
+    },
+    "cardName": "별 친구 카드",
+    "cardIcon": "⭐"
+  }
 }
