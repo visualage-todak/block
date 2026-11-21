@@ -1,4 +1,5 @@
 {
+ "schema": 2,
  "id": "shirt",
  "title": "만년 샤쓰 — 창남이의 등굣길",
  "subtitle": "초등 5~6학년 20명 · 4팀 · 제한시간 40분 · 입문 · 2단계 8곳 · 갈림길형",
@@ -292,5 +293,36 @@
    "성격과 행동을 짝지어 봄",
    "팀원 모두의 생각을 모음"
   ]
+ },
+ "opts": {
+  "difficulty": "normal",
+  "wrongRate": 0,
+  "searchDelay": 0,
+  "tierMove": 0,
+  "durScale": 1,
+  "timeTrade": false,
+  "tradeBonus": 0.35,
+  "tradeCost": 90,
+  "journal": true,
+  "heatmap": true,
+  "metrics": true,
+  "daily": true,
+  "stuckWait": 0.25,
+  "endings": {
+   "success": "운동장에 웃음이 퍼졌어요. 창남이의 만년 샤쓰는 오늘도 따뜻해요.",
+   "timeout": "종이 울려 버렸어요. 창남이는 그래도 웃으며 내일을 기다려요.",
+   "stuck": "골목에서 오래 머뭇거렸어요. 먼저 손 내미는 용기가 필요했어요."
+  },
+  "starCards": {
+   "burnt": "불탄 이웃집 터: 창남이는 제 옷을 벗어 이웃에게 건넸어요.",
+   "shop": "구멍가게: 가진 게 적어도 나눌 마음은 클 수 있어요.",
+   "well": "우물가: 찬물로 세수하고도 창남이는 웃었어요.",
+   "gate": "학교 교문: 늦을 뻔한 날에도 인사는 씩씩하게!",
+   "classroom": "교실: 우스갯소리 뒤에 숨은 깊은 마음을 알아봐요.",
+   "office": "교무실: 까닭을 들은 선생님이 조용히 고개를 끄덕였어요.",
+   "vault": "학교 운동장: '만년 샤쓰!' 웃음 속에 따뜻함이 있었어요."
+  },
+  "cardName": "칭찬 쪽지",
+  "cardIcon": "📝"
  }
 }

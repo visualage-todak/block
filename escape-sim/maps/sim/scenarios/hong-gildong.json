@@ -1,4 +1,5 @@
 {
+ "schema": 2,
  "id": "hong-gildong",
  "title": "홍길동전 — 활빈당의 길",
  "subtitle": "고전 방탈출 · 중학생 20명 · 4팀 · 제한시간 60분 · 기본 · 3단계 7곳 · Y자 두 갈래형",
@@ -325,5 +326,37 @@
    "길동이 걸어온 길을 떠올림",
    "빠진 조각을 찾아냄"
   ]
+ },
+ "opts": {
+  "difficulty": "normal",
+  "wrongRate": 0,
+  "searchDelay": 0,
+  "tierMove": 0,
+  "durScale": 1,
+  "timeTrade": false,
+  "tradeBonus": 0.35,
+  "tradeCost": 90,
+  "journal": true,
+  "heatmap": true,
+  "metrics": true,
+  "daily": true,
+  "stuckWait": 0.25,
+  "endings": {
+   "success": "율도국의 문이 열렸어요. 길동은 모두가 이름대로 불리는 나라의 왕이 되었어요.",
+   "timeout": "해가 저물어 배가 떠나 버렸어요. 활빈당의 길은 내일 다시 이어져요.",
+   "stuck": "갈림길에서 오래 맴돌았어요. 길동처럼 스스로 길을 낼 때예요."
+  },
+  "starCards": {
+   "edu": "길동의 별당: 부르고 싶은 이름을 부르지 못하는 마음을 헤아려요.",
+   "cafe": "고을 장터: 백성의 한숨 소리에서 길이 시작돼요.",
+   "kids": "활빈당 산채: 힘은 약한 이를 돕는 데 써야 해요.",
+   "clubA": "해인사: 꾀는 사람을 다치지 않게 할 때 빛나요.",
+   "clubB": "감영 창고: 빼앗긴 곡식은 주인에게 돌아가야 해요.",
+   "stacks": "한양 궁궐: 바른말은 높은 사람 앞에서도 해야 해요.",
+   "digital": "서해 나루터: 떠나는 사람은 새 세상을 꿈꿔요.",
+   "vault": "율도국 왕궁: 누구나 이름대로 불리는 나라를 세웠어요."
+  },
+  "cardName": "활빈 격문",
+  "cardIcon": "📜"
  }
 }

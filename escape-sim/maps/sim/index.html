@@ -1551,7 +1551,7 @@ function updateTeam(t,dt){
       const tier=(FUN.tierMove>0 && t.lastStF!==undefined && t.lastStF!==st.room.f);
       const d=(FUN.searchDelay>0?FUN.searchDelay*rnd(.5,1.5):0)+(tier?FUN.tierMove*rnd(.75,1.5):0);
       t.delayUntil=clock+d; t.lastStF=st.room.f;
-      t.members.forEach(m=>m.act=tier?'별다리를 건너와 숨 고르는 중':'주변 탐색 중');
+      t.members.forEach(m=>m.act=tier?`${josa(W_('link'),'을','를')} 건너와 숨 고르는 중`:'주변 탐색 중');
       ev('delay',t,`${t.name} ${st.room.name}에서 ${tier?'층간 이동·':''}탐색 ${Math.round(d)}초`, tier?`층간 이동 포함 (단계 바뀜)`:'퍼즐 대를 찾느라 시작이 늦어짐');
       jr(t,{k:'delay',room:st.room.name,tier});
       return;
@@ -1655,7 +1655,7 @@ function tickSim(dt){
    P0-2 오답·탐색 지연·층간 이동 / P0-3 지표 CSV / P0-4 schema·기본값 / P1-1 여행 일지 / P1-2 엔딩 / P1-3 히트맵
    A2 시간 거래 / A7 난이도 / A8 오늘의 시드 / B5 별 카드 도감 */
 const FUN_DEF={difficulty:'normal', wrongRate:0, searchDelay:0, tierMove:0, durScale:1, timeTrade:false, tradeBonus:.35, tradeCost:90,
-  journal:false, endings:null, heatmap:false, metrics:false, starCards:null, daily:false, stuckWait:.25};
+  journal:false, endings:null, heatmap:false, metrics:false, starCards:null, cardName:'카드', cardIcon:'⭐', daily:false, stuckWait:.25};
 const FUN_PRESETS={ easy:{label:'쉬움', durScale:.85, wrongRate:0, searchDelay:0, tierMove:0},
   normal:{label:'보통 (기존과 같음)'},
   hard:{label:'어려움', durScale:1.1, wrongRate:.2, searchDelay:20, tierMove:20} };
@@ -1749,7 +1749,7 @@ function setHeat(on){ heatOn=on&&heatDiscs.length>0; heatDiscs.forEach(d=>d.visi
 /* 여행 일지 (P1-1) — 기록(events)으로 문장을 새로 만듦. CSV·텍스트 원본은 그대로 */
 function journalHTML(r){
   if(!r.journal) return '<p class="muted">이 기록에는 여행 일지 정보가 없어요.</p>';
-  const J=r.journal, mm=s=>Math.max(1,Math.round(s/60))+'분', nm=x=>String(x||'').replace(/\s*\(최종\)/,''), jo=(w,a,b)=>esc(josa(nm(w),a,b));
+  const J=r.journal, mm=s=>Math.max(1,Math.round(s/60))+'분', nm=x=>String(x||'').replace(/\s*\([^)]*\)\s*$/,''), jo=(w,a,b)=>esc(josa(nm(w),a,b));
   return J.teams.map(t=>{
     const lines=[`<b style="color:${t.color}">${esc(t.name)}</b> — ${esc(t.members.join(', '))}`];
     lines.push(`${jo(J.start,'을','를')} 떠났어요.`);
@@ -1758,8 +1758,8 @@ function journalHTML(r){
       else if(x.k==='wait') lines.push(`다른 팀이 자리를 쓰고 있어 ${esc(nm(x.room))}에서 ${mm(x.w)} 동안 기다렸어요.`);
       else if(x.k==='hint') lines.push(`막혀서 힌트를 하나 꺼냈어요${x.trade?' (시간을 내주고 더 큰 힌트를 받았어요)':''}.`);
       else if(x.k==='wrong') lines.push(`답을 맞혀 봤지만 틀렸어요. 다시 처음부터 살펴봤어요.`);
-      else if(x.k==='delay') lines.push(x.tier?`${esc(nm(x.room))}까지 별다리를 건너느라 시간이 걸렸어요.`:`${jo(x.room,'을','를')} 한참 둘러본 뒤에야 실마리가 보였어요.`);
-      else if(x.k==='solve') lines.push(`${esc(x.finder)}의 눈썰미로 ${jo(J.clue,'을','를')} 얻었어요 (${x.n}/${J.total}).${x.card?` <span class="muted">— 별 카드: “${esc(x.card)}”</span>`:''}`);
+      else if(x.k==='delay') lines.push(x.tier?`${esc(nm(x.room))}까지 ${jo(J.link||'길','을','를')} ${/다리/.test(J.link||'')?'건너느라':'따라오느라'} 시간이 걸렸어요.`:`${jo(x.room,'을','를')} 한참 둘러본 뒤에야 실마리가 보였어요.`);
+      else if(x.k==='solve') lines.push(`${esc(x.finder)}의 눈썰미로 ${jo(J.clue,'을','를')} 얻었어요 (${x.n}/${J.total}).${x.card?` <span class="muted">— ${esc(J.cardName||'카드')}: “${esc(x.card)}”</span>`:''}`);
       else if(x.k==='escape') lines.push(`${mm(x.s)}째, ${jo(x.finder,'이가','가')} 마지막 「${esc(x.puzzle)}」까지 풀었어요.`);
     }
     if(t.ending) lines.push(`<i>${esc(t.ending)}</i>`);
@@ -1771,7 +1771,7 @@ function jrReset(){ JR = FUN_ON&&FUN.journal ? teams.map(()=>[]) : null; }
 function jr(t,step){ if(JR) JR[t.idx].push(step); }
 function journalSnapshot(){
   if(!JR) return null;
-  return {start:roomById.lobby.name, clue:SCN.clue, total:TOTAL()+1, teams:teams.map(t=>({name:t.name,color:t.css,members:t.members.map(m=>m.name),steps:JR[t.idx],
+  return {start:roomById.lobby.name, clue:SCN.clue, total:TOTAL()+1, link:W_('link'), cardName:FUN.cardName, teams:teams.map(t=>({name:t.name,color:t.css,members:t.members.map(m=>m.name),steps:JR[t.idx],
     ending:FUN.endings?FUN.endings[endingOf(t)]:''}))};
 }
 
@@ -1794,7 +1794,7 @@ function openFun(){
    <h3>난이도</h3><select id="funDiff">${Object.entries(FUN_PRESETS).map(([k,p])=>`<option value="${k}" ${k===diff?'selected':''}>${p.label}</option>`).join('')}</select>
    <div class="muted" id="funDiffNote" style="margin-top:4px"></div>
    <h3>규칙</h3>${ck('timeTrade','⏳ 시간 거래: 힌트가 더 크게 도와주는 대신 팀 기록에 1분 30초가 더해져요')}
-   <h3>보기 (결과에 영향 없음)</h3>${ck('journal','📖 여행 일지')}${ck('endings','🌅 엔딩 문구')}${ck('starCards','⭐ 별 카드 도감')}${ck('heatmap','🔥 체류 히트맵 (보기 메뉴)')}${ck('metrics','📈 지표 CSV')}
+   <h3>보기 (결과에 영향 없음)</h3>${ck('journal','📖 여행 일지')}${ck('endings','🌅 엔딩 문구')}${ck('starCards',esc(FUN.cardIcon+' '+FUN.cardName+' 도감'))}${ck('heatmap','🔥 체류 히트맵 (보기 메뉴)')}${ck('metrics','📈 지표 CSV')}
    <div class="row" style="margin-top:12px"><button class="go" id="funApply">적용하고 새 게임</button><button id="funClose">닫기</button></div></div>`;
   const note=()=>{ const p=FUN_PRESETS[el.querySelector('#funDiff').value]; el.querySelector('#funDiffNote').textContent = el.querySelector('#funDiff').value==='normal'?'예전과 똑같이 진행돼요.':`퍼즐 시간 ×${p.durScale} · 오답 ${Math.round(p.wrongRate*100)}% · 탐색 지연 약 ${p.searchDelay}초 · 층간 이동 약 ${p.tierMove}초`; };
   el.querySelector('#funDiff').onchange=note; note();
@@ -1816,8 +1816,8 @@ function syncFunUI(){
 
 function funResultHTML(ranked){
   if(!FUN_ON) return ''; let h='';
-  if(FUN.endings) h+='<h3>엔딩</h3><table>'+ranked.map(t=>{ const e=endingOf(t); return `<tr><td style="color:${t.css}"><b>${esc(t.name)}</b></td><td class="muted">${END_LABEL[e]}</td><td>${esc(FUN.endings[e]||'')}</td></tr>`; }).join('')+'</table>';
-  if(FUN.starCards){ const n=Object.keys(FUN.starCards).length; h+='<h3>⭐ 별 카드 도감</h3>'+ranked.map(t=>`<div style="margin:2px 0"><b style="color:${t.css}">${esc(t.name)}</b> ${t.cards.length}/${n}장 <span class="muted">${t.cards.map(id=>esc(roomById[id].short)).join(' · ')||'아직 없음'}</span></div>`).join(''); }
+  if(FUN.endings) h+='<h3>엔딩</h3><table>'+ranked.map(t=>{ const e=endingOf(t); return `<tr><td style="color:${t.css};white-space:nowrap"><b>${esc(t.name)}</b></td><td class="muted" style="white-space:nowrap">${END_LABEL[e]}</td><td>${esc(FUN.endings[e]||'')}</td></tr>`; }).join('')+'</table>';
+  if(FUN.starCards){ const n=Object.keys(FUN.starCards).length; h+=`<h3>${esc(FUN.cardIcon)} ${esc(FUN.cardName)} 도감</h3>`+ranked.map(t=>`<div style="margin:2px 0"><b style="color:${t.css}">${esc(t.name)}</b> ${t.cards.length}/${n}장 <span class="muted">${t.cards.map(id=>esc(roomById[id].short)).join(' · ')||'아직 없음'}</span></div>`).join(''); }
   if(simChanged()) h+=`<p class="muted" style="margin-top:6px">재미 설정: 난이도 ${FUN_PRESETS[FUN.difficulty].label}${FUN.timeTrade?' · 시간 거래':''}</p>`;
   return h;
 }
@@ -1827,10 +1827,10 @@ function funRulesHTML(){
   const p=FUN_PRESETS[FUN.difficulty]||FUN_PRESETS.normal; const L=[];
   L.push(`<li>난이도: <b>${p.label}</b>${FUN.difficulty==='normal'?'':` — 퍼즐 시간 ×${FUN.durScale}, 다 풀었을 때 오답일 확률 ${Math.round(FUN.wrongRate*100)}%(한 퍼즐에 최대 2번), 도착 후 탐색 약 ${FUN.searchDelay}초, 다른 단계로 넘어가면 약 ${FUN.tierMove}초 더`}</li>`);
   if(FUN.timeTrade) L.push(`<li>⏳ 시간 거래: 힌트가 진행률을 ${Math.round(FUN.tradeBonus*100)}% 올려 주는 대신 팀 기록에 ${fmt(FUN.tradeCost)}가 더해져요. 순위는 더한 기록으로 매겨요.</li>`);
-  if(FUN.starCards) L.push(`<li>⭐ 별을 하나 풀 때마다 그 별의 문장 카드를 모아요 (결과에 영향 없음).</li>`);
+  if(FUN.starCards) L.push(`<li>${esc(FUN.cardIcon)} ${esc(josa(W_('place'),'을','를'))} 하나 풀 때마다 그 ${esc(W_('place'))}의 ${esc(josa(FUN.cardName,'을','를'))} 모아요 (결과에 영향 없음).</li>`);
   if(FUN.endings) L.push(`<li>🌅 끝나면 팀마다 성공·시간 초과·정체 엔딩 문구가 나와요. 정체는 기다린 시간이 제한 시간의 ${Math.round(FUN.stuckWait*100)}% 이상이거나 ${SCN.clue}을 1개 이하로 모은 경우예요.</li>`);
   if(FUN.journal) L.push(`<li>📖 기록 보기에서 팀별 여행 일지를 읽을 수 있어요.</li>`);
-  if(FUN.heatmap) L.push(`<li>🔥 보기 메뉴의 체류 히트맵: 오래 머문 별일수록 빨갛게 보여요.</li>`);
+  if(FUN.heatmap) L.push(`<li>🔥 보기 메뉴의 체류 히트맵: 오래 머문 ${esc(W_('place'))}일수록 빨갛게 보여요.</li>`);
   if(FUN.metrics) L.push(`<li>📈 기록 보기에서 지표 CSV(장소별 체류·대기·병목·힌트·오답·층간 이동)를 받을 수 있어요.</li>`);
   return `<h3>🎲 재미 설정 (메뉴에서 바꿔요)</h3><ul>${L.join('')}</ul>`;
 }
