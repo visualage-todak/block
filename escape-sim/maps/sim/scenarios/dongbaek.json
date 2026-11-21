@@ -1,4 +1,5 @@
 {
+ "schema": 2,
  "id": "dongbaek",
  "title": "동백꽃 — 산골 마을 고리길",
  "subtitle": "중학생 20명 · 4팀 · 제한시간 50분 · 기본 · 3단계 10곳 · 고리형",
@@ -359,5 +360,38 @@
    "사건 순서를 맞춰 봄",
    "팀원 모두의 생각을 모음"
   ]
+ },
+ "opts": {
+  "difficulty": "normal",
+  "wrongRate": 0,
+  "searchDelay": 0,
+  "tierMove": 0,
+  "durScale": 1,
+  "timeTrade": false,
+  "tradeBonus": 0.35,
+  "tradeCost": 90,
+  "journal": true,
+  "heatmap": true,
+  "metrics": true,
+  "daily": true,
+  "stuckWait": 0.25,
+  "endings": {
+   "success": "노란 동백꽃 덤불 속에서 둘은 마침내 웃었어요. 닭싸움도 이제 끝!",
+   "timeout": "해가 산 너머로 넘어갔어요. 점순이의 마음은 내일 다시 물어봐요.",
+   "stuck": "고리길을 빙빙 돌았어요. 마음은 먼저 말해야 전해져요."
+  },
+  "starCards": {
+   "potato": "감자밭: 퉁명스러운 말 뒤에 건네고 싶던 마음이 숨어 있어요.",
+   "coop": "우리 집 닭장: 지키고 싶은 게 생기면 마음이 바빠져요.",
+   "kitchen": "부엌 고추장 항아리: 꾀를 써도 진심을 이길 순 없어요.",
+   "slope": "나무하는 산비탈: 혼자 끙끙 앓는 마음은 땀처럼 흘러요.",
+   "rock": "산기슭 바위: 잠깐 멈춰 서면 상대의 마음이 보여요.",
+   "fightrock": "바윗돌 닭싸움터: 싸움을 붙인 건 사실 관심을 끌고 싶어서였어요.",
+   "yard": "점순네 마당: 사는 형편이 달라도 마음은 통할 수 있어요.",
+   "fence": "점순네 울타리: 넘을까 말까 망설이는 마음이 콩닥거려요.",
+   "vault": "노란 동백꽃 덤불: 꽃 내음 속에서 둘은 말없이 화해해요."
+  },
+  "cardName": "동백 꽃잎",
+  "cardIcon": "🌼"
  }
 }
