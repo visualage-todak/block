@@ -1,0 +1,299 @@
+{
+ "islandStyle": "town",
+ "roofStyle": "gable",
+ "gableColor": "#e8735a",
+ "wallColor": "#fff7ea",
+ "trimColor": "#5a6fb0",
+ "stepColor": "#f3c98b",
+ "pathColor": "#f3c98b",
+ "lampStyle": "street",
+ "lampColor": "#ffd27a",
+ "archColor": "#5a6fb0",
+ "windowGlow": "#ffd9a0",
+ "windowGlowI": 0.9,
+ "roomLight": "#ffe2c0",
+ "roomLightI": 11,
+ "ringR": 66,
+ "theme": {
+  "bg": "#a8d4f0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#f2f0ff",
+   "#5a7a3a",
+   1.2
+  ],
+  "sun": 1.05,
+  "sunColor": "#fff1d6",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#86c45e",
+   "#6aa84a",
+   "#8a8070",
+   "#9a958c"
+  ],
+  "charGlow": 0.3,
+  "sky": [
+   "#1a1640",
+   "#f0a07a",
+   "#a8d4f0"
+  ]
+ },
+ "dress": {
+  "houses": 12,
+  "houseWalls": [
+   "#fff7ea",
+   "#fde3ea",
+   "#e4f0fb",
+   "#e9f7e4"
+  ],
+  "houseRoof": "gable",
+  "trees": 120,
+  "treeShape": "round",
+  "treeLeaf": "#4f9a3f",
+  "treeTrunk": "#6b4a34",
+  "poles": false,
+  "mushrooms": 0
+ },
+ "mountains": [
+  [
+   0,
+   -150,
+   40,
+   70
+  ],
+  [
+   -120,
+   -40,
+   30,
+   50
+  ],
+  [
+   120,
+   -50,
+   32,
+   50
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": 16,
+   "z": 58,
+   "text": "우리 학교",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": -56,
+   "z": 2,
+   "text": "마음 식히는 길",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 16,
+   "z": -64,
+   "text": "마음 우체통",
+   "h": 4
+  }
+ ],
+ "story": "놀림을 받아 마음이 부글부글 끓어오른 날. 꾹 참으면 마음이 터질 것 같고, 아무렇게나 터뜨리면 누군가 다쳐요. 학교에서 나와 동네 한 바퀴를 돌며 나도 친구도 다치지 않는 '꽤 괜찮은 화풀이'를 찾아요.",
+ "goal": "교실에서 출발해 부글부글 마당(1장)과 차분한 쉼터(1장)에서 마음 쪽지를 모은 뒤, 마음 우체통에서 화풀이 약속판을 가장 먼저 완성하는 팀이 이겨요.",
+ "tiers": [
+  "부글부글 마당",
+  "차분한 쉼터"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "동네 골목",
+  "layout": "교실 앞에 화풀이 마당 넷, 그 뒤에 쉼터 셋, 맨 뒤에 마음 우체통"
+ },
+ "roomNames": {
+  "lobby": "우리 반 교실 (출발)",
+  "vault": "마음 우체통 (최종)"
+ },
+ "startHour": 13,
+ "id": "hwapuri",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 46,
+   "y": 1.4,
+   "r": 8,
+   "top": "#f2d6a0",
+   "rock": "#6a6050",
+   "decor": "school",
+   "roof": "gable",
+   "start": true
+  },
+  {
+   "id": "run",
+   "f": 0,
+   "x": -42,
+   "z": 16,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#e98a6a",
+   "rock": "#6a6050",
+   "decor": "campus",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "draw",
+   "f": 0,
+   "x": -14,
+   "z": 12,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#f5b0c8",
+   "rock": "#6a6050",
+   "decor": "kids",
+   "roof": "gable"
+  },
+  {
+   "id": "write",
+   "f": 0,
+   "x": 14,
+   "z": 12,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#b8d8f0",
+   "rock": "#6a6050",
+   "decor": "manuscript",
+   "roof": "gable"
+  },
+  {
+   "id": "tear",
+   "f": 0,
+   "x": 42,
+   "z": 16,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#f0e08a",
+   "rock": "#6a6050",
+   "decor": "warehouse",
+   "roof": "gable"
+  },
+  {
+   "id": "swing",
+   "f": 1,
+   "x": -28,
+   "z": -18,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#a8e0b0",
+   "rock": "#6a6050",
+   "decor": "club",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "garden",
+   "f": 1,
+   "x": 0,
+   "z": -22,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#c8e890",
+   "rock": "#6a6050",
+   "decor": "flowers",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "bench",
+   "f": 1,
+   "x": 28,
+   "z": -18,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#d8c8f0",
+   "rock": "#6a6050",
+   "decor": "cafe",
+   "roof": "gable"
+  },
+  {
+   "id": "vault",
+   "f": 1,
+   "x": 0,
+   "z": -50,
+   "y": 1.4,
+   "r": 8.5,
+   "top": "#ffe4b8",
+   "rock": "#6a6050",
+   "decor": "readingplaza",
+   "roof": "gable",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "run"
+  ],
+  [
+   "lobby",
+   "draw"
+  ],
+  [
+   "lobby",
+   "write"
+  ],
+  [
+   "lobby",
+   "tear"
+  ],
+  [
+   "run",
+   "swing"
+  ],
+  [
+   "draw",
+   "swing"
+  ],
+  [
+   "draw",
+   "garden"
+  ],
+  [
+   "write",
+   "garden"
+  ],
+  [
+   "write",
+   "bench"
+  ],
+  [
+   "tear",
+   "bench"
+  ],
+  [
+   "swing",
+   "vault"
+  ],
+  [
+   "garden",
+   "vault"
+  ],
+  [
+   "bench",
+   "vault"
+  ]
+ ]
+}
