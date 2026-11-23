@@ -133,6 +133,7 @@
     <select id="menuSel" aria-label="메뉴"><option value="">메뉴</option><option value="rules">📖 규칙 보기</option><option value="rec">📋 기록 보기</option><option value="new">↺ 새 게임(새 시드)</option><option value="edit">✏️ 시나리오 편집</option><option value="editmap">🗺 맵 편집</option><option value="mynew">➕ 새 시나리오 만들기</option><option value="hist">🗂 지난 기록</option><option value="style">🎨 그래픽 바꾸기 (카툰 ↔ 기본)</option><option value="offline">⬇️ 인터넷 없이 쓰기</option><option value="app">📲 앱으로 설치</option></select>
     <span class="muted">시드 <b id="seed">-</b></span>
   </div>
+  <div class="muted body2" data-todak-count style="display:none;font-size:11px;text-align:right;padding:1px 2px 0;white-space:nowrap"></div>
   <div class="body"><div class="teams" id="teams"></div></div>
   <div style="display:none">
     <span id="hTitle"></span><span id="hSub"></span><span id="hHelp"></span>
@@ -158,6 +159,7 @@
 <div id="result"><div class="card"><h2>결과</h2><div id="resBody"></div><div class="row" style="margin-top:12px"><button class="go" id="again">다시 하기</button><button id="closeRes">닫기</button></div></div></div>
 
 <script src="../../poster.js"></script>
+<script src="../../counter.js" defer></script>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
 </script>
@@ -2248,7 +2250,7 @@ async function cacheAll(){
   const base=new URL('../../',location.href).href, here=new URL('./',location.href).href;
   const urls=[base+'index.html',base+'manifest.json',base+'icon-192.png',base+'icon-512.png',base+'scenarios/index.json',here+'index.html',here+'maps/index.json',
     'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js','https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js'];
-  urls.push(base+'poster.js'); if(window.TodakPoster) Object.keys(TodakPoster.data).forEach(k=>urls.push(base+'posters/'+k+'.jpg'));
+  urls.push(base+'poster.js'); urls.push(base+'counter.js'); if(window.TodakPoster) Object.keys(TodakPoster.data).forEach(k=>urls.push(base+'posters/'+k+'.jpg'));
   try{ const bi=await (await fetch(base+'scenarios/index.json')).json(); (bi.scenarios||[]).forEach(x=>urls.push(base+'scenarios/'+x.file)); }catch(_){}
   try{ const mi=await (await fetch(here+'maps/index.json')).json(); (mi.maps||[]).forEach(m=>{ if(m.map) urls.push(here+m.map); if(m.scenario) urls.push(here+m.scenario); }); }catch(_){}
   const c=await caches.open('escape-sim-v1'); let ok=0;

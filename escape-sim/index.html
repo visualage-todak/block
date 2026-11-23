@@ -117,6 +117,7 @@
     <select id="menuSel" aria-label="메뉴"><option value="">메뉴</option><option value="rules">📖 규칙 보기</option><option value="rec">📋 기록 보기</option><option value="new">↺ 새 게임(새 시드)</option><option value="app">📲 앱으로 설치</option></select>
     <span class="muted">시드 <b id="seed">-</b></span>
   </div>
+  <div class="muted body2" data-todak-count style="display:none;font-size:11px;text-align:right;padding:1px 2px 0;white-space:nowrap"></div>
   <div class="body"><div class="teams" id="teams"></div></div>
   <div style="display:none">
     <span id="hTitle"></span><span id="hSub"></span><span id="hHelp"></span>
@@ -136,6 +137,7 @@
 <div id="result"><div class="card"><h2>결과</h2><div id="resBody"></div><div class="row" style="margin-top:12px"><button class="go" id="again">다시 하기</button><button id="closeRes">닫기</button></div></div></div>
 
 <script src="poster.js"></script>
+<script src="counter.js" defer></script>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
 </script>
