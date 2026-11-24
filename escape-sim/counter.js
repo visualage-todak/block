@@ -13,11 +13,15 @@
   const op=first?'hit':'get';
   const get=u=>fetch(u,{cache:'no-store'}).then(r=>r.ok?r.json():(r.status===404?{value:0}:Promise.reject(r.status)));
   const fmtN=n=>Number(n||0).toLocaleString('ko-KR');
-  function show(t,d){
-    const txt=`👀 오늘 ${fmtN(d)} · 전체 ${fmtN(t)}`;
-    document.querySelectorAll('[data-todak-count]').forEach(el=>{ el.textContent=txt; el.title='오늘 접속자 · 총 접속자 (기기마다 하루 한 번 셈)'; el.style.display=''; });
-    window.TodakCount={today:d,total:t,day};
+  function render(){
+    const c=window.TodakCount; if(!c) return;
+    const tip='오늘 접속자 · 총 접속자 (기기마다 하루 한 번 셈)';
+    document.querySelectorAll('[data-todak-count]').forEach(el=>{ el.textContent=`👀 오늘 ${fmtN(c.today)} · 전체 ${fmtN(c.total)}`; el.title=tip; el.style.display=''; });
+    document.querySelectorAll('[data-todak-count-short]').forEach(el=>{ el.innerHTML=`<span class="ic">👀 </span><span class="w">오늘 </span>${fmtN(c.today)} · <span class="w">전체 </span>${fmtN(c.total)}`; el.title=tip; el.hidden=false; });
   }
+  function show(t,d){ window.TodakCount={today:d,total:t,day,render}; render(); }
+  // 나중에 생기는 화면(시작 포스터 등)도 숫자를 받도록
+  new MutationObserver(()=>{ if(window.TodakCount && document.querySelector('[data-todak-count-short][hidden],[data-todak-count][style*="none"]')) render(); }).observe(document.documentElement,{childList:true,subtree:true});
   function run(){
     Promise.all([get(`${API}/${op}/${NS}/total`), get(`${API}/${op}/${NS}/d${day}`)])
       .then(([t,d])=>{ if(first){ try{ localStorage.setItem(LSK,day); }catch(_){} } show(t.value,d.value); })

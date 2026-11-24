@@ -45,6 +45,10 @@
 #tdPoster .brand{display:flex;flex-direction:column;gap:2px}
 #tdPoster .brand b{font-family:'Black Han Sans','Noto Sans KR',sans-serif;font-weight:400;font-size:26px;line-height:1.1;letter-spacing:.04em}
 #tdPoster .brand{min-width:0} #tdPoster .brand span{font-size:10.5px;letter-spacing:.06em;font-weight:700;white-space:nowrap}
+#tdPoster .brand .bt{display:flex;align-items:center;gap:7px;flex-wrap:nowrap}
+#tdPoster .brand .bt b{white-space:nowrap;flex:none}
+#tdPoster .brand .cnt .ic{display:none} @media (max-width:430px){ #tdPoster .brand .cnt .w{display:none} #tdPoster .brand .cnt .ic{display:inline} }
+#tdPoster .brand .cnt{font-size:10.5px;letter-spacing:0;font-weight:700;padding:2px 7px;flex:none;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff;font-variant-numeric:tabular-nums}
 #tdPoster select{appearance:none;-webkit-appearance:none;border:1px solid rgba(244,239,228,.5);background:rgba(8,10,16,.4);color:#f4efe4;border-radius:999px;padding:0 14px;min-height:44px;font:inherit;font-size:12.5px;max-width:38%;flex:0 0 auto}
 #tdPoster select option{color:#111}
 #tdPoster .tag{margin-top:16px;font-family:'Noto Serif KR',serif;font-weight:600;font-size:clamp(16px,4.6vw,21px);line-height:1.5;text-align:center;white-space:pre-line}
@@ -73,7 +77,7 @@
     if(!document.querySelector('link[data-td-fonts]')){ const l=document.createElement('link'); l.rel='stylesheet'; l.dataset.tdFonts='1'; l.href='https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;900&display=swap'; document.head.appendChild(l); }
     el=document.createElement('div'); el.id='tdPoster'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','게임 소개 포스터');
     el.innerHTML=`<div class="bg"></div><div class="sh"></div><div class="in">
-      <div class="top"><div class="brand"><b>토닥토닥</b><span class="sub"></span></div><select aria-label="다른 맵 고르기"></select></div>
+      <div class="top"><div class="brand"><div class="bt"><b>토닥토닥</b><span class="cnt" data-todak-count-short hidden></span></div><span class="sub"></span></div><select aria-label="다른 맵 고르기"></select></div>
       <div class="tag"></div><div class="sp"></div>
       <div class="kick">TODAK TODAK METAVERSE ESCAPE</div><h1></h1><div class="eng"></div><div class="mis"></div><div class="teams"></div>
       <div class="cr"><div class="c1"></div><div>4팀 동시 탐험 · 제한 시간 <span class="min">60</span>분 · 힌트 팀당 3번 · <span class="rate">중학생 관람가</span></div><div class="mk">포스터 기획·제작 토닥토닥그림책도서관</div></div>
