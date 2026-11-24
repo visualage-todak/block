@@ -1,0 +1,404 @@
+{
+ "islandStyle": "town",
+ "joseon": true,
+ "roofStyle": "giwa",
+ "roofGhost": 0.22,
+ "roofColor": "#4a4a52",
+ "wallColor": "#ece6d8",
+ "trimColor": "#6b4a34",
+ "stepColor": "#5f5c58",
+ "pathColor": "#7d7a74",
+ "lampStyle": "lantern",
+ "lampColor": "#bff3ff",
+ "archColor": "#3d3d44",
+ "windowGlow": "#ffe2a8",
+ "windowGlowI": 0.9,
+ "roomLight": "#d9f2ff",
+ "roomLightI": 11,
+ "theme": {
+  "bg": "#9cc3e0",
+  "fog": [
+   110,
+   300
+  ],
+  "hemi": [
+   "#dfe9ff",
+   "#4a5a3a",
+   1.15
+  ],
+  "sun": 1.0,
+  "sunColor": "#fff1d6",
+  "stars": 2200,
+  "moon": [
+   -90,
+   110,
+   -210,
+   9,
+   "#fff3c8"
+  ],
+  "terrain": [
+   "#6f8f4e",
+   "#55753e",
+   "#7a7464",
+   "#8d8a84"
+  ],
+  "charGlow": 0.35,
+  "sky": [
+   "#0f1a33",
+   "#e09a6a",
+   "#9cc3e0"
+  ]
+ },
+ "dress": {
+  "houses": 10,
+  "houseWalls": [
+   "#8e8b84",
+   "#a19d94",
+   "#ece6d8"
+  ],
+  "houseRoof": "mix",
+  "trees": 150,
+  "treeShape": "round",
+  "treeLeaf": "#3f6f3a",
+  "treeTrunk": "#5a3f2a",
+  "poles": false
+ },
+ "water": {
+  "level": 0,
+  "color": "#1a8fc6",
+  "opacity": 0.5,
+  "bed": "#3a5a6a",
+  "sand": "#e2d3a6",
+  "weeds": 120,
+  "fish": [
+   [
+    -14,
+    -2.5,
+    -8,
+    8,
+    "#f2a33a",
+    6
+   ],
+   [
+    -40,
+    -2,
+    -6,
+    7,
+    "#e85a5a",
+    5
+   ],
+   [
+    10,
+    -2,
+    -24,
+    8,
+    "#f5d36b",
+    5
+   ]
+  ]
+ },
+ "lands": [
+  [
+   0,
+   -20,
+   70,
+   64
+  ],
+  [
+   0,
+   52,
+   14,
+   7
+  ]
+ ],
+ "mountains": [
+  [
+   0,
+   -170,
+   70,
+   90
+  ],
+  [
+   -120,
+   -90,
+   30,
+   50
+  ],
+  [
+   120,
+   -100,
+   34,
+   50
+  ]
+ ],
+ "extras": [
+  {
+   "type": "sign",
+   "x": 14,
+   "z": 62,
+   "text": "화북포구",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": -50,
+   "z": 12,
+   "text": "신화의 바닷가",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": -54,
+   "z": -18,
+   "text": "고려의 돌성",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": 56,
+   "z": -46,
+   "text": "조선의 관문",
+   "h": 4
+  },
+  {
+   "type": "sign",
+   "x": -44,
+   "z": -74,
+   "text": "기억의 마을",
+   "h": 4
+  }
+ ],
+ "story": "제주 북쪽 바다의 작은 항구 화북포구. 오래된 포구 뿍뿍이가 타임머신을 타고 이천 년 전으로 떠나요. 신화의 바닷가에서 출발해 고려의 돌성, 조선의 관문, 그리고 아픈 기억이 남은 마을을 지나 오늘의 바다로 돌아와요.",
+ "goal": "화북포구에서 출발해 신화·고려·조선·4·3과 오늘, 네 시대에서 시간 조각을 하나씩 모은 뒤, 타임머신 정박장에서 타임머신을 가장 먼저 다시 움직이는 팀이 이겨요.",
+ "tiers": [
+  "신화의 시대",
+  "고려",
+  "조선",
+  "4·3과 오늘"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "바닷길",
+  "layout": "화북포구에서 출발해 시대 순서대로 섬 안쪽으로, 맨 끝에 타임머신 정박장"
+ },
+ "roomNames": {
+  "lobby": "오늘의 화북포구 (출발)",
+  "vault": "타임머신 정박장 (최종)"
+ },
+ "startHour": 11,
+ "id": "bbukbbuk",
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 50,
+   "y": 1.4,
+   "r": 8,
+   "top": "#cfc6b4",
+   "rock": "#6a6050",
+   "decor": "ferry",
+   "roof": "none",
+   "start": true,
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "samseong",
+   "f": 0,
+   "x": -30,
+   "z": 24,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#c8b68a",
+   "rock": "#6a6050",
+   "decor": "well",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.35
+  },
+  {
+   "id": "seolmun",
+   "f": 0,
+   "x": 30,
+   "z": 24,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#e8d8a6",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.3
+  },
+  {
+   "id": "hwanhae",
+   "f": 1,
+   "x": -32,
+   "z": -4,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#9a9690",
+   "rock": "#6a6050",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.5
+  },
+  {
+   "id": "hangpa",
+   "f": 1,
+   "x": 32,
+   "z": -4,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#b8a07a",
+   "rock": "#6a6050",
+   "decor": "hideout",
+   "roof": "giwa"
+  },
+  {
+   "id": "jinseong",
+   "f": 2,
+   "x": -40,
+   "z": -32,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#a8a49a",
+   "rock": "#6a6050",
+   "decor": "palace",
+   "roof": "giwa"
+  },
+  {
+   "id": "haesinsa",
+   "f": 2,
+   "x": 0,
+   "z": -36,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#d8ccb0",
+   "rock": "#6a6050",
+   "decor": "temple",
+   "roof": "giwa"
+  },
+  {
+   "id": "exile",
+   "f": 2,
+   "x": 40,
+   "z": -32,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#d6c8a8",
+   "rock": "#6a6050",
+   "decor": "manuscript",
+   "roof": "giwa"
+  },
+  {
+   "id": "gonul",
+   "f": 3,
+   "x": -26,
+   "z": -62,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#8f8a80",
+   "rock": "#6a6050",
+   "decor": "memorial",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.45
+  },
+  {
+   "id": "haenyeo",
+   "f": 3,
+   "x": 26,
+   "z": -62,
+   "y": 1.4,
+   "r": 6.5,
+   "top": "#c8d8d0",
+   "rock": "#6a6050",
+   "decor": "coral",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.35
+  },
+  {
+   "id": "vault",
+   "f": 3,
+   "x": 0,
+   "z": -88,
+   "y": 1.4,
+   "r": 8.5,
+   "top": "#e6dcc6",
+   "rock": "#6a6050",
+   "decor": "ferry",
+   "roof": "giwa",
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "samseong"
+  ],
+  [
+   "lobby",
+   "seolmun"
+  ],
+  [
+   "samseong",
+   "hwanhae"
+  ],
+  [
+   "seolmun",
+   "hangpa"
+  ],
+  [
+   "samseong",
+   "hangpa"
+  ],
+  [
+   "seolmun",
+   "hwanhae"
+  ],
+  [
+   "hwanhae",
+   "jinseong"
+  ],
+  [
+   "hwanhae",
+   "haesinsa"
+  ],
+  [
+   "hangpa",
+   "haesinsa"
+  ],
+  [
+   "hangpa",
+   "exile"
+  ],
+  [
+   "jinseong",
+   "gonul"
+  ],
+  [
+   "haesinsa",
+   "gonul"
+  ],
+  [
+   "haesinsa",
+   "haenyeo"
+  ],
+  [
+   "exile",
+   "haenyeo"
+  ],
+  [
+   "gonul",
+   "vault"
+  ],
+  [
+   "haenyeo",
+   "vault"
+  ]
+ ]
+}
