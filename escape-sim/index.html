@@ -972,7 +972,8 @@ function fillSelects(){
     el.onchange=()=>{ const v=el.value; if(v.startsWith('go:')){ location.href=LINKS[+v.slice(3)].href; el.value=SCN.id; } else loadScenario(v); }; }
 }
 function loadScenario(id){
-  const sc=BANK.find(b=>b.id===id)||BANK[0];
+  if(id==='library'||!BANK.some(b=>b.id===id)){ location.replace('maps/sim/index.html#little-prince'); return; }
+  const sc=BANK.find(b=>b.id===id);
   running=false; applyScenario(sc); buildScenario(); newGame(sc.defaultSeed||1);
   document.getElementById('hTitle').textContent=sc.title; document.getElementById('hSub').textContent=sc.subtitle;
   document.getElementById('hHelp').textContent=`층마다 ${sc.clue} ${NEED[0]}·${NEED[1]}·${NEED[2]}개를 모으고 3층 ${roomById.vault.short} ${sc.finalThing}${josa(sc.finalThing,'을','를')} ${sc.finalVerb||'열면'} ${DONE()}. 학생을 탭하면 정보가 보여요.`;
