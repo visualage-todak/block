@@ -110,7 +110,7 @@
     el.querySelector('.min').textContent=Math.round((sc.limit||3600)/60);
     el.querySelector('.rate').textContent=(d&&!o.custom&&d.rate)||'중학생 관람가';
     el.querySelector('.go').style.background=accent;
-    const s=el.querySelector('select'); s.innerHTML=`<option value="">다른 맵 ▾</option>`+(o.maps||[]).filter(m=>m.id!==o.id).map(m=>`<option value="${esc(m.id)}">${esc(m.title)}</option>`).join(''); s.value='';
+    const s=el.querySelector('select'); s.innerHTML=`<option value="">다른 맵 ▾</option>`+(o.maps||[]).filter(m=>m.id!==o.id).map(m=>`<option value="${esc(m.id)}"${['library','human-acts','dadada'].includes(m.id)?' disabled':''}>${esc(m.title)}</option>`).join(''); s.value='';
     el.style.display='block';
   }
   function hide(){ if(el) el.style.display='none'; }
