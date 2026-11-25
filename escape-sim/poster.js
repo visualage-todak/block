@@ -20,6 +20,7 @@
     'simcheong':{ep:6,title:'심청전',tag:'공양미 삼백 석에 몸을 던진 딸,\n연꽃을 타고 다시 피어나다',eng:'SIMCHEONG · THE DEVOTED DAUGHTER',mission:'연꽃잎 4장을 모아 아버지를 찾아라',credit:'원작 판소리계 소설 「심청전」 · 출연 중학생 20명 · 무대 도화동에서 인당수를 지나 황궁까지 · 기본 (3단계 7곳)',accent:'#f2a6c0',font:'serif'},
     'chunhyang':{ep:7,title:'춘향전',tag:'단옷날 그네 위에서 시작된 약속,\n어사출두로 끝나다',eng:'CHUNHYANG · THE FAITHFUL HEART',mission:'가락지 조각 4개를 모아 어사출두를 외쳐라',credit:'원작 판소리계 소설 「춘향전」 · 출연 중학생 20명 · 무대 8자로 이어진 남원 · 도전 (4단계 9곳)',accent:'#f27a8a',font:'serif'},
     'heungbu':{ep:8,title:'흥부전',tag:'다친 제비를 고쳐 준 착한 마음,\n박 속에서 복이 쏟아지다',eng:'HEUNGBU AND NOLBU',mission:'박씨 2개를 모아 형제 잔치를 열어라',credit:'원작 판소리계 소설 「흥부전」 · 출연 초등학생 20명 · 무대 박 넝쿨 등뼈 길 · 입문 (2단계 6곳)',accent:'#e8c84a',font:'serif',rate:'초등학생 관람가'},
+    'seolmundae':{ep:10,title:'설문대할망',tag:'할망의 치마폭에서\n제주의 첫 오름이 솟아나다',eng:'SEOLMUNDAE HALMANG · THE MAKING OF JEJU',mission:'창조의 돌 4개를 모아 백록담 이야기판을 완성하라',credit:'제주 설문대할망 설화 · 출연 중학생 20명 · 무대 제주 바닷가에서 백록담까지 · 기본 (3단계 8곳)',accent:'#9ce1c9',font:'serif',background:'radial-gradient(ellipse at 52% 32%, #e7ad72 0%, transparent 32%), linear-gradient(145deg, #152e3f 20%, #2e665e 56%, #144356 76%, #111c30)'},
     'guunmong':{ep:9,title:'구운몽',tag:'여덟 선녀와 한 번의 생,\n깨어 보니 한바탕 꿈',eng:'GUUNMONG · THE CLOUD DREAM OF THE NINE',mission:'꿈 구슬 5개를 모아 꿈에서 깨어나라',credit:'원작 김만중 「구운몽」 · 출연 고등학생 20명 · 무대 연화봉 꿈길 나선 · 심화 (5단계 11곳)',accent:'#c8a8f0',font:'serif',rate:'고등학생 관람가'},
     'odyssey':{season:3,ep:1,title:'오디세이아',tag:'전쟁은 10년, 귀향도 10년,\n막다른 섬을 피해 이타카로',eng:'THE ODYSSEY',mission:'올리브 잎 4장을 모아 이타카로 돌아가라',credit:'원작 호메로스 『오디세이아』 · 출연 중학생 20명 · 무대 지중해 섬 미로 · 도전 (4단계 9곳)',accent:'#6ac0e8',font:'serif'},
     'gulliver':{season:3,ep:3,title:'걸리버 여행기',tag:'손바닥만 한 사람, 열두 배 큰 거인,\n하늘 섬과 말의 나라',eng:"GULLIVER'S TRAVELS",mission:'지도 조각 4장을 모아 항해 지도를 완성하라',credit:'원작 조너선 스위프트 · 출연 중학생 20명 · 무대 네 나라 지그재그 계단 · 기본 (4단계 8곳)',accent:'#9fd08a',font:'sans'},
@@ -96,7 +97,7 @@
     ensure(); cb=o; const d=P[o.id]||null, sc=o.scenario||{};
     const accent=(d&&d.accent)||'#f0c45a', title=(o.custom||!d)?(sc.title||'').replace(/\s*—.*$/,''):d.title;
     el.classList.toggle('nobg',!d||!!o.custom);
-    el.querySelector('.bg').style.backgroundImage=(d&&!o.custom)?`url("${o.base}posters/${o.id}.jpg")`:'none';
+    el.querySelector('.bg').style.backgroundImage=(d&&!o.custom)?(d.background||`url("${o.base}posters/${o.id}.jpg")`):'none';
     el.querySelector('.brand b').style.color=accent;
     el.querySelector('.sub').textContent='메타버스 방탈출게임'+(d&&!o.custom?(d.sp?` · 특별판 SP.${d.sp}`:` · 시즌 ${d.season||1} · 제${d.ep}편`):' · 우리가 만든 편');
     el.querySelector('.tag').textContent=(d&&!o.custom)?d.tag:(sc.subtitle||'');

@@ -1,0 +1,247 @@
+{
+ "id": "seolmundae",
+ "islandStyle": "town",
+ "roofStyle": "giwa",
+ "roofColor": "#4a4a52",
+ "pathColor": "#82776b",
+ "stepColor": "#666057",
+ "startHour": 10,
+ "theme": {
+  "bg": "#9ecde2",
+  "fog": [
+   115,
+   300
+  ],
+  "hemi": [
+   "#e3f2fc",
+   "#536444",
+   1.25
+  ],
+  "sun": 1.35,
+  "terrain": [
+   "#799255",
+   "#596f43",
+   "#6e685f",
+   "#929085"
+  ],
+  "sky": [
+   "#142744",
+   "#edaa72",
+   "#9ecde2"
+  ]
+ },
+ "dress": {
+  "houses": 0,
+  "trees": 85,
+  "treeShape": "round",
+  "treeLeaf": "#4f773e",
+  "treeTrunk": "#624b37",
+  "poles": false
+ },
+ "water": {
+  "level": 0,
+  "color": "#218da7",
+  "opacity": 0.55,
+  "bed": "#3e6870",
+  "sand": "#d2ba8a",
+  "weeds": 35
+ },
+ "lands": [
+  [
+   0,
+   -4,
+   55,
+   69
+  ]
+ ],
+ "mountains": [
+  [
+   0,
+   -64,
+   12,
+   29
+  ],
+  [
+   -28,
+   -6,
+   6,
+   15
+  ],
+  [
+   28,
+   -5,
+   6,
+   15
+  ]
+ ],
+ "story": "설문대할망이 치마폭에 흙을 담아 푸른 바다로 걸어가요. 치마 틈에서 새어 나온 흙은 오름이 되고, 남은 흙은 한라산이 되었다고 전해요. 사라진 창조의 돌을 찾아 해안에서 한라산까지 올라가며, 제주 섬을 빚은 이야기를 완성해요.",
+ "goal": "바닷가에서 1개, 오름길에서 2개, 한라산 자락에서 1개, 모두 창조의 돌 4개를 모으세요. 백록담에서 섬이 생겨난 이야기를 먼저 완성한 팀이 이겨요.",
+ "tiers": [
+  "바닷가",
+  "오름길",
+  "한라산 자락"
+ ],
+ "words": {
+  "place": "곳",
+  "link": "섬길",
+  "layout": "바닷가에서 두 갈래로 올라 백록담에서 만나는 제주 섬길"
+ },
+ "planets": [
+  {
+   "id": "lobby",
+   "f": 0,
+   "x": 0,
+   "z": 51,
+   "y": 1.6,
+   "r": 8,
+   "top": "#e4cfa1",
+   "rock": "#504e4a",
+   "decor": "beach",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.35,
+   "start": true
+  },
+  {
+   "id": "hem",
+   "f": 0,
+   "x": -23,
+   "z": 27,
+   "y": 2.5,
+   "r": 6.5,
+   "top": "#d8bc8c",
+   "rock": "#504e4a",
+   "decor": "sewing",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.35
+  },
+  {
+   "id": "stone",
+   "f": 0,
+   "x": 23,
+   "z": 27,
+   "y": 2.5,
+   "r": 6.5,
+   "top": "#a9a498",
+   "rock": "#504e4a",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.35
+  },
+  {
+   "id": "oreum",
+   "f": 1,
+   "x": -26,
+   "z": -3,
+   "y": 4.3,
+   "r": 6.5,
+   "top": "#90aa71",
+   "rock": "#504e4a",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.35
+  },
+  {
+   "id": "ridge",
+   "f": 1,
+   "x": 26,
+   "z": -3,
+   "y": 4.3,
+   "r": 6.5,
+   "top": "#a1b883",
+   "rock": "#504e4a",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.35
+  },
+  {
+   "id": "wetland",
+   "f": 2,
+   "x": -21,
+   "z": -33,
+   "y": 7.0,
+   "r": 6.5,
+   "top": "#83b3a4",
+   "rock": "#504e4a",
+   "decor": "well",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.35
+  },
+  {
+   "id": "halla",
+   "f": 2,
+   "x": 21,
+   "z": -33,
+   "y": 7.0,
+   "r": 6.5,
+   "top": "#8aa376",
+   "rock": "#504e4a",
+   "decor": "hill",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.35
+  },
+  {
+   "id": "vault",
+   "f": 2,
+   "x": 0,
+   "z": -59,
+   "y": 12.0,
+   "r": 8,
+   "top": "#85b4c2",
+   "rock": "#504e4a",
+   "decor": "well",
+   "roof": "none",
+   "yard": true,
+   "wallH": 0.35,
+   "final": true
+  }
+ ],
+ "bridges": [
+  [
+   "lobby",
+   "hem"
+  ],
+  [
+   "lobby",
+   "stone"
+  ],
+  [
+   "hem",
+   "oreum"
+  ],
+  [
+   "stone",
+   "ridge"
+  ],
+  [
+   "oreum",
+   "ridge"
+  ],
+  [
+   "oreum",
+   "wetland"
+  ],
+  [
+   "ridge",
+   "halla"
+  ],
+  [
+   "wetland",
+   "halla"
+  ],
+  [
+   "wetland",
+   "vault"
+  ],
+  [
+   "halla",
+   "vault"
+  ]
+ ]
+}

@@ -55,6 +55,12 @@
    "scenario": "scenarios/guunmong.json"
   },
   {
+   "id": "seolmundae",
+   "title": "시즌1.10 · 설문대할망 — 치마폭에서 피어난 제주",
+   "map": "maps/seolmundae.json",
+   "scenario": "scenarios/seolmundae.json"
+  },
+  {
    "id": "baekseok",
    "title": "시즌2.1 · 백석의 길 — 경성에서 만주까지",
    "map": "maps/baekseok.json",
