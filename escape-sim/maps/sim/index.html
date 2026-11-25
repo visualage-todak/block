@@ -2077,14 +2077,15 @@ function buildWorld(){
   syncFunUI(); if(FUN_ON){ const iss=validateScenario(); if(iss.length){ console.warn('시나리오 점검',iss); setTimeout(()=>toast('시나리오 점검: '+iss[0]),800); } }
 
 }
+const lockedSpecial=id=>['library','human-acts','dadada'].includes(id);
 function loadMap(id,quiet){
-  const e=MAPS.find(m=>m.id===id&&!m.href)||MAPS.find(m=>!m.href);
+  const e=MAPS.find(m=>m.id===id&&!m.href&&!lockedSpecial(m.id))||MAPS.find(m=>!m.href&&!lockedSpecial(m.id));
   running=false; MAP=e.map;
   const sc=JSON.parse(JSON.stringify(e.scenario)); if(MAP.story) sc.story=MAP.story; if(MAP.goal) sc.goalText=MAP.goal;
   PLANETS=MAP.planets.map(p=>({...p,top:hexNum(p.top),rock:hexNum(p.rock)})); BRIDGES=MAP.bridges; PL=Object.fromEntries(PLANETS.map(p=>[p.id,p]));
   applyScenario(sc); buildWorld(); newGame(sc.defaultSeed||7);
   for(const sid of ['scnSel','scnSel2']){ const el=document.getElementById(sid);
-    el.innerHTML=MAPS.map(m=>`<option value="${m.id}">${m.title}</option>`).join(''); el.value=e.id; el.onchange=()=>{ const m=MAPS.find(x=>x.id===el.value); if(m&&m.href){ location.href=m.href; el.value=e.id; } else loadMap(el.value); }; }
+    el.innerHTML=MAPS.map(m=>`<option value="${m.id}"${lockedSpecial(m.id)?' disabled':''}>${m.title}</option>`).join(''); el.value=e.id; el.onchange=()=>{ const m=MAPS.find(x=>x.id===el.value); if(m&&lockedSpecial(m.id)){ el.value=e.id; return; } if(m&&m.href){ location.href=m.href; el.value=e.id; } else loadMap(el.value); }; }
   document.title=e.title+' — 맵 시뮬레이션';
   if(location.hash.slice(1)!==e.id){ try{ history.replaceState(null,'','#'+e.id); }catch(_){ } }
   const vs=document.getElementById('viewSel'); vs.innerHTML=`<option value="all">보기: 전체</option>`+TIER_IDX().map(f=>`<option value="${f}">보기: ${tierName(f)}</option>`).join('')+`<option value="vault">보기: ${roomById.vault.short}</option>`+(isTown()?'<option value="roof">보기: 외관(지붕)</option>':'');
@@ -2092,7 +2093,7 @@ function loadMap(id,quiet){
   if(document.getElementById('rules').style.display==='flex') showRules();
   if(!quiet && window.TodakPoster) TodakPoster.show({id:e.id,custom:!!e.custom,scenario:SCN,base:'../../',maps:MAPS.map(m=>({id:m.id,title:m.title})),
     onStart:()=>{ document.getElementById('rules').style.display='none'; startRun(); }, onRules:()=>showRules(),
-    onPick:pid=>{ const m=MAPS.find(x=>x.id===pid); if(!m) return; if(m.href) location.href=m.href; else loadMap(pid); }});
+    onPick:pid=>{ const m=MAPS.find(x=>x.id===pid); if(!m||lockedSpecial(m.id)) return; if(m.href) location.href=m.href; else loadMap(pid); }});
 }
 
 /* ================= 앱 안 편집기 · 지난 기록 · 파일 저장 ================= */
@@ -2264,11 +2265,11 @@ async function init(){
     MAPS=await Promise.all(idx.maps.map(async m=> m.href ? ({id:m.id,title:m.title,href:m.href}) : ({id:m.id,title:m.title,map:await (await fetch(m.map)).json(),scenario:await (await fetch(m.scenario)).json()})));
   }catch(e){ document.getElementById('scnSel').innerHTML='<option>맵을 불러오지 못했어요</option>'; console.error(e); return; }
   applyLocalEdits(); bindAppUI();
-  const want=location.hash.slice(1), wl=MAPS.find(m=>m.id===want&&m.href); if(wl){ location.href=wl.href; return; }
+  const want=location.hash.slice(1), wl=MAPS.find(m=>m.id===want&&m.href&&!lockedSpecial(m.id)); if(wl){ location.href=wl.href; return; }
   loadMap(MAPS.some(m=>m.id===want&&!m.href)?want:MAPS.find(m=>!m.href).id);
   camera.position.copy(camGoal.p); controls.target.copy(camGoal.t); camGoal=null;
 }
-addEventListener('hashchange',()=>{ const id=location.hash.slice(1), m=MAPS.find(x=>x.id===id); if(!m||!MAP) return; if(m.href){ location.href=m.href; return; } if(m.map!==MAP) loadMap(id); });
+addEventListener('hashchange',()=>{ const id=location.hash.slice(1), m=MAPS.find(x=>x.id===id); if(!m||!MAP) return; if(lockedSpecial(id)){ const current=MAPS.find(x=>x.map===MAP); if(current) history.replaceState(null,'','#'+current.id); return; } if(m.href){ location.href=m.href; return; } if(m.map!==MAP) loadMap(id); });
 resize(); aimCamera(); camera.position.copy(camGoal.p); controls.target.copy(camGoal.t); camGoal=null;
 requestAnimationFrame(frame);
 init();
